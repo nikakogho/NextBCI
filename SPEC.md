@@ -64,4 +64,4 @@ Static TypeScript data is the source of truth for the MVP.
 
 ## Data Policy
 
-This foundation ships with fictional sample data only. Real records must include source links. Prefer primary sources: trial registries, papers, company updates, regulatory pages, and conference pages.
+This foundation ships with sourced seed data only. Real records must include source links. Prefer primary sources: trial registries, papers, company updates, regulatory pages, and conference pages. If fictional placeholders are reintroduced for UI testing, they must be clearly marked with `isSample: true`.

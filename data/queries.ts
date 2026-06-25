@@ -1,4 +1,4 @@
-import { companies, demos, milestones, papers, trials } from "./sample-data";
+import { companies, demos, milestones, papers, trials } from "./seed-data";
 import type { Company, Demo, Milestone, Paper, Trial } from "./schema";
 
 export { companies, demos, milestones, papers, trials };

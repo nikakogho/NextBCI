@@ -18,7 +18,7 @@ const navItems = [
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning>
         <div className="site-frame">
           <header className="topbar">
             <div className="topbar-inner">

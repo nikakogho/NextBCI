@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f6f1;
-  --foreground: #151611;
-  --muted: #66705f;
-  --panel: #ffffff;
-  --panel-strong: #20231b;
-  --line: #d6dbc9;
-  --line-strong: #899275;
-  --accent: #1f7674;
-  --accent-strong: #124f4e;
-  --amber: #b7791f;
-  --red: #a33a2f;
-  --green: #347348;
+  --background: #eafbf5;
+  --foreground: #10221f;
+  --muted: #526a66;
+  --panel: #fbfffc;
+  --panel-strong: #dffbf2;
+  --line: rgba(51, 138, 130, 0.2);
+  --line-strong: rgba(24, 125, 118, 0.42);
+  --accent: #18a99a;
+  --accent-strong: #08766f;
+  --accent-soft: #b9f7e8;
+  --cyan: #35c6d4;
+  --amber: #a46d13;
+  --red: #9c3a35;
+  --green: #247456;
 }
 
 * {
@@ -25,15 +27,29 @@ html {
 }
 
 body {
+  position: relative;
   margin: 0;
   min-height: 100vh;
   color: var(--foreground);
   background:
-    linear-gradient(90deg, rgba(21, 22, 17, 0.035) 1px, transparent 1px),
-    linear-gradient(rgba(21, 22, 17, 0.035) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(238, 255, 250, 0.9), rgba(222, 251, 246, 0.78) 42%, rgba(229, 250, 255, 0.88)),
+    url("/images/neocortex-field.png") center top / cover fixed no-repeat,
     var(--background);
-  background-size: 32px 32px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(10, 118, 111, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(10, 118, 111, 0.035) 1px, transparent 1px),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.2), rgba(9, 155, 147, 0.05) 44%, rgba(255, 255, 255, 0.18));
+  background-size: 38px 38px, 38px 38px, auto;
+  mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
 }
 
 a {
@@ -49,6 +65,8 @@ textarea {
 }
 
 .site-frame {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -59,8 +77,9 @@ textarea {
   top: 0;
   z-index: 20;
   border-bottom: 1px solid var(--line);
-  background: rgba(244, 246, 241, 0.92);
-  backdrop-filter: blur(14px);
+  background: rgba(237, 255, 250, 0.84);
+  backdrop-filter: blur(18px) saturate(1.15);
+  box-shadow: 0 14px 40px rgba(15, 104, 96, 0.07);
 }
 
 .topbar-inner {
@@ -79,6 +98,7 @@ textarea {
 }
 
 .brand-mark span:first-child {
+  color: #073d39;
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -104,7 +124,7 @@ textarea {
   justify-content: center;
   border: 1px solid transparent;
   padding: 0 10px;
-  color: #42483b;
+  color: #24534e;
   font-size: 0.84rem;
   font-weight: 700;
   white-space: nowrap;
@@ -112,7 +132,8 @@ textarea {
 
 .nav-link:hover {
   border-color: var(--line-strong);
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(250, 255, 252, 0.82);
+  color: #063f3b;
 }
 
 .page-shell {
@@ -147,6 +168,7 @@ textarea {
 
 .page-title {
   max-width: 850px;
+  color: #082a27;
   font-size: clamp(2rem, 5vw, 4.2rem);
   line-height: 0.96;
 }
@@ -165,7 +187,7 @@ textarea {
 
 .lede {
   max-width: 780px;
-  color: #3f4738;
+  color: #315b56;
   font-size: 1rem;
   line-height: 1.62;
 }
@@ -186,8 +208,9 @@ textarea {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 12px 30px rgba(21, 22, 17, 0.06);
+  background: rgba(251, 255, 252, 0.78);
+  box-shadow: 0 16px 42px rgba(9, 90, 84, 0.08);
+  backdrop-filter: blur(18px) saturate(1.08);
 }
 
 .data-card-inner {
@@ -197,14 +220,19 @@ textarea {
 }
 
 .hero-card {
-  border-color: #879879;
-  background: #fdfef9;
+  border-color: rgba(16, 157, 148, 0.38);
+  background:
+    linear-gradient(145deg, rgba(251, 255, 252, 0.9), rgba(216, 255, 242, 0.74) 52%, rgba(220, 248, 255, 0.82)),
+    rgba(251, 255, 252, 0.86);
+  box-shadow: 0 22px 55px rgba(10, 118, 111, 0.13);
 }
 
 .dark-panel {
-  color: #f8faf2;
-  border-color: #2f3628;
-  background: var(--panel-strong);
+  color: #0d2e2a;
+  border-color: rgba(17, 138, 129, 0.28);
+  background:
+    linear-gradient(160deg, rgba(215, 255, 242, 0.88), rgba(224, 249, 255, 0.72)),
+    rgba(251, 255, 252, 0.82);
 }
 
 .muted-copy {
@@ -228,12 +256,13 @@ textarea {
   min-height: 74px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.62);
   padding: 12px;
 }
 
 .metric b {
   display: block;
+  color: #075b55;
   font-size: 1.35rem;
 }
 
@@ -267,7 +296,8 @@ textarea {
   overflow-x: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(251, 255, 252, 0.8);
+  backdrop-filter: blur(18px) saturate(1.08);
 }
 
 .data-table {
@@ -285,8 +315,8 @@ textarea {
 }
 
 .data-table th {
-  color: #3f4738;
-  background: #eef3e9;
+  color: #24534e;
+  background: rgba(218, 255, 244, 0.76);
   font-size: 0.74rem;
   text-transform: uppercase;
 }
@@ -323,7 +353,8 @@ textarea {
 .footer {
   margin-top: auto;
   border-top: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(238, 255, 250, 0.72);
+  backdrop-filter: blur(14px);
 }
 
 .footer-inner {

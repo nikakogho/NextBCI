@@ -39,28 +39,28 @@ export default function HomePage() {
 
         <aside className="data-card dark-panel">
           <div className="data-card-inner">
-            <p className="eyebrow text-teal-200">Tracker state</p>
+            <p className="eyebrow">Tracker state</p>
             <div className="metric-strip">
-              <div className="metric bg-white/10">
+              <div className="metric">
                 <b>{companies.length}</b>
-                <span>sample programs</span>
+                <span>sourced programs</span>
               </div>
-              <div className="metric bg-white/10">
+              <div className="metric">
                 <b>{confirmedMilestones.length}</b>
-                <span>confirmed sample milestones</span>
+                <span>confirmed milestones</span>
               </div>
-              <div className="metric bg-white/10">
+              <div className="metric">
                 <b>{trials.length}</b>
-                <span>sample trials</span>
+                <span>registered trials</span>
               </div>
-              <div className="metric bg-white/10">
+              <div className="metric">
                 <b>{demos.length}</b>
-                <span>sample demos</span>
+                <span>sourced demos</span>
               </div>
             </div>
-            <p className="text-sm leading-6 text-stone-200">
-              The MVP proves the tracker workflow with version-controlled data and evidence labels. Real records should
-              be added only with source links.
+            <p className="text-sm leading-6 text-teal-950/75">
+              The MVP now uses version-controlled seed records tied to public sources. Treat entries as evidence
+              summaries, and keep every future claim attached to durable links.
             </p>
           </div>
         </aside>

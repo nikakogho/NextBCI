@@ -1,11 +1,11 @@
 export function SampleNotice() {
   return (
-    <aside className="data-card border-amber-300 bg-amber-50">
+    <aside className="data-card border-teal-200 bg-teal-50">
       <div className="data-card-inner">
-        <p className="eyebrow text-amber-800">Sample data guardrail</p>
-        <p className="text-sm leading-6 text-amber-950">
-          This MVP uses fictional sample records and placeholder source links only. Replace records with primary sources
-          before treating any milestone, trial, demo, or company entry as factual.
+        <p className="eyebrow text-teal-800">Evidence guardrail</p>
+        <p className="text-sm leading-6 text-teal-950">
+          These seed records are curated from public sources and should be treated as reviewable evidence summaries, not
+          medical advice or exhaustive coverage. Keep every real claim linked to a source.
         </p>
       </div>
     </aside>
