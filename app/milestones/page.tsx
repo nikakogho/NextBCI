@@ -1,8 +1,8 @@
-import { MilestoneCard } from "@/components/MilestoneCard";
+import { MilestoneBoard } from "@/components/MilestoneBoard";
 import { PageHeader } from "@/components/PageHeader";
 import { SampleNotice } from "@/components/SampleNotice";
-import { allMilestones } from "@/data/queries";
-import { evidenceLevels, milestoneTypeLabels } from "@/data/schema";
+import { confirmedMilestones, upcomingMilestones } from "@/data/queries";
+import { evidenceLevels } from "@/data/schema";
 
 export default function MilestonesPage() {
   return (
@@ -13,25 +13,7 @@ export default function MilestonesPage() {
         description="A reviewable archive of trials, implants, demos, papers, regulatory moves, safety updates, and upcoming checkpoints."
       />
       <SampleNotice />
-      <section className="data-card">
-        <div className="data-card-inner">
-          <p className="eyebrow">Static filters for MVP</p>
-          <div className="meta-row">
-            {Object.values(milestoneTypeLabels).slice(0, 8).map((label) => (
-              <span className="nav-link border-stone-300 bg-white" key={label}>{label}</span>
-            ))}
-          </div>
-          <p className="muted-copy text-sm">
-            These are non-interactive filter chips for now. The data model already supports evidence level, milestone
-            type, status, confidence, company, and date filtering in a later loop.
-          </p>
-        </div>
-      </section>
-      <section className="card-grid">
-        {allMilestones.map((milestone) => (
-          <MilestoneCard milestone={milestone} key={milestone.id} />
-        ))}
-      </section>
+      <MilestoneBoard previousMilestones={confirmedMilestones} upcomingMilestones={upcomingMilestones} />
       <section className="section">
         <div>
           <p className="eyebrow">Evidence key</p>

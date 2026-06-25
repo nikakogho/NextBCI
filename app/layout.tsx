@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/companies", label: "Companies" },
+  { href: "/companies", label: "Programs" },
   { href: "/milestones", label: "Milestones" },
   { href: "/trials", label: "Trials" },
   { href: "/demos", label: "Demos" }
@@ -23,8 +23,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <header className="topbar">
             <div className="topbar-inner">
               <Link className="brand-mark" href="/">
-                <span>NextBCI</span>
-                <span>Evidence tracker for serious BCI progress</span>
+                <span>Next BCI</span>
+                <span>Evidence tracker</span>
               </Link>
               <nav aria-label="Primary navigation" className="nav-list">
                 {navItems.map((item) => (

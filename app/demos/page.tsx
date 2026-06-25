@@ -3,6 +3,7 @@ import { DemoClassificationBadge, EvidenceBadge, SampleBadge } from "@/component
 import { PageHeader } from "@/components/PageHeader";
 import { SampleNotice } from "@/components/SampleNotice";
 import { SourceLinks } from "@/components/SourceLinks";
+import { getYoutubeSource, WatchButton } from "@/components/SourceActions";
 import { demos, getCompanyName } from "@/data/queries";
 
 export default function DemosPage() {
@@ -35,6 +36,11 @@ export default function DemosPage() {
                 <p className="text-xs font-black uppercase text-stone-500">Hype check</p>
                 <p className="mt-1 text-sm leading-6">{demo.hypeCheck}</p>
               </div>
+              {getYoutubeSource(demo.sourceLinks) ? (
+                <div className="card-action-row">
+                  <WatchButton source={getYoutubeSource(demo.sourceLinks)!} />
+                </div>
+              ) : null}
               <SourceLinks sources={demo.sourceLinks} />
             </div>
           </article>

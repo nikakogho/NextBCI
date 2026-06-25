@@ -21,6 +21,24 @@
 - [x] Run lint, typecheck, and build after the data swap.
 - [x] Fix validation failures or document blockers.
 
+## Visual Loop: NextSpaceflight Tracker Pattern
+
+- [x] Explore NextSpaceflight home, launches, detail, rockets, reuse, and locations surfaces.
+- [x] Add an interactive upcoming/previous milestone switch.
+- [x] Retune cards, header, and archive layout toward a dense tracker-board feel without copying colors.
+- [x] Run lint, typecheck, and build after the UI changes.
+- [x] Inspect desktop and mobile rendered pages.
+
+## UI Loop: Milestone Details and Watch Actions
+
+- [x] Pin milestone-card date chips to a fixed top position.
+- [x] Add milestone detail pages with source, program, why-it-matters, and hype-check sections.
+- [x] Add Details links from milestone cards.
+- [x] Add YouTube-only Watch buttons that open in a new tab when a video source exists.
+- [x] Make the landing page friendlier with start-here actions and card-reading guidance.
+- [x] Run lint, typecheck, and build after the detail-route changes.
+- [x] Inspect key rendered pages.
+
 ## Next Recommended Loops
 
 - [x] Replace fictional sample records with 5 to 8 sourced real seed records.

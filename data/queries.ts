@@ -9,6 +9,10 @@ export const getCompany = (slug: string): Company | undefined => companyBySlug.g
 
 export const getCompanyName = (slug: string): string => getCompany(slug)?.name ?? "Unknown program";
 
+export const milestoneById = new Map(milestones.map((milestone) => [milestone.id, milestone]));
+
+export const getMilestone = (id: string): Milestone | undefined => milestoneById.get(id);
+
 const descendingByDate = <T extends { sortDate: string }>(items: T[]): T[] =>
   [...items].sort((a, b) => b.sortDate.localeCompare(a.sortDate));
 

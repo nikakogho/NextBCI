@@ -435,7 +435,8 @@ export const milestones: Milestone[] = [
       "It is a controlled research result in a small participant set, not a deployed communication device.",
     sourceLinks: [
       source("Speech decoding and avatar control paper", "paper", "https://www.nature.com/articles/s41586-023-06443-4", "Nature"),
-      source("Speech neuroprosthesis overview", "company-update", "https://changlab.ucsf.edu/speech-neuroprosthesis", "UCSF Chang Lab")
+      source("Speech neuroprosthesis overview", "company-update", "https://changlab.ucsf.edu/speech-neuroprosthesis", "UCSF Chang Lab"),
+      source("UCSF demo video", "demo-video", "https://www.youtube.com/watch?v=vL7yMn6kiMg", "UCSF")
     ],
     isSample: false
   },

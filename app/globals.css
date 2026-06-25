@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #eafbf5;
+  --background: #eefaf6;
   --foreground: #10221f;
-  --muted: #526a66;
+  --muted: #5d6c69;
   --panel: #fbfffc;
-  --panel-strong: #dffbf2;
-  --line: rgba(51, 138, 130, 0.2);
-  --line-strong: rgba(24, 125, 118, 0.42);
-  --accent: #18a99a;
-  --accent-strong: #08766f;
-  --accent-soft: #b9f7e8;
+  --panel-strong: #e0f8ef;
+  --line: rgba(41, 112, 105, 0.2);
+  --line-strong: rgba(16, 113, 105, 0.42);
+  --accent: #16a995;
+  --accent-strong: #08736b;
+  --accent-soft: #bcefe4;
+  --header: #0b6f68;
+  --header-strong: #085e58;
   --cyan: #35c6d4;
   --amber: #a46d13;
   --red: #9c3a35;
@@ -32,7 +34,7 @@ body {
   min-height: 100vh;
   color: var(--foreground);
   background:
-    linear-gradient(135deg, rgba(238, 255, 250, 0.9), rgba(222, 251, 246, 0.78) 42%, rgba(229, 250, 255, 0.88)),
+    linear-gradient(135deg, rgba(245, 255, 252, 0.94), rgba(229, 250, 245, 0.86) 42%, rgba(236, 249, 252, 0.92)),
     url("/images/neocortex-field.png") center top / cover fixed no-repeat,
     var(--background);
   font-family: Arial, Helvetica, sans-serif;
@@ -76,15 +78,14 @@ textarea {
   position: sticky;
   top: 0;
   z-index: 20;
-  border-bottom: 1px solid var(--line);
-  background: rgba(237, 255, 250, 0.84);
-  backdrop-filter: blur(18px) saturate(1.15);
-  box-shadow: 0 14px 40px rgba(15, 104, 96, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(90deg, var(--header-strong), var(--header));
+  box-shadow: 0 8px 22px rgba(8, 73, 68, 0.16);
 }
 
 .topbar-inner {
   width: min(1180px, calc(100% - 32px));
-  min-height: 68px;
+  min-height: 64px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -93,21 +94,37 @@ textarea {
 }
 
 .brand-mark {
+  position: relative;
   display: grid;
-  gap: 2px;
+  gap: 1px;
+  padding-left: 20px;
+}
+
+.brand-mark::before {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgba(61, 216, 196, 0.18);
+  content: "";
 }
 
 .brand-mark span:first-child {
-  color: #073d39;
-  font-size: 0.78rem;
-  font-weight: 800;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .brand-mark span:last-child {
-  color: var(--muted);
-  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .nav-list {
@@ -118,28 +135,28 @@ textarea {
 }
 
 .nav-link {
-  min-height: 36px;
+  min-height: 34px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
   padding: 0 10px;
-  color: #24534e;
+  color: rgba(255, 255, 255, 0.76);
   font-size: 0.84rem;
   font-weight: 700;
   white-space: nowrap;
 }
 
 .nav-link:hover {
-  border-color: var(--line-strong);
-  background: rgba(250, 255, 252, 0.82);
-  color: #063f3b;
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
 }
 
 .page-shell {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 34px 0 56px;
+  padding: 30px 0 56px;
 }
 
 .page-stack {
@@ -148,6 +165,7 @@ textarea {
 }
 
 .section {
+  min-width: 0;
   display: grid;
   gap: 14px;
 }
@@ -169,8 +187,9 @@ textarea {
 .page-title {
   max-width: 850px;
   color: #082a27;
-  font-size: clamp(2rem, 5vw, 4.2rem);
-  line-height: 0.96;
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .section-header h2 {
@@ -198,6 +217,48 @@ textarea {
   gap: 18px;
 }
 
+.home-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
+  gap: 18px;
+}
+
+.home-start-card {
+  background:
+    linear-gradient(145deg, rgba(251, 255, 252, 0.94), rgba(218, 255, 244, 0.74)),
+    rgba(251, 255, 252, 0.9);
+}
+
+.home-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.guide-list {
+  display: grid;
+  gap: 13px;
+}
+
+.guide-list div {
+  border-top: 1px solid var(--line);
+  padding-top: 11px;
+}
+
+.guide-list b {
+  display: block;
+  color: #0a4e49;
+  font-size: 0.9rem;
+}
+
+.guide-list span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -207,10 +268,10 @@ textarea {
 .data-card {
   min-width: 0;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(251, 255, 252, 0.78);
-  box-shadow: 0 16px 42px rgba(9, 90, 84, 0.08);
-  backdrop-filter: blur(18px) saturate(1.08);
+  border-radius: 6px;
+  background: rgba(251, 255, 252, 0.86);
+  box-shadow: 0 10px 28px rgba(9, 90, 84, 0.07);
+  backdrop-filter: blur(14px) saturate(1.06);
 }
 
 .data-card-inner {
@@ -225,6 +286,329 @@ textarea {
     linear-gradient(145deg, rgba(251, 255, 252, 0.9), rgba(216, 255, 242, 0.74) 52%, rgba(220, 248, 255, 0.82)),
     rgba(251, 255, 252, 0.86);
   box-shadow: 0 22px 55px rgba(10, 118, 111, 0.13);
+}
+
+.tracker-board {
+  min-width: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.board-toolbar {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.filter-button,
+.segment-button,
+.filter-chip {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(251, 255, 252, 0.9);
+  color: #174b46;
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.filter-button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 13px;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.filter-button span {
+  color: var(--accent-strong);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.segmented-control {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 6px;
+  width: min(420px, 100%);
+}
+
+.segment-button {
+  min-width: 0;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.segment-button span {
+  min-width: 24px;
+  border-radius: 999px;
+  background: rgba(8, 115, 107, 0.08);
+  color: var(--accent-strong);
+  padding: 3px 7px;
+  font-size: 0.72rem;
+}
+
+.segment-button[aria-selected="true"] {
+  border-color: rgba(8, 115, 107, 0.48);
+  background: linear-gradient(135deg, rgba(13, 126, 117, 0.96), rgba(21, 169, 149, 0.92));
+  color: #ffffff;
+}
+
+.segment-button[aria-selected="true"] span {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.filter-panel {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(251, 255, 252, 0.84);
+  padding: 14px;
+}
+
+.filter-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  min-height: 34px;
+  padding: 0 11px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.filter-chip[aria-pressed="true"] {
+  border-color: rgba(8, 115, 107, 0.5);
+  background: rgba(218, 255, 244, 0.88);
+  color: var(--accent-strong);
+}
+
+.board-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 9px 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.board-summary-row p {
+  margin: 0;
+}
+
+.board-summary-row b {
+  color: var(--foreground);
+}
+
+.launch-card-grid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.mission-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(251, 255, 252, 0.92);
+  box-shadow: 0 12px 30px rgba(9, 90, 84, 0.09);
+}
+
+.mission-card-upcoming {
+  border-color: rgba(14, 156, 140, 0.42);
+}
+
+.mission-card-media {
+  position: relative;
+  min-height: 190px;
+  display: flex;
+  align-items: end;
+  overflow: hidden;
+  color: inherit;
+  background:
+    linear-gradient(145deg, rgba(3, 42, 40, 0.22), rgba(3, 81, 75, 0.42)),
+    url("/images/neocortex-field.png") center / cover no-repeat,
+    #0c3935;
+}
+
+.mission-card-media::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    radial-gradient(circle at 18% 20%, rgba(59, 221, 208, 0.26), transparent 32%),
+    linear-gradient(0deg, rgba(4, 21, 20, 0.86), rgba(4, 21, 20, 0.06) 62%);
+}
+
+.mission-card-shade {
+  position: absolute;
+  inset: auto 0 0;
+  height: 64%;
+  background: linear-gradient(0deg, rgba(2, 18, 17, 0.92), transparent);
+}
+
+.mission-card-heading {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 72px 16px 16px;
+  color: #ffffff;
+}
+
+.mission-date-chip {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  background: rgba(3, 28, 27, 0.58);
+  padding: 7px 9px;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.mission-card-heading h3 {
+  margin: 0;
+  font-size: 1.28rem;
+  font-weight: 950;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.mission-card-heading p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.mission-card-body {
+  display: grid;
+  gap: 13px;
+  padding: 16px;
+}
+
+.mission-detail-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.card-action-row,
+.source-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.details-button,
+.primary-source-button,
+.watch-button {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0 13px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.details-button,
+.primary-source-button {
+  border: 1px solid var(--line-strong);
+  background: rgba(251, 255, 252, 0.9);
+  color: var(--accent-strong);
+}
+
+.watch-button {
+  gap: 7px;
+  border: 1px solid rgba(185, 44, 39, 0.18);
+  background: rgba(255, 190, 190, 0.58);
+  color: #9c2622;
+}
+
+.watch-button:hover {
+  background: rgba(255, 165, 165, 0.72);
+}
+
+.detail-hero {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(251, 255, 252, 0.92);
+  box-shadow: 0 16px 42px rgba(9, 90, 84, 0.08);
+}
+
+.detail-hero-media {
+  position: relative;
+  min-height: 260px;
+  display: flex;
+  align-items: end;
+  background:
+    linear-gradient(145deg, rgba(3, 42, 40, 0.15), rgba(3, 81, 75, 0.38)),
+    url("/images/neocortex-field.png") center / cover no-repeat,
+    #0c3935;
+}
+
+.detail-hero-media::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(0deg, rgba(3, 23, 22, 0.92), rgba(3, 23, 22, 0.1) 65%);
+}
+
+.detail-hero-title {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  padding: 86px 20px 20px;
+}
+
+.detail-hero-title p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.88rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.detail-hero-body {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .dark-panel {
@@ -374,11 +758,29 @@ textarea {
 
   .nav-list {
     width: 100%;
+    max-width: 100%;
     padding-bottom: 2px;
   }
 
+  .board-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .filter-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .segmented-control {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .tracker-grid,
-  .timeline-item {
+  .home-intro-grid,
+  .timeline-item,
+  .detail-grid {
     grid-template-columns: 1fr;
   }
 
