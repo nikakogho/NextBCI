@@ -2,12 +2,12 @@
 
 NextBCI is a launch-tracker-style, evidence-first tracker for serious brain-computer interface progress - think NextSpaceflight, but for neural interfaces. It focuses on milestones such as trials, implants, demos, papers, and regulatory moves, presented as a dark mission-control dashboard with live countdowns and an interactive world map of the programs pushing the field.
 
-This repository contains a static-first build with a small set of sourced seed records. The dataset is not exhaustive and should be reviewed like evidence summaries, not medical advice or product recommendations.
+This repository contains a static-first build with sourced program records and source-linked evidence. The dataset is not exhaustive and should be reviewed like evidence summaries, not medical advice or product recommendations.
 
 ## Interface
 
 - Dark, mission-control visual design with a "neural signal" motif generated per record (no external images).
-- Live countdowns to upcoming milestones.
+- Landing-page activity console with a primary next checkpoint, live countdowns, upcoming/confirmed switching, milestone-type filtering, and direct source actions.
 - Company project-track cards for separating product/program lines such as Neuralink Telepathy and Blindsight, with demonstrated vs not-yet-shown evidence split out.
 - A full-screen Leaflet world map (`/map`) plotting every program at its home base, colored by current activity, with zoomable clusters and city-scale pin separation.
 
@@ -91,7 +91,9 @@ GitHub Actions runs `npm run ci` on pull requests, pushes to `main`, and manual 
 
 ## Data coverage
 
-The dataset covers 161 clinical, translational, and BCI-enabling programs across the US, Canada, Europe, China, Taiwan, India, Israel, South Korea, Singapore, Japan, Australia, and other regions, plus conservative slices of non-invasive EEG, fMRI/fNIRS/hemodynamic, focused-ultrasound, neuroimaging, neuromodulation, assistive-control, and neural-interface infrastructure programs where consumer/wellness, research-platform, or adjacent neuromodulation claims are separated from medical evidence. Company project tracks now split multi-line programs such as Neuralink Telepathy vs Blindsight, Blackrock NeuroPort/Utah Array vs MoveAgain, and brain-spine interface lines from ONWARD, NeuroRestore/EPFL-CHUV-UNIL, CEA/Clinatec, NeuCyber/CIBR, Fudan, Zhejiang University/Nanhu, and Hainan University. Each program carries an approach (invasive / minimally invasive / non-invasive), region, and, where sourced, founding year and funding. Every milestone, project track, trial, demo, and paper links to a primary or reputable source.
+The dataset covers 261 clinical, translational, and BCI-enabling programs across the US, Canada, Europe, China, Taiwan, India, Israel, South Korea, Singapore, Japan, Australia, Brazil, and other regions, plus conservative slices of non-invasive EEG, fMRI/fNIRS/hemodynamic, focused-ultrasound, neuroimaging, neuromodulation, assistive-control, and neural-interface infrastructure programs where consumer/wellness, research-platform, or adjacent neuromodulation claims are separated from medical evidence. The latest expansion adds 50 Europe-based and 50 elsewhere-based organizations, each with a direct official product, technology, or company reference. Company project tracks now split multi-line programs such as Neuralink Telepathy vs Blindsight, Blackrock NeuroPort/Utah Array vs MoveAgain, and brain-spine interface lines from ONWARD, NeuroRestore/EPFL-CHUV-UNIL, CEA/Clinatec, NeuCyber/CIBR, Fudan, Zhejiang University/Nanhu, and Hainan University. Each program carries an approach (invasive / minimally invasive / non-invasive), region, and, where sourced, founding year and funding. Every milestone, project track, trial, demo, paper, and company profile links to a primary or reputable source.
+
+The product requirements distilled from the Next Spaceflight launch-feed benchmark live in [`docs/nextspaceflight-launch-feed-requirements.md`](docs/nextspaceflight-launch-feed-requirements.md).
 
 ## World map data
 

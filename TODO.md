@@ -154,3 +154,11 @@ Ranked candidates that are not dataset records yet:
 - [x] Include at least 30 Asia-outside-China additions across India, Israel, South Korea, Singapore, Japan, and Taiwan.
 - [x] Keep broad consumer/wellness and adjacent neuromodulation claims clearly separated from demonstrated BCI restoration evidence through conservative evidence levels and hype-check copy.
 - [x] Run validation, data tests, lint, typecheck, and build after the bulk expansion.
+
+## NextSpaceflight Landing and Data Expansion Loop
+
+- [x] Analyze the Next Spaceflight launches surface and write concrete, product-specific requirements in `docs/nextspaceflight-launch-feed-requirements.md`.
+- [x] Add a primary next-checkpoint panel, coverage summary, activity feed mode switch, milestone-type filter, direct source actions, and shared interactive map preview to the landing page.
+- [x] Add 50 new Europe-based organizations and 50 new organizations elsewhere, each with a direct official technology, product, or company reference.
+- [x] Preserve conservative evidence levels and profile-level hype checks for broad neurotechnology and assistive-control records.
+- [x] Run data validation, data-query tests, lint, typecheck, and production build after the expansion.

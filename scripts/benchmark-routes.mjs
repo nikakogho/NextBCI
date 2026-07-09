@@ -7,9 +7,7 @@ const paths = [
   "/milestones/paradromics-first-connect-one-implant-2026",
   "/companies",
   "/trials",
-  "/demos",
-  "/images/neocortex-field.webp",
-  "/images/neocortex-card.webp"
+  "/demos"
 ];
 
 if (!Number.isInteger(sampleCount) || sampleCount < 1) {
