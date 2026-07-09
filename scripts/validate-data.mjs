@@ -38,6 +38,7 @@ const allowedSourceTypes = new Set([
   "trial-registry",
   "paper",
   "company-update",
+  "institution-page",
   "regulatory-page",
   "conference-page",
   "news-report",

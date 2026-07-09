@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DemoClassificationBadge, EvidenceBadge } from "@/components/Badge";
-import { SourceList } from "@/components/SourceList";
-import { demos, getCompanyName, getYoutubeSource } from "@/data/queries";
+import { demos, getCompanyName, getPrimarySource, getYoutubeSource } from "@/data/queries";
 
 export const metadata: Metadata = {
   title: "Demos · NextBCI",
@@ -24,8 +23,9 @@ export default function DemosPage() {
       </section>
 
       <section className="card-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}>
-        {sorted.map((demo) => {
-          const youtube = getYoutubeSource(demo.sourceLinks);
+          {sorted.map((demo) => {
+            const youtube = getYoutubeSource(demo.sourceLinks);
+            const primarySource = getPrimarySource(demo.sourceLinks);
           return (
             <div className="tile" key={demo.id}>
               <div className="meta-row" style={{ justifyContent: "space-between" }}>
@@ -48,7 +48,11 @@ export default function DemosPage() {
                   </a>
                 ) : null}
               </div>
-              <SourceList sources={demo.sourceLinks} />
+              {primarySource ? (
+                <a className="btn btn-ghost btn-sm" href={primarySource.url} target="_blank" rel="noreferrer">
+                  Source
+                </a>
+              ) : null}
             </div>
           );
         })}

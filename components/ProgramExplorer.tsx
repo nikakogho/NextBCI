@@ -3,103 +3,168 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { ProgramRow } from "@/data/queries";
-import { companyCategories, regions } from "@/data/schema";
+import { companyCategories, deviceTypes, organizationScales, productReadiness, regions } from "@/data/schema";
 
 const CATEGORY_OPTIONS = Object.entries(companyCategories) as Array<[string, string]>;
 const REGION_OPTIONS = Object.entries(regions) as Array<[string, string]>;
+const DEVICE_OPTIONS = Object.entries(deviceTypes) as Array<[string, string]>;
+const SCALE_OPTIONS = Object.entries(organizationScales) as Array<[string, string]>;
+const READINESS_OPTIONS = Object.entries(productReadiness) as Array<[string, string]>;
 
 export function ProgramExplorer({ programs }: { programs: ProgramRow[] }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<string>("all");
-  const [region, setRegion] = useState<string>("all");
+  const [kind, setKind] = useState("all");
+  const [category, setCategory] = useState("all");
+  const [region, setRegion] = useState("all");
+  const [deviceType, setDeviceType] = useState("all");
+  const [scale, setScale] = useState("all");
+  const [readiness, setReadiness] = useState("all");
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
-    return programs.filter((p) => {
-      if (category !== "all" && p.category !== category) return false;
-      if (region !== "all" && p.region !== region) return false;
-      if (needle) {
-        const hay = `${p.name} ${p.city} ${p.country} ${p.stage} ${p.categoryLabel} ${p.regionLabel}`.toLowerCase();
-        if (!hay.includes(needle)) return false;
-      }
-      return true;
+    return programs.filter((program) => {
+      if (kind !== "all" && program.kind !== kind) return false;
+      if (category !== "all" && program.category !== category) return false;
+      if (region !== "all" && program.region !== region) return false;
+      if (deviceType !== "all" && !program.deviceTypes.includes(deviceType as never)) return false;
+      if (scale !== "all" && program.organizationScale !== scale) return false;
+      if (readiness !== "all" && program.readiness !== readiness) return false;
+      if (!needle) return true;
+
+      const haystack = [
+        program.name,
+        program.city,
+        program.country,
+        program.stage,
+        program.categoryLabel,
+        program.regionLabel,
+        program.organizationKindLabel,
+        program.organizationScaleLabel,
+        program.readinessLabel,
+        program.deviceTypeLabels.join(" ")
+      ]
+        .join(" ")
+        .toLowerCase();
+      return needle.split(/\s+/).every((term) => haystack.includes(term));
     });
-  }, [programs, query, category, region]);
+  }, [programs, query, kind, category, region, deviceType, scale, readiness]);
+
+  const activeFilterCount = [kind, category, region, deviceType, scale, readiness].filter((value) => value !== "all").length;
+  const clearFilters = () => {
+    setKind("all");
+    setCategory("all");
+    setRegion("all");
+    setDeviceType("all");
+    setScale("all");
+    setReadiness("all");
+  };
 
   return (
-    <div className="section">
-      <div className="toolbar">
-        <input
-          className="search-input"
-          placeholder="Search programs by name, place, or approach…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search programs"
-        />
-        <div className="chip-row">
-          <span className="filter-label">Approach</span>
-          <button className="chip" data-active={category === "all"} onClick={() => setCategory("all")}>
-            All
+    <section className="explorer" aria-label="Explore organizations and research programs">
+      <div className="explorer-search-row">
+        <label className="explorer-search-field">
+          <span className="sr-only">Search organizations and research programs</span>
+          <input
+            placeholder="Search organizations, conditions, devices, or places"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </label>
+        {activeFilterCount > 0 ? (
+          <button className="btn btn-ghost btn-sm" type="button" onClick={clearFilters}>
+            Clear {activeFilterCount} filter{activeFilterCount === 1 ? "" : "s"}
           </button>
-          {CATEGORY_OPTIONS.map(([key, label]) => (
-            <button className="chip" data-active={category === key} key={key} onClick={() => setCategory(key)}>
-              {label}
-            </button>
-          ))}
-        </div>
-        <div className="chip-row">
-          <span className="filter-label">Region</span>
-          <button className="chip" data-active={region === "all"} onClick={() => setRegion("all")}>
-            All
-          </button>
-          {REGION_OPTIONS.map(([key, label]) => (
-            <button className="chip" data-active={region === key} key={key} onClick={() => setRegion(key)}>
-              {label}
-            </button>
-          ))}
-        </div>
+        ) : null}
+      </div>
+
+      <div className="explorer-filters" aria-label="Organization filters">
+        <label>
+          <span>Organization</span>
+          <select value={kind} onChange={(event) => setKind(event.target.value)}>
+            <option value="all">All organizations</option>
+            <option value="company">Companies</option>
+            <option value="academic">University research</option>
+          </select>
+        </label>
+        <label>
+          <span>Invasiveness</span>
+          <select value={category} onChange={(event) => setCategory(event.target.value)}>
+            <option value="all">All approaches</option>
+            {CATEGORY_OPTIONS.map(([value, label]) => (
+              <option value={value} key={value}>{label}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Region</span>
+          <select value={region} onChange={(event) => setRegion(event.target.value)}>
+            <option value="all">All regions</option>
+            {REGION_OPTIONS.map(([value, label]) => (
+              <option value={value} key={value}>{label}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Device class</span>
+          <select value={deviceType} onChange={(event) => setDeviceType(event.target.value)}>
+            <option value="all">All device classes</option>
+            {DEVICE_OPTIONS.map(([value, label]) => (
+              <option value={value} key={value}>{label}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Organization profile</span>
+          <select value={scale} onChange={(event) => setScale(event.target.value)}>
+            <option value="all">All profiles</option>
+            {SCALE_OPTIONS.map(([value, label]) => (
+              <option value={value} key={value}>{label}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Readiness</span>
+          <select value={readiness} onChange={(event) => setReadiness(event.target.value)}>
+            <option value="all">All readiness levels</option>
+            {READINESS_OPTIONS.map(([value, label]) => (
+              <option value={value} key={value}>{label}</option>
+            ))}
+          </select>
+        </label>
       </div>
 
       <p className="result-count">
-        {filtered.length} of {programs.length} programs
+        {filtered.length} of {programs.length} tracked organizations and research programs
       </p>
 
       {filtered.length === 0 ? (
-        <div className="empty-state">No programs match those filters.</div>
+        <div className="empty-state">No tracked organization matches those terms and filters.</div>
       ) : (
-        <div className="card-grid">
-          {filtered.map((p) => (
-            <Link className="tile" href={`/companies/${p.slug}`} key={p.slug}>
-              <div className="meta-row" style={{ justifyContent: "space-between" }}>
-                <span className="meta-row" style={{ gap: 8 }}>
-                  <span
-                    className="dot"
-                    style={{ color: p.heatColor, background: p.heatColor, width: 9, height: 9 }}
-                    aria-hidden="true"
-                  />
-                  <span className="badge type-badge">{p.kind === "academic" ? "Academic" : "Company"}</span>
-                </span>
-                <span className="badge ev" style={{ color: p.heatColor, borderColor: p.heatColor }}>
-                  {p.heatLabel}
-                </span>
+        <div className="explorer-grid">
+          {filtered.map((program) => (
+            <Link className="explorer-card" href={`/companies/${program.slug}`} key={program.slug}>
+              <div className="explorer-card-head">
+                <span className="organization-kind" data-kind={program.kind}>{program.organizationKindLabel}</span>
+                <span className={`badge ev ev-${program.evidenceLevel}`}>{program.evidenceLevel}</span>
               </div>
-              <h3>{p.name}</h3>
-              <p className="muted-copy" style={{ fontSize: 12.5 }}>
-                {p.city}, {p.country} · {p.categoryLabel}
-              </p>
-              <p className="muted-copy" style={{ fontSize: 13.5 }}>{p.stage}</p>
-              <div className="tile-foot">
-                <span className={`badge ev ev-${p.evidenceLevel}`}>{p.evidenceLevel}</span>
-                {p.founded ? <span className="badge type-badge">Est. {p.founded}</span> : null}
-                <span style={{ flex: 1 }} />
-                <span className="mono" style={{ fontSize: 11.5, color: "var(--faint)" }}>
-                  {p.stats.milestones}M · {p.stats.trials}T · {p.stats.demos}D · {p.stats.papers}P
-                </span>
+              <h3>{program.name}</h3>
+              <p className="explorer-location">{program.city}, {program.country}</p>
+              <p className="explorer-stage">{program.stage}</p>
+              <div className="explorer-facets">
+                <span>{program.categoryLabel}</span>
+                <span>{program.organizationScaleLabel}</span>
+                <span>{program.readinessLabel}</span>
+                {program.deviceTypeLabels.slice(0, 2).map((label) => <span key={label}>{label}</span>)}
+              </div>
+              <div className="explorer-card-foot">
+                <span>{program.stats.milestones} milestones</span>
+                <span>{program.stats.projects} projects</span>
+                <span>{program.stats.papers} papers</span>
               </div>
             </Link>
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 }

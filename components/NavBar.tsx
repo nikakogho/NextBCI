@@ -5,13 +5,11 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/neuralink", label: "Neuralink" },
+  { href: "/explore", label: "Explore" },
   { href: "/map", label: "Map" },
-  { href: "/milestones", label: "Milestones" },
-  { href: "/companies", label: "Programs" },
+  { href: "/milestones", label: "Activity" },
   { href: "/trials", label: "Trials" },
-  { href: "/demos", label: "Demos" },
-  { href: "/search", label: "Search" }
+  { href: "/demos", label: "Demos" }
 ];
 
 export function NavBar() {

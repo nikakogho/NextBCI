@@ -180,6 +180,29 @@ const leafletStyles = `
     margin-top: 14px;
     font-size: 11.5px;
   }
+  .map-kind-filter {
+    display: flex;
+    gap: 4px;
+    margin-top: 14px;
+    padding: 4px;
+    border: 1px solid rgba(233, 239, 246, 0.16);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.16);
+  }
+  .map-kind-filter button {
+    flex: 1;
+    min-height: 31px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: var(--muted);
+    font: 700 11px/1 var(--sans);
+    cursor: pointer;
+  }
+  .map-kind-filter button[data-active="true"] {
+    background: rgba(71, 194, 255, 0.16);
+    color: var(--text);
+  }
   .map-intro-panel .legend-swatch {
     width: 10px;
     height: 10px;
@@ -308,7 +331,13 @@ const leafletStyles = `
   }
 `;
 
-function pinSvg(color: string): string {
+function pinSvg(color: string, kind: MapNode["kind"]): string {
+  if (kind === "academic") {
+    return `<svg width="32" height="45" viewBox="0 0 32 45" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 2 29 16 16 42 3 16Z" fill="${color}" stroke="rgba(0,0,0,.48)" stroke-width="1.5"/>
+      <path d="M16 10v13M9.5 16.5h13" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+    </svg>`;
+  }
   return `<svg width="32" height="45" viewBox="0 0 32 45" xmlns="http://www.w3.org/2000/svg">
     <path d="M16 1C7.7 1 1 7.7 1 16c0 11.8 15 27 15 27s15-15.2 15-27C31 7.7 24.3 1 16 1z"
       fill="${color}" stroke="rgba(0,0,0,.45)" stroke-width="1.5"/>
@@ -317,7 +346,7 @@ function pinSvg(color: string): string {
 }
 
 function popupHtml(n: MapNode): string {
-  const kind = n.kind === "academic" ? "Academic" : "Company";
+  const kind = n.kind === "academic" ? "University research" : "Company";
   const stats = [
     `${n.stats.milestones} milestones`,
     `${n.stats.trials} trials`,
@@ -329,7 +358,7 @@ function popupHtml(n: MapNode): string {
     <div class="mp-name">${escapeHtml(n.name)}</div>
     <div class="mp-loc">${escapeHtml(n.city)}, ${escapeHtml(n.country)}</div>
     <div class="mp-stats">${stats.join(" - ")}</div>
-    <a class="mp-link" href="/companies/${n.slug}">View program -&gt;</a>
+    <a class="mp-link" href="/companies/${n.slug}">View profile -&gt;</a>
   </div>`;
 }
 
@@ -376,19 +405,27 @@ export function LeafletMap({ nodes, variant = "full" }: { nodes: MapNode[]; vari
   const containerRef = useRef<HTMLDivElement | null>(null);
   const apiRef = useRef<MapApi | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [kindFilter, setKindFilter] = useState<"all" | MapNode["kind"]>("all");
   const isCompact = variant === "compact";
-  const sorted = useMemo(() => [...nodes].sort((a, b) => b.heat - a.heat), [nodes]);
-  const displayNodes = useMemo(() => spreadSameCityNodes(nodes), [nodes]);
-  const selectedNode = useMemo(() => nodes.find((node) => node.slug === selected) ?? null, [nodes, selected]);
+  const filteredNodes = useMemo(
+    () => (kindFilter === "all" ? nodes : nodes.filter((node) => node.kind === kindFilter)),
+    [kindFilter, nodes]
+  );
+  const sorted = useMemo(() => [...filteredNodes].sort((a, b) => b.heat - a.heat), [filteredNodes]);
+  const displayNodes = useMemo(() => spreadSameCityNodes(filteredNodes), [filteredNodes]);
+  const selectedNode = useMemo(
+    () => filteredNodes.find((node) => node.slug === selected) ?? null,
+    [filteredNodes, selected]
+  );
   const summaryStats = useMemo(() => {
-    const countries = new Set(nodes.map((node) => node.country)).size;
+    const countries = new Set(filteredNodes.map((node) => node.country)).size;
     return {
-      programs: nodes.length,
+      programs: filteredNodes.length,
       countries,
-      veryActive: nodes.filter((node) => node.heat >= 0.75).length,
-      upcoming: nodes.filter((node) => node.stats.upcoming > 0).length
+      veryActive: filteredNodes.filter((node) => node.heat >= 0.75).length,
+      upcoming: filteredNodes.filter((node) => node.stats.upcoming > 0).length
     };
-  }, [nodes]);
+  }, [filteredNodes]);
 
   useEffect(() => {
     let map: LMap | null = null;
@@ -457,7 +494,7 @@ export function LeafletMap({ nodes, variant = "full" }: { nodes: MapNode[]; vari
         const marker = L.marker([n.displayLat, n.displayLng], {
           icon: L.divIcon({
             className: "bci-pin",
-            html: pinSvg(n.heatColor),
+            html: pinSvg(n.heatColor, n.kind),
             iconSize: [32, 45],
             iconAnchor: [16, 43],
             popupAnchor: [0, -39]
@@ -546,11 +583,22 @@ export function LeafletMap({ nodes, variant = "full" }: { nodes: MapNode[]; vari
                 <span className="legend-swatch" style={{ background: "#ff4d55" }} /> Very active
               </span>
             </div>
+            <div className="map-kind-filter" role="group" aria-label="Organization type">
+              <button type="button" data-active={kindFilter === "all"} onClick={() => { setSelected(null); setKindFilter("all"); }}>
+                All
+              </button>
+              <button type="button" data-active={kindFilter === "company"} onClick={() => { setSelected(null); setKindFilter("company"); }}>
+                Companies
+              </button>
+              <button type="button" data-active={kindFilter === "academic"} onClick={() => { setSelected(null); setKindFilter("academic"); }}>
+                Universities
+              </button>
+            </div>
           </section>
 
           <aside className="map-overlay map-directory-panel" aria-label="Mapped programs">
             <div className="map-directory-head">
-              <p className="eyebrow">Programs</p>
+              <p className="eyebrow">Organizations</p>
               <button className="btn btn-ghost btn-sm" type="button" onClick={() => apiRef.current?.reset()}>
                 Show all
               </button>
@@ -559,7 +607,7 @@ export function LeafletMap({ nodes, variant = "full" }: { nodes: MapNode[]; vari
             {selectedNode ? (
               <div className="map-selected">
                 <div className="meta-row">
-                  <span className="badge type-badge">{selectedNode.kind === "academic" ? "Academic" : "Company"}</span>
+                  <span className="badge type-badge">{selectedNode.kind === "academic" ? "University research" : "Company"}</span>
                   <span className="badge ev" style={{ color: selectedNode.heatColor, borderColor: selectedNode.heatColor }}>
                     {selectedNode.heatLabel}
                   </span>
@@ -572,11 +620,11 @@ export function LeafletMap({ nodes, variant = "full" }: { nodes: MapNode[]; vari
                 </div>
                 <p className="map-selected-stage">{selectedNode.stage}</p>
                 <Link className="btn btn-primary btn-sm" href={`/companies/${selectedNode.slug}`}>
-                  View program
+                  View profile
                 </Link>
               </div>
             ) : (
-              <p className="map-city-note">Dense regions separate into individual pins at city scale.</p>
+              <p className="map-city-note">Round pins are companies. Diamond pins are university research programs.</p>
             )}
 
             <div className="node-list map-directory-list">

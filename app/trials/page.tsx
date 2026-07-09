@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EvidenceBadge } from "@/components/Badge";
-import { SourceList } from "@/components/SourceList";
-import { getCompanyName, trials } from "@/data/queries";
+import { getCompanyName, getPrimarySource, trials } from "@/data/queries";
 
 export const metadata: Metadata = {
   title: "Trials · NextBCI",
@@ -22,7 +21,9 @@ export default function TrialsPage() {
       </section>
 
       <section className="card-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))" }}>
-        {trials.map((trial) => (
+        {trials.map((trial) => {
+          const primarySource = getPrimarySource(trial.sourceLinks);
+          return (
           <div className="tile" key={trial.id}>
             <div className="meta-row" style={{ justifyContent: "space-between" }}>
               <EvidenceBadge level={trial.evidenceLevel} />
@@ -50,11 +51,14 @@ export default function TrialsPage() {
                 ))}
               </ul>
             </div>
-            <div className="tile-foot">
-              <SourceList sources={trial.sourceLinks} />
-            </div>
+            {primarySource ? (
+              <a className="btn btn-ghost btn-sm" href={primarySource.url} target="_blank" rel="noreferrer">
+                Registry source
+              </a>
+            ) : null}
           </div>
-        ))}
+          );
+        })}
       </section>
     </div>
   );

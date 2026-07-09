@@ -4,7 +4,7 @@ import { mapNodes } from "@/data/queries";
 
 export const metadata: Metadata = {
   title: "World map - NextBCI",
-  description: "Interactive world map of brain-computer interface programs, colored by current activity."
+  description: "Interactive world map of BCI companies and university research programs, colored by current activity."
 };
 
 export default function MapPage() {

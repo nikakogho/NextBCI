@@ -240,6 +240,17 @@ p {
   font-family: var(--mono);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ============================================================
    Hero
    ============================================================ */
@@ -1789,10 +1800,192 @@ p {
 }
 
 /* ============================================================
+   Explore
+   ============================================================ */
+
+.explore-intro h1 {
+  max-width: 20ch;
+  margin-top: 9px;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  letter-spacing: 0;
+}
+
+.explore-intro .lede {
+  max-width: 64ch;
+  margin-top: 14px;
+}
+
+.explore-coverage {
+  margin-top: 18px;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.explorer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.explorer-search-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.explorer-search-field {
+  flex: 1;
+}
+
+.explorer-search-field input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  padding: 0 14px;
+}
+
+.explorer-search-field input:focus,
+.explorer-filters select:focus {
+  outline: 2px solid rgba(71, 194, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.explorer-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.explorer-filters label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--faint);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.explorer-filters select {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  padding: 0 28px 0 10px;
+  text-transform: none;
+}
+
+.explorer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 10px;
+}
+
+.explorer-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  transition: border-color 0.14s ease, transform 0.14s ease;
+}
+
+.explorer-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(71, 194, 255, 0.6);
+}
+
+.explorer-card-head,
+.explorer-card-foot,
+.explorer-facets {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.explorer-card-head {
+  justify-content: space-between;
+}
+
+.organization-kind,
+.explorer-facets span {
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 4px 6px;
+}
+
+.organization-kind[data-kind="academic"] {
+  border-color: rgba(139, 123, 255, 0.55);
+  color: #c3baff;
+}
+
+.organization-kind[data-kind="company"] {
+  border-color: rgba(71, 194, 255, 0.5);
+  color: var(--accent);
+}
+
+.explorer-card h3 {
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+
+.explorer-location {
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.explorer-stage {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.48;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.explorer-card-foot {
+  margin-top: auto;
+  padding-top: 9px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 10.5px;
+}
+
+/* ============================================================
    Responsive
    ============================================================ */
 
 @media (max-width: 900px) {
+  .explorer-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .home-masthead {
     grid-template-columns: 1fr;
     padding: 34px 28px;
@@ -1871,6 +2064,13 @@ p {
 }
 
 @media (max-width: 620px) {
+  .explorer-search-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .explorer-filters {
+    grid-template-columns: 1fr;
+  }
   .home-page-stack {
     gap: 34px;
   }

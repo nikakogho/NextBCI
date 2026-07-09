@@ -162,3 +162,15 @@ Ranked candidates that are not dataset records yet:
 - [x] Add 50 new Europe-based organizations and 50 new organizations elsewhere, each with a direct official technology, product, or company reference.
 - [x] Preserve conservative evidence levels and profile-level hype checks for broad neurotechnology and assistive-control records.
 - [x] Run data validation, data-query tests, lint, typecheck, and production build after the expansion.
+
+## University Research and Explore Loop
+
+- [x] Add normalized device classes, organization profiles, and readiness states with conservative fallbacks for pre-existing records.
+- [x] Add 50 additional company profiles with direct official product or technology references.
+- [x] Add 50 university neurotechnology projects: 30 US, 10 Europe, and 10 Asia, represented as research organizations and project tracks.
+- [x] Add prominent product-track detail to existing high-signal organization profiles.
+- [x] Replace separate Programs/Search navigation with Explore and preserve legacy URLs through redirects.
+- [x] Add organization, invasiveness, region, device class, organization profile, and readiness filters to Explore.
+- [x] Differentiate company and university research visually on map, directory, and detail pages.
+- [x] Simplify Activity, Trials, and Demos by removing repeated explanatory or source-list chrome.
+- [x] Record page-by-page decisions in `docs/ux-simplification-audit.md` and run complete verification.

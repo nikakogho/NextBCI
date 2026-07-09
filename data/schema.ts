@@ -86,6 +86,51 @@ export const regions = {
 
 export type Region = keyof typeof regions;
 
+export const organizationScales = {
+  "university-research": "University research",
+  "early-startup": "Early startup",
+  "clinical-growth": "Clinical / growth company",
+  "established-company": "Established company",
+  "major-medtech": "Major medical-device company"
+} as const;
+
+export type OrganizationScale = keyof typeof organizationScales;
+
+export const productReadiness = {
+  "research-program": "Research program",
+  "research-infrastructure": "Research infrastructure",
+  preclinical: "Preclinical",
+  "human-research": "Human research",
+  "regulated-medical": "Regulated medical",
+  "commercial-nonmedical": "Commercial / non-medical"
+} as const;
+
+export type ProductReadiness = keyof typeof productReadiness;
+
+export const deviceTypes = {
+  eeg: "EEG",
+  meg: "MEG",
+  mea: "MEA",
+  ecog: "ECoG",
+  intracortical: "Intracortical",
+  endovascular: "Endovascular",
+  fmri: "fMRI",
+  fnirs: "fNIRS",
+  ultrasound: "Ultrasound",
+  "neural-probe": "Neural probe",
+  tms: "TMS",
+  tes: "tES / tDCS",
+  dbs: "DBS",
+  "peripheral-stimulation": "Peripheral stimulation",
+  "spinal-stimulation": "Spinal stimulation",
+  emg: "EMG",
+  "eye-tracking": "Eye tracking",
+  "optical-imaging": "Optical imaging",
+  "rehab-robotics": "Rehab robotics"
+} as const;
+
+export type DeviceType = keyof typeof deviceTypes;
+
 export type Confidence = "low" | "medium" | "high";
 
 export type MilestoneStatus = "confirmed" | "upcoming";
@@ -94,6 +139,7 @@ export type SourceType =
   | "trial-registry"
   | "paper"
   | "company-update"
+  | "institution-page"
   | "regulatory-page"
   | "conference-page"
   | "news-report"
@@ -131,6 +177,12 @@ export interface Company {
   targetFunction: string;
   stage: string;
   evidenceLevel: EvidenceLevel;
+  /** Normalized surface used by directory, search, and map filters. */
+  deviceTypes?: DeviceType[];
+  /** Organization maturity, deliberately not an unsupported valuation or employee-count claim. */
+  organizationScale?: OrganizationScale;
+  /** Translation/readiness state of the tracked program or product line. */
+  readiness?: ProductReadiness;
   hq: GeoPoint;
   /** Year the program or company was founded/started. */
   founded?: number;

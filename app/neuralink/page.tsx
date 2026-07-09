@@ -57,7 +57,7 @@ export default function NeuralinkPage() {
 
   return (
     <div className="page-shell page-stack">
-      <Link className="btn btn-ghost btn-sm" href="/companies" style={{ alignSelf: "flex-start" }}>
+      <Link className="btn btn-ghost btn-sm" href="/explore" style={{ alignSelf: "flex-start" }}>
         ← All programs
       </Link>
 

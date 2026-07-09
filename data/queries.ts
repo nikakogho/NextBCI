@@ -1,13 +1,19 @@
 import { companies, demos, milestones, papers, programProjects, trials } from "./seed-data";
 import {
   companyCategories,
+  deviceTypes,
+  organizationScales,
+  productReadiness,
   regions,
   type Company,
   type CompanyCategory,
+  type DeviceType,
   type Demo,
   type Milestone,
   type Paper,
   type ProgramProject,
+  type OrganizationScale,
+  type ProductReadiness,
   type Region,
   type SourceLink,
   type Trial
@@ -17,6 +23,69 @@ export { companies, demos, milestones, papers, programProjects, trials };
 
 export const regionLabel = (region: Region): string => regions[region];
 export const categoryLabel = (category: CompanyCategory): string => companyCategories[category];
+export const deviceTypeLabel = (type: DeviceType): string => deviceTypes[type];
+export const organizationScaleLabel = (scale: OrganizationScale): string => organizationScales[scale];
+export const readinessLabel = (readiness: ProductReadiness): string => productReadiness[readiness];
+export const organizationKindLabel = (kind: Company["kind"]): string =>
+  kind === "academic" ? "University research" : "Company";
+
+const deviceMatchers: Array<[DeviceType, RegExp]> = [
+  ["eeg", /\beeg\b|electroencephal/],
+  ["meg", /\bmeg\b|magnetoencephal/],
+  ["mea", /\bmea\b|microelectrode array|multi-electrode array/],
+  ["ecog", /\becog\b|electrocortic/],
+  ["intracortical", /intracortical|cortical implant/],
+  ["endovascular", /endovascular|stentrode/],
+  ["fmri", /\bfmri\b|functional mri/],
+  ["fnirs", /\bfnirs\b|near-infrared spectroscopy/],
+  ["ultrasound", /ultrasound|\btfus\b|focused ultrasound/],
+  ["neural-probe", /neural probe|neural electrode|silicon probe/],
+  ["tms", /\btms\b|transcranial magnetic/],
+  ["tes", /\btes\b|\btdcs\b|transcranial electrical/],
+  ["dbs", /\bdbs\b|deep brain stimulation/],
+  ["peripheral-stimulation", /peripheral nerve|vagus nerve|trigeminal|hypoglossal|sacral/],
+  ["spinal-stimulation", /spinal cord stimulation|epidural stimulation/],
+  ["emg", /\bemg\b|electromyograph/],
+  ["eye-tracking", /eye[- ]tracking|eye gaze/],
+  ["optical-imaging", /optical imaging|diffuse optical|photonic|optical neuro/],
+  ["rehab-robotics", /robotic|exoskeleton|rehabilitation robot/]
+];
+
+export const getDeviceTypes = (company: Company): DeviceType[] => {
+  if (company.deviceTypes?.length) return company.deviceTypes;
+  const text = `${company.modality} ${company.targetFunction} ${company.stage}`.toLowerCase();
+  return deviceMatchers.filter(([, matcher]) => matcher.test(text)).map(([type]) => type);
+};
+
+export const getOrganizationScale = (company: Company): OrganizationScale => {
+  if (company.organizationScale) return company.organizationScale;
+  if (company.kind === "academic") return "university-research";
+
+  const text = `${company.stage} ${company.summary}`.toLowerCase();
+  const majorCompanies = new Set(["Medtronic", "Abbott", "Boston Scientific", "Cochlear", "Advanced Bionics", "MED-EL"]);
+  if (majorCompanies.has(company.name)) return "major-medtech";
+  if (text.includes("established") || (text.includes("commercial") && (company.founded ?? 2026) <= 2007)) {
+    return "established-company";
+  }
+  if (text.includes("clinical") || text.includes("fda") || text.includes("ce-marked") || text.includes("cleared")) {
+    return "clinical-growth";
+  }
+  return "early-startup";
+};
+
+export const getReadiness = (company: Company): ProductReadiness => {
+  if (company.readiness) return company.readiness;
+  if (company.kind === "academic") return "research-program";
+
+  const text = `${company.stage} ${company.summary}`.toLowerCase();
+  if (company.evidenceLevel === "E6" || /fda|ce-marked|approved|cleared/.test(text)) return "regulated-medical";
+  if (/consumer|wellness|non-medical/.test(text)) return "commercial-nonmedical";
+  if (company.evidenceLevel === "E3" || company.evidenceLevel === "E4" || company.evidenceLevel === "E5" || /clinical/.test(text)) {
+    return "human-research";
+  }
+  if (/preclinical|investigational|early-stage/.test(text)) return "preclinical";
+  return "research-infrastructure";
+};
 
 export const companyBySlug = new Map(companies.map((company) => [company.slug, company]));
 
@@ -172,6 +241,7 @@ export interface ProgramRow {
   slug: string;
   name: string;
   kind: Company["kind"];
+  organizationKindLabel: string;
   category: CompanyCategory;
   categoryLabel: string;
   region: Region;
@@ -180,6 +250,12 @@ export interface ProgramRow {
   country: string;
   stage: string;
   evidenceLevel: string;
+  deviceTypes: DeviceType[];
+  deviceTypeLabels: string[];
+  organizationScale: OrganizationScale;
+  organizationScaleLabel: string;
+  readiness: ProductReadiness;
+  readinessLabel: string;
   founded?: number;
   funding?: string;
   website?: string;
@@ -191,10 +267,14 @@ export interface ProgramRow {
 
 export const programRows: ProgramRow[] = companiesByActivity.map((company) => {
   const stats = getCompanyStats(company.slug);
+  const resolvedDeviceTypes = getDeviceTypes(company);
+  const resolvedScale = getOrganizationScale(company);
+  const resolvedReadiness = getReadiness(company);
   return {
     slug: company.slug,
     name: company.name,
     kind: company.kind,
+    organizationKindLabel: organizationKindLabel(company.kind),
     category: company.category,
     categoryLabel: categoryLabel(company.category),
     region: company.region,
@@ -203,6 +283,12 @@ export const programRows: ProgramRow[] = companiesByActivity.map((company) => {
     country: company.hq.country,
     stage: company.stage,
     evidenceLevel: company.evidenceLevel,
+    deviceTypes: resolvedDeviceTypes,
+    deviceTypeLabels: resolvedDeviceTypes.map(deviceTypeLabel),
+    organizationScale: resolvedScale,
+    organizationScaleLabel: organizationScaleLabel(resolvedScale),
+    readiness: resolvedReadiness,
+    readinessLabel: readinessLabel(resolvedReadiness),
     founded: company.founded,
     funding: company.funding,
     website: company.website,
@@ -247,6 +333,10 @@ export const searchIndex: SearchItem[] = [
       company.targetFunction,
       company.stage,
       company.summary,
+      organizationKindLabel(company.kind),
+      getDeviceTypes(company).map(deviceTypeLabel).join(" "),
+      organizationScaleLabel(getOrganizationScale(company)),
+      readinessLabel(getReadiness(company)),
       company.hq.city,
       company.hq.country,
       categoryLabel(company.category),

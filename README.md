@@ -70,14 +70,15 @@ When adding or editing records:
 
 - `/` home dashboard with hero, live milestone feed, and map preview
 - `/neuralink` dedicated program spotlight (program tracks, the system, live countdown, trials, history)
-- `/map` full-screen interactive Leaflet world map of programs, colored by activity, with clustered pins that zoom, spiderfy, and separate at city scale
-- `/milestones` milestone archive (upcoming countdowns + confirmed log)
+- `/explore` unified discovery surface for companies and university research, filterable by organization type, invasiveness, region, device class, organization profile, and readiness
+- `/map` full-screen interactive Leaflet world map of organizations, colored by activity, with company/university filtering, clustered pins, zoom, and city-scale pin separation
+- `/milestones` activity archive (upcoming checkpoints + confirmed evidence)
 - `/milestones/[id]` milestone detail with sources and program link
-- `/companies` searchable program directory, filterable by approach and region
-- `/companies/[slug]` program detail: profile, project tracks, upcoming checkpoints, accomplishments, trials, demos, papers
+- `/companies` redirect to `/explore` for compatibility
+- `/companies/[slug]` organization detail: profile, device classes, readiness, project tracks, upcoming checkpoints, accomplishments, trials, demos, papers
 - `/trials` trial tracker
 - `/demos` demo library
-- `/search` global search across programs, project tracks, milestones, trials, demos, and papers
+- `/search` redirect to `/explore` for compatibility
 
 ## Deploy readiness
 
@@ -91,9 +92,11 @@ GitHub Actions runs `npm run ci` on pull requests, pushes to `main`, and manual 
 
 ## Data coverage
 
-The dataset covers 261 clinical, translational, and BCI-enabling programs across the US, Canada, Europe, China, Taiwan, India, Israel, South Korea, Singapore, Japan, Australia, Brazil, and other regions, plus conservative slices of non-invasive EEG, fMRI/fNIRS/hemodynamic, focused-ultrasound, neuroimaging, neuromodulation, assistive-control, and neural-interface infrastructure programs where consumer/wellness, research-platform, or adjacent neuromodulation claims are separated from medical evidence. The latest expansion adds 50 Europe-based and 50 elsewhere-based organizations, each with a direct official product, technology, or company reference. Company project tracks now split multi-line programs such as Neuralink Telepathy vs Blindsight, Blackrock NeuroPort/Utah Array vs MoveAgain, and brain-spine interface lines from ONWARD, NeuroRestore/EPFL-CHUV-UNIL, CEA/Clinatec, NeuCyber/CIBR, Fudan, Zhejiang University/Nanhu, and Hainan University. Each program carries an approach (invasive / minimally invasive / non-invasive), region, and, where sourced, founding year and funding. Every milestone, project track, trial, demo, paper, and company profile links to a primary or reputable source.
+The dataset covers 355 clinical, translational, and BCI-enabling organizations across the US, Canada, Europe, China, Taiwan, India, Israel, South Korea, Singapore, Japan, Australia, Brazil, and other regions. It now includes 50 additional companies plus 44 university research organizations and 50 university project tracks: 30 US projects, 10 Europe projects, and 10 Asia projects. The tracker classifies each organization by invasiveness, normalized device class, organization profile, and readiness; academic research is always separated from commercial product readiness. The dataset includes conservative slices of EEG, MEG, MEA, ECoG, intracortical, endovascular, fMRI/fNIRS/hemodynamic, focused-ultrasound, neuroimaging, neuromodulation, assistive-control, and neural-interface infrastructure programs. Company project tracks split multi-line programs such as Neuralink Telepathy vs Blindsight, Blackrock NeuroPort/Utah Array vs MoveAgain, university research tracks, and brain-spine interface lines from ONWARD, NeuroRestore/EPFL-CHUV-UNIL, CEA/Clinatec, NeuCyber/CIBR, Fudan, Zhejiang University/Nanhu, and Hainan University. Every milestone, project track, trial, demo, paper, and company or institution profile links to a primary or reputable source.
 
 The product requirements distilled from the Next Spaceflight launch-feed benchmark live in [`docs/nextspaceflight-launch-feed-requirements.md`](docs/nextspaceflight-launch-feed-requirements.md).
+
+The page-by-page simplification decisions live in [`docs/ux-simplification-audit.md`](docs/ux-simplification-audit.md).
 
 ## World map data
 

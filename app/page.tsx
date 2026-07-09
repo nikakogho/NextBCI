@@ -42,6 +42,7 @@ export default function HomePage() {
   const primary = activityItems.find((item) => item.status === "upcoming");
   const evidenceRecordCount = upcomingMilestones.length + confirmedMilestones.length + trials.length + demos.length + papers.length;
   const countryCount = new Set(companies.map((company) => company.hq.country)).size;
+  const universityCount = companies.filter((company) => company.kind === "academic").length;
 
   return (
     <div className="page-shell home-page-stack">
@@ -97,11 +98,11 @@ export default function HomePage() {
       <section className="home-stat-bar" aria-label="Tracker coverage">
         <div>
           <b>{companies.length}</b>
-          <span>programs tracked</span>
+          <span>organizations tracked</span>
         </div>
         <div>
-          <b>{upcomingMilestones.length}</b>
-          <span>upcoming checkpoints</span>
+          <b>{universityCount}</b>
+          <span>university research programs</span>
         </div>
         <div>
           <b>{evidenceRecordCount}</b>
@@ -127,8 +128,8 @@ export default function HomePage() {
         </div>
         <LeafletMap nodes={mapNodes} variant="compact" />
         <div className="home-map-footer">
-          <span>{companies.length} programs across {countryCount} countries</span>
-          <Link href="/companies">Browse program directory</Link>
+          <span>{companies.length} organizations across {countryCount} countries</span>
+          <Link href="/explore">Explore organizations</Link>
         </div>
       </section>
 

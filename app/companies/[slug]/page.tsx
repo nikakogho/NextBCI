@@ -8,6 +8,7 @@ import { VideoCard } from "@/components/VideoCard";
 import {
   categoryLabel,
   companies,
+  deviceTypeLabel,
   getCompany,
   getCompanyDemos,
   getCompanyMilestones,
@@ -15,8 +16,14 @@ import {
   getCompanyProjects,
   getCompanyStats,
   getCompanyTrials,
+  getDeviceTypes,
+  getOrganizationScale,
+  getReadiness,
   heatColor,
   heatLabel,
+  organizationKindLabel,
+  organizationScaleLabel,
+  readinessLabel,
   regionLabel
 } from "@/data/queries";
 import type { Milestone } from "@/data/schema";
@@ -65,10 +72,13 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
   const projects = getCompanyProjects(company.slug);
   const stats = getCompanyStats(company.slug);
   const color = heatColor(stats.heat);
+  const deviceTypes = getDeviceTypes(company);
+  const organizationScale = getOrganizationScale(company);
+  const readiness = getReadiness(company);
 
   return (
     <div className="page-shell page-stack">
-      <Link className="btn btn-ghost btn-sm" href="/companies" style={{ alignSelf: "flex-start" }}>
+      <Link className="btn btn-ghost btn-sm" href="/explore" style={{ alignSelf: "flex-start" }}>
         ← All programs
       </Link>
 
@@ -77,7 +87,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
           <Signal seed={company.slug} />
           <div className="z" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div className="meta-row">
-              <span className="badge type-badge">{company.kind === "academic" ? "Academic" : "Company"}</span>
+              <span className="badge type-badge">{organizationKindLabel(company.kind)}</span>
               <span className="badge type-badge">{categoryLabel(company.category)}</span>
               <EvidenceBadge level={company.evidenceLevel} />
               <span className="badge ev" style={{ color, borderColor: color }}>
@@ -124,6 +134,12 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
           <dl className="kv">
             <dt>Approach</dt>
             <dd>{categoryLabel(company.category)}</dd>
+            <dt>Organization</dt>
+            <dd>{organizationKindLabel(company.kind)} · {organizationScaleLabel(organizationScale)}</dd>
+            <dt>Readiness</dt>
+            <dd>{readinessLabel(readiness)}</dd>
+            <dt>Device classes</dt>
+            <dd>{deviceTypes.length ? deviceTypes.map(deviceTypeLabel).join(" · ") : "Not yet normalized"}</dd>
             <dt>Modality</dt>
             <dd>{company.modality}</dd>
             <dt>Target function</dt>
