@@ -121,7 +121,7 @@ p {
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 1100;
   backdrop-filter: blur(14px);
   background: color-mix(in srgb, var(--bg) 78%, transparent);
   border-bottom: 1px solid var(--border-soft);
