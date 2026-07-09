@@ -91,7 +91,7 @@ GitHub Actions runs `npm run ci` on pull requests, pushes to `main`, and manual 
 
 ## Data coverage
 
-The dataset covers clinical and translational BCI programs across the US, Europe (Netherlands, France, Switzerland, Spain), and China (Beijing, Shanghai). Each program carries an approach (invasive / minimally invasive / non-invasive), region, and, where sourced, founding year and funding. Every milestone, trial, demo, and paper links to a primary or reputable source.
+The dataset covers clinical and translational BCI programs across the US, Europe (Netherlands, France, Switzerland, Spain), and China (Beijing, Shanghai), plus a conservative slice of non-invasive EEG and focused-ultrasound programs where consumer/wellness claims are separated from medical evidence. Each program carries an approach (invasive / minimally invasive / non-invasive), region, and, where sourced, founding year and funding. Every milestone, trial, demo, and paper links to a primary or reputable source.
 
 ## World map data
 

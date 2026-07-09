@@ -426,6 +426,110 @@ export const companies: Company[] = [
     isSample: false
   },
   {
+    slug: "nudge",
+    name: "Nudge",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Non-invasive focused-ultrasound brain interface with MRI-guided phased-array stimulation and imaging",
+    targetFunction: "Deep-brain neuromodulation research for chronic pain, substance use disorder, anxiety, and future generalized brain-interface applications",
+    stage: "Company-run human feasibility studies with Nudge Zero; no published Nudge human efficacy readout yet",
+    evidenceLevel: "E1",
+    hq: { city: "San Francisco, CA", country: "United States", lat: 37.7749, lng: -122.4194 },
+    founded: 2024,
+    website: "https://nudge.com",
+    funding: "$100M Series A (2025)",
+    summary:
+      "Nudge is building a non-invasive focused-ultrasound brain-interface platform. Its first architecture, Nudge Zero, is a high-channel-count ultrasound phased array used in an MRI setting for feasibility research on deep-brain stimulation and imaging.",
+    hypeCheck:
+      "Nudge's own study page says current studies are initial device feasibility studies, not treatment studies. Treat therapeutic and consumer augmentation claims as roadmap until controlled human outcomes are published.",
+    sourceLinks: [
+      source("Nudge mission and technology", "company-update", "https://nudge.com/blog/about/", "Nudge"),
+      source("Nudge study overview", "company-update", "https://nudge.com/blog/about-studies/", "Nudge"),
+      source("Nudge Series A announcement", "company-update", "https://nudge.com/blog/series-a/", "Nudge"),
+      source("Nudge company profile", "company-update", "https://www.linkedin.com/company/nudge-corp", "LinkedIn", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "neurosity-crown",
+    name: "Neurosity Crown",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "8-channel dry-contact EEG headset with onboard processing, app dashboards, and developer SDK access",
+    targetFunction: "Focus and meditation neurofeedback, raw EEG data streaming, and developer BCI app prototyping",
+    stage: "Commercial consumer and developer EEG platform",
+    evidenceLevel: "E2",
+    hq: { city: "Brooklyn, NY", country: "United States", lat: 40.7209, lng: -73.9612 },
+    founded: 2018,
+    website: "https://neurosity.co",
+    summary:
+      "Neurosity sells Crown, a non-invasive EEG headset positioned around focus, meditation, dashboards, and developer access to real-time brain data through JavaScript and Python workflows.",
+    hypeCheck:
+      "Crown is useful to track as a consumer/developer EEG platform, but it is not demonstrated evidence of a clinical restoration BCI or reliable medical assistive control.",
+    sourceLinks: [
+      source("Crown product page", "company-update", "https://neurosity.co/", "Neurosity"),
+      source("Crown technical specifications", "company-update", "https://neurosity.co/tech-specs", "Neurosity"),
+      source("Neurosity developer page", "company-update", "https://neurosity.co/developers", "Neurosity"),
+      source("Neurosity privacy policy contact address", "company-update", "https://neurosity.co/privacy-policy", "Neurosity"),
+      source("Neurosity company profile", "company-update", "https://www.linkedin.com/company/neurosity", "LinkedIn", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "muse-interaxon",
+    name: "Muse / InteraXon",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Consumer EEG brain-sensing headbands with meditation, sleep, neurofeedback, and research workflows",
+    targetFunction: "Meditation, sleep and mental-fitness neurofeedback; low-cost EEG research and BCI prototyping",
+    stage: "Commercial wellness EEG platform with peer-reviewed validation for ERP research",
+    evidenceLevel: "E4",
+    hq: { city: "Toronto", country: "Canada", lat: 43.6532, lng: -79.3832 },
+    founded: 2007,
+    website: "https://choosemuse.com",
+    summary:
+      "InteraXon founded Muse to bring EEG out of the lab and into consumer use. Muse headbands are sold for meditation, sleep, and mental fitness, and the original Muse system has peer-reviewed validation for portable ERP research.",
+    hypeCheck:
+      "Peer-reviewed EEG validation and wellness neurofeedback do not establish treatment efficacy or assistive medical BCI performance. Keep Muse in the non-invasive EEG bucket, not the implanted-restoration bucket.",
+    sourceLinks: [
+      source("Muse team and timeline", "company-update", "https://choosemuse.com/pages/team", "Muse / InteraXon"),
+      source("Muse science page", "company-update", "https://choosemuse.com/pages/science", "Muse / InteraXon"),
+      source("Muse contact address", "company-update", "https://choosemuse.com/pages/contact", "Muse / InteraXon"),
+      source("Choosing MUSE validation paper", "paper", "https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2017.00109/full", "Frontiers in Neuroscience"),
+      source("InteraXon and Muse journey", "news-report", "https://ised-isde.canada.ca/site/canadian-intellectual-property-office/en/corporate-information/intellectual-property-blog/unlocking-success-intellectual-property-interaxon-and-muse-journey", "Canadian Intellectual Property Office", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "emotiv",
+    name: "Emotiv",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Wireless EEG headsets, including 14-channel Epoc X, plus software, APIs, and brain-data platforms",
+    targetFunction: "Research EEG, product/user research, cognitive metrics, developer BCI apps, and non-invasive human-computer interaction",
+    stage: "Commercial mobile EEG platform with peer-reviewed validation literature; not marketed as a medical device",
+    evidenceLevel: "E4",
+    hq: { city: "San Francisco, CA", country: "United States", lat: 37.7749, lng: -122.4194 },
+    founded: 2011,
+    website: "https://www.emotiv.com",
+    summary:
+      "Emotiv builds wireless EEG hardware and software for research, enterprise, personal neuroscience, and BCI development. Its Epoc line has independent peer-reviewed validation for research-quality ERP measurements.",
+    hypeCheck:
+      "Emotiv supports research and developer BCI work, but consumer EEG features and mental-command demos should not be treated as reliable clinical assistive control or disease treatment.",
+    sourceLinks: [
+      source("Emotiv home page", "company-update", "https://www.emotiv.com/", "Emotiv"),
+      source("Emotiv about page", "company-update", "https://www.emotiv.com/about", "Emotiv"),
+      source("Epoc X specifications", "company-update", "https://www.emotiv.com/epoc-x", "Emotiv"),
+      source("Emotiv contact address", "company-update", "https://www.emotiv.com/contact", "Emotiv"),
+      source("Emotiv EPOC validation paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/23638374/", "PubMed / PeerJ")
+    ],
+    isSample: false
+  },
+  {
     slug: "science-corp",
     name: "Science Corporation",
     kind: "company",
@@ -497,6 +601,98 @@ export const programProjects: ProgramProject[] = [
       source("Visual Prosthesis trial interest page", "company-update", "https://neuralink.com/trials/visual-prosthesis/", "Neuralink"),
       source("FDA Breakthrough Devices Program overview", "regulatory-page", "https://www.fda.gov/medical-devices/how-study-and-market-your-device/breakthrough-devices-program", "U.S. FDA", false),
       source("IEEE Spectrum analysis of Blindsight claims", "news-report", "https://spectrum.ieee.org/neuralink-blindsight", "IEEE Spectrum", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "nudge-zero-focused-ultrasound",
+    companySlug: "nudge",
+    name: "Nudge Zero",
+    focus: "MRI-guided focused-ultrasound stimulation and imaging for deep-brain feasibility studies",
+    modality: "High-channel-count ultrasound phased array in a helmet form factor",
+    statusLabel: "Human-ready research system used in initial feasibility studies",
+    evidenceLevel: "E1",
+    latestUpdateLabel: "Jul 2025 Series A update",
+    sortDate: "2025-07-22",
+    summary:
+      "Nudge Zero is the company's first focused-ultrasound brain-interface architecture, intended to stimulate and image deep brain targets while used in an MRI setting.",
+    demonstrated:
+      "Company-published device photos/renderings, active feasibility-study pages, and a statement that the device is being used with people in research sessions.",
+    notYetShown:
+      "Peer-reviewed Nudge human outcomes, registered pivotal trials, approved treatments, or portable home use.",
+    sourceLinks: [
+      source("Nudge mission and technology", "company-update", "https://nudge.com/blog/about/", "Nudge"),
+      source("Nudge study overview", "company-update", "https://nudge.com/blog/about-studies/", "Nudge"),
+      source("Nudge Series A announcement", "company-update", "https://nudge.com/blog/series-a/", "Nudge")
+    ],
+    isSample: false
+  },
+  {
+    id: "neurosity-crown-eeg",
+    companySlug: "neurosity-crown",
+    name: "Crown",
+    focus: "Consumer/developer EEG for focus tracking, meditation, and neuro app prototyping",
+    modality: "8-channel dry EEG headset with N3 onboard processing, Wi-Fi/Bluetooth, and SDK access",
+    statusLabel: "Commercial EEG headset with public technical specifications and developer tooling",
+    evidenceLevel: "E2",
+    latestUpdateLabel: "2026 product/spec pages",
+    sortDate: "2026-07-09",
+    summary:
+      "Crown is Neurosity's current non-invasive EEG headset, marketed around focus and meditation while also exposing data and SDK tooling for developers.",
+    demonstrated:
+      "Public product pages listing eight EEG sensors, a 256 Hz sample rate, app dashboards, and developer SDK workflows.",
+    notYetShown:
+      "Clinical assistive-control endpoints, FDA-cleared medical use, or peer-reviewed evidence that Crown restores function.",
+    sourceLinks: [
+      source("Crown product page", "company-update", "https://neurosity.co/", "Neurosity"),
+      source("Crown technical specifications", "company-update", "https://neurosity.co/tech-specs", "Neurosity"),
+      source("Neurosity developer page", "company-update", "https://neurosity.co/developers", "Neurosity")
+    ],
+    isSample: false
+  },
+  {
+    id: "muse-eeg-headbands",
+    companySlug: "muse-interaxon",
+    name: "Muse EEG Headbands",
+    focus: "Meditation, sleep, wellness neurofeedback, and low-cost EEG research",
+    modality: "Consumer EEG headband family with brain-sensing software and research tools",
+    statusLabel: "Commercial wellness platform with peer-reviewed ERP validation for the original Muse system",
+    evidenceLevel: "E4",
+    latestUpdateLabel: "2017 validation paper plus current Muse science pages",
+    sortDate: "2017-03-10",
+    summary:
+      "Muse headbands bring EEG into consumer meditation and sleep workflows, while research pages and validation literature document use in portable EEG studies.",
+    demonstrated:
+      "Commercial EEG products and a Frontiers validation paper showing that a portable MUSE system can support ERP research tasks.",
+    notYetShown:
+      "Medical treatment efficacy, approved therapeutic claims, or implanted-style assistive BCI performance.",
+    sourceLinks: [
+      source("Muse team and timeline", "company-update", "https://choosemuse.com/pages/team", "Muse / InteraXon"),
+      source("Muse science page", "company-update", "https://choosemuse.com/pages/science", "Muse / InteraXon"),
+      source("Choosing MUSE validation paper", "paper", "https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2017.00109/full", "Frontiers in Neuroscience")
+    ],
+    isSample: false
+  },
+  {
+    id: "emotiv-epoc-x-platform",
+    companySlug: "emotiv",
+    name: "Epoc X / Emotiv Platform",
+    focus: "Mobile EEG hardware and software for research, BCI development, and cognitive-state applications",
+    modality: "14-channel wireless EEG headset plus Cortex APIs, SDKs, and software tools",
+    statusLabel: "Commercial EEG platform with validation literature and an explicit non-medical-device disclaimer",
+    evidenceLevel: "E4",
+    latestUpdateLabel: "2026 product/about pages; 2013 EPOC validation",
+    sortDate: "2026-07-09",
+    summary:
+      "Emotiv's Epoc X and related software stack support mobile EEG research and developer BCI workflows while the broader Epoc line has peer-reviewed ERP validation.",
+    demonstrated:
+      "Public specifications for 14 EEG channels, wireless operation, cognitive metrics, API/SDK links, and peer-reviewed EPOC ERP validation.",
+    notYetShown:
+      "Approved medical diagnosis/treatment use or dependable clinical assistive control from consumer EEG alone.",
+    sourceLinks: [
+      source("Epoc X specifications", "company-update", "https://www.emotiv.com/epoc-x", "Emotiv"),
+      source("Emotiv about page", "company-update", "https://www.emotiv.com/about", "Emotiv"),
+      source("Emotiv EPOC validation paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/23638374/", "PubMed / PeerJ")
     ],
     isSample: false
   }
@@ -658,6 +854,130 @@ export const milestones: Milestone[] = [
     sourceLinks: [
       source("Blindsight breakthrough designation update", "company-update", "https://neuralink.com/updates/neuralink-receives-breakthrough-device-designation-for-blindsight/", "Neuralink"),
       source("FDA Breakthrough Devices Program overview", "regulatory-page", "https://www.fda.gov/medical-devices/how-study-and-market-your-device/breakthrough-devices-program", "U.S. FDA", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "nudge-series-a-2025",
+    title: "Nudge announces $100M Series A for focused-ultrasound brain interface",
+    companySlug: "nudge",
+    dateLabel: "Jul 22, 2025",
+    sortDate: "2025-07-22",
+    status: "confirmed",
+    type: "funding-round",
+    evidenceLevel: "E1",
+    confidence: "high",
+    summary:
+      "Nudge announced a $100M Series A led by Thrive Capital and Greenoaks to advance its non-invasive focused-ultrasound brain-interface platform.",
+    whyItMatters:
+      "The financing gives Nudge enough runway to build hardware, imaging, and human feasibility infrastructure around focused-ultrasound neuromodulation.",
+    hypeCheck:
+      "Funding is not clinical evidence; the same update frames the device as a platform still being developed through research studies.",
+    sourceLinks: [source("Nudge Series A announcement", "company-update", "https://nudge.com/blog/series-a/", "Nudge")],
+    isSample: false
+  },
+  {
+    id: "nudge-zero-feasibility-studies-2025",
+    title: "Nudge opens focused-ultrasound feasibility studies",
+    companySlug: "nudge",
+    dateLabel: "Apr 7, 2025",
+    sortDate: "2025-04-07",
+    status: "confirmed",
+    type: "product-update",
+    evidenceLevel: "E1",
+    confidence: "medium",
+    summary:
+      "Nudge said it was conducting feasibility studies to evaluate focused ultrasound delivered to deep brain targets for chronic pain and substance use disorder research.",
+    whyItMatters:
+      "Human feasibility work is the first public evidence checkpoint for Nudge's deep-brain, non-invasive ultrasound approach.",
+    hypeCheck:
+      "Nudge's study page explicitly says the current studies are initial device feasibility studies and are not treatment studies.",
+    sourceLinks: [
+      source("Nudge study overview", "company-update", "https://nudge.com/blog/about-studies/", "Nudge"),
+      source("Nudge mission and technology", "company-update", "https://nudge.com/blog/about/", "Nudge")
+    ],
+    isSample: false
+  },
+  {
+    id: "neurosity-crown-tech-specs-2026",
+    title: "Crown specs list 8-channel consumer/developer EEG platform",
+    companySlug: "neurosity-crown",
+    dateLabel: "Current product page",
+    sortDate: "2026-07-09",
+    status: "confirmed",
+    type: "product-update",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "Neurosity's current Crown specs list eight EEG sensors, 256 Hz sampling, dry sensors, onboard computing, app dashboards, and developer tooling.",
+    whyItMatters:
+      "It places Crown in the non-invasive EEG/developer-platform tier that can support prototyping and research workflows.",
+    hypeCheck:
+      "A commercial EEG product page is not clinical evidence for medical restoration or assistive-device control.",
+    sourceLinks: [
+      source("Crown technical specifications", "company-update", "https://neurosity.co/tech-specs", "Neurosity"),
+      source("Neurosity developer page", "company-update", "https://neurosity.co/developers", "Neurosity")
+    ],
+    isSample: false
+  },
+  {
+    id: "muse-first-headband-2014",
+    title: "Muse launches first brain-sensing headband",
+    companySlug: "muse-interaxon",
+    dateLabel: "2014",
+    sortDate: "2014-05-01",
+    status: "confirmed",
+    type: "product-update",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "InteraXon's Muse timeline says Muse launched its first brain-sensing headband in 2014, making meditation measurable and accessible.",
+    whyItMatters:
+      "Muse is one of the better-known consumer EEG platforms and a useful reference point for the non-invasive/wellness side of BCI-adjacent products.",
+    hypeCheck:
+      "A consumer product launch is not evidence of medical benefit or reliable assistive BCI performance.",
+    sourceLinks: [source("Muse team and timeline", "company-update", "https://choosemuse.com/pages/team", "Muse / InteraXon")],
+    isSample: false
+  },
+  {
+    id: "muse-erp-validation-2017",
+    title: "Muse validated for portable ERP research",
+    companySlug: "muse-interaxon",
+    dateLabel: "Mar 10, 2017",
+    sortDate: "2017-03-10",
+    status: "confirmed",
+    type: "paper-published",
+    evidenceLevel: "E4",
+    confidence: "high",
+    summary:
+      "A Frontiers in Neuroscience methods paper reported that a portable MUSE EEG system could support ERP research in visual oddball and reward-learning tasks.",
+    whyItMatters:
+      "Peer-reviewed validation helps distinguish low-cost EEG research utility from broad consumer wellness claims.",
+    hypeCheck:
+      "ERP validation does not prove that Muse treats disease or provides clinical assistive BCI control.",
+    sourceLinks: [
+      source("Choosing MUSE validation paper", "paper", "https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2017.00109/full", "Frontiers in Neuroscience")
+    ],
+    isSample: false
+  },
+  {
+    id: "emotiv-epoc-validation-2013",
+    title: "Emotiv EPOC validated for research-quality auditory ERPs",
+    companySlug: "emotiv",
+    dateLabel: "Feb 19, 2013",
+    sortDate: "2013-02-19",
+    status: "confirmed",
+    type: "paper-published",
+    evidenceLevel: "E4",
+    confidence: "high",
+    summary:
+      "A PeerJ validation study reported that the Emotiv EPOC gaming EEG system could record reliable late auditory ERP measurements compared with lab systems.",
+    whyItMatters:
+      "It gives Emotiv a peer-reviewed evidence anchor for research EEG use rather than relying only on product claims.",
+    hypeCheck:
+      "ERP signal validation does not establish medical diagnosis, treatment, or robust clinical BCI control.",
+    sourceLinks: [
+      source("Emotiv EPOC validation paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/23638374/", "PubMed / PeerJ")
     ],
     isSample: false
   },
@@ -1540,6 +1860,34 @@ export const papers: Paper[] = [
     sourceLinks: [
       source("Handwriting brain-to-text paper", "paper", "https://www.nature.com/articles/s41586-021-03506-2", "Nature"),
       source("Open-access full text", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8163299/", "PubMed Central")
+    ],
+    isSample: false
+  },
+  {
+    id: "muse-erp-validation-paper",
+    title: "Choosing MUSE: Validation of a Low-Cost, Portable EEG System for ERP Research",
+    companySlug: "muse-interaxon",
+    dateLabel: "Mar 10, 2017",
+    sortDate: "2017-03-10",
+    evidenceLevel: "E4",
+    summary:
+      "Frontiers in Neuroscience methods paper showing that a portable MUSE EEG system could record quantifiable ERP components in visual oddball and reward-learning tasks.",
+    sourceLinks: [
+      source("Choosing MUSE validation paper", "paper", "https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2017.00109/full", "Frontiers in Neuroscience")
+    ],
+    isSample: false
+  },
+  {
+    id: "emotiv-epoc-erp-validation-paper",
+    title: "Validation of the Emotiv EPOC EEG gaming system for measuring research quality auditory ERPs",
+    companySlug: "emotiv",
+    dateLabel: "Feb 19, 2013",
+    sortDate: "2013-02-19",
+    evidenceLevel: "E4",
+    summary:
+      "PeerJ validation study reporting that the Emotiv EPOC could capture reliable late auditory ERP peaks suitable for research use.",
+    sourceLinks: [
+      source("Emotiv EPOC validation paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/23638374/", "PubMed / PeerJ")
     ],
     isSample: false
   },

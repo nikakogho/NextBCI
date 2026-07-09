@@ -107,8 +107,18 @@
 
 ## Next Data Expansion Loop
 
-- [ ] Add Nudge with sourced company profile, milestones, and evidence notes.
-- [ ] Add Neurosity with sourced company profile, milestones, and evidence notes.
-- [ ] Add Muse and Emotiv as non-invasive EEG companies with clear consumer/wellness vs medical-evidence boundaries.
+- [x] Add Nudge with sourced company profile, milestones, and evidence notes.
+- [x] Add Neurosity with sourced company profile, milestones, and evidence notes.
+- [x] Add Muse and Emotiv as non-invasive EEG companies with clear consumer/wellness vs medical-evidence boundaries.
 - [ ] Expand Blackrock Neurotech with additional papers/trials where useful.
 - [ ] Add a ranked, sourced watchlist for top EEG, fMRI, focused-ultrasound, and Chinese BCI programs before promoting entries into the main dataset.
+
+## Candidate Sourcing Queue
+
+These are not dataset records yet. Promote only after a source pass with primary links, a conservative evidence level, and a hype-check note.
+
+- EEG batch: collect and rank 10 non-invasive EEG/developer/clinical-BCI candidates, including consumer EEG, clinical access, and research hardware categories.
+- fMRI / hemodynamic batch: collect and rank active fMRI, fNIRS, and other hemodynamic interface programs only if the BCI relevance is explicit and sourced.
+- Focused-ultrasound batch: collect and rank focused-ultrasound neuromodulation/interface programs separately from lesioning or imaging-only programs.
+- China batch: collect at least 10 more China-based BCI programs or hospital/lab/company collaborations, with Chinese and English primary sources where possible.
+- For every candidate, capture: slug, likely category, modality, target function, evidence level, primary source URLs, what has been demonstrated, and what has not.
