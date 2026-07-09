@@ -66,13 +66,19 @@ When adding or editing records:
 ## Pages
 
 - `/` home dashboard with hero, live milestone feed, and map preview
+- `/neuralink` dedicated program spotlight (the system, live countdown, trials, history)
 - `/map` interactive world map of programs, colored by activity
 - `/milestones` milestone archive (upcoming countdowns + confirmed log)
 - `/milestones/[id]` milestone detail with sources and program link
-- `/companies` tracked companies and labs, ranked by activity
-- `/companies/[slug]` program detail, timeline, trials, demos, and papers
+- `/companies` searchable program directory, filterable by approach and region
+- `/companies/[slug]` program detail: profile, upcoming checkpoints, accomplishments, trials, demos, papers
 - `/trials` trial tracker
 - `/demos` demo library
+- `/search` global search across programs, milestones, trials, demos, and papers
+
+## Data coverage
+
+The dataset covers clinical and translational BCI programs across the US, Europe (Netherlands, France, Switzerland, Spain), and China (Beijing, Shanghai). Each program carries an approach (invasive / minimally invasive / non-invasive), region, and — where sourced — founding year and funding. Every milestone, trial, demo, and paper links to a primary or reputable source.
 
 ## World map data
 

@@ -4,6 +4,7 @@ import { DemoClassificationBadge, EvidenceBadge, SampleBadge, StatusChip } from 
 import { Signal } from "@/components/Signal";
 import { SourceList } from "@/components/SourceList";
 import {
+  categoryLabel,
   companies,
   getCompany,
   getCompanyDemos,
@@ -12,11 +13,39 @@ import {
   getCompanyStats,
   getCompanyTrials,
   heatColor,
-  heatLabel
+  heatLabel,
+  regionLabel
 } from "@/data/queries";
+import type { Milestone } from "@/data/schema";
 
 export function generateStaticParams() {
   return companies.map((company) => ({ slug: company.slug }));
+}
+
+function Timeline({ items, color }: { items: Milestone[]; color: string }) {
+  return (
+    <div className="timeline">
+      {items.map((milestone, i) => (
+        <div className="tl-item" key={milestone.id}>
+          <div className="tl-rail">
+            <span className="tl-node" style={{ background: color, boxShadow: `0 0 10px ${color}` }} />
+            {i < items.length - 1 ? <span className="tl-line" /> : null}
+          </div>
+          <div className="tl-body">
+            <span className="tl-date">{milestone.dateLabel}</span>
+            <div className="meta-row">
+              <StatusChip status={milestone.status} />
+              <EvidenceBadge level={milestone.evidenceLevel} />
+            </div>
+            <Link className="launch-title" style={{ fontSize: "1.05rem" }} href={`/milestones/${milestone.id}`}>
+              {milestone.title}
+            </Link>
+            <p className="muted-copy" style={{ fontSize: 13 }}>{milestone.summary}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default async function CompanyDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -25,6 +54,8 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
   if (!company) notFound();
 
   const milestones = getCompanyMilestones(company.slug);
+  const upcoming = milestones.filter((m) => m.status === "upcoming");
+  const history = milestones.filter((m) => m.status === "confirmed");
   const trials = getCompanyTrials(company.slug);
   const demos = getCompanyDemos(company.slug);
   const papers = getCompanyPapers(company.slug);
@@ -43,6 +74,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
           <div className="z" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div className="meta-row">
               <span className="badge type-badge">{company.kind === "academic" ? "Academic" : "Company"}</span>
+              <span className="badge type-badge">{categoryLabel(company.category)}</span>
               <EvidenceBadge level={company.evidenceLevel} />
               <span className="badge ev" style={{ color, borderColor: color }}>
                 {heatLabel(stats.heat)}
@@ -82,6 +114,8 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         <div className="panel panel-pad">
           <p className="eyebrow" style={{ marginBottom: 12 }}>Program profile</p>
           <dl className="kv">
+            <dt>Approach</dt>
+            <dd>{categoryLabel(company.category)}</dd>
             <dt>Modality</dt>
             <dd>{company.modality}</dd>
             <dt>Target function</dt>
@@ -90,8 +124,30 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
             <dd>{company.stage}</dd>
             <dt>Home base</dt>
             <dd>
-              {company.hq.city}, {company.hq.country}
+              {company.hq.city}, {company.hq.country} ({regionLabel(company.region)})
             </dd>
+            {company.founded ? (
+              <>
+                <dt>Founded</dt>
+                <dd>{company.founded}</dd>
+              </>
+            ) : null}
+            {company.funding ? (
+              <>
+                <dt>Funding</dt>
+                <dd>{company.funding}</dd>
+              </>
+            ) : null}
+            {company.website ? (
+              <>
+                <dt>Website</dt>
+                <dd>
+                  <a href={company.website} target="_blank" rel="noreferrer" style={{ color: "var(--accent)" }}>
+                    {company.website.replace(/^https?:\/\//, "")}
+                  </a>
+                </dd>
+              </>
+            ) : null}
           </dl>
           <p className="hype" style={{ marginTop: 16 }}>{company.hypeCheck}</p>
         </div>
@@ -101,35 +157,29 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      {milestones.length > 0 ? (
+      {upcoming.length > 0 ? (
         <section className="section">
           <div className="section-head">
             <div>
-              <p className="eyebrow">Timeline</p>
+              <p className="eyebrow">Upcoming</p>
+              <h2>What&apos;s next for this program</h2>
+            </div>
+            <span className="badge type-badge">{upcoming.length} scheduled</span>
+          </div>
+          <Timeline items={upcoming} color={color} />
+        </section>
+      ) : null}
+
+      {history.length > 0 ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Accomplishments</p>
               <h2>Milestone history</h2>
             </div>
+            <span className="badge type-badge">{history.length} logged</span>
           </div>
-          <div className="timeline">
-            {milestones.map((milestone, i) => (
-              <div className="tl-item" key={milestone.id}>
-                <div className="tl-rail">
-                  <span className="tl-node" style={{ background: color, boxShadow: `0 0 10px ${color}` }} />
-                  {i < milestones.length - 1 ? <span className="tl-line" /> : null}
-                </div>
-                <div className="tl-body">
-                  <span className="tl-date">{milestone.dateLabel}</span>
-                  <div className="meta-row">
-                    <StatusChip status={milestone.status} />
-                    <EvidenceBadge level={milestone.evidenceLevel} />
-                  </div>
-                  <Link className="launch-title" style={{ fontSize: "1.05rem" }} href={`/milestones/${milestone.id}`}>
-                    {milestone.title}
-                  </Link>
-                  <p className="muted-copy" style={{ fontSize: 13 }}>{milestone.summary}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <Timeline items={history} color={color} />
         </section>
       ) : null}
 
@@ -164,7 +214,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
           <div className="section-head">
             <div>
               <p className="eyebrow">Demos</p>
-              <h2>Capability clips & talks</h2>
+              <h2>Capability clips &amp; talks</h2>
             </div>
           </div>
           <div className="card-grid">

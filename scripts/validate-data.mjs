@@ -45,6 +45,8 @@ const allowedSourceTypes = new Set([
 ]);
 const allowedConfidence = new Set(["low", "medium", "high"]);
 const allowedCompanyKinds = new Set(["company", "academic"]);
+const allowedCompanyCategories = new Set(["invasive", "minimally-invasive", "non-invasive"]);
+const allowedRegions = new Set(["north-america", "europe", "asia", "rest-of-world"]);
 const allowedMilestoneStatuses = new Set(["confirmed", "upcoming"]);
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const sortDatePattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -243,6 +245,20 @@ const validateCompany = (company, index) => {
   );
   requireMember(company, "evidenceLevel", allowedEvidenceLevels, path);
   requireMember(company, "kind", allowedCompanyKinds, path);
+  requireMember(company, "category", allowedCompanyCategories, path);
+  requireMember(company, "region", allowedRegions, path);
+
+  if (company.founded !== undefined) {
+    if (typeof company.founded !== "number" || company.founded < 1950 || company.founded > 2100) {
+      addError(`${path}.founded`, "must be a plausible year");
+    }
+  }
+  if (company.website !== undefined && !isNonEmptyString(company.website)) {
+    addError(`${path}.website`, "must be a non-empty string when present");
+  }
+  if (company.funding !== undefined && !isNonEmptyString(company.funding)) {
+    addError(`${path}.funding`, "must be a non-empty string when present");
+  }
 
   const hq = company.hq;
   if (!hq || typeof hq !== "object") {

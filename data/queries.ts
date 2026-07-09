@@ -1,7 +1,21 @@
 import { companies, demos, milestones, papers, trials } from "./seed-data";
-import type { Company, Demo, Milestone, Paper, SourceLink, Trial } from "./schema";
+import {
+  companyCategories,
+  regions,
+  type Company,
+  type CompanyCategory,
+  type Demo,
+  type Milestone,
+  type Paper,
+  type Region,
+  type SourceLink,
+  type Trial
+} from "./schema";
 
 export { companies, demos, milestones, papers, trials };
+
+export const regionLabel = (region: Region): string => regions[region];
+export const categoryLabel = (category: CompanyCategory): string => companyCategories[category];
 
 export const companyBySlug = new Map(companies.map((company) => [company.slug, company]));
 
@@ -146,6 +160,120 @@ export interface MapNodeData {
   evidenceLevel: string;
   stats: { milestones: number; upcoming: number; trials: number; demos: number; papers: number };
 }
+
+export interface ProgramRow {
+  slug: string;
+  name: string;
+  kind: Company["kind"];
+  category: CompanyCategory;
+  categoryLabel: string;
+  region: Region;
+  regionLabel: string;
+  city: string;
+  country: string;
+  stage: string;
+  evidenceLevel: string;
+  founded?: number;
+  funding?: string;
+  website?: string;
+  heat: number;
+  heatColor: string;
+  heatLabel: string;
+  stats: { milestones: number; upcoming: number; trials: number; demos: number; papers: number };
+}
+
+export const programRows: ProgramRow[] = companiesByActivity.map((company) => {
+  const stats = getCompanyStats(company.slug);
+  return {
+    slug: company.slug,
+    name: company.name,
+    kind: company.kind,
+    category: company.category,
+    categoryLabel: categoryLabel(company.category),
+    region: company.region,
+    regionLabel: regionLabel(company.region),
+    city: company.hq.city,
+    country: company.hq.country,
+    stage: company.stage,
+    evidenceLevel: company.evidenceLevel,
+    founded: company.founded,
+    funding: company.funding,
+    website: company.website,
+    heat: stats.heat,
+    heatColor: heatColor(stats.heat),
+    heatLabel: heatLabel(stats.heat),
+    stats: {
+      milestones: stats.milestones,
+      upcoming: stats.upcoming,
+      trials: stats.trials,
+      demos: stats.demos,
+      papers: stats.papers
+    }
+  };
+});
+
+export type SearchKind = "program" | "milestone" | "trial" | "demo" | "paper";
+
+export interface SearchItem {
+  kind: SearchKind;
+  title: string;
+  subtitle: string;
+  href: string;
+  /** Lowercased searchable blob. */
+  text: string;
+}
+
+const blob = (...parts: Array<string | undefined>): string =>
+  parts.filter(Boolean).join(" ").toLowerCase();
+
+export const searchIndex: SearchItem[] = [
+  ...companies.map((company): SearchItem => ({
+    kind: "program",
+    title: company.name,
+    subtitle: `${categoryLabel(company.category)} · ${company.hq.city}, ${company.hq.country}`,
+    href: `/companies/${company.slug}`,
+    text: blob(
+      company.name,
+      company.slug,
+      company.modality,
+      company.targetFunction,
+      company.stage,
+      company.summary,
+      company.hq.city,
+      company.hq.country,
+      categoryLabel(company.category),
+      regionLabel(company.region)
+    )
+  })),
+  ...milestones.map((milestone): SearchItem => ({
+    kind: "milestone",
+    title: milestone.title,
+    subtitle: `${milestone.dateLabel} · ${getCompanyName(milestone.companySlug)}`,
+    href: `/milestones/${milestone.id}`,
+    text: blob(milestone.title, milestone.summary, getCompanyName(milestone.companySlug), milestone.dateLabel)
+  })),
+  ...trials.map((trial): SearchItem => ({
+    kind: "trial",
+    title: trial.title,
+    subtitle: `${getCompanyName(trial.companySlug)} · ${trial.condition}`,
+    href: `/companies/${trial.companySlug}`,
+    text: blob(trial.title, trial.condition, trial.targetFunction, trial.deviceProduct, getCompanyName(trial.companySlug))
+  })),
+  ...demos.map((demo): SearchItem => ({
+    kind: "demo",
+    title: demo.title,
+    subtitle: `${demo.dateLabel} · ${getCompanyName(demo.companySlug)}`,
+    href: `/companies/${demo.companySlug}`,
+    text: blob(demo.title, demo.summary, getCompanyName(demo.companySlug))
+  })),
+  ...papers.map((paper): SearchItem => ({
+    kind: "paper",
+    title: paper.title,
+    subtitle: `${paper.dateLabel} · ${getCompanyName(paper.companySlug)}`,
+    href: `/companies/${paper.companySlug}`,
+    text: blob(paper.title, paper.summary, getCompanyName(paper.companySlug))
+  }))
+];
 
 export const mapNodes: MapNodeData[] = companies.map((company) => {
   const stats = getCompanyStats(company.slug);

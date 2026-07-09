@@ -26,6 +26,10 @@ export const companies: Company[] = [
     stage: "Recruiting early feasibility studies",
     evidenceLevel: "E3",
     hq: { city: "Fremont, CA", country: "United States", lat: 37.5485, lng: -121.9886 },
+    category: "invasive",
+    region: "north-america",
+    founded: 2016,
+    website: "https://neuralink.com",
     summary:
       "Neuralink's PRIME program is a registered early feasibility study of the N1 Implant and R1 Robot for people with severe motor impairment.",
     hypeCheck:
@@ -47,6 +51,10 @@ export const companies: Company[] = [
     stage: "Peer-reviewed multi-patient evidence plus U.S. early feasibility follow-up",
     evidenceLevel: "E5",
     hq: { city: "Brooklyn, NY", country: "United States", lat: 40.6782, lng: -73.9442 },
+    category: "minimally-invasive",
+    region: "north-america",
+    founded: 2012,
+    website: "https://synchron.com",
     summary:
       "Synchron has published human safety and feasibility evidence for a fully implanted endovascular BCI and has a U.S. COMMAND early feasibility study listed in ClinicalTrials.gov.",
     hypeCheck:
@@ -68,6 +76,10 @@ export const companies: Company[] = [
     stage: "Recruiting Connect-One early feasibility study",
     evidenceLevel: "E3",
     hq: { city: "Austin, TX", country: "United States", lat: 30.2672, lng: -97.7431 },
+    category: "invasive",
+    region: "north-america",
+    founded: 2015,
+    website: "https://paradromics.com",
     summary:
       "Paradromics moved from acute human recording into the FDA-approved Connect-One early feasibility study, with the first long-term Connexus implant reported in June 2026.",
     hypeCheck:
@@ -89,6 +101,10 @@ export const companies: Company[] = [
     stage: "FDA-cleared temporary cortical interface with human intraoperative research",
     evidenceLevel: "E4",
     hq: { city: "New York, NY", country: "United States", lat: 40.7128, lng: -74.006 },
+    category: "minimally-invasive",
+    region: "north-america",
+    founded: 2021,
+    website: "https://precisionneuro.io",
     summary:
       "Precision's Layer 7-T has FDA 510(k) clearance for temporary cortical recording, monitoring, and stimulation, while the company's assistive BCI goals remain investigational.",
     hypeCheck:
@@ -110,6 +126,10 @@ export const companies: Company[] = [
     stage: "Long-running registered feasibility study with replicated peer-reviewed human results",
     evidenceLevel: "E5",
     hq: { city: "Providence, RI", country: "United States", lat: 41.824, lng: -71.4128 },
+    category: "invasive",
+    region: "north-america",
+    founded: 2002,
+    website: "https://www.braingate.org",
     summary:
       "BrainGate is a long-running academic clinical BCI program with registered trial infrastructure and multiple peer-reviewed demonstrations in people with tetraplegia or severe motor impairment.",
     hypeCheck:
@@ -131,6 +151,9 @@ export const companies: Company[] = [
     stage: "Recruiting registered BRAVO trial with peer-reviewed human speech results",
     evidenceLevel: "E4",
     hq: { city: "San Francisco, CA", country: "United States", lat: 37.7627, lng: -122.4577 },
+    category: "minimally-invasive",
+    region: "north-america",
+    website: "https://changlab.ucsf.edu",
     summary:
       "The BRAVO trial studies ECoG signals for motor and speech control, including peer-reviewed demonstrations of attempted-speech decoding and avatar control.",
     hypeCheck:
@@ -152,6 +175,9 @@ export const companies: Company[] = [
     stage: "Peer-reviewed single-participant long-duration speech neuroprosthesis result",
     evidenceLevel: "E5",
     hq: { city: "Davis, CA", country: "United States", lat: 38.5382, lng: -121.7617 },
+    category: "invasive",
+    region: "north-america",
+    website: "https://neuroprosthetics.science",
     summary:
       "UC Davis-led investigators reported a speech neuroprosthesis that rapidly calibrated and supported months of communication use in a participant with ALS-related severe dysarthria.",
     hypeCheck:
@@ -173,6 +199,10 @@ export const companies: Company[] = [
     stage: "Investigational ARC-BCI with peer-reviewed brain-spine interface evidence and ongoing feasibility study",
     evidenceLevel: "E4",
     hq: { city: "Eindhoven", country: "Netherlands", lat: 51.4416, lng: 5.4697 },
+    category: "minimally-invasive",
+    region: "europe",
+    founded: 2014,
+    website: "https://onwd.com",
     summary:
       "ONWARD's ARC-BCI program builds on a Nature brain-spine interface demonstration and an ongoing study of cortical recording combined with lumbar spinal cord stimulation.",
     hypeCheck:
@@ -182,6 +212,169 @@ export const companies: Company[] = [
       source("ARC-BCI overview", "company-update", "https://www.onwd.com/brain-computer-interface/", "ONWARD Medical"),
       source("Brain-spine interface paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
       source("ARC-BCI breakthrough designation release", "regulatory-page", "https://ir.onwd.com/static-files/3785d988-41cc-444f-a6b3-8180e0e3ec5c", "ONWARD Medical")
+    ],
+    isSample: false
+  },
+  {
+    slug: "tsinghua-neo",
+    name: "Tsinghua NEO / Neuracle",
+    kind: "company",
+    category: "minimally-invasive",
+    region: "asia",
+    modality: "Wireless, battery-free epidural minimally invasive BCI implanted in the skull without opening the dura",
+    targetFunction: "Restoring hand grasp and computer control for people with high cervical spinal cord injury",
+    stage: "Multi-center registration trial with dozens of participants implanted",
+    evidenceLevel: "E5",
+    hq: { city: "Beijing", country: "China", lat: 39.9042, lng: 116.4074 },
+    founded: 2023,
+    summary:
+      "NEO (Neural Electronic Opportunity), developed by Tsinghua University's Hong Bo with Xuanwu Hospital and commercialized via Neuracle, is a wireless epidural BCI. Its first human implant was in October 2023, and a multi-center registration trial has since implanted participants across several Chinese hospitals.",
+    hypeCheck:
+      "NEO is minimally invasive (epidural, dura left intact), so its signal resolution is lower than penetrating arrays; demonstrated benefit is grasp assistance and device control, not general communication.",
+    sourceLinks: [
+      source("Tsinghua Medicine NEO overview", "company-update", "https://www.med.tsinghua.edu.cn/en/info/1036/2381.htm", "Tsinghua University"),
+      source("Fully implantable wireless BCI for humans", "paper", "https://www.cell.com/the-innovation/fulltext/S2666-6758(24)00033-X", "The Innovation"),
+      source("China invasive BCI clinical trial results", "company-update", "https://www.globaltimes.cn/page/202506/1336164.shtml", "Global Times")
+    ],
+    isSample: false
+  },
+  {
+    slug: "neucyber-beinao",
+    name: "NeuCyber NeuroTech (Beinao)",
+    kind: "company",
+    category: "invasive",
+    region: "asia",
+    modality: "Semi-invasive cortical-surface array (Beinao-1) and penetrating flexible microelectrodes (Beinao-2)",
+    targetFunction: "Motor and communication decoding for paralysis, plus neuroscience research",
+    stage: "Beinao-1 in multi-patient human trials; invasive Beinao-2 moving toward clinical validation",
+    evidenceLevel: "E3",
+    hq: { city: "Beijing", country: "China", lat: 39.9142, lng: 116.4174 },
+    founded: 2023,
+    summary:
+      "NeuCyber NeuroTech, backed by the Chinese Institute for Brain Research in Beijing, runs the Beinao program: the semi-invasive Beinao-1, with more than a dozen reported human implants, and the fully invasive flexible-electrode Beinao-2 now advancing toward clinical use.",
+    hypeCheck:
+      "Company and state-media statements describe implant counts and roadmaps; independent peer-reviewed human outcome data is still limited, and NeuCyber frames Beinao as roughly three years behind Neuralink.",
+    sourceLinks: [
+      source("Homegrown BCI system set to expand", "company-update", "https://www.chinadaily.com.cn/a/202606/13/WS6a2ca1fba310986e2b45fb6b.html", "China Daily"),
+      source("China world-first invasive brain chip", "company-update", "https://www.technologyreview.com/2026/06/01/1138133/china-world-first-brain-chip/", "MIT Technology Review"),
+      source("China catching up in brain tech", "company-update", "https://www.cnn.com/2025/07/20/china/china-brain-tech-hnk-intl-dst", "CNN")
+    ],
+    isSample: false
+  },
+  {
+    slug: "neuroxess",
+    name: "NeuroXess",
+    kind: "company",
+    category: "invasive",
+    region: "asia",
+    modality: "High-throughput flexible intracortical electrode arrays, including a fully implanted wireless system",
+    targetFunction: "Real-time Chinese speech decoding and motor control for paralysis, ALS, and stroke",
+    stage: "First-in-human flexible-electrode trials with a reported fully implanted, battery-integrated system",
+    evidenceLevel: "E4",
+    hq: { city: "Shanghai", country: "China", lat: 31.2304, lng: 121.4737 },
+    founded: 2021,
+    summary:
+      "Shanghai flexible-electrode startup NeuroXess ran China's first high-throughput flexible BCI trial for Chinese speech synthesis in December 2024 (256 channels, at Huashan Hospital), published real-time Chinese decoding in Science Advances, and reports a fully implanted, wireless, battery-integrated 'triple-full' system.",
+    hypeCheck:
+      "Speech-decoding results are early single- and few-participant studies; several accuracy figures come from company and state-media announcements pending broader independent replication.",
+    sourceLinks: [
+      source("Deciphering Chinese speech in brain", "company-update", "http://english.news.cn/20250103/e7daabd73bd749cf8d92c363d1722721/c.html", "Xinhua"),
+      source("Real-time decoding of full-spectrum Chinese", "paper", "https://www.science.org/doi/10.1126/sciadv.adz9968", "Science Advances"),
+      source("Battery-integrated brain chip implant", "company-update", "https://www.yicaiglobal.com/news/neuroxess-achieves-milestone-with-chinas-first-battery-integrated-bci-implant", "Yicai Global")
+    ],
+    isSample: false
+  },
+  {
+    slug: "stairmed",
+    name: "StairMed",
+    kind: "company",
+    category: "minimally-invasive",
+    region: "asia",
+    modality: "Coin-sized minimally invasive implant with ultra-flexible electrodes placed through a 3-5 mm skull incision",
+    targetFunction: "Motor and device control for paralysis and severe neurological impairment",
+    stage: "First prospective clinical trial implant in March 2025; scaling toward commercialization",
+    evidenceLevel: "E3",
+    hq: { city: "Shanghai", country: "China", lat: 31.2404, lng: 121.4637 },
+    founded: 2021,
+    funding: "RMB 350M Series B, plus a later RMB 500M round led by Alibaba and Tencent (2025)",
+    summary:
+      "Shanghai's StairMed builds among the smallest minimally invasive BCI implants, requiring only a 3-5 mm incision. Its first prospective clinical trial implant took place in March 2025, backed by some of the largest financing rounds in China's implantable-BCI sector.",
+    hypeCheck:
+      "The clinical program is early (first-in-human in 2025); miniaturization and funding are real, but durable multi-patient outcome evidence has not yet been published.",
+    sourceLinks: [
+      source("Brain-machine firm gets major investment", "company-update", "https://global.chinadaily.com.cn/a/202502/12/WS67abf242a310a2ab06eaba81.html", "China Daily"),
+      source("StairMed raises $73m for BMI and DBS", "company-update", "https://www.medicaldevice-network.com/news/stairmed-raises-73m-to-advance-bmi-and-dbs-system-development/", "Medical Device Network"),
+      source("StairMed RMB 500M financing", "company-update", "https://www.prnewswire.com/news-releases/stairmed-secures-rmb-500-million-financing-led-by-alibaba-joined-by-tencent-302732525.html", "PR Newswire")
+    ],
+    isSample: false
+  },
+  {
+    slug: "clinatec-wimagine",
+    name: "Clinatec / CEA WIMAGINE",
+    kind: "academic",
+    category: "minimally-invasive",
+    region: "europe",
+    modality: "Bilateral epidural ECoG implants (WIMAGINE) reading cortical-surface signals",
+    targetFunction: "Whole-body exoskeleton and effector control for tetraplegia",
+    stage: "Peer-reviewed proof-of-concept in a tetraplegic patient; multi-patient study ongoing",
+    evidenceLevel: "E4",
+    hq: { city: "Grenoble", country: "France", lat: 45.1885, lng: 5.7245 },
+    summary:
+      "Clinatec, a CEA laboratory in Grenoble, developed the WIMAGINE epidural ECoG implant. In 2019 a tetraplegic patient used two implants to control a four-limb exoskeleton, published in The Lancet Neurology. CEA has since licensed WIMAGINE to ONWARD Medical.",
+    hypeCheck:
+      "The landmark result is a single-patient proof-of-concept requiring months of training; epidural ECoG trades signal detail for safety, and the exoskeleton is a research platform, not a home device.",
+    sourceLinks: [
+      source("Exoskeleton controlled by epidural BCI", "paper", "https://www.thelancet.com/journals/laneur/article/PIIS1474-4422(19)30321-7/abstract", "The Lancet Neurology"),
+      source("Groundbreaking neuroprosthetic (UGA)", "company-update", "https://international.univ-grenoble-alpes.fr/about/flagship-projects/a-groundbreaking-neuroprosthetic-enables-a-tetraplegic-patient-fitted-with-an-exoskeleton-to-move-808028.kjsp", "Universite Grenoble Alpes"),
+      source("ONWARD licenses WIMAGINE from CEA", "company-update", "https://www.globenewswire.com/news-release/2024/10/15/2962898/0/en/ONWARD-Medical-Signs-Agreement-with-CEA-for-Exclusive-Rights-to-Clinatec-s-WIMAGINE-Brain-Computer-Interface-BCI-Technology.html", "GlobeNewswire / ONWARD")
+    ],
+    isSample: false
+  },
+  {
+    slug: "ability-wyss",
+    name: "ABILITY Neurotech / Wyss Center",
+    kind: "company",
+    category: "minimally-invasive",
+    region: "europe",
+    modality: "Fully implantable wireless ECoG BCI with an optical trans-scalp data link",
+    targetFunction: "Communication and assistive-device control for people with ALS and severe paralysis",
+    stage: "Approved in 2026 to begin its first chronic implantation study in ALS",
+    evidenceLevel: "E3",
+    hq: { city: "Geneva", country: "Switzerland", lat: 46.2044, lng: 6.1432 },
+    founded: 2023,
+    website: "https://abilityneuro.com",
+    summary:
+      "ABILITY Neurotech, a Wyss Center (Geneva) spinout, is developing a fully implantable wireless ECoG BCI with an optical data link. Building on the Wyss Center's earlier work letting a locked-in ALS patient communicate, ABILITY received regulatory approval in 2026 to begin a chronic ALS implantation study with CorTec and UMC Utrecht.",
+    hypeCheck:
+      "The chronic clinical study is only just beginning; earlier locked-in communication results involved very few participants, and home-ready performance is unproven.",
+    sourceLinks: [
+      source("ABILITY receives approval for ALS trial", "company-update", "https://www.prnewswire.com/news-releases/ability-neurotech-receives-imdd-approval-to-start-clinical-trial-for-chronic-implantation-of-brain-computer-interface-in-als-patients-302781809.html", "PR Newswire"),
+      source("Fully implantable BCI consortium", "company-update", "https://wysscenter.ch/update/consortium-to-develop-fully-implantable-brain-computer-interface-to-enable-communication-for-people-with-paralysis/", "Wyss Center"),
+      source("ABILITY Neurotech", "company-update", "https://abilityneuro.com/", "ABILITY Neurotech")
+    ],
+    isSample: false
+  },
+  {
+    slug: "inbrain-neuroelectronics",
+    name: "INBRAIN Neuroelectronics",
+    kind: "company",
+    category: "minimally-invasive",
+    region: "europe",
+    modality: "Graphene-based cortical-surface neural interface for high-resolution decoding and mapping",
+    targetFunction: "Intraoperative brain mapping now; therapeutic neuromodulation and decoding under development",
+    stage: "World-first human graphene BCI procedure (2024); first-in-human study enrolment completed (2026)",
+    evidenceLevel: "E3",
+    hq: { city: "Barcelona", country: "Spain", lat: 41.3874, lng: 2.1686 },
+    founded: 2020,
+    funding: "$50M Series B (2024)",
+    summary:
+      "Barcelona-based INBRAIN Neuroelectronics performed the world's first human procedure with a graphene cortical interface in September 2024 at Salford Royal Hospital in Manchester, distinguishing tumor from healthy tissue with micrometer precision, and completed enrolment of its first-in-human study in 2026.",
+    hypeCheck:
+      "Current human use is intraoperative mapping during tumor surgery, not a chronic assistive or therapeutic BCI; graphene's clinical advantages are still being evaluated.",
+    sourceLinks: [
+      source("World's first human graphene BCI procedure", "company-update", "https://www.businesswire.com/news/home/20240926260728/en/INBRAIN-Neuroelectronics-Announces-Worlds-First-Human-Graphene-Based-Brain-Computer-Interface-Procedure", "Business Wire / INBRAIN"),
+      source("INBRAIN raises $50M Series B", "company-update", "https://www.businesswire.com/news/home/20241029660063/en/INBRAIN-Neuroelectronics-Raises-%2450M-Series-B-to-Advance-Graphene-Based-Brain-Computer-Interface-Technology", "Business Wire / INBRAIN"),
+      source("First-in-human study enrolment complete", "company-update", "https://www.businesswire.com/news/home/20260420000990/en/INBRAIN-Neuroelectronics-Completes-Enrolment-of-Worlds-First-in-Human-Study-of-Graphene-Neural-Interfaces-for-Brain-Decoding-Mapping", "Business Wire / INBRAIN")
     ],
     isSample: false
   }
@@ -537,6 +730,280 @@ export const milestones: Milestone[] = [
       "Robotic-arm control in a supervised study is not the same as independent daily prosthetic use.",
     sourceLinks: [source("Robotic-arm control full text", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3640850/", "Nature / PubMed Central")],
     isSample: false
+  },
+  {
+    id: "tsinghua-neo-first-implant-2023",
+    title: "NEO completes first human epidural BCI implant",
+    companySlug: "tsinghua-neo",
+    dateLabel: "Oct 24, 2023",
+    sortDate: "2023-10-24",
+    status: "confirmed",
+    type: "first-implant",
+    evidenceLevel: "E3",
+    confidence: "high",
+    summary:
+      "The Tsinghua team implanted the wireless, battery-free NEO device in a high-cervical spinal cord injury patient at Xuanwu Hospital, capturing sensorimotor signals without opening the dura.",
+    whyItMatters:
+      "It launched China's minimally invasive epidural BCI clinical program and demonstrated a battery-free, wireless implant approach.",
+    hypeCheck:
+      "Epidural recording is lower-resolution than penetrating arrays; early function was assisted grasp, not fluent communication.",
+    sourceLinks: [
+      source("Tsinghua Medicine NEO overview", "company-update", "https://www.med.tsinghua.edu.cn/en/info/1036/2381.htm", "Tsinghua University"),
+      source("Fully implantable wireless BCI for humans", "paper", "https://www.cell.com/the-innovation/fulltext/S2666-6758(24)00033-X", "The Innovation")
+    ],
+    isSample: false
+  },
+  {
+    id: "tsinghua-neo-multicenter-2026",
+    title: "NEO multi-center registration trial scales across hospitals",
+    companySlug: "tsinghua-neo",
+    dateLabel: "2025-2026",
+    sortDate: "2026-05-01",
+    status: "confirmed",
+    type: "trial-site-added",
+    evidenceLevel: "E3",
+    confidence: "medium",
+    summary:
+      "NEO moved into a multi-center registration trial, with participants implanted across several Chinese hospitals as reported by state media and the program team.",
+    whyItMatters:
+      "Scaling to a registration trial is the step toward a regulated, repeatable clinical product rather than a single proof-of-concept.",
+    hypeCheck:
+      "Reported enrollment and success rates come largely from the team and state media; detailed peer-reviewed outcomes are still emerging.",
+    sourceLinks: [
+      source("China invasive BCI clinical trial results", "company-update", "https://www.globaltimes.cn/page/202506/1336164.shtml", "Global Times")
+    ],
+    isSample: false
+  },
+  {
+    id: "neucyber-beinao1-implants-2026",
+    title: "Beinao-1 passes a dozen-plus human implants",
+    companySlug: "neucyber-beinao",
+    dateLabel: "Jun 2026",
+    sortDate: "2026-06-13",
+    status: "confirmed",
+    type: "additional-implant",
+    evidenceLevel: "E3",
+    confidence: "medium",
+    summary:
+      "NeuCyber reported that its semi-invasive Beinao-1 system had reached more than a dozen human implants, with the longest implantation exceeding a year.",
+    whyItMatters:
+      "A growing implant cohort with long duration is a meaningful signal of a maturing semi-invasive BCI program.",
+    hypeCheck:
+      "Implant counts are company- and state-media-reported; independent peer-reviewed outcome data remains limited.",
+    sourceLinks: [
+      source("Homegrown BCI system set to expand", "company-update", "https://www.chinadaily.com.cn/a/202606/13/WS6a2ca1fba310986e2b45fb6b.html", "China Daily")
+    ],
+    isSample: false
+  },
+  {
+    id: "neucyber-beinao2-clinical-2026",
+    title: "Invasive Beinao-2 targets first clinical validation",
+    companySlug: "neucyber-beinao",
+    dateLabel: "Late 2026 (planned)",
+    sortDate: "2026-12-15",
+    status: "upcoming",
+    type: "trial-opened",
+    evidenceLevel: "E1",
+    confidence: "low",
+    summary:
+      "NeuCyber's fully invasive, penetrating flexible-electrode Beinao-2 is slated to begin clinical validation after large-animal testing.",
+    whyItMatters:
+      "Beinao-2 is China's push toward single-neuron-resolution invasive recording comparable to Neuralink-class systems.",
+    hypeCheck:
+      "This is a company roadmap target; timelines for first invasive human use frequently slip.",
+    sourceLinks: [
+      source("China world-first invasive brain chip", "company-update", "https://www.technologyreview.com/2026/06/01/1138133/china-world-first-brain-chip/", "MIT Technology Review")
+    ],
+    isSample: false
+  },
+  {
+    id: "neucyber-beinao1-36-implants-2026",
+    title: "Beinao-1 aims for 36 human implants",
+    companySlug: "neucyber-beinao",
+    dateLabel: "2026 (planned)",
+    sortDate: "2026-12-31",
+    status: "upcoming",
+    type: "additional-implant",
+    evidenceLevel: "E1",
+    confidence: "low",
+    summary:
+      "Under a five-year roadmap, NeuCyber targets 36 Beinao-1 human implants in 2026 before pilot deployment at top-tier hospitals.",
+    whyItMatters:
+      "Hitting a larger implant target would move Beinao-1 from feasibility toward routine clinical use.",
+    hypeCheck:
+      "This is a stated target, not a completed result; enrollment goals often move.",
+    sourceLinks: [
+      source("Homegrown BCI system set to expand", "company-update", "https://www.chinadaily.com.cn/a/202606/13/WS6a2ca1fba310986e2b45fb6b.html", "China Daily")
+    ],
+    isSample: false
+  },
+  {
+    id: "neuroxess-chinese-speech-2024",
+    title: "First flexible-electrode Chinese speech decoding trial",
+    companySlug: "neuroxess",
+    dateLabel: "Dec 2024",
+    sortDate: "2024-12-15",
+    status: "confirmed",
+    type: "demo-released",
+    evidenceLevel: "E3",
+    confidence: "high",
+    summary:
+      "NeuroXess implanted a 256-channel flexible array in a patient at Huashan Hospital and decoded common Chinese syllables in real time within days.",
+    whyItMatters:
+      "It was China's first high-throughput flexible-BCI speech result and a step toward Mandarin speech restoration.",
+    hypeCheck:
+      "This was a single-participant, short-duration study; reported accuracy is early and not yet broadly replicated.",
+    sourceLinks: [
+      source("Deciphering Chinese speech in brain", "company-update", "http://english.news.cn/20250103/e7daabd73bd749cf8d92c363d1722721/c.html", "Xinhua")
+    ],
+    isSample: false
+  },
+  {
+    id: "neuroxess-triple-full-2025",
+    title: "First 'triple-full' fully implanted wireless BCI",
+    companySlug: "neuroxess",
+    dateLabel: "Dec 2025",
+    sortDate: "2025-12-10",
+    status: "confirmed",
+    type: "first-implant",
+    evidenceLevel: "E3",
+    confidence: "medium",
+    summary:
+      "NeuroXess reported completing its first fully implanted, fully wireless, battery-integrated BCI at Huashan Hospital — described as the world's second BCI with a built-in battery.",
+    whyItMatters:
+      "A fully implanted, battery-integrated system is a key hardware milestone for at-home, always-available use.",
+    hypeCheck:
+      "This is a first-implant hardware milestone announced by the company; durable functional outcomes are not yet published.",
+    sourceLinks: [
+      source("Battery-integrated brain chip implant", "company-update", "https://www.yicaiglobal.com/news/neuroxess-achieves-milestone-with-chinas-first-battery-integrated-bci-implant", "Yicai Global")
+    ],
+    isSample: false
+  },
+  {
+    id: "stairmed-first-implant-2025",
+    title: "StairMed completes first clinical trial implant",
+    companySlug: "stairmed",
+    dateLabel: "Mar 25, 2025",
+    sortDate: "2025-03-25",
+    status: "confirmed",
+    type: "first-implant",
+    evidenceLevel: "E3",
+    confidence: "high",
+    summary:
+      "StairMed performed its first prospective clinical trial implant of its coin-sized minimally invasive BCI at a leading Shanghai medical institution.",
+    whyItMatters:
+      "It started clinical evaluation of one of the smallest, least invasive implant approaches in the field.",
+    hypeCheck:
+      "A first-in-human implant begins the evidence clock; it is not yet proof of durable benefit.",
+    sourceLinks: [
+      source("Brain-machine firm gets major investment", "company-update", "https://global.chinadaily.com.cn/a/202502/12/WS67abf242a310a2ab06eaba81.html", "China Daily")
+    ],
+    isSample: false
+  },
+  {
+    id: "clinatec-exoskeleton-2019",
+    title: "Tetraplegic patient controls exoskeleton via epidural BCI",
+    companySlug: "clinatec-wimagine",
+    dateLabel: "Oct 2019",
+    sortDate: "2019-10-04",
+    status: "confirmed",
+    type: "paper-published",
+    evidenceLevel: "E4",
+    confidence: "high",
+    summary:
+      "A tetraplegic patient used two epidural WIMAGINE implants to control a four-limb exoskeleton, published in The Lancet Neurology as a proof-of-concept.",
+    whyItMatters:
+      "It was an early peer-reviewed demonstration of chronic epidural ECoG driving whole-body effector control.",
+    hypeCheck:
+      "A single-patient study needing extensive training; the exoskeleton is a research rig, not an approved device.",
+    sourceLinks: [
+      source("Exoskeleton controlled by epidural BCI", "paper", "https://www.thelancet.com/journals/laneur/article/PIIS1474-4422(19)30321-7/abstract", "The Lancet Neurology")
+    ],
+    isSample: false
+  },
+  {
+    id: "inbrain-first-graphene-2024",
+    title: "World's first human graphene BCI procedure",
+    companySlug: "inbrain-neuroelectronics",
+    dateLabel: "Sep 2024",
+    sortDate: "2024-09-26",
+    status: "confirmed",
+    type: "first-implant",
+    evidenceLevel: "E3",
+    confidence: "high",
+    summary:
+      "INBRAIN placed a graphene cortical interface in a patient during tumor resection at Salford Royal Hospital, distinguishing healthy from cancerous tissue at micrometer scale.",
+    whyItMatters:
+      "It was the first human use of a graphene neural interface, a new electrode material for high-resolution recording.",
+    hypeCheck:
+      "This was intraoperative mapping during surgery, not a chronic assistive or therapeutic BCI.",
+    sourceLinks: [
+      source("World's first human graphene BCI procedure", "company-update", "https://www.businesswire.com/news/home/20240926260728/en/INBRAIN-Neuroelectronics-Announces-Worlds-First-Human-Graphene-Based-Brain-Computer-Interface-Procedure", "Business Wire / INBRAIN")
+    ],
+    isSample: false
+  },
+  {
+    id: "inbrain-fih-complete-2026",
+    title: "INBRAIN completes first-in-human graphene study enrolment",
+    companySlug: "inbrain-neuroelectronics",
+    dateLabel: "Apr 2026",
+    sortDate: "2026-04-20",
+    status: "confirmed",
+    type: "endpoint-readout",
+    evidenceLevel: "E3",
+    confidence: "high",
+    summary:
+      "INBRAIN completed enrolment of its first-in-human study of graphene neural interfaces for brain decoding and mapping.",
+    whyItMatters:
+      "Completing enrolment is a checkpoint toward reporting structured first-in-human graphene BCI data.",
+    hypeCheck:
+      "Enrolment completion is not the same as published outcomes; results will follow analysis.",
+    sourceLinks: [
+      source("First-in-human study enrolment complete", "company-update", "https://www.businesswire.com/news/home/20260420000990/en/INBRAIN-Neuroelectronics-Completes-Enrolment-of-Worlds-First-in-Human-Study-of-Graphene-Neural-Interfaces-for-Brain-Decoding-Mapping", "Business Wire / INBRAIN")
+    ],
+    isSample: false
+  },
+  {
+    id: "ability-als-trial-approval-2026",
+    title: "ABILITY approved to start chronic ALS implantation study",
+    companySlug: "ability-wyss",
+    dateLabel: "May 2026",
+    sortDate: "2026-05-01",
+    status: "confirmed",
+    type: "regulatory-designation",
+    evidenceLevel: "E3",
+    confidence: "high",
+    summary:
+      "ABILITY Neurotech received Investigational Medical Device Dossier approval to begin its first chronic implantation study of a fully implantable wireless ECoG BCI in ALS patients.",
+    whyItMatters:
+      "It moves ABILITY from intraoperative testing into chronic clinical investigation of a home-oriented system.",
+    hypeCheck:
+      "Approval permits the study; it is not evidence of durable communication benefit yet.",
+    sourceLinks: [
+      source("ABILITY receives approval for ALS trial", "company-update", "https://www.prnewswire.com/news-releases/ability-neurotech-receives-imdd-approval-to-start-clinical-trial-for-chronic-implantation-of-brain-computer-interface-in-als-patients-302781809.html", "PR Newswire")
+    ],
+    isSample: false
+  },
+  {
+    id: "ability-first-chronic-implant-2026",
+    title: "ABILITY first chronic ALS implant expected",
+    companySlug: "ability-wyss",
+    dateLabel: "H2 2026 (expected)",
+    sortDate: "2026-10-01",
+    status: "upcoming",
+    type: "first-implant",
+    evidenceLevel: "E1",
+    confidence: "low",
+    summary:
+      "Following approval, ABILITY's first chronic implantation of its fully implantable ECoG BCI in an ALS participant is expected, run with CorTec and UMC Utrecht.",
+    whyItMatters:
+      "The first chronic implant starts the durability clock for a fully implantable European ALS communication BCI.",
+    hypeCheck:
+      "This is an expected next step after approval, not a confirmed or scheduled procedure.",
+    sourceLinks: [
+      source("Fully implantable BCI consortium", "company-update", "https://wysscenter.ch/update/consortium-to-develop-fully-implantable-brain-computer-interface-to-enable-communication-for-people-with-paralysis/", "Wyss Center")
+    ],
+    isSample: false
   }
 ];
 
@@ -858,6 +1325,34 @@ export const papers: Paper[] = [
     summary:
       "Peer-reviewed human robotic-arm reach-and-grasp control using intracortical neural signals.",
     sourceLinks: [source("Robotic-arm control full text", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3640850/", "Nature / PubMed Central")],
+    isSample: false
+  },
+  {
+    id: "neuroxess-chinese-speech-paper",
+    title: "Real-time decoding of full-spectrum Chinese using a brain-computer interface",
+    companySlug: "neuroxess",
+    dateLabel: "2025",
+    sortDate: "2025-06-01",
+    evidenceLevel: "E4",
+    summary:
+      "Science Advances paper reporting real-time decoding of Mandarin Chinese speech from cortical signals using a high-throughput flexible electrode array.",
+    sourceLinks: [
+      source("Real-time decoding of full-spectrum Chinese", "paper", "https://www.science.org/doi/10.1126/sciadv.adz9968", "Science Advances")
+    ],
+    isSample: false
+  },
+  {
+    id: "clinatec-exoskeleton-paper",
+    title: "An exoskeleton controlled by an epidural wireless brain-machine interface in a tetraplegic patient",
+    companySlug: "clinatec-wimagine",
+    dateLabel: "Oct 2019",
+    sortDate: "2019-10-04",
+    evidenceLevel: "E4",
+    summary:
+      "Lancet Neurology proof-of-concept in which a tetraplegic patient controlled a four-limb exoskeleton using bilateral epidural ECoG (WIMAGINE) implants.",
+    sourceLinks: [
+      source("Exoskeleton controlled by epidural BCI", "paper", "https://www.thelancet.com/journals/laneur/article/PIIS1474-4422(19)30321-7/abstract", "The Lancet Neurology")
+    ],
     isSample: false
   }
 ];

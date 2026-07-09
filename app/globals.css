@@ -938,6 +938,148 @@ p {
 }
 
 /* ============================================================
+   Search / filters
+   ============================================================ */
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.search-input {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+}
+.search-input::placeholder {
+  color: var(--faint);
+}
+.search-input:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  box-shadow: 0 0 0 3px rgba(71, 194, 255, 0.12);
+}
+.chip-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filter-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 700;
+  margin-right: 2px;
+}
+.chip {
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+.chip:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.chip[data-active="true"] {
+  background: rgba(71, 194, 255, 0.14);
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+}
+.result-count {
+  color: var(--muted);
+  font-size: 13px;
+}
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.search-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: linear-gradient(180deg, var(--panel), var(--bg-2));
+  transition: border-color 0.12s ease, transform 0.12s ease;
+}
+.search-result:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  transform: translateX(2px);
+}
+.search-result .r-title {
+  font-weight: 700;
+  font-size: 14.5px;
+}
+.search-result .r-sub {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.kind-tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--accent);
+  white-space: nowrap;
+}
+.empty-state {
+  color: var(--muted);
+  padding: 30px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+
+/* Product / vehicle cards (Neuralink page) */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.spec {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--panel-2), var(--bg-2));
+  padding: 18px;
+}
+.spec .k {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
+.spec .v {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.spec .d {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* ============================================================
    Responsive
    ============================================================ */
 

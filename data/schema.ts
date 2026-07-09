@@ -69,6 +69,23 @@ export const demoClassificationLabels = {
 
 export type DemoClassification = keyof typeof demoClassificationLabels;
 
+export const companyCategories = {
+  invasive: "Invasive",
+  "minimally-invasive": "Minimally invasive",
+  "non-invasive": "Non-invasive"
+} as const;
+
+export type CompanyCategory = keyof typeof companyCategories;
+
+export const regions = {
+  "north-america": "North America",
+  europe: "Europe",
+  asia: "Asia",
+  "rest-of-world": "Rest of world"
+} as const;
+
+export type Region = keyof typeof regions;
+
 export type Confidence = "low" | "medium" | "high";
 
 export type MilestoneStatus = "confirmed" | "upcoming";
@@ -102,11 +119,19 @@ export interface Company {
   slug: string;
   name: string;
   kind: "company" | "academic";
+  category: CompanyCategory;
+  region: Region;
   modality: string;
   targetFunction: string;
   stage: string;
   evidenceLevel: EvidenceLevel;
   hq: GeoPoint;
+  /** Year the program or company was founded/started. */
+  founded?: number;
+  /** Primary website URL. */
+  website?: string;
+  /** Short funding note, e.g. "$50M Series B (2024)". */
+  funding?: string;
   summary: string;
   hypeCheck: string;
   sourceLinks: SourceLink[];
