@@ -1,10 +1,12 @@
 .next/
+.netlify/
 node_modules/
 out/
 dist/
 coverage/
 tmp/
 *.log
+deploy-*.zip
 tsconfig.tsbuildinfo
 .env*
 !.env.example

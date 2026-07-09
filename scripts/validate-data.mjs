@@ -40,6 +40,7 @@ const allowedSourceTypes = new Set([
   "company-update",
   "regulatory-page",
   "conference-page",
+  "news-report",
   "demo-video",
   "placeholder"
 ]);
@@ -313,6 +314,29 @@ const validateMilestone = (milestone, index, companySlugs) => {
   }
 };
 
+const validateProgramProject = (project, index, companySlugs) => {
+  const path = `programProjects[${index}]`;
+  if (!validateBaseRecord(project, path)) return;
+
+  [
+    "companySlug",
+    "name",
+    "focus",
+    "modality",
+    "statusLabel",
+    "latestUpdateLabel",
+    "summary",
+    "demonstrated",
+    "notYetShown"
+  ].forEach((key) => requireText(project, key, path));
+  requireSortDate(project, path);
+  requireMember(project, "evidenceLevel", allowedEvidenceLevels, path);
+
+  if (isNonEmptyString(project.companySlug) && !companySlugs.has(project.companySlug)) {
+    addError(`${path}.companySlug`, "must reference an existing company slug");
+  }
+};
+
 const validateTrial = (trial, index, companySlugs) => {
   const path = `trials[${index}]`;
   if (!validateBaseRecord(trial, path)) return;
@@ -359,11 +383,12 @@ const validatePaper = (paper, index, companySlugs) => {
 };
 
 const data = await loadSeedData();
-const { companies, milestones, trials, demos, papers } = data;
+const { companies, milestones, programProjects, trials, demos, papers } = data;
 
 const collectionsAreArrays = [
   validateCollection(companies, "companies"),
   validateCollection(milestones, "milestones"),
+  validateCollection(programProjects, "programProjects"),
   validateCollection(trials, "trials"),
   validateCollection(demos, "demos"),
   validateCollection(papers, "papers")
@@ -372,6 +397,7 @@ const collectionsAreArrays = [
 if (collectionsAreArrays) {
   validateUniqueIds(companies, "slug", "companies");
   validateUniqueIds(milestones, "id", "milestones");
+  validateUniqueIds(programProjects, "id", "programProjects");
   validateUniqueIds(trials, "id", "trials");
   validateUniqueIds(demos, "id", "demos");
   validateUniqueIds(papers, "id", "papers");
@@ -380,6 +406,7 @@ if (collectionsAreArrays) {
 
   companies.forEach(validateCompany);
   milestones.forEach((milestone, index) => validateMilestone(milestone, index, companySlugs));
+  programProjects.forEach((project, index) => validateProgramProject(project, index, companySlugs));
   trials.forEach((trial, index) => validateTrial(trial, index, companySlugs));
   demos.forEach((demo, index) => validateDemo(demo, index, companySlugs));
   papers.forEach((paper, index) => validatePaper(paper, index, companySlugs));
@@ -392,5 +419,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Data validation passed: ${companies.length} companies, ${milestones.length} milestones, ${trials.length} trials, ${demos.length} demos, ${papers.length} papers.`
+  `Data validation passed: ${companies.length} companies, ${milestones.length} milestones, ${programProjects.length} projects, ${trials.length} trials, ${demos.length} demos, ${papers.length} papers.`
 );

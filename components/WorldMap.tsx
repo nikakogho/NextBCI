@@ -18,7 +18,7 @@ export interface MapNode {
   heatLabel: string;
   stage: string;
   evidenceLevel: string;
-  stats: { milestones: number; upcoming: number; trials: number; demos: number; papers: number };
+  stats: { milestones: number; upcoming: number; trials: number; demos: number; papers: number; projects: number };
 }
 
 const GRATICULE_LNG = [-120, -60, 0, 60, 120];

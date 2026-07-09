@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DemoClassificationBadge, EvidenceBadge, SampleBadge, StatusChip } from "@/components/Badge";
+import { ProgramProjectCard } from "@/components/ProgramProjectCard";
 import { Signal } from "@/components/Signal";
 import { SourceList } from "@/components/SourceList";
 import { VideoCard } from "@/components/VideoCard";
@@ -11,6 +12,7 @@ import {
   getCompanyDemos,
   getCompanyMilestones,
   getCompanyPapers,
+  getCompanyProjects,
   getCompanyStats,
   getCompanyTrials,
   heatColor,
@@ -60,6 +62,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
   const trials = getCompanyTrials(company.slug);
   const demos = getCompanyDemos(company.slug);
   const papers = getCompanyPapers(company.slug);
+  const projects = getCompanyProjects(company.slug);
   const stats = getCompanyStats(company.slug);
   const color = heatColor(stats.heat);
 
@@ -90,7 +93,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         </div>
         <div className="detail-body">
           <p className="muted-copy">{company.summary}</p>
-          <div className="stat-strip">
+          <div className="stat-strip stat-strip-auto">
             <div className="stat">
               <b>{stats.milestones}</b>
               <span>milestones</span>
@@ -102,6 +105,10 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
             <div className="stat">
               <b>{stats.demos}</b>
               <span>demos</span>
+            </div>
+            <div className="stat">
+              <b>{stats.projects}</b>
+              <span>projects</span>
             </div>
             <div className="stat">
               <b>{stats.papers}</b>
@@ -165,6 +172,23 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
           ) : null}
         </div>
       </section>
+
+      {projects.length > 0 ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Project tracks</p>
+              <h2>How this program breaks down</h2>
+            </div>
+            <span className="badge type-badge">{projects.length} tracked</span>
+          </div>
+          <div className="card-grid project-track-grid">
+            {projects.map((project) => (
+              <ProgramProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {upcoming.length > 0 ? (
         <section className="section">

@@ -6,6 +6,7 @@ const sourceTypeLabel: Record<SourceLink["sourceType"], string> = {
   "company-update": "Company",
   "regulatory-page": "Regulatory",
   "conference-page": "Conference",
+  "news-report": "News",
   "demo-video": "Video",
   placeholder: "Placeholder"
 };

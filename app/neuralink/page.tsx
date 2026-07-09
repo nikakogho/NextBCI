@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { EvidenceBadge, StatusChip } from "@/components/Badge";
 import { Countdown } from "@/components/Countdown";
 import { LaunchCard } from "@/components/LaunchCard";
+import { ProgramProjectCard } from "@/components/ProgramProjectCard";
 import { Signal } from "@/components/Signal";
 import { SourceList } from "@/components/SourceList";
 import { VideoCard } from "@/components/VideoCard";
@@ -11,6 +12,7 @@ import {
   getCompany,
   getCompanyDemos,
   getCompanyMilestones,
+  getCompanyProjects,
   getCompanyStats,
   getCompanyTrials
 } from "@/data/queries";
@@ -49,6 +51,7 @@ export default function NeuralinkPage() {
   const history = milestones.filter((m) => m.status === "confirmed");
   const trials = getCompanyTrials(SLUG);
   const demos = getCompanyDemos(SLUG);
+  const projects = getCompanyProjects(SLUG);
   const stats = getCompanyStats(SLUG);
   const nextUp = upcoming[0];
 
@@ -95,7 +98,7 @@ export default function NeuralinkPage() {
         </div>
       </section>
 
-      <section className="stat-strip">
+      <section className="stat-strip stat-strip-auto">
         <div className="stat">
           <b>{stats.milestones}</b>
           <span>milestones</span>
@@ -109,10 +112,30 @@ export default function NeuralinkPage() {
           <span>trials</span>
         </div>
         <div className="stat">
+          <b>{stats.projects}</b>
+          <span>project tracks</span>
+        </div>
+        <div className="stat">
           <b>{stats.demos}</b>
           <span>demos</span>
         </div>
       </section>
+
+      {projects.length > 0 ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Program tracks</p>
+              <h2>Telepathy, Blindsight, and what is actually evidenced</h2>
+            </div>
+          </div>
+          <div className="card-grid project-track-grid">
+            {projects.map((project) => (
+              <ProgramProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="section">
         <div className="section-head">

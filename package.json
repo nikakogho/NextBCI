@@ -9,6 +9,7 @@
     "start": "next start",
     "validate:data": "node scripts/validate-data.mjs",
     "test:data": "node scripts/test-data-queries.mjs",
+    "ci": "npm run validate:data && npm run test:data && npm run lint && npm run typecheck && npm run build",
     "benchmark:routes": "node scripts/benchmark-routes.mjs",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit"

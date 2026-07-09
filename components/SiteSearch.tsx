@@ -10,6 +10,11 @@ const ICONS: Record<SearchKind, ReactNode> = {
       <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4h6v4M9 10h.01M15 10h.01M9 13h.01M15 13h.01" />
     </svg>
   ),
+  project: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19V5M4 7h10l-1.5 3L14 13H4M18 19v-6M15 16h6" />
+    </svg>
+  ),
   milestone: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 21V4M5 4l9 3-2 3 2 3-9 2" />
@@ -34,13 +39,14 @@ const ICONS: Record<SearchKind, ReactNode> = {
 
 const KIND_META: Record<SearchKind, { label: string; color: string }> = {
   program: { label: "Program", color: "#47c2ff" },
+  project: { label: "Project", color: "#ffc24d" },
   milestone: { label: "Milestone", color: "#8b7bff" },
   trial: { label: "Trial", color: "#ffa53d" },
   demo: { label: "Demo", color: "#2fd6a6" },
   paper: { label: "Paper", color: "#ff7ab6" }
 };
 
-const KIND_ORDER: SearchKind[] = ["program", "milestone", "trial", "demo", "paper"];
+const KIND_ORDER: SearchKind[] = ["program", "project", "milestone", "trial", "demo", "paper"];
 const SUGGESTIONS = ["speech", "ALS", "China", "graphene", "implant", "endovascular", "vision"];
 
 function Highlight({ text, query }: { text: string; query: string }) {
@@ -101,7 +107,7 @@ export function SiteSearch({ index }: { index: SearchItem[] }) {
           <path d="M21 21l-4.3-4.3" />
         </svg>
         <input
-          placeholder="Search programs, milestones, trials, demos, papers…"
+          placeholder="Search programs, projects, milestones, trials, demos, papers..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           aria-label="Search everything"
@@ -133,12 +139,12 @@ export function SiteSearch({ index }: { index: SearchItem[] }) {
 
       <p className="result-count">
         {browsing
-          ? `Browsing ${results.length} programs — search above to reach everything`
-          : `${results.length} result${results.length === 1 ? "" : "s"}${hasQuery ? ` for “${query.trim()}”` : ""}`}
+          ? `Browsing ${results.length} programs - search above to reach everything`
+          : `${results.length} result${results.length === 1 ? "" : "s"}${hasQuery ? ` for "${query.trim()}"` : ""}`}
       </p>
 
       {results.length === 0 ? (
-        <div className="empty-state">Nothing matches “{query}”. Try a company name, condition, or approach.</div>
+        <div className="empty-state">{`Nothing matches "${query}". Try a company name, condition, or approach.`}</div>
       ) : (
         <div className="results-grid">
           {results.map((r) => {

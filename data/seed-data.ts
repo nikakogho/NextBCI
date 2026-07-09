@@ -1,4 +1,4 @@
-import type { Company, Demo, Milestone, Paper, SourceLink, Trial } from "./schema";
+import type { Company, Demo, Milestone, Paper, ProgramProject, SourceLink, Trial } from "./schema";
 
 const source = (
   title: string,
@@ -19,11 +19,11 @@ const clinicalTrials = (nctId: string): string => `https://clinicaltrials.gov/st
 export const companies: Company[] = [
   {
     slug: "neuralink-prime",
-    name: "Neuralink PRIME / Telepathy",
+    name: "Neuralink",
     kind: "company",
-    modality: "Fully implantable intracortical microelectrode BCI with robot-assisted placement",
-    targetFunction: "Digital device control and assistive-device control for people with severe paralysis",
-    stage: "Recruiting early feasibility studies",
+    modality: "Fully implantable intracortical and cortical-stimulation BCI platform with robot-assisted placement",
+    targetFunction: "Digital control, assistive-device control, speech/motor restoration research, and visual prosthesis development",
+    stage: "Multiple investigational programs: PRIME / Telepathy, CAN-PRIME, CONVOY, and Blindsight / Visual Prosthesis",
     evidenceLevel: "E3",
     hq: { city: "Fremont, CA", country: "United States", lat: 37.5485, lng: -121.9886 },
     category: "invasive",
@@ -35,14 +35,16 @@ export const companies: Company[] = [
       url: "https://www.youtube.com/watch?v=Kbk9BiPhm7o"
     },
     summary:
-      "Neuralink's PRIME program is a registered early feasibility study of the N1 Implant and R1 Robot for people with severe motor impairment.",
+      "Neuralink is running registered early feasibility studies of its N1 Implant and R1 Robot while also developing Blindsight, a visual-prosthesis project that has FDA Breakthrough Device Designation.",
     hypeCheck:
-      "The public evidence surface is still mostly registry entries and company-released participant updates. Treat demos as capability clips until peer-reviewed human outcome data is available.",
+      "The public evidence surface is still mostly registry entries, FDA designation notices, and company-released participant updates. Treat demos and vision claims as capability claims until peer-reviewed human outcome data is available.",
     sourceLinks: [
       source("PRIME clinical trial record", "trial-registry", clinicalTrials("NCT06429735"), "ClinicalTrials.gov"),
       source("CAN-PRIME clinical trial record", "trial-registry", clinicalTrials("NCT06700304"), "ClinicalTrials.gov"),
       source("CONVOY assistive-device study record", "trial-registry", clinicalTrials("NCT06710626"), "ClinicalTrials.gov"),
-      source("Two Years of Telepathy update", "company-update", "https://neuralink.com/updates/two-years-of-telepathy/", "Neuralink")
+      source("Two Years of Telepathy update", "company-update", "https://neuralink.com/updates/two-years-of-telepathy/", "Neuralink"),
+      source("Blindsight breakthrough designation update", "company-update", "https://neuralink.com/updates/neuralink-receives-breakthrough-device-designation-for-blindsight/", "Neuralink"),
+      source("Visual Prosthesis trial interest page", "company-update", "https://neuralink.com/trials/visual-prosthesis/", "Neuralink")
     ],
     isSample: false
   },
@@ -449,6 +451,57 @@ export const companies: Company[] = [
   }
 ];
 
+export const programProjects: ProgramProject[] = [
+  {
+    id: "neuralink-telepathy-prime",
+    companySlug: "neuralink-prime",
+    name: "Telepathy / PRIME",
+    focus: "Motor BCI for cursor, device, and assistive-control use",
+    modality: "N1 intracortical recording implant placed by the R1 surgical robot",
+    statusLabel: "Registered early feasibility studies with company-released participant updates",
+    evidenceLevel: "E3",
+    latestUpdateLabel: "Jan 2026 company update",
+    sortDate: "2026-01-29",
+    summary:
+      "Telepathy is Neuralink's motor-control BCI application, studied through PRIME, CAN-PRIME, and CONVOY records for people with severe motor impairment.",
+    demonstrated:
+      "Registered human studies and company-published participant material showing digital-device interaction.",
+    notYetShown:
+      "Peer-reviewed human endpoint data, long-term safety readouts, and approved commercial assistive use.",
+    sourceLinks: [
+      source("PRIME clinical trial record", "trial-registry", clinicalTrials("NCT06429735"), "ClinicalTrials.gov"),
+      source("CAN-PRIME clinical trial record", "trial-registry", clinicalTrials("NCT06700304"), "ClinicalTrials.gov"),
+      source("CONVOY assistive-device study record", "trial-registry", clinicalTrials("NCT06710626"), "ClinicalTrials.gov"),
+      source("Two Years of Telepathy update", "company-update", "https://neuralink.com/updates/two-years-of-telepathy/", "Neuralink")
+    ],
+    isSample: false
+  },
+  {
+    id: "neuralink-blindsight-visual-prosthesis",
+    companySlug: "neuralink-prime",
+    name: "Blindsight / Visual Prosthesis",
+    focus: "Visual perception restoration for people with vision impairment",
+    modality: "Brain implant intended to stimulate visual cortex and bypass damaged eyes or optic nerves",
+    statusLabel: "FDA Breakthrough Device Designation; Neuralink visual-prosthesis interest page is live",
+    evidenceLevel: "E1",
+    latestUpdateLabel: "Sep 2024 designation; trial-interest page live",
+    sortDate: "2024-09-17",
+    summary:
+      "Blindsight is Neuralink's visual-prosthesis project. Neuralink says it received FDA Breakthrough Device Designation for individuals with vision impairment and now routes interested people through a Visual Prosthesis page and patient registry.",
+    demonstrated:
+      "A company-announced FDA Breakthrough Device Designation and an official Neuralink Visual Prosthesis interest page.",
+    notYetShown:
+      "A registered human Blindsight trial, first human implant, peer-reviewed human visual-perception data, or approved/cleared clinical use.",
+    sourceLinks: [
+      source("Blindsight breakthrough designation update", "company-update", "https://neuralink.com/updates/neuralink-receives-breakthrough-device-designation-for-blindsight/", "Neuralink"),
+      source("Visual Prosthesis trial interest page", "company-update", "https://neuralink.com/trials/visual-prosthesis/", "Neuralink"),
+      source("FDA Breakthrough Devices Program overview", "regulatory-page", "https://www.fda.gov/medical-devices/how-study-and-market-your-device/breakthrough-devices-program", "U.S. FDA", false),
+      source("IEEE Spectrum analysis of Blindsight claims", "news-report", "https://spectrum.ieee.org/neuralink-blindsight", "IEEE Spectrum", false)
+    ],
+    isSample: false
+  }
+];
+
 export const milestones: Milestone[] = [
   {
     id: "neuralink-prime-primary-completion-2026",
@@ -584,6 +637,28 @@ export const milestones: Milestone[] = [
     hypeCheck:
       "This is a company-reported participant count, not independently published clinical outcome evidence.",
     sourceLinks: [source("Two Years of Telepathy update", "company-update", "https://neuralink.com/updates/two-years-of-telepathy/", "Neuralink")],
+    isSample: false
+  },
+  {
+    id: "neuralink-blindsight-breakthrough-2024",
+    title: "Blindsight receives FDA Breakthrough Device Designation",
+    companySlug: "neuralink-prime",
+    dateLabel: "Sep 17, 2024",
+    sortDate: "2024-09-17",
+    status: "confirmed",
+    type: "regulatory-designation",
+    evidenceLevel: "E1",
+    confidence: "medium",
+    summary:
+      "Neuralink announced FDA Breakthrough Device Designation for Blindsight, its visual-prosthesis project for people with vision impairment.",
+    whyItMatters:
+      "Breakthrough designation can increase FDA interaction and review priority for a device that may address an irreversibly debilitating condition.",
+    hypeCheck:
+      "A breakthrough designation is not approval, clearance, or proof that Blindsight restores useful vision in humans.",
+    sourceLinks: [
+      source("Blindsight breakthrough designation update", "company-update", "https://neuralink.com/updates/neuralink-receives-breakthrough-device-designation-for-blindsight/", "Neuralink"),
+      source("FDA Breakthrough Devices Program overview", "regulatory-page", "https://www.fda.gov/medical-devices/how-study-and-market-your-device/breakthrough-devices-program", "U.S. FDA", false)
+    ],
     isSample: false
   },
   {

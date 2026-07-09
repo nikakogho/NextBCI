@@ -96,6 +96,7 @@ export type SourceType =
   | "company-update"
   | "regulatory-page"
   | "conference-page"
+  | "news-report"
   | "demo-video"
   | "placeholder";
 
@@ -141,6 +142,23 @@ export interface Company {
   interviewVideo?: VideoLink;
   summary: string;
   hypeCheck: string;
+  sourceLinks: SourceLink[];
+  isSample: boolean;
+}
+
+export interface ProgramProject {
+  id: string;
+  companySlug: string;
+  name: string;
+  focus: string;
+  modality: string;
+  statusLabel: string;
+  evidenceLevel: EvidenceLevel;
+  latestUpdateLabel: string;
+  sortDate: string;
+  summary: string;
+  demonstrated: string;
+  notYetShown: string;
   sourceLinks: SourceLink[];
   isSample: boolean;
 }

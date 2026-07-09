@@ -86,3 +86,29 @@
 - [x] Use OpenStreetMap tiles, colored pins, and count clusters similar to the Dangerous Things partners map reference.
 - [x] Let dense clusters break apart with zoom and spread same-city programs visually at high zoom.
 - [x] Run validation, lint, typecheck, build, and rendered map checks.
+
+## Map Refinement Loop: Full-Screen Partner-Map Feel
+
+- [x] Convert `/map` into a map-first full-screen surface with overlay summary and program directory panels.
+- [x] Move zoom controls onto the map and keep OpenStreetMap tile interaction available across desktop and mobile.
+- [x] Make dense clusters zoom at broad scales and spiderfy at regional scales.
+- [x] Increase visual-only same-city pin separation so multiple programs in one city can be selected individually.
+- [x] Run validation, lint, typecheck, build, and rendered map checks.
+
+## Data/UI Loop: Neuralink Project Tracks and Netlify Gate
+
+- [x] Add `programProjects` data for Neuralink Telepathy / PRIME and Blindsight / Visual Prosthesis.
+- [x] Add Blindsight FDA Breakthrough Device Designation as a sourced Neuralink milestone.
+- [x] Render project-track cards on `/neuralink` and `/companies/[slug]`.
+- [x] Include demonstrated vs not-yet-shown evidence on project-track cards.
+- [x] Add project-track validation and query tests.
+- [x] Add `npm run ci`, GitHub Actions CI, `netlify.toml`, and `.netlify/` gitignore entry.
+- [x] Run full CI/build verification and rendered page checks.
+
+## Next Data Expansion Loop
+
+- [ ] Add Nudge with sourced company profile, milestones, and evidence notes.
+- [ ] Add Neurosity with sourced company profile, milestones, and evidence notes.
+- [ ] Add Muse and Emotiv as non-invasive EEG companies with clear consumer/wellness vs medical-evidence boundaries.
+- [ ] Expand Blackrock Neurotech with additional papers/trials where useful.
+- [ ] Add a ranked, sourced watchlist for top EEG, fMRI, focused-ultrasound, and Chinese BCI programs before promoting entries into the main dataset.

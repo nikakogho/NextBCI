@@ -107,8 +107,17 @@ try {
     );
   });
 
+  queries.programProjects.forEach((project) => {
+    assert(companySlugs.has(project.companySlug), `project ${project.id} should reference a known company`);
+    assert(
+      queries.getCompanyProjects(project.companySlug).some((record) => record.id === project.id),
+      `getCompanyProjects should include ${project.id}`
+    );
+  });
+
   const allSources = [
     ...queries.companies,
+    ...queries.programProjects,
     ...queries.milestones,
     ...queries.trials,
     ...queries.demos,

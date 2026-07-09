@@ -1,4 +1,4 @@
-import { companies, demos, milestones, papers, trials } from "./seed-data";
+import { companies, demos, milestones, papers, programProjects, trials } from "./seed-data";
 import {
   companyCategories,
   regions,
@@ -7,12 +7,13 @@ import {
   type Demo,
   type Milestone,
   type Paper,
+  type ProgramProject,
   type Region,
   type SourceLink,
   type Trial
 } from "./schema";
 
-export { companies, demos, milestones, papers, trials };
+export { companies, demos, milestones, papers, programProjects, trials };
 
 export const regionLabel = (region: Region): string => regions[region];
 export const categoryLabel = (category: CompanyCategory): string => companyCategories[category];
@@ -60,6 +61,9 @@ export const getCompanyDemos = (slug: string): Demo[] =>
 export const getCompanyPapers = (slug: string): Paper[] =>
   descendingByDate(papers.filter((paper) => paper.companySlug === slug));
 
+export const getCompanyProjects = (slug: string): ProgramProject[] =>
+  descendingByDate(programProjects.filter((project) => project.companySlug === slug));
+
 export const isYoutubeSource = (source: SourceLink): boolean =>
   source.sourceType === "demo-video" && /(^|\/\/)(www\.)?(youtube\.com|youtu\.be)\//i.test(source.url);
 
@@ -75,6 +79,7 @@ export interface CompanyStats {
   trials: number;
   demos: number;
   papers: number;
+  projects: number;
   /** Raw weighted activity score. */
   score: number;
   /** Activity relative to the busiest program, 0..1. */
@@ -104,6 +109,7 @@ const rawActivityScore = (slug: string): number => {
   score += trials.filter((trial) => trial.companySlug === slug).length * 3;
   score += demos.filter((demo) => demo.companySlug === slug).length * 1.5;
   score += papers.filter((paper) => paper.companySlug === slug).length * 1;
+  score += programProjects.filter((project) => project.companySlug === slug).length * 0.75;
   return score;
 };
 
@@ -119,6 +125,7 @@ export const getCompanyStats = (slug: string): CompanyStats => {
     trials: trials.filter((trial) => trial.companySlug === slug).length,
     demos: demos.filter((demo) => demo.companySlug === slug).length,
     papers: papers.filter((paper) => paper.companySlug === slug).length,
+    projects: programProjects.filter((project) => project.companySlug === slug).length,
     score,
     heat: score / maxActivity
   };
@@ -158,7 +165,7 @@ export interface MapNodeData {
   heatLabel: string;
   stage: string;
   evidenceLevel: string;
-  stats: { milestones: number; upcoming: number; trials: number; demos: number; papers: number };
+  stats: { milestones: number; upcoming: number; trials: number; demos: number; papers: number; projects: number };
 }
 
 export interface ProgramRow {
@@ -179,7 +186,7 @@ export interface ProgramRow {
   heat: number;
   heatColor: string;
   heatLabel: string;
-  stats: { milestones: number; upcoming: number; trials: number; demos: number; papers: number };
+  stats: { milestones: number; upcoming: number; trials: number; demos: number; papers: number; projects: number };
 }
 
 export const programRows: ProgramRow[] = companiesByActivity.map((company) => {
@@ -207,12 +214,13 @@ export const programRows: ProgramRow[] = companiesByActivity.map((company) => {
       upcoming: stats.upcoming,
       trials: stats.trials,
       demos: stats.demos,
-      papers: stats.papers
+      papers: stats.papers,
+      projects: stats.projects
     }
   };
 });
 
-export type SearchKind = "program" | "milestone" | "trial" | "demo" | "paper";
+export type SearchKind = "program" | "project" | "milestone" | "trial" | "demo" | "paper";
 
 export interface SearchItem {
   kind: SearchKind;
@@ -243,6 +251,22 @@ export const searchIndex: SearchItem[] = [
       company.hq.country,
       categoryLabel(company.category),
       regionLabel(company.region)
+    )
+  })),
+  ...programProjects.map((project): SearchItem => ({
+    kind: "project",
+    title: project.name,
+    subtitle: `${getCompanyName(project.companySlug)} · ${project.focus}`,
+    href: `/companies/${project.companySlug}`,
+    text: blob(
+      project.name,
+      project.focus,
+      project.modality,
+      project.statusLabel,
+      project.summary,
+      project.demonstrated,
+      project.notYetShown,
+      getCompanyName(project.companySlug)
     )
   })),
   ...milestones.map((milestone): SearchItem => ({
@@ -295,7 +319,8 @@ export const mapNodes: MapNodeData[] = companies.map((company) => {
       upcoming: stats.upcoming,
       trials: stats.trials,
       demos: stats.demos,
-      papers: stats.papers
+      papers: stats.papers,
+      projects: stats.projects
     }
   };
 });
