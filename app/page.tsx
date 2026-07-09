@@ -1,156 +1,134 @@
 import Link from "next/link";
 import { EvidenceBadge } from "@/components/Badge";
-import { MilestoneCard } from "@/components/MilestoneCard";
-import { PageHeader } from "@/components/PageHeader";
-import { SampleNotice } from "@/components/SampleNotice";
+import { LaunchCard } from "@/components/LaunchCard";
+import { Signal } from "@/components/Signal";
+import { WorldMap } from "@/components/WorldMap";
 import {
   companies,
   confirmedMilestones,
   demos,
-  nextMajorMilestone,
+  mapNodes,
   trials,
   upcomingMilestones
 } from "@/data/queries";
 import { evidenceLevels } from "@/data/schema";
 
 export default function HomePage() {
+  const nextUp = upcomingMilestones.slice(0, 5);
+  const recent = confirmedMilestones.slice(0, 3);
+
+  const stats = [
+    { value: companies.length, label: "programs tracked" },
+    { value: upcomingMilestones.length, label: "upcoming checkpoints" },
+    { value: trials.length, label: "registered trials" },
+    { value: demos.length, label: "sourced demos" }
+  ];
+
   return (
     <div className="page-shell page-stack">
-      <PageHeader
-        eyebrow="NextBCI tracker"
-        title="Follow BCI evidence without the fog."
-        description="A static-first board for trials, implants, demos, papers, regulatory moves, and the next checkpoints worth watching."
-      />
-      <SampleNotice />
-
-      <section className="home-intro-grid">
-        <article className="data-card home-start-card">
-          <div className="data-card-inner">
-            <p className="eyebrow">Start here</p>
-            <h2 className="text-3xl font-black">What changed, what is next, and how strong is the evidence?</h2>
-            <p className="muted-copy">
-              NextBCI reads like a launch tracker for neurotechnology: upcoming checkpoints first, previous evidence
-              behind it, and every claim tied back to a source.
+      {/* Hero */}
+      <section className="hero">
+        <div className="hero-waves">
+          <Signal seed="nextbci-hero-2026" className="signal" />
+        </div>
+        <div className="hero-grid">
+          <div>
+            <p className="eyebrow">The brain-computer interface launch tracker</p>
+            <h1>Watch the neural frontier, checkpoint by checkpoint.</h1>
+            <p className="lede">
+              NextBCI tracks the implants, trials, demos, and papers moving brain-computer interfaces forward — with a
+              countdown to what&apos;s next and a live world map of who&apos;s pushing hardest.
             </p>
-            <div className="home-action-row">
-              <Link className="primary-source-button" href="/milestones">
+            <div className="hero-cta">
+              <Link className="btn btn-primary" href="/map">
+                Explore the map
+              </Link>
+              <Link className="btn btn-ghost" href="/milestones">
                 Browse milestones
               </Link>
-              <Link className="details-button" href="/companies">
-                View programs
-              </Link>
-              <Link className="details-button" href="/demos">
-                Watch demos
-              </Link>
             </div>
           </div>
-        </article>
-
-        <aside className="data-card dark-panel">
-          <div className="data-card-inner">
-            <p className="eyebrow">Tracker state</p>
-            <div className="metric-strip">
-              <div className="metric">
-                <b>{companies.length}</b>
-                <span>sourced programs</span>
+          <div className="stat-strip" style={{ gridTemplateColumns: "1fr 1fr" }}>
+            {stats.map((s) => (
+              <div className="stat" key={s.label}>
+                <b>{s.value}</b>
+                <span>{s.label}</span>
               </div>
-              <div className="metric">
-                <b>{confirmedMilestones.length}</b>
-                <span>confirmed milestones</span>
-              </div>
-              <div className="metric">
-                <b>{trials.length}</b>
-                <span>registered trials</span>
-              </div>
-              <div className="metric">
-                <b>{demos.length}</b>
-                <span>sourced demos</span>
-              </div>
-            </div>
+            ))}
           </div>
-        </aside>
-      </section>
-
-      <section className="tracker-grid">
-        <div className="section">
-          <div className="section-header">
-            <div>
-              <p className="eyebrow">Next major milestone</p>
-              <h2>What to watch next</h2>
-            </div>
-            <Link className="nav-link border-stone-300 bg-white" href="/milestones">
-              Full archive
-            </Link>
-          </div>
-          {nextMajorMilestone ? <MilestoneCard milestone={nextMajorMilestone} /> : null}
         </div>
-
-        <aside className="data-card">
-          <div className="data-card-inner">
-            <p className="eyebrow">How to read a card</p>
-            <div className="guide-list">
-              <div>
-                <b>Evidence level</b>
-                <span>How strong the public evidence is, from announcement to approved use.</span>
-              </div>
-              <div>
-                <b>Hype check</b>
-                <span>What the milestone does not prove yet.</span>
-              </div>
-              <div>
-                <b>Sources</b>
-                <span>Registry, paper, company, regulatory, or demo links attached to the claim.</span>
-              </div>
-            </div>
-          </div>
-        </aside>
       </section>
 
+      {/* Upcoming feed */}
       <section className="section">
-        <div className="section-header">
+        <div className="section-head">
           <div>
-            <p className="eyebrow">Latest confirmed milestones</p>
-            <h2>Recent evidence changes</h2>
+            <p className="eyebrow">Next milestones</p>
+            <h2>Counting down to the next checkpoints</h2>
           </div>
-          <Link className="nav-link border-stone-300 bg-white" href="/milestones">
-            Browse milestones
+          <Link className="btn btn-ghost btn-sm" href="/milestones">
+            Full archive →
           </Link>
         </div>
-        <div className="card-grid">
-          {confirmedMilestones.slice(0, 3).map((milestone) => (
-            <MilestoneCard compact key={milestone.id} milestone={milestone} />
+        <div className="launch-feed">
+          {nextUp.map((milestone) => (
+            <LaunchCard key={milestone.id} milestone={milestone} />
           ))}
         </div>
       </section>
 
+      {/* Map preview */}
       <section className="section">
-        <div className="section-header">
+        <div className="section-head">
           <div>
-            <p className="eyebrow">Upcoming milestones</p>
-            <h2>Expected checkpoints</h2>
+            <p className="eyebrow">Global activity</p>
+            <h2>Where BCIs are being built</h2>
+          </div>
+          <Link className="btn btn-ghost btn-sm" href="/map">
+            Open full map →
+          </Link>
+        </div>
+        <WorldMap nodes={mapNodes} compact />
+        <p className="muted-copy" style={{ fontSize: 13 }}>
+          Redder nodes mark the most active clinical and research programs. Open the full map to select any node.
+        </p>
+      </section>
+
+      {/* Recent confirmed */}
+      <section className="section">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Recently confirmed</p>
+            <h2>Evidence that just changed</h2>
+          </div>
+          <Link className="btn btn-ghost btn-sm" href="/milestones">
+            See all →
+          </Link>
+        </div>
+        <div className="launch-feed">
+          {recent.map((milestone) => (
+            <LaunchCard key={milestone.id} milestone={milestone} />
+          ))}
+        </div>
+      </section>
+
+      {/* Evidence legend */}
+      <section className="section">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">How to read the evidence</p>
+            <h2>From rumor to approved use</h2>
           </div>
         </div>
         <div className="card-grid">
-          {upcomingMilestones.map((milestone) => (
-            <MilestoneCard compact key={milestone.id} milestone={milestone} />
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <div>
-          <p className="eyebrow">Evidence levels</p>
-          <h2 className="text-3xl font-black">From rumor to approved use</h2>
-        </div>
-        <div className="card-grid">
-          {Object.entries(evidenceLevels).map(([level, definition]) => (
-            <article className="data-card" key={level}>
-              <div className="data-card-inner">
-                <EvidenceBadge level={level as keyof typeof evidenceLevels} />
-                <h3 className="text-lg font-black">{definition.label}</h3>
-                <p className="muted-copy text-sm">{definition.description}</p>
-              </div>
-            </article>
+          {Object.entries(evidenceLevels).map(([level, def]) => (
+            <div className="tile" key={level}>
+              <EvidenceBadge level={level as keyof typeof evidenceLevels} />
+              <h3>{def.label}</h3>
+              <p className="muted-copy" style={{ fontSize: 13.5 }}>
+                {def.description}
+              </p>
+            </div>
           ))}
         </div>
       </section>

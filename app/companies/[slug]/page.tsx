@@ -1,16 +1,19 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { EvidenceBadge, SampleBadge } from "@/components/Badge";
-import { MilestoneCard } from "@/components/MilestoneCard";
-import { SourceLinks } from "@/components/SourceLinks";
+import { DemoClassificationBadge, EvidenceBadge, SampleBadge, StatusChip } from "@/components/Badge";
+import { Signal } from "@/components/Signal";
+import { SourceList } from "@/components/SourceList";
 import {
   companies,
   getCompany,
   getCompanyDemos,
   getCompanyMilestones,
   getCompanyPapers,
-  getCompanyTrials
+  getCompanyStats,
+  getCompanyTrials,
+  heatColor,
+  heatLabel
 } from "@/data/queries";
-import { demoClassificationLabels } from "@/data/schema";
 
 export function generateStaticParams() {
   return companies.map((company) => ({ slug: company.slug }));
@@ -19,130 +22,193 @@ export function generateStaticParams() {
 export default async function CompanyDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const company = getCompany(slug);
-
-  if (!company) {
-    notFound();
-  }
+  if (!company) notFound();
 
   const milestones = getCompanyMilestones(company.slug);
-  const companyTrials = getCompanyTrials(company.slug);
-  const companyDemos = getCompanyDemos(company.slug);
-  const companyPapers = getCompanyPapers(company.slug);
+  const trials = getCompanyTrials(company.slug);
+  const demos = getCompanyDemos(company.slug);
+  const papers = getCompanyPapers(company.slug);
+  const stats = getCompanyStats(company.slug);
+  const color = heatColor(stats.heat);
 
   return (
     <div className="page-shell page-stack">
-      <header className="section">
-        <div className="meta-row">
-          <EvidenceBadge level={company.evidenceLevel} />
-          {company.isSample ? <SampleBadge /> : null}
-        </div>
-        <p className="eyebrow">{company.stage}</p>
-        <h1 className="page-title">{company.name}</h1>
-        <p className="lede">{company.summary}</p>
-      </header>
+      <Link className="btn btn-ghost btn-sm" href="/companies" style={{ alignSelf: "flex-start" }}>
+        ← All programs
+      </Link>
 
-      <section className="tracker-grid">
-        <article className="data-card">
-          <div className="data-card-inner">
-            <h2 className="text-2xl font-black">Program summary</h2>
-            <dl className="grid gap-3 text-sm">
-              <div>
-                <dt className="font-black uppercase text-stone-500">Modality</dt>
-                <dd className="mt-1">{company.modality}</dd>
-              </div>
-              <div>
-                <dt className="font-black uppercase text-stone-500">Target function</dt>
-                <dd className="mt-1">{company.targetFunction}</dd>
-              </div>
-              <div>
-                <dt className="font-black uppercase text-stone-500">Hype check</dt>
-                <dd className="mt-1 leading-6">{company.hypeCheck}</dd>
-              </div>
-            </dl>
-          </div>
-        </article>
-        <article className="data-card">
-          <div className="data-card-inner">
-            <h2 className="text-2xl font-black">Primary source surface</h2>
-            <SourceLinks sources={company.sourceLinks} />
-          </div>
-        </article>
-      </section>
-
-      <section className="section">
-        <div>
-          <p className="eyebrow">Milestone timeline</p>
-          <h2 className="text-3xl font-black">Evidence changes</h2>
-        </div>
-        <div className="timeline">
-          {milestones.map((milestone) => (
-            <div className="timeline-item" key={milestone.id}>
-              <div className="timeline-date">{milestone.dateLabel}</div>
-              <MilestoneCard milestone={milestone} />
+      <section className="detail-hero">
+        <div className="detail-banner">
+          <Signal seed={company.slug} />
+          <div className="z" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div className="meta-row">
+              <span className="badge type-badge">{company.kind === "academic" ? "Academic" : "Company"}</span>
+              <EvidenceBadge level={company.evidenceLevel} />
+              <span className="badge ev" style={{ color, borderColor: color }}>
+                {heatLabel(stats.heat)}
+              </span>
+              {company.isSample ? <SampleBadge /> : null}
             </div>
-          ))}
+            <h1>{company.name}</h1>
+            <p className="muted-copy" style={{ fontWeight: 600 }}>
+              {company.hq.city}, {company.hq.country}
+            </p>
+          </div>
+        </div>
+        <div className="detail-body">
+          <p className="muted-copy">{company.summary}</p>
+          <div className="stat-strip">
+            <div className="stat">
+              <b>{stats.milestones}</b>
+              <span>milestones</span>
+            </div>
+            <div className="stat">
+              <b>{stats.trials}</b>
+              <span>trials</span>
+            </div>
+            <div className="stat">
+              <b>{stats.demos}</b>
+              <span>demos</span>
+            </div>
+            <div className="stat">
+              <b>{stats.papers}</b>
+              <span>papers</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="section">
-        <div>
-          <p className="eyebrow">Related trials</p>
-          <h2 className="text-3xl font-black">Trial tracker</h2>
+      <section className="two-col">
+        <div className="panel panel-pad">
+          <p className="eyebrow" style={{ marginBottom: 12 }}>Program profile</p>
+          <dl className="kv">
+            <dt>Modality</dt>
+            <dd>{company.modality}</dd>
+            <dt>Target function</dt>
+            <dd>{company.targetFunction}</dd>
+            <dt>Stage</dt>
+            <dd>{company.stage}</dd>
+            <dt>Home base</dt>
+            <dd>
+              {company.hq.city}, {company.hq.country}
+            </dd>
+          </dl>
+          <p className="hype" style={{ marginTop: 16 }}>{company.hypeCheck}</p>
         </div>
-        <div className="card-grid">
-          {companyTrials.map((trial) => (
-            <article className="data-card" key={trial.id}>
-              <div className="data-card-inner">
+        <div className="panel panel-pad">
+          <p className="eyebrow" style={{ marginBottom: 12 }}>Primary sources</p>
+          <SourceList sources={company.sourceLinks} />
+        </div>
+      </section>
+
+      {milestones.length > 0 ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Timeline</p>
+              <h2>Milestone history</h2>
+            </div>
+          </div>
+          <div className="timeline">
+            {milestones.map((milestone, i) => (
+              <div className="tl-item" key={milestone.id}>
+                <div className="tl-rail">
+                  <span className="tl-node" style={{ background: color, boxShadow: `0 0 10px ${color}` }} />
+                  {i < milestones.length - 1 ? <span className="tl-line" /> : null}
+                </div>
+                <div className="tl-body">
+                  <span className="tl-date">{milestone.dateLabel}</span>
+                  <div className="meta-row">
+                    <StatusChip status={milestone.status} />
+                    <EvidenceBadge level={milestone.evidenceLevel} />
+                  </div>
+                  <Link className="launch-title" style={{ fontSize: "1.05rem" }} href={`/milestones/${milestone.id}`}>
+                    {milestone.title}
+                  </Link>
+                  <p className="muted-copy" style={{ fontSize: 13 }}>{milestone.summary}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {trials.length > 0 ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Trials</p>
+              <h2>Registered studies</h2>
+            </div>
+          </div>
+          <div className="card-grid">
+            {trials.map((trial) => (
+              <div className="tile" key={trial.id}>
                 <EvidenceBadge level={trial.evidenceLevel} />
-                <h3 className="text-xl font-black">{trial.title}</h3>
-                <p className="muted-copy text-sm">{trial.status} / {trial.condition}</p>
-                <p className="text-sm leading-6">{trial.targetFunction}</p>
-                <SourceLinks sources={trial.sourceLinks} />
+                <h3 style={{ fontSize: "1.05rem" }}>{trial.title}</h3>
+                <p className="muted-copy" style={{ fontSize: 13 }}>
+                  {trial.status} · {trial.condition}
+                </p>
+                <p className="muted-copy" style={{ fontSize: 13 }}>{trial.targetFunction}</p>
+                <div className="tile-foot">
+                  <SourceList sources={trial.sourceLinks} />
+                </div>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
-      <section className="section">
-        <div>
-          <p className="eyebrow">Related demos</p>
-          <h2 className="text-3xl font-black">Capability clips and presentations</h2>
-        </div>
-        <div className="card-grid">
-          {companyDemos.map((demo) => (
-            <article className="data-card" key={demo.id}>
-              <div className="data-card-inner">
-                <EvidenceBadge level={demo.evidenceLevel} />
-                <p className="eyebrow">{demo.dateLabel} / {demoClassificationLabels[demo.classification]}</p>
-                <h3 className="text-xl font-black">{demo.title}</h3>
-                <p className="muted-copy text-sm">{demo.summary}</p>
-                <SourceLinks sources={demo.sourceLinks} />
+      {demos.length > 0 ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Demos</p>
+              <h2>Capability clips & talks</h2>
+            </div>
+          </div>
+          <div className="card-grid">
+            {demos.map((demo) => (
+              <div className="tile" key={demo.id}>
+                <div className="meta-row">
+                  <DemoClassificationBadge classification={demo.classification} />
+                  <EvidenceBadge level={demo.evidenceLevel} />
+                </div>
+                <span className="tl-date">{demo.dateLabel}</span>
+                <h3 style={{ fontSize: "1.05rem" }}>{demo.title}</h3>
+                <p className="muted-copy" style={{ fontSize: 13 }}>{demo.summary}</p>
+                <div className="tile-foot">
+                  <SourceList sources={demo.sourceLinks} />
+                </div>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
-      <section className="section">
-        <div>
-          <p className="eyebrow">Papers and source links</p>
-          <h2 className="text-3xl font-black">Published evidence surface</h2>
-        </div>
-        <div className="card-grid">
-          {companyPapers.map((paper) => (
-            <article className="data-card" key={paper.id}>
-              <div className="data-card-inner">
+      {papers.length > 0 ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Papers</p>
+              <h2>Published evidence</h2>
+            </div>
+          </div>
+          <div className="card-grid">
+            {papers.map((paper) => (
+              <div className="tile" key={paper.id}>
                 <EvidenceBadge level={paper.evidenceLevel} />
-                <p className="eyebrow">{paper.dateLabel}</p>
-                <h3 className="text-xl font-black">{paper.title}</h3>
-                <p className="muted-copy text-sm">{paper.summary}</p>
-                <SourceLinks sources={paper.sourceLinks} />
+                <span className="tl-date">{paper.dateLabel}</span>
+                <h3 style={{ fontSize: "1.05rem" }}>{paper.title}</h3>
+                <p className="muted-copy" style={{ fontSize: 13 }}>{paper.summary}</p>
+                <div className="tile-foot">
+                  <SourceList sources={paper.sourceLinks} />
+                </div>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

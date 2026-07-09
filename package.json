@@ -4,8 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "generate:world": "node scripts/generate-world.mjs",
+    "build": "npm run generate:world && npm run validate:data && next build",
     "start": "next start",
+    "validate:data": "node scripts/validate-data.mjs",
+    "test:data": "node scripts/test-data-queries.mjs",
+    "benchmark:routes": "node scripts/benchmark-routes.mjs",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit"
   },
@@ -25,6 +29,7 @@
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "4.3.1",
+    "topojson-client": "^3.1.0",
     "typescript": "6.0.3"
   }
 }

@@ -39,12 +39,19 @@
 - [x] Run lint, typecheck, and build after the detail-route changes.
 - [x] Inspect key rendered pages.
 
+## Data Quality Loop: Source Validation
+
+- [x] Add schema validation for required source links before records can be marked non-sample.
+- [x] Validate IDs, source URLs, evidence fields, dates, and company relationships.
+- [x] Wire data validation into `npm run build`.
+- [x] Run validation, lint, typecheck, and build.
+
 ## Next Recommended Loops
 
 - [x] Replace fictional sample records with 5 to 8 sourced real seed records.
-- [ ] Add schema validation for required source links before records can be marked non-sample.
-- [ ] Add interactive filters on milestone and demo archive pages.
-- [ ] Add tests for data query helpers and evidence-level mappings.
+- [x] Add schema validation for required source links before records can be marked non-sample.
+- [x] Add interactive filters on milestone and demo archive pages.
+- [x] Add tests for data query helpers and evidence-level mappings.
 
 ## Maintenance Loop: Hydration Warning
 
@@ -59,3 +66,16 @@
 - [x] Remove abandoned animated spike-firing prototype.
 - [x] Run lint, typecheck, and build after the visual changes.
 - [x] Inspect desktop and mobile screenshots.
+
+## Reference-Inspired Tracker Loop
+
+- [x] Research NextSpaceflight tracker pages and NeuroFounders faceted browsing.
+- [x] Write reference requirements and work-task docs.
+- [x] Get two subagent reviews and reconcile the task scope.
+- [x] Stabilize milestone card and detail hero date/title layout.
+- [x] Expand milestone filters by evidence, type, and program.
+- [x] Add demo archive filters by classification, evidence, and program.
+- [x] Add a recent source/action strip to the home page.
+- [x] Add a local route/static-asset benchmark script.
+- [x] Add lightweight data/query tests.
+- [x] Run validation, lint, typecheck, build, benchmark, and screenshot checks.

@@ -91,13 +91,22 @@ export interface SourceLink {
   isSample?: boolean;
 }
 
+export interface GeoPoint {
+  city: string;
+  country: string;
+  lat: number;
+  lng: number;
+}
+
 export interface Company {
   slug: string;
   name: string;
+  kind: "company" | "academic";
   modality: string;
   targetFunction: string;
   stage: string;
   evidenceLevel: EvidenceLevel;
+  hq: GeoPoint;
   summary: string;
   hypeCheck: string;
   sourceLinks: SourceLink[];

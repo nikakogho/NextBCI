@@ -1,50 +1,57 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { DemoClassificationBadge, EvidenceBadge, SampleBadge } from "@/components/Badge";
-import { PageHeader } from "@/components/PageHeader";
-import { SampleNotice } from "@/components/SampleNotice";
-import { SourceLinks } from "@/components/SourceLinks";
-import { getYoutubeSource, WatchButton } from "@/components/SourceActions";
-import { demos, getCompanyName } from "@/data/queries";
+import { DemoClassificationBadge, EvidenceBadge } from "@/components/Badge";
+import { SourceList } from "@/components/SourceList";
+import { demos, getCompanyName, getYoutubeSource } from "@/data/queries";
+
+export const metadata: Metadata = {
+  title: "Demos · NextBCI",
+  description: "Brain-computer interface demos classified by setting, so patient use isn't mixed with concept animation."
+};
+
+const sorted = [...demos].sort((a, b) => b.sortDate.localeCompare(a.sortDate));
 
 export default function DemosPage() {
   return (
     <div className="page-shell page-stack">
-      <PageHeader
-        eyebrow="Demo library"
-        title="What was actually demonstrated?"
-        description="Demo records are classified by setting so patient use, animal work, lab demos, concept animation, investor material, talks, and interviews are not mixed together."
-      />
-      <SampleNotice />
-      <section className="card-grid">
-        {demos.map((demo) => (
-          <article className="data-card" key={demo.id}>
-            <div className="data-card-inner">
-              <div className="meta-row">
+      <section>
+        <p className="eyebrow">Demo library</p>
+        <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.8rem)", marginTop: 10 }}>What was actually demonstrated</h1>
+        <p className="lede" style={{ maxWidth: "62ch", marginTop: 14 }}>
+          Every clip is classified by setting — actual patient use, lab work, animal demos, concept animation,
+          investor material, talks — so capability never gets confused with marketing.
+        </p>
+      </section>
+
+      <section className="card-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}>
+        {sorted.map((demo) => {
+          const youtube = getYoutubeSource(demo.sourceLinks);
+          return (
+            <div className="tile" key={demo.id}>
+              <div className="meta-row" style={{ justifyContent: "space-between" }}>
                 <DemoClassificationBadge classification={demo.classification} />
                 <EvidenceBadge level={demo.evidenceLevel} />
-                {demo.isSample ? <SampleBadge /> : null}
               </div>
-              <div>
-                <p className="eyebrow">{demo.dateLabel} / {demo.setting}</p>
-                <h2 className="mt-2 text-xl font-black leading-tight">{demo.title}</h2>
-                <Link className="mt-2 inline-flex text-sm font-black text-teal-800" href={`/companies/${demo.companySlug}`}>
-                  {getCompanyName(demo.companySlug)}
+              <span className="tl-date">
+                {demo.dateLabel} · {getCompanyName(demo.companySlug)}
+              </span>
+              <h3 style={{ fontSize: "1.05rem" }}>{demo.title}</h3>
+              <p className="muted-copy" style={{ fontSize: 13.5 }}>{demo.summary}</p>
+              <p className="hype">{demo.hypeCheck}</p>
+              <div className="tile-foot">
+                <Link className="btn btn-ghost btn-sm" href={`/companies/${demo.companySlug}`}>
+                  Program →
                 </Link>
+                {youtube ? (
+                  <a className="btn btn-primary btn-sm" href={youtube.url} target="_blank" rel="noreferrer">
+                    Watch
+                  </a>
+                ) : null}
               </div>
-              <p className="muted-copy text-sm">{demo.summary}</p>
-              <div>
-                <p className="text-xs font-black uppercase text-stone-500">Hype check</p>
-                <p className="mt-1 text-sm leading-6">{demo.hypeCheck}</p>
-              </div>
-              {getYoutubeSource(demo.sourceLinks) ? (
-                <div className="card-action-row">
-                  <WatchButton source={getYoutubeSource(demo.sourceLinks)!} />
-                </div>
-              ) : null}
-              <SourceLinks sources={demo.sourceLinks} />
+              <SourceList sources={demo.sourceLinks} />
             </div>
-          </article>
-        ))}
+          );
+        })}
       </section>
     </div>
   );

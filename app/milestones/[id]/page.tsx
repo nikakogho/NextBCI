@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ConfidenceBadge, EvidenceBadge, MilestoneTypeBadge, SampleBadge } from "@/components/Badge";
-import { PageHeader } from "@/components/PageHeader";
-import { SourceLinks } from "@/components/SourceLinks";
-import { getPrimarySource, getYoutubeSource, PrimarySourceButton, WatchButton } from "@/components/SourceActions";
-import { allMilestones, getCompany, getCompanyName, getMilestone } from "@/data/queries";
+import { ConfidenceBadge, EvidenceBadge, MilestoneTypeBadge, SampleBadge, StatusChip } from "@/components/Badge";
+import { Countdown, TMinus } from "@/components/Countdown";
+import { Signal } from "@/components/Signal";
+import { SourceList } from "@/components/SourceList";
+import { allMilestones, getCompany, getCompanyName, getMilestone, getPrimarySource, getYoutubeSource } from "@/data/queries";
 
 export function generateStaticParams() {
   return allMilestones.map((milestone) => ({ id: milestone.id }));
@@ -13,82 +13,85 @@ export function generateStaticParams() {
 export default async function MilestoneDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const milestone = getMilestone(id);
-
-  if (!milestone) {
-    notFound();
-  }
+  if (!milestone) notFound();
 
   const company = getCompany(milestone.companySlug);
-  const primarySource = getPrimarySource(milestone.sourceLinks);
-  const youtubeSource = getYoutubeSource(milestone.sourceLinks);
+  const primary = getPrimarySource(milestone.sourceLinks);
+  const youtube = getYoutubeSource(milestone.sourceLinks);
+  const upcoming = milestone.status === "upcoming";
 
   return (
     <div className="page-shell page-stack">
-      <PageHeader
-        eyebrow={`${milestone.status} milestone`}
-        title={milestone.title}
-        description={`${milestone.dateLabel} / ${getCompanyName(milestone.companySlug)}`}
-      />
+      <Link className="btn btn-ghost btn-sm" href="/milestones" style={{ alignSelf: "flex-start" }}>
+        ← All milestones
+      </Link>
 
       <section className="detail-hero">
-        <div className="detail-hero-media">
-          <div className="mission-date-chip">{milestone.dateLabel}</div>
-          <div className="detail-hero-title">
+        <div className="detail-banner">
+          <Signal seed={milestone.id} />
+          <div className="z" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div className="meta-row">
-              <MilestoneTypeBadge type={milestone.type} />
-              <EvidenceBadge level={milestone.evidenceLevel} />
-              <ConfidenceBadge confidence={milestone.confidence} />
-              {milestone.isSample ? <SampleBadge /> : null}
+              <StatusChip status={milestone.status} />
+              <span className="badge type-badge mono">{milestone.dateLabel}</span>
             </div>
-            <p>{getCompanyName(milestone.companySlug)}</p>
+            <h1>{milestone.title}</h1>
+            <p className="muted-copy" style={{ fontWeight: 600 }}>{getCompanyName(milestone.companySlug)}</p>
           </div>
         </div>
-        <div className="detail-hero-body">
+        <div className="detail-body">
+          <div className="meta-row">
+            <MilestoneTypeBadge type={milestone.type} />
+            <EvidenceBadge level={milestone.evidenceLevel} />
+            <ConfidenceBadge confidence={milestone.confidence} />
+            {milestone.isSample ? <SampleBadge /> : null}
+          </div>
+          {upcoming ? <Countdown sortDate={milestone.sortDate} /> : <TMinus sortDate={milestone.sortDate} />}
           <p className="muted-copy">{milestone.summary}</p>
-          <div className="source-action-row">
-            {primarySource ? <PrimarySourceButton source={primarySource} /> : null}
-            {youtubeSource ? <WatchButton source={youtubeSource} /> : null}
+          <div className="meta-row">
+            {primary ? (
+              <a className="btn btn-primary btn-sm" href={primary.url} target="_blank" rel="noreferrer">
+                Open primary source
+              </a>
+            ) : null}
+            {youtube ? (
+              <a className="btn btn-ghost btn-sm" href={youtube.url} target="_blank" rel="noreferrer">
+                Watch demo
+              </a>
+            ) : null}
           </div>
         </div>
       </section>
 
-      <section className="detail-grid">
-        <article className="data-card">
-          <div className="data-card-inner">
-            <p className="eyebrow">Why it matters</p>
-            <p className="leading-7">{milestone.whyItMatters}</p>
-          </div>
-        </article>
-        <article className="data-card">
-          <div className="data-card-inner">
-            <p className="eyebrow">Hype check</p>
-            <p className="leading-7">{milestone.hypeCheck}</p>
-          </div>
-        </article>
+      <section className="two-col">
+        <div className="panel panel-pad">
+          <p className="eyebrow">Why it matters</p>
+          <p className="muted-copy" style={{ marginTop: 10 }}>{milestone.whyItMatters}</p>
+        </div>
+        <div className="panel panel-pad">
+          <p className="eyebrow">Hype check</p>
+          <p className="hype" style={{ marginTop: 10 }}>{milestone.hypeCheck}</p>
+        </div>
       </section>
 
-      <section className="tracker-grid">
-        <article className="data-card">
-          <div className="data-card-inner">
-            <h2 className="text-2xl font-black">Source surface</h2>
-            <SourceLinks sources={milestone.sourceLinks} />
-          </div>
-        </article>
-        <article className="data-card">
-          <div className="data-card-inner">
-            <h2 className="text-2xl font-black">Program</h2>
-            {company ? (
-              <>
-                <p className="muted-copy text-sm">{company.summary}</p>
-                <Link className="details-button" href={`/companies/${company.slug}`}>
-                  View program
-                </Link>
-              </>
-            ) : (
-              <p className="muted-copy text-sm">No program profile attached.</p>
-            )}
-          </div>
-        </article>
+      <section className="two-col">
+        <div className="panel panel-pad">
+          <p className="eyebrow" style={{ marginBottom: 12 }}>Source surface</p>
+          <SourceList sources={milestone.sourceLinks} />
+        </div>
+        <div className="panel panel-pad">
+          <p className="eyebrow" style={{ marginBottom: 12 }}>Program</p>
+          {company ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <h3 style={{ fontSize: "1.1rem" }}>{company.name}</h3>
+              <p className="muted-copy" style={{ fontSize: 13.5 }}>{company.summary}</p>
+              <Link className="btn btn-ghost btn-sm" href={`/companies/${company.slug}`} style={{ alignSelf: "flex-start" }}>
+                View program →
+              </Link>
+            </div>
+          ) : (
+            <p className="muted-copy">No program profile attached.</p>
+          )}
+        </div>
       </section>
     </div>
   );

@@ -20,10 +20,12 @@ export const companies: Company[] = [
   {
     slug: "neuralink-prime",
     name: "Neuralink PRIME / Telepathy",
+    kind: "company",
     modality: "Fully implantable intracortical microelectrode BCI with robot-assisted placement",
     targetFunction: "Digital device control and assistive-device control for people with severe paralysis",
     stage: "Recruiting early feasibility studies",
     evidenceLevel: "E3",
+    hq: { city: "Fremont, CA", country: "United States", lat: 37.5485, lng: -121.9886 },
     summary:
       "Neuralink's PRIME program is a registered early feasibility study of the N1 Implant and R1 Robot for people with severe motor impairment.",
     hypeCheck:
@@ -39,10 +41,12 @@ export const companies: Company[] = [
   {
     slug: "synchron-stentrode",
     name: "Synchron Stentrode",
+    kind: "company",
     modality: "Endovascular motor neuroprosthesis implanted through the blood vessels",
     targetFunction: "Digital device control for people with severe paralysis",
     stage: "Peer-reviewed multi-patient evidence plus U.S. early feasibility follow-up",
     evidenceLevel: "E5",
+    hq: { city: "Brooklyn, NY", country: "United States", lat: 40.6782, lng: -73.9442 },
     summary:
       "Synchron has published human safety and feasibility evidence for a fully implanted endovascular BCI and has a U.S. COMMAND early feasibility study listed in ClinicalTrials.gov.",
     hypeCheck:
@@ -58,10 +62,12 @@ export const companies: Company[] = [
   {
     slug: "paradromics-connexus",
     name: "Paradromics Connexus",
+    kind: "company",
     modality: "Fully implantable high-density intracortical microelectrode array with wireless telemetry",
     targetFunction: "Speech restoration, synthesized speech, and computer control for severe motor impairment",
     stage: "Recruiting Connect-One early feasibility study",
     evidenceLevel: "E3",
+    hq: { city: "Austin, TX", country: "United States", lat: 30.2672, lng: -97.7431 },
     summary:
       "Paradromics moved from acute human recording into the FDA-approved Connect-One early feasibility study, with the first long-term Connexus implant reported in June 2026.",
     hypeCheck:
@@ -77,10 +83,12 @@ export const companies: Company[] = [
   {
     slug: "precision-layer-7",
     name: "Precision Neuroscience Layer 7",
+    kind: "company",
     modality: "High-density flexible micro-ECoG cortical surface array",
     targetFunction: "Temporary cortical recording and mapping now; chronic assistive BCI under development",
     stage: "FDA-cleared temporary cortical interface with human intraoperative research",
     evidenceLevel: "E4",
+    hq: { city: "New York, NY", country: "United States", lat: 40.7128, lng: -74.006 },
     summary:
       "Precision's Layer 7-T has FDA 510(k) clearance for temporary cortical recording, monitoring, and stimulation, while the company's assistive BCI goals remain investigational.",
     hypeCheck:
@@ -96,10 +104,12 @@ export const companies: Company[] = [
   {
     slug: "braingate-consortium",
     name: "BrainGate Consortium",
+    kind: "academic",
     modality: "Chronically implanted intracortical microelectrode arrays",
     targetFunction: "Computer cursor control, text entry, robotic-arm control, and communication",
     stage: "Long-running registered feasibility study with replicated peer-reviewed human results",
     evidenceLevel: "E5",
+    hq: { city: "Providence, RI", country: "United States", lat: 41.824, lng: -71.4128 },
     summary:
       "BrainGate is a long-running academic clinical BCI program with registered trial infrastructure and multiple peer-reviewed demonstrations in people with tetraplegia or severe motor impairment.",
     hypeCheck:
@@ -115,10 +125,12 @@ export const companies: Company[] = [
   {
     slug: "ucsf-bravo",
     name: "UCSF BRAVO / Chang Lab",
+    kind: "academic",
     modality: "Implanted ECoG-based speech and motor BCI",
     targetFunction: "Attempted speech decoding, synthesized speech, avatar control, and motor control research",
     stage: "Recruiting registered BRAVO trial with peer-reviewed human speech results",
     evidenceLevel: "E4",
+    hq: { city: "San Francisco, CA", country: "United States", lat: 37.7627, lng: -122.4577 },
     summary:
       "The BRAVO trial studies ECoG signals for motor and speech control, including peer-reviewed demonstrations of attempted-speech decoding and avatar control.",
     hypeCheck:
@@ -134,10 +146,12 @@ export const companies: Company[] = [
   {
     slug: "uc-davis-speech-neuroprosthesis",
     name: "UC Davis Speech Neuroprosthesis",
+    kind: "academic",
     modality: "Intracortical microelectrode arrays in speech motor cortex",
     targetFunction: "Fast-calibrating brain-to-text and synthesized speech for ALS-related dysarthria",
     stage: "Peer-reviewed single-participant long-duration speech neuroprosthesis result",
     evidenceLevel: "E5",
+    hq: { city: "Davis, CA", country: "United States", lat: 38.5382, lng: -121.7617 },
     summary:
       "UC Davis-led investigators reported a speech neuroprosthesis that rapidly calibrated and supported months of communication use in a participant with ALS-related severe dysarthria.",
     hypeCheck:
@@ -153,10 +167,12 @@ export const companies: Company[] = [
   {
     slug: "onward-arc-bci",
     name: "ONWARD ARC-BCI / DigitalBridge",
+    kind: "company",
     modality: "Implanted cortical recording paired with implanted spinal cord stimulation",
     targetFunction: "Thought-driven lower-limb movement after spinal cord injury",
     stage: "Investigational ARC-BCI with peer-reviewed brain-spine interface evidence and ongoing feasibility study",
     evidenceLevel: "E4",
+    hq: { city: "Eindhoven", country: "Netherlands", lat: 51.4416, lng: 5.4697 },
     summary:
       "ONWARD's ARC-BCI program builds on a Nature brain-spine interface demonstration and an ongoing study of cortical recording combined with lumbar spinal cord stimulation.",
     hypeCheck:

@@ -1,67 +1,60 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { EvidenceBadge, SampleBadge } from "@/components/Badge";
-import { PageHeader } from "@/components/PageHeader";
-import { SampleNotice } from "@/components/SampleNotice";
-import { SourceLinks } from "@/components/SourceLinks";
+import { EvidenceBadge } from "@/components/Badge";
+import { SourceList } from "@/components/SourceList";
 import { getCompanyName, trials } from "@/data/queries";
+
+export const metadata: Metadata = {
+  title: "Trials · NextBCI",
+  description: "Registered and translational brain-computer interface trials with condition, device, locations, and endpoints."
+};
 
 export default function TrialsPage() {
   return (
     <div className="page-shell page-stack">
-      <PageHeader
-        eyebrow="Trial tracker"
-        title="Clinical and translational trial surface"
-        description="Status, condition, target function, device or product, locations, endpoints, and sources for tracked BCI studies."
-      />
-      <SampleNotice />
-      <section className="table-wrap">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Program</th>
-              <th>Status</th>
-              <th>Condition</th>
-              <th>Target function</th>
-              <th>Device / product</th>
-              <th>Locations</th>
-              <th>Endpoints</th>
-              <th>Sources</th>
-            </tr>
-          </thead>
-          <tbody>
-            {trials.map((trial) => (
-              <tr key={trial.id}>
-                <td>
-                  <div className="grid gap-2">
-                    <div className="meta-row">
-                      <EvidenceBadge level={trial.evidenceLevel} />
-                      {trial.isSample ? <SampleBadge /> : null}
-                    </div>
-                    <Link className="font-black hover:text-teal-800" href={`/companies/${trial.companySlug}`}>
-                      {getCompanyName(trial.companySlug)}
-                    </Link>
-                    <span className="text-sm text-stone-600">{trial.title}</span>
-                  </div>
-                </td>
-                <td>{trial.status}</td>
-                <td>{trial.condition}</td>
-                <td>{trial.targetFunction}</td>
-                <td>{trial.deviceProduct}</td>
-                <td>{trial.locations.join(", ")}</td>
-                <td>
-                  <ul className="list-disc pl-4">
-                    {trial.endpoints.map((endpoint) => (
-                      <li key={endpoint}>{endpoint}</li>
-                    ))}
-                  </ul>
-                </td>
-                <td>
-                  <SourceLinks sources={trial.sourceLinks} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <section>
+        <p className="eyebrow">Trial tracker</p>
+        <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.8rem)", marginTop: 10 }}>Clinical &amp; translational trials</h1>
+        <p className="lede" style={{ maxWidth: "62ch", marginTop: 14 }}>
+          Status, condition, target function, device, locations, and endpoints for tracked BCI studies — each linked
+          to its registry entry.
+        </p>
+      </section>
+
+      <section className="card-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))" }}>
+        {trials.map((trial) => (
+          <div className="tile" key={trial.id}>
+            <div className="meta-row" style={{ justifyContent: "space-between" }}>
+              <EvidenceBadge level={trial.evidenceLevel} />
+              <span className="badge type-badge">{trial.status}</span>
+            </div>
+            <Link className="launch-title" style={{ fontSize: "1.1rem" }} href={`/companies/${trial.companySlug}`}>
+              {getCompanyName(trial.companySlug)}
+            </Link>
+            <p className="muted-copy" style={{ fontSize: 13.5 }}>{trial.title}</p>
+            <dl className="kv" style={{ gridTemplateColumns: "108px 1fr" }}>
+              <dt>Condition</dt>
+              <dd>{trial.condition}</dd>
+              <dt>Target</dt>
+              <dd>{trial.targetFunction}</dd>
+              <dt>Device</dt>
+              <dd>{trial.deviceProduct}</dd>
+              <dt>Locations</dt>
+              <dd>{trial.locations.join(" · ")}</dd>
+            </dl>
+            <div>
+              <p className="eyebrow" style={{ fontSize: 10.5, marginBottom: 6 }}>Endpoints</p>
+              <ul style={{ margin: 0, paddingLeft: 18, color: "var(--muted)", fontSize: 13, lineHeight: 1.6 }}>
+                {trial.endpoints.map((endpoint) => (
+                  <li key={endpoint}>{endpoint}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="tile-foot">
+              <SourceList sources={trial.sourceLinks} />
+            </div>
+          </div>
+        ))}
       </section>
     </div>
   );
