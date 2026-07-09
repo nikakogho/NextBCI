@@ -79,3 +79,10 @@
 - [x] Add a local route/static-asset benchmark script.
 - [x] Add lightweight data/query tests.
 - [x] Run validation, lint, typecheck, build, benchmark, and screenshot checks.
+
+## Map Zoom and Clustering Loop
+
+- [x] Switch `/map` from the static SVG world map to the Leaflet map.
+- [x] Use OpenStreetMap tiles, colored pins, and count clusters similar to the Dangerous Things partners map reference.
+- [x] Let dense clusters break apart with zoom and spread same-city programs visually at high zoom.
+- [x] Run validation, lint, typecheck, build, and rendered map checks.

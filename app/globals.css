@@ -1351,9 +1351,28 @@ p {
   }
 }
 
+@media (max-width: 720px) {
+  .topbar-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .nav-list {
+    width: 100%;
+    gap: 4px 6px;
+  }
+  .nav-link {
+    padding: 7px 9px;
+    font-size: 12.5px;
+  }
+}
+
 @media (max-width: 620px) {
   .hero {
     padding: 34px 22px;
+  }
+  .stat-strip {
+    grid-template-columns: 1fr;
   }
   .launch-card {
     grid-template-columns: 1fr;

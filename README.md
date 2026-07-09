@@ -1,6 +1,6 @@
 # NextBCI
 
-NextBCI is a launch-tracker-style, evidence-first tracker for serious brain-computer interface progress — think NextSpaceflight, but for neural interfaces. It focuses on milestones such as trials, implants, demos, papers, and regulatory moves, presented as a dark mission-control dashboard with live countdowns and an interactive world map of the programs pushing the field.
+NextBCI is a launch-tracker-style, evidence-first tracker for serious brain-computer interface progress - think NextSpaceflight, but for neural interfaces. It focuses on milestones such as trials, implants, demos, papers, and regulatory moves, presented as a dark mission-control dashboard with live countdowns and an interactive world map of the programs pushing the field.
 
 This repository contains a static-first build with a small set of sourced seed records. The dataset is not exhaustive and should be reviewed like evidence summaries, not medical advice or product recommendations.
 
@@ -8,7 +8,7 @@ This repository contains a static-first build with a small set of sourced seed r
 
 - Dark, mission-control visual design with a "neural signal" motif generated per record (no external images).
 - Live countdowns to upcoming milestones.
-- An interactive world map (`/map`) plotting every program at its home base, colored by current activity — the most active programs glow red.
+- An interactive Leaflet world map (`/map`) plotting every program at its home base, colored by current activity, with zoomable clusters for dense regions.
 
 ## Stack
 
@@ -16,6 +16,7 @@ This repository contains a static-first build with a small set of sourced seed r
 - TypeScript
 - Tailwind CSS
 - Static TypeScript data files
+- Leaflet and `leaflet.markercluster` for the full map
 
 ## Run locally
 
@@ -67,7 +68,7 @@ When adding or editing records:
 
 - `/` home dashboard with hero, live milestone feed, and map preview
 - `/neuralink` dedicated program spotlight (the system, live countdown, trials, history)
-- `/map` interactive world map of programs, colored by activity
+- `/map` interactive Leaflet world map of programs, colored by activity, with clustered pins that separate at high zoom
 - `/milestones` milestone archive (upcoming countdowns + confirmed log)
 - `/milestones/[id]` milestone detail with sources and program link
 - `/companies` searchable program directory, filterable by approach and region
@@ -78,8 +79,10 @@ When adding or editing records:
 
 ## Data coverage
 
-The dataset covers clinical and translational BCI programs across the US, Europe (Netherlands, France, Switzerland, Spain), and China (Beijing, Shanghai). Each program carries an approach (invasive / minimally invasive / non-invasive), region, and — where sourced — founding year and funding. Every milestone, trial, demo, and paper links to a primary or reputable source.
+The dataset covers clinical and translational BCI programs across the US, Europe (Netherlands, France, Switzerland, Spain), and China (Beijing, Shanghai). Each program carries an approach (invasive / minimally invasive / non-invasive), region, and, where sourced, founding year and funding. Every milestone, trial, demo, and paper links to a primary or reputable source.
 
 ## World map data
 
-Country outlines are precomputed from `public/world-110m.json` (world-atlas topojson) into `data/world-paths.ts` by `scripts/generate-world.mjs`, using a plain equirectangular projection that `lib/geo.ts` mirrors so company markers align with the land. Regenerate with `npm run generate:world` (also runs automatically in `npm run build`).
+The `/map` route uses Leaflet, OpenStreetMap tiles, and `leaflet.markercluster` so dense regions can be zoomed and clicked apart. Same-city programs receive a tiny visual-only spread in `components/LeafletMap.tsx`; source coordinates remain in `data/seed-data.ts`.
+
+The homepage preview still uses local country outlines precomputed from `public/world-110m.json` into `data/world-paths.ts` by `scripts/generate-world.mjs`, using a plain equirectangular projection that `lib/geo.ts` mirrors so company markers align with the land. Regenerate with `npm run generate:world` (also runs automatically in `npm run build`).

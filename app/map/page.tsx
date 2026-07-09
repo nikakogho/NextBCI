@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { WorldMap } from "@/components/WorldMap";
+import { LeafletMap } from "@/components/LeafletMap";
 import { companiesByActivity, getCompanyStats, mapNodes } from "@/data/queries";
 
 export const metadata: Metadata = {
-  title: "World map · NextBCI",
+  title: "World map - NextBCI",
   description: "Interactive world map of brain-computer interface programs, colored by current activity."
 };
 
@@ -17,8 +17,8 @@ export default function MapPage() {
         <p className="eyebrow">Global map</p>
         <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.8rem)", marginTop: 10 }}>The BCI world map</h1>
         <p className="lede" style={{ maxWidth: "60ch", marginTop: 14 }}>
-          Every tracked program plotted at its home base. Marker color reflects how much clinical and research
-          activity each program is showing right now — select a node to open its profile.
+          Every tracked program plotted at its home base. Marker color reflects how much clinical and research activity
+          each program is showing right now. Zoom into clusters to separate dense regions and same-city programs.
         </p>
       </section>
 
@@ -41,7 +41,7 @@ export default function MapPage() {
         </div>
       </section>
 
-      <WorldMap nodes={mapNodes} />
+      <LeafletMap nodes={mapNodes} />
     </div>
   );
 }
