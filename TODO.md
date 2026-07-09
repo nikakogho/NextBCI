@@ -145,3 +145,12 @@ Ranked candidates that are not dataset records yet:
 3. Beihang University BCI groups - included in Tianjin University's national BCI education alliance (`https://en.tju.edu.cn/info/1010/13216.htm`), but project-specific evidence still needs sourcing.
 4. Southeast University / brain-computer-metasurface work - technically relevant via the brain-computer-metasurface paper (`https://arxiv.org/abs/2205.00280`), but needs stronger mapping from paper/demo to sustained BCI program.
 5. Southern University of Science and Technology brain-on-chip / organoid interface work - interesting adjacent interface work (see Xinhua `https://www.news.cn/20240627/431d44f8824348d6b353459f9eb061b5/c.html` and Tianjin University Medical School `https://mstu.tju.edu.cn/info/1445/3971.htm`), but too far from assistive BCI until better program evidence is collected.
+
+## NeuroFounders Bulk Expansion Loop
+
+- [x] Use NeuroFounders Startup Map as a discovery layer and verify promoted records with official websites or durable secondary sources.
+- [x] Add 100 currently missing neurotech companies that are BCI, BCI-enabling, neuroimaging, neuromodulation, assistive-control, or neural-interface infrastructure enough to fit the tracker scope.
+- [x] Include at least 5 Australia/New Zealand/Oceania-region additions: Affectable Sleep, Control Bionics, Cortical Labs, EMVision, and Epiminder.
+- [x] Include at least 30 Asia-outside-China additions across India, Israel, South Korea, Singapore, Japan, and Taiwan.
+- [x] Keep broad consumer/wellness and adjacent neuromodulation claims clearly separated from demonstrated BCI restoration evidence through conservative evidence levels and hype-check copy.
+- [x] Run validation, data tests, lint, typecheck, and build after the bulk expansion.
