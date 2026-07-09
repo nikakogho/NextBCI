@@ -30,6 +30,10 @@ export const companies: Company[] = [
     region: "north-america",
     founded: 2016,
     website: "https://neuralink.com",
+    interviewVideo: {
+      title: "Elon Musk & Neuralink: Lex Fridman Podcast",
+      url: "https://www.youtube.com/watch?v=Kbk9BiPhm7o"
+    },
     summary:
       "Neuralink's PRIME program is a registered early feasibility study of the N1 Implant and R1 Robot for people with severe motor impairment.",
     hypeCheck:
@@ -55,6 +59,10 @@ export const companies: Company[] = [
     region: "north-america",
     founded: 2012,
     website: "https://synchron.com",
+    interviewVideo: {
+      title: "Tom Oxley: A brain implant that turns your thoughts into text (TED)",
+      url: "https://www.youtube.com/watch?v=7Fiaew7nDmE"
+    },
     summary:
       "Synchron has published human safety and feasibility evidence for a fully implanted endovascular BCI and has a U.S. COMMAND early feasibility study listed in ClinicalTrials.gov.",
     hypeCheck:
@@ -80,6 +88,10 @@ export const companies: Company[] = [
     region: "north-america",
     founded: 2015,
     website: "https://paradromics.com",
+    interviewVideo: {
+      title: "Matt Angle (Paradromics) on the future of high-speed brain interfaces",
+      url: "https://www.youtube.com/watch?v=E2wuavyCO1E"
+    },
     summary:
       "Paradromics moved from acute human recording into the FDA-approved Connect-One early feasibility study, with the first long-term Connexus implant reported in June 2026.",
     hypeCheck:
@@ -105,6 +117,10 @@ export const companies: Company[] = [
     region: "north-america",
     founded: 2021,
     website: "https://precisionneuro.io",
+    interviewVideo: {
+      title: "Ben Rapoport (Precision) answers brain implant questions (WIRED)",
+      url: "https://www.youtube.com/watch?v=piFhYn6KziM"
+    },
     summary:
       "Precision's Layer 7-T has FDA 510(k) clearance for temporary cortical recording, monitoring, and stimulation, while the company's assistive BCI goals remain investigational.",
     hypeCheck:
@@ -154,6 +170,10 @@ export const companies: Company[] = [
     category: "minimally-invasive",
     region: "north-america",
     website: "https://changlab.ucsf.edu",
+    interviewVideo: {
+      title: "A Neuroprosthesis for Speech Decoding and Avatar Control (UCSF Chang Lab)",
+      url: "https://www.youtube.com/watch?v=vL7yMn6kiMg"
+    },
     summary:
       "The BRAVO trial studies ECoG signals for motor and speech control, including peer-reviewed demonstrations of attempted-speech decoding and avatar control.",
     hypeCheck:
@@ -375,6 +395,55 @@ export const companies: Company[] = [
       source("World's first human graphene BCI procedure", "company-update", "https://www.businesswire.com/news/home/20240926260728/en/INBRAIN-Neuroelectronics-Announces-Worlds-First-Human-Graphene-Based-Brain-Computer-Interface-Procedure", "Business Wire / INBRAIN"),
       source("INBRAIN raises $50M Series B", "company-update", "https://www.businesswire.com/news/home/20241029660063/en/INBRAIN-Neuroelectronics-Raises-%2450M-Series-B-to-Advance-Graphene-Based-Brain-Computer-Interface-Technology", "Business Wire / INBRAIN"),
       source("First-in-human study enrolment complete", "company-update", "https://www.businesswire.com/news/home/20260420000990/en/INBRAIN-Neuroelectronics-Completes-Enrolment-of-Worlds-First-in-Human-Study-of-Graphene-Neural-Interfaces-for-Brain-Decoding-Mapping", "Business Wire / INBRAIN")
+    ],
+    isSample: false
+  },
+  {
+    slug: "blackrock-neurotech",
+    name: "Blackrock Neurotech",
+    kind: "company",
+    category: "invasive",
+    region: "north-america",
+    modality: "Utah/NeuroPort intracortical microelectrode arrays and the next-gen Neuralace high-density array",
+    targetFunction: "Cursor, device, prosthetic, and communication control for paralysis and motor disorders",
+    stage: "MoveAgain BCI holds FDA Breakthrough Device Designation; Utah array used across human research",
+    evidenceLevel: "E5",
+    hq: { city: "Salt Lake City, UT", country: "United States", lat: 40.7608, lng: -111.891 },
+    founded: 2008,
+    website: "https://blackrockneurotech.com",
+    funding: "$200M from Tether (2024)",
+    summary:
+      "Salt Lake City-based Blackrock Neurotech makes the Utah/NeuroPort array — the microelectrode implant behind much of the last two decades of human BCI research — and is developing the MoveAgain assistive BCI plus the 10,000+ channel Neuralace array.",
+    hypeCheck:
+      "The Utah array underpins many peer-reviewed human results, but MoveAgain as an integrated commercial BCI remains investigational (breakthrough-designated), and Neuralace is still early.",
+    sourceLinks: [
+      source("MoveAgain gets FDA Breakthrough Device Designation", "regulatory-page", "https://www.prnewswire.com/news-releases/blackrock-neurotechs-moveagain-brain-computer-interface-system-receives-breakthrough-device-designation-from-the-fda-301425013.html", "PR Newswire / Blackrock"),
+      source("Blackrock reveals Neuralace 10,000+ channel BCI", "company-update", "https://www.prnewswire.com/news-releases/blackrock-neurotech-reveals-neuralace-10-000-channel-next-gen-bci-301679826.html", "PR Newswire / Blackrock"),
+      source("How the Utah Array advances BCI science", "company-update", "https://www.medicaldesignandoutsourcing.com/utah-array-brain-computer-interface-blackrock-neurotech/", "Medical Design & Outsourcing")
+    ],
+    isSample: false
+  },
+  {
+    slug: "science-corp",
+    name: "Science Corporation",
+    kind: "company",
+    category: "minimally-invasive",
+    region: "north-america",
+    modality: "PRIMA subretinal vision implant and a biohybrid neural interface that grows engineered neurons onto cortex",
+    targetFunction: "Vision restoration now; cortical communication and control via the biohybrid interface in development",
+    stage: "PRIMA in commercialization; biohybrid brain interface preclinical, preparing first human placement",
+    evidenceLevel: "E2",
+    hq: { city: "Alameda, CA", country: "United States", lat: 37.7652, lng: -122.2416 },
+    founded: 2021,
+    funding: "$230M Series C (2026), ~$1.5B valuation",
+    summary:
+      "Science Corporation, founded by former Neuralink president Max Hodak in Alameda, California, is commercializing the PRIMA retinal implant for vision restoration and developing a biohybrid neural interface that grows engineered neurons onto a device on the brain's surface.",
+    hypeCheck:
+      "PRIMA (vision) is the clinically advanced product; the biohybrid brain-computer interface is still preclinical, with first human placement not expected before roughly 2027.",
+    sourceLinks: [
+      source("Science Corp closes $230M Series C for PRIMA", "company-update", "https://www.businesswire.com/news/home/20260305896789/en/Science-Corporation-Closes-$230-Million-Series-C-to-Accelerate-Commercialization-of-Its-PRIMA-BCI-Retinal-Implant-the-Worlds-Most-Advanced-Vision-Restoration-Technology", "Business Wire / Science"),
+      source("Science Corp raises $230M as it races to market", "company-update", "https://techcrunch.com/2026/03/05/science-corp-closes-230m-round-as-it-pushes-to-get-its-brain-implant-to-patients/", "TechCrunch"),
+      source("Science Corp preparing first human brain sensor", "company-update", "https://techcrunch.com/2026/04/14/max-hodaks-science-corp-is-preparing-to-place-its-first-sensor-in-a-human-brain/", "TechCrunch")
     ],
     isSample: false
   }
@@ -1002,6 +1071,90 @@ export const milestones: Milestone[] = [
       "This is an expected next step after approval, not a confirmed or scheduled procedure.",
     sourceLinks: [
       source("Fully implantable BCI consortium", "company-update", "https://wysscenter.ch/update/consortium-to-develop-fully-implantable-brain-computer-interface-to-enable-communication-for-people-with-paralysis/", "Wyss Center")
+    ],
+    isSample: false
+  },
+  {
+    id: "blackrock-moveagain-breakthrough-2021",
+    title: "MoveAgain BCI receives FDA Breakthrough Device Designation",
+    companySlug: "blackrock-neurotech",
+    dateLabel: "Nov 2021",
+    sortDate: "2021-11-18",
+    status: "confirmed",
+    type: "regulatory-designation",
+    evidenceLevel: "E1",
+    confidence: "high",
+    summary:
+      "Blackrock's MoveAgain system — intended to let paralyzed users control a cursor, keyboard, wheelchair, or prosthetic by thought — received FDA Breakthrough Device Designation.",
+    whyItMatters:
+      "Breakthrough designation signals FDA prioritization and a defined path toward an integrated commercial assistive BCI.",
+    hypeCheck:
+      "The designation speeds review; it is not marketing clearance or proof of an approved product.",
+    sourceLinks: [
+      source("MoveAgain gets FDA Breakthrough Device Designation", "regulatory-page", "https://www.prnewswire.com/news-releases/blackrock-neurotechs-moveagain-brain-computer-interface-system-receives-breakthrough-device-designation-from-the-fda-301425013.html", "PR Newswire / Blackrock")
+    ],
+    isSample: false
+  },
+  {
+    id: "blackrock-neuralace-reveal-2022",
+    title: "Blackrock reveals Neuralace 10,000+ channel array",
+    companySlug: "blackrock-neurotech",
+    dateLabel: "Nov 2022",
+    sortDate: "2022-11-29",
+    status: "confirmed",
+    type: "product-update",
+    evidenceLevel: "E1",
+    confidence: "medium",
+    summary:
+      "Blackrock unveiled Neuralace, a flexible next-generation array targeting more than 10,000 channels for higher-resolution neural recording.",
+    whyItMatters:
+      "Channel count is a key axis of BCI performance; Neuralace is Blackrock's answer to high-density competitors.",
+    hypeCheck:
+      "This was a technology reveal; channel-count claims are not the same as demonstrated human performance.",
+    sourceLinks: [
+      source("Blackrock reveals Neuralace next-gen BCI", "company-update", "https://www.prnewswire.com/news-releases/blackrock-neurotech-reveals-neuralace-10-000-channel-next-gen-bci-301679826.html", "PR Newswire / Blackrock")
+    ],
+    isSample: false
+  },
+  {
+    id: "science-corp-series-c-2026",
+    title: "Science Corp closes $230M Series C",
+    companySlug: "science-corp",
+    dateLabel: "Mar 2026",
+    sortDate: "2026-03-05",
+    status: "confirmed",
+    type: "funding-round",
+    evidenceLevel: "E1",
+    confidence: "high",
+    summary:
+      "Science Corporation raised a $230M Series C at roughly a $1.5B valuation to commercialize its PRIMA vision implant and fund its broader neural-interface portfolio.",
+    whyItMatters:
+      "It is one of the largest recent neural-interface raises and underwrites both PRIMA and the biohybrid brain program.",
+    hypeCheck:
+      "Funding accelerates work but is not itself clinical evidence; the biohybrid brain interface remains preclinical.",
+    sourceLinks: [
+      source("Science Corp closes $230M Series C", "company-update", "https://www.businesswire.com/news/home/20260305896789/en/Science-Corporation-Closes-$230-Million-Series-C-to-Accelerate-Commercialization-of-Its-PRIMA-BCI-Retinal-Implant-the-Worlds-Most-Advanced-Vision-Restoration-Technology", "Business Wire / Science")
+    ],
+    isSample: false
+  },
+  {
+    id: "science-corp-first-human-biohybrid-2027",
+    title: "First human biohybrid brain sensor placement expected",
+    companySlug: "science-corp",
+    dateLabel: "~2027 (expected)",
+    sortDate: "2027-06-01",
+    status: "upcoming",
+    type: "first-implant",
+    evidenceLevel: "E1",
+    confidence: "low",
+    summary:
+      "Science Corp has enlisted a Yale neurosurgery lead for its first U.S. human trials of the biohybrid brain interface, with a start optimistically framed around 2027.",
+    whyItMatters:
+      "A first human biohybrid placement would test whether lab-grown neurons can integrate with a patient's cortex.",
+    hypeCheck:
+      "The company itself calls a 2027 start optimistic; preclinical-to-human timelines routinely slip.",
+    sourceLinks: [
+      source("Science Corp preparing first human brain sensor", "company-update", "https://techcrunch.com/2026/04/14/max-hodaks-science-corp-is-preparing-to-place-its-first-sensor-in-a-human-brain/", "TechCrunch")
     ],
     isSample: false
   }

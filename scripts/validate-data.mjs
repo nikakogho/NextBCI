@@ -273,6 +273,26 @@ const validateCompany = (company, index) => {
       addError(`${path}.hq.lng`, "must be a number between -180 and 180");
     }
   }
+
+  if (company.interviewVideo !== undefined) {
+    const video = company.interviewVideo;
+    if (!video || typeof video !== "object") {
+      addError(`${path}.interviewVideo`, "must be an object with title and url");
+    } else {
+      requireText(video, "title", `${path}.interviewVideo`);
+      requireText(video, "url", `${path}.interviewVideo`);
+      if (isNonEmptyString(video.url)) {
+        try {
+          const url = new URL(video.url);
+          if (!["http:", "https:"].includes(url.protocol)) {
+            addError(`${path}.interviewVideo.url`, "must be an http(s) URL");
+          }
+        } catch {
+          addError(`${path}.interviewVideo.url`, "must be a valid URL");
+        }
+      }
+    }
+  }
 };
 
 const validateMilestone = (milestone, index, companySlugs) => {

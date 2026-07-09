@@ -6,6 +6,7 @@ import { Countdown } from "@/components/Countdown";
 import { LaunchCard } from "@/components/LaunchCard";
 import { Signal } from "@/components/Signal";
 import { SourceList } from "@/components/SourceList";
+import { VideoCard } from "@/components/VideoCard";
 import {
   getCompany,
   getCompanyDemos,
@@ -139,6 +140,18 @@ export default function NeuralinkPage() {
           published.
         </p>
       </section>
+
+      {company.interviewVideo ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Watch</p>
+              <h2>Founder interview</h2>
+            </div>
+          </div>
+          <VideoCard video={company.interviewVideo} />
+        </section>
+      ) : null}
 
       {upcoming.length > 0 ? (
         <section className="section">

@@ -115,6 +115,11 @@ export interface GeoPoint {
   lng: number;
 }
 
+export interface VideoLink {
+  title: string;
+  url: string;
+}
+
 export interface Company {
   slug: string;
   name: string;
@@ -132,6 +137,8 @@ export interface Company {
   website?: string;
   /** Short funding note, e.g. "$50M Series B (2024)". */
   funding?: string;
+  /** Featured interview or talk video (e.g. a YouTube link). */
+  interviewVideo?: VideoLink;
   summary: string;
   hypeCheck: string;
   sourceLinks: SourceLink[];

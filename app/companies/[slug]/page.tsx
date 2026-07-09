@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { DemoClassificationBadge, EvidenceBadge, SampleBadge, StatusChip } from "@/components/Badge";
 import { Signal } from "@/components/Signal";
 import { SourceList } from "@/components/SourceList";
+import { VideoCard } from "@/components/VideoCard";
 import {
   categoryLabel,
   companies,
@@ -151,9 +152,17 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
           </dl>
           <p className="hype" style={{ marginTop: 16 }}>{company.hypeCheck}</p>
         </div>
-        <div className="panel panel-pad">
-          <p className="eyebrow" style={{ marginBottom: 12 }}>Primary sources</p>
-          <SourceList sources={company.sourceLinks} />
+        <div className="panel panel-pad" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div>
+            <p className="eyebrow" style={{ marginBottom: 12 }}>Primary sources</p>
+            <SourceList sources={company.sourceLinks} />
+          </div>
+          {company.interviewVideo ? (
+            <div>
+              <p className="eyebrow" style={{ marginBottom: 12 }}>Watch</p>
+              <VideoCard video={company.interviewVideo} />
+            </div>
+          ) : null}
         </div>
       </section>
 
