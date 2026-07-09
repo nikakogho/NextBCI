@@ -19,6 +19,13 @@ const leafletStyles = `
     background: #dce8ec;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
+  .leaflet-map-stage.compact {
+    height: min(68svh, 560px);
+    min-height: 430px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 24px 60px -42px rgba(0, 0, 0, 0.85);
+  }
   .leaflet-map {
     width: 100%;
     height: 100%;
@@ -241,6 +248,10 @@ const leafletStyles = `
       height: calc(100svh - 112px);
       min-height: 780px;
     }
+    .leaflet-map-stage.compact {
+      height: 520px;
+      min-height: 420px;
+    }
     .map-directory-panel {
       top: auto;
       left: 18px;
@@ -260,6 +271,10 @@ const leafletStyles = `
     .leaflet-map-stage {
       height: calc(100svh - 124px);
       min-height: 760px;
+    }
+    .leaflet-map-stage.compact {
+      height: 460px;
+      min-height: 390px;
     }
     .map-intro-panel {
       top: 12px;
@@ -357,10 +372,11 @@ interface MapApi {
   reset: () => void;
 }
 
-export function LeafletMap({ nodes }: { nodes: MapNode[] }) {
+export function LeafletMap({ nodes, variant = "full" }: { nodes: MapNode[]; variant?: "full" | "compact" }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const apiRef = useRef<MapApi | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const isCompact = variant === "compact";
   const sorted = useMemo(() => [...nodes].sort((a, b) => b.heat - a.heat), [nodes]);
   const displayNodes = useMemo(() => spreadSameCityNodes(nodes), [nodes]);
   const selectedNode = useMemo(() => nodes.find((node) => node.slug === selected) ?? null, [nodes, selected]);
@@ -483,104 +499,108 @@ export function LeafletMap({ nodes }: { nodes: MapNode[] }) {
   }, [displayNodes]);
 
   return (
-    <div className="leaflet-map-stage">
+    <div className={`leaflet-map-stage${isCompact ? " compact" : ""}`}>
       <style>{leafletStyles}</style>
       <div ref={containerRef} className="leaflet-map" />
 
-      <section className="map-overlay map-intro-panel" aria-label="Map summary">
-        <p className="eyebrow">Global map</p>
-        <h1>BCI world map</h1>
-        <p className="lede">
-          Tracked BCI programs plotted at their home base, with marker color reflecting current activity.
-        </p>
-        <div className="map-inline-stats">
-          <div className="map-inline-stat">
-            <b>{summaryStats.programs}</b>
-            <span>programs</span>
-          </div>
-          <div className="map-inline-stat">
-            <b>{summaryStats.countries}</b>
-            <span>countries</span>
-          </div>
-          <div className="map-inline-stat">
-            <b>{summaryStats.veryActive}</b>
-            <span>very active</span>
-          </div>
-          <div className="map-inline-stat">
-            <b>{summaryStats.upcoming}</b>
-            <span>upcoming</span>
-          </div>
-        </div>
-        <div className="map-legend">
-          <span className="legend-scale">
-            <span className="legend-swatch" style={{ background: "#5f7d99" }} /> Quiet
-          </span>
-          <span className="legend-scale">
-            <span className="legend-swatch" style={{ background: "#5fd0ff" }} /> Emerging
-          </span>
-          <span className="legend-scale">
-            <span className="legend-swatch" style={{ background: "#ffc24d" }} /> Moderate
-          </span>
-          <span className="legend-scale">
-            <span className="legend-swatch" style={{ background: "#ff8a3d" }} /> Active
-          </span>
-          <span className="legend-scale">
-            <span className="legend-swatch" style={{ background: "#ff4d55" }} /> Very active
-          </span>
-        </div>
-      </section>
-
-      <aside className="map-overlay map-directory-panel" aria-label="Mapped programs">
-        <div className="map-directory-head">
-          <p className="eyebrow">Programs</p>
-          <button className="btn btn-ghost btn-sm" type="button" onClick={() => apiRef.current?.reset()}>
-            Show all
-          </button>
-        </div>
-
-        {selectedNode ? (
-          <div className="map-selected">
-            <div className="meta-row">
-              <span className="badge type-badge">{selectedNode.kind === "academic" ? "Academic" : "Company"}</span>
-              <span className="badge ev" style={{ color: selectedNode.heatColor, borderColor: selectedNode.heatColor }}>
-                {selectedNode.heatLabel}
-              </span>
-            </div>
-            <div>
-              <div className="map-selected-title">{selectedNode.name}</div>
-              <div className="map-selected-meta">
-                {selectedNode.city}, {selectedNode.country}
+      {!isCompact ? (
+        <>
+          <section className="map-overlay map-intro-panel" aria-label="Map summary">
+            <p className="eyebrow">Global map</p>
+            <h1>BCI world map</h1>
+            <p className="lede">
+              Tracked BCI programs plotted at their home base, with marker color reflecting current activity.
+            </p>
+            <div className="map-inline-stats">
+              <div className="map-inline-stat">
+                <b>{summaryStats.programs}</b>
+                <span>programs</span>
+              </div>
+              <div className="map-inline-stat">
+                <b>{summaryStats.countries}</b>
+                <span>countries</span>
+              </div>
+              <div className="map-inline-stat">
+                <b>{summaryStats.veryActive}</b>
+                <span>very active</span>
+              </div>
+              <div className="map-inline-stat">
+                <b>{summaryStats.upcoming}</b>
+                <span>upcoming</span>
               </div>
             </div>
-            <p className="map-selected-stage">{selectedNode.stage}</p>
-            <Link className="btn btn-primary btn-sm" href={`/companies/${selectedNode.slug}`}>
-              View program
-            </Link>
-          </div>
-        ) : (
-          <p className="map-city-note">Dense regions separate into individual pins at city scale.</p>
-        )}
-
-        <div className="node-list map-directory-list">
-          {sorted.map((node) => (
-            <button
-              className="node-row"
-              data-active={selected === node.slug}
-              key={node.slug}
-              onClick={() => apiRef.current?.reveal(node.slug)}
-            >
-              <span className="swatch" style={{ background: node.heatColor, color: node.heatColor }} />
-              <span>
-                <span className="nm">{node.name}</span>
-                <br />
-                <span className="loc">
-                  {node.city} - {node.heatLabel}
-                </span>
+            <div className="map-legend">
+              <span className="legend-scale">
+                <span className="legend-swatch" style={{ background: "#5f7d99" }} /> Quiet
               </span>
-            </button>
-          ))}
-        </div>
-      </aside>
+              <span className="legend-scale">
+                <span className="legend-swatch" style={{ background: "#5fd0ff" }} /> Emerging
+              </span>
+              <span className="legend-scale">
+                <span className="legend-swatch" style={{ background: "#ffc24d" }} /> Moderate
+              </span>
+              <span className="legend-scale">
+                <span className="legend-swatch" style={{ background: "#ff8a3d" }} /> Active
+              </span>
+              <span className="legend-scale">
+                <span className="legend-swatch" style={{ background: "#ff4d55" }} /> Very active
+              </span>
+            </div>
+          </section>
+
+          <aside className="map-overlay map-directory-panel" aria-label="Mapped programs">
+            <div className="map-directory-head">
+              <p className="eyebrow">Programs</p>
+              <button className="btn btn-ghost btn-sm" type="button" onClick={() => apiRef.current?.reset()}>
+                Show all
+              </button>
+            </div>
+
+            {selectedNode ? (
+              <div className="map-selected">
+                <div className="meta-row">
+                  <span className="badge type-badge">{selectedNode.kind === "academic" ? "Academic" : "Company"}</span>
+                  <span className="badge ev" style={{ color: selectedNode.heatColor, borderColor: selectedNode.heatColor }}>
+                    {selectedNode.heatLabel}
+                  </span>
+                </div>
+                <div>
+                  <div className="map-selected-title">{selectedNode.name}</div>
+                  <div className="map-selected-meta">
+                    {selectedNode.city}, {selectedNode.country}
+                  </div>
+                </div>
+                <p className="map-selected-stage">{selectedNode.stage}</p>
+                <Link className="btn btn-primary btn-sm" href={`/companies/${selectedNode.slug}`}>
+                  View program
+                </Link>
+              </div>
+            ) : (
+              <p className="map-city-note">Dense regions separate into individual pins at city scale.</p>
+            )}
+
+            <div className="node-list map-directory-list">
+              {sorted.map((node) => (
+                <button
+                  className="node-row"
+                  data-active={selected === node.slug}
+                  key={node.slug}
+                  onClick={() => apiRef.current?.reveal(node.slug)}
+                >
+                  <span className="swatch" style={{ background: node.heatColor, color: node.heatColor }} />
+                  <span>
+                    <span className="nm">{node.name}</span>
+                    <br />
+                    <span className="loc">
+                      {node.city} - {node.heatLabel}
+                    </span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </aside>
+        </>
+      ) : null}
     </div>
   );
 }

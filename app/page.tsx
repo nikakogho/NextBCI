@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { EvidenceBadge } from "@/components/Badge";
+import { LeafletMap } from "@/components/LeafletMap";
 import { LaunchCard } from "@/components/LaunchCard";
 import { Signal } from "@/components/Signal";
-import { WorldMap } from "@/components/WorldMap";
 import {
   companies,
   confirmedMilestones,
@@ -88,9 +88,9 @@ export default function HomePage() {
             Open full map →
           </Link>
         </div>
-        <WorldMap nodes={mapNodes} compact />
+        <LeafletMap nodes={mapNodes} variant="compact" />
         <p className="muted-copy" style={{ fontSize: 13 }}>
-          Redder nodes mark the most active clinical and research programs. Open the full map to select any node.
+          Zoom, cluster, and open program popups here, or use the full map for the larger directory view.
         </p>
       </section>
 

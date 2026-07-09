@@ -217,8 +217,8 @@ export const companies: Company[] = [
     name: "ONWARD ARC-BCI / DigitalBridge",
     kind: "company",
     modality: "Implanted cortical recording paired with implanted spinal cord stimulation",
-    targetFunction: "Thought-driven lower-limb movement after spinal cord injury",
-    stage: "Investigational ARC-BCI with peer-reviewed brain-spine interface evidence and ongoing feasibility study",
+    targetFunction: "Thought-driven upper- and lower-limb movement after spinal cord injury",
+    stage: "Investigational ARC-BCI with peer-reviewed brain-spine interface evidence and seven human implants reported",
     evidenceLevel: "E4",
     hq: { city: "Eindhoven", country: "Netherlands", lat: 51.4416, lng: 5.4697 },
     category: "minimally-invasive",
@@ -226,12 +226,13 @@ export const companies: Company[] = [
     founded: 2014,
     website: "https://onwd.com",
     summary:
-      "ONWARD's ARC-BCI program builds on a Nature brain-spine interface demonstration and an ongoing study of cortical recording combined with lumbar spinal cord stimulation.",
+      "ONWARD's ARC-BCI program builds on a Nature brain-spine interface demonstration and an ongoing study of cortical recording combined with implanted spinal cord stimulation. ONWARD reported seven ARC-BCI study participants by January 2026, including upper- and lower-limb restoration cases.",
     hypeCheck:
-      "The highest-signal result is a peer-reviewed one-participant brain-spine interface study. ARC-BCI remains investigational and is not cleared for broad commercial use.",
+      "The highest-signal result is still a peer-reviewed one-participant brain-spine interface study, while later implant counts are company-announced feasibility progress. ARC-BCI remains investigational and is not cleared for broad commercial use.",
     sourceLinks: [
       source("Brain-controlled spinal cord stimulation trial", "trial-registry", clinicalTrials("NCT06243952"), "ClinicalTrials.gov"),
       source("ARC-BCI overview", "company-update", "https://www.onwd.com/brain-computer-interface/", "ONWARD Medical"),
+      source("Seven ARC-BCI participants reported", "company-update", "https://ir.onwd.com/static-files/48e1c5b9-e843-4895-ac81-e0e936a841e2", "ONWARD Medical"),
       source("Brain-spine interface paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
       source("ARC-BCI breakthrough designation release", "regulatory-page", "https://ir.onwd.com/static-files/3785d988-41cc-444f-a6b3-8180e0e3ec5c", "ONWARD Medical")
     ],
@@ -266,17 +267,20 @@ export const companies: Company[] = [
     kind: "company",
     category: "invasive",
     region: "asia",
-    modality: "Semi-invasive cortical-surface array (Beinao-1) and penetrating flexible microelectrodes (Beinao-2)",
-    targetFunction: "Motor and communication decoding for paralysis, plus neuroscience research",
-    stage: "Beinao-1 in multi-patient human trials; invasive Beinao-2 moving toward clinical validation",
+    modality: "Semi-invasive cortical-surface array (Beinao-1), penetrating flexible microelectrodes (Beinao-2), and Beinao-1 paired with spinal stimulation",
+    targetFunction: "Motor and communication decoding for paralysis, brain-controlled spinal stimulation, plus neuroscience research",
+    stage: "Beinao-1 in multi-patient human trials, including a brain-controlled spinal-stimulation/exoskeleton case",
     evidenceLevel: "E3",
     hq: { city: "Beijing", country: "China", lat: 39.9142, lng: 116.4174 },
     founded: 2023,
     summary:
-      "NeuCyber NeuroTech, backed by the Chinese Institute for Brain Research in Beijing, runs the Beinao program: the semi-invasive Beinao-1, with more than a dozen reported human implants, and the fully invasive flexible-electrode Beinao-2 now advancing toward clinical use.",
+      "NeuCyber NeuroTech, backed by the Chinese Institute for Brain Research in Beijing, runs the Beinao program: the semi-invasive Beinao-1, the fully invasive flexible-electrode Beinao-2, and a brain-controlled spinal-stimulation/exoskeleton pathway for spinal cord injury.",
     hypeCheck:
-      "Company and state-media statements describe implant counts and roadmaps; independent peer-reviewed human outcome data is still limited, and NeuCyber frames Beinao as roughly three years behind Neuralink.",
+      "CIBR and state-media statements describe implant counts, motor/speech reconstruction, and one Beinao-plus-spinal-stimulation walking case; detailed peer-reviewed human outcome data for the brain-spine use case is still limited.",
     sourceLinks: [
+      source("CIBR Beinao No.1 achievement note", "company-update", "https://en.cibr.ac.cn/detail/cibrNewsnews/80c9eacb37164c5fadc21c696edf5cd7", "Chinese Institute for Brain Research, Beijing"),
+      source("Beinao brain-spinal cord-exoskeleton report", "company-update", "https://www.globaltimes.cn/page/202605/1361687.shtml", "Global Times", false),
+      source("Beinao-1 simultaneous BCI and spinal stimulation report", "company-update", "https://www.chinadailyhk.com/hk/article/635325", "Xinhua / China Daily Hong Kong", false),
       source("Homegrown BCI system set to expand", "company-update", "https://www.chinadaily.com.cn/a/202606/13/WS6a2ca1fba310986e2b45fb6b.html", "China Daily"),
       source("China world-first invasive brain chip", "company-update", "https://www.technologyreview.com/2026/06/01/1138133/china-world-first-brain-chip/", "MIT Technology Review"),
       source("China catching up in brain tech", "company-update", "https://www.cnn.com/2025/07/20/china/china-brain-tech-hnk-intl-dst", "CNN")
@@ -331,24 +335,288 @@ export const companies: Company[] = [
     isSample: false
   },
   {
+    slug: "fudan-bsi",
+    name: "Fudan ISTBI Brain-Spine Interface",
+    kind: "academic",
+    category: "invasive",
+    region: "asia",
+    modality: "Minimally invasive implanted brain-spine interface that decodes motor intention and drives spinal nerve-root stimulation",
+    targetFunction: "Restoring voluntary leg movement, standing, and assisted stepping after spinal cord injury",
+    stage: "Four human proof-of-concept surgeries reported across Zhongshan and Huashan Hospitals",
+    evidenceLevel: "E2",
+    hq: { city: "Shanghai", country: "China", lat: 31.2304, lng: 121.4737 },
+    website: "https://istbi.fudan.edu.cn",
+    summary:
+      "Professor Jia Fumin's team at Fudan University's Institute of Science and Technology for Brain-Inspired Intelligence reported a triple-integrated brain-spine interface for spinal cord injury. Fudan says four proof-of-concept surgeries were completed by March 2025, with patients regaining leg movement or assisted stepping after surgery.",
+    hypeCheck:
+      "This is a university-announced proof-of-concept series, not a peer-reviewed clinical trial readout or approved therapy. Treat rapid post-op walking clips as early feasibility evidence until protocols, adverse events, and longer follow-up are published.",
+    sourceLinks: [
+      source("Fudan English BSI report", "company-update", "https://www.fudan.edu.cn/en/2025/0305/c344a144344/page.htm", "Fudan University"),
+      source("Fudan Chinese BSI feature", "company-update", "https://news.fudan.edu.cn/2025/0304/c1268a144336/page.htm", "Fudan University"),
+      source("Jia Fumin faculty profile", "company-update", "https://istbi.fudan.edu.cn/info/1774/4623.htm", "Fudan University"),
+      source("Fudan BSI video report", "demo-video", "https://cn.chinadaily.com.cn/a/202503/07/WS67ca8cd9a310510f19eea453.html", "China Daily", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "zju-nanhu-spinal-interface",
+    name: "Zhejiang University / Nanhu Spinal Interface",
+    kind: "academic",
+    category: "minimally-invasive",
+    region: "asia",
+    modality: "Closed-loop spinal nerve interface with implanted spinal stimulation, wireless controller, EMG sensing, and adaptive feedback software",
+    targetFunction: "Standing, walking, stair climbing, balance, and partial sensory/autonomic recovery after spinal cord injury",
+    stage: "China-first closed-loop spinal nerve interface case with functional walking reported by Zhejiang University",
+    evidenceLevel: "E2",
+    hq: { city: "Hangzhou", country: "China", lat: 30.2741, lng: 120.1551 },
+    website: "https://www.zju.edu.cn",
+    summary:
+      "The Second Affiliated Hospital of Zhejiang University School of Medicine, Nanhu Brain-Computer Interface Institute, Brain-Machine Intelligence Lab, and Zhejiang University biomedical-engineering collaborators reported China's first closed-loop spinal nerve interface implantation in a 61-year-old man with paraplegia.",
+    hypeCheck:
+      "This is a spinal-interface result led by BCI/neuroengineering teams, but public descriptions emphasize EMG and spinal feedback rather than direct cortical decoding. Track it as brain-spine-adjacent until cortical BCI control is explicitly demonstrated.",
+    sourceLinks: [
+      source("ZJU closed-loop spinal nerve interface report", "company-update", "https://www.zju.edu.cn/english/2025/0619/c19573a3063161/page.htm", "Zhejiang University"),
+      source("ZJU/SAHZU walking video", "demo-video", "https://www.facebook.com/ZhejiangUniversityChina/videos/from-paralysis-to-walking-again-%EF%B8%8Fafter-a-devastating-spinal-injury-61-year-old-m/9811658218962668/", "Zhejiang University / Facebook", false),
+      source("Global Times ZJU spinal interface report", "news-report", "https://www.globaltimes.cn/page/202505/1334573.shtml", "Global Times", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "hainan-wukongbot-bsi",
+    name: "Hainan University WukongBot BSI",
+    kind: "academic",
+    category: "non-invasive",
+    region: "asia",
+    modality: "Brain-Spine-Machine interface using non-invasive EEG intention decoding to control epidural electrical stimulation",
+    targetFunction: "Preclinical proof-of-concept for mind-controlled lower-limb movement after spinal cord injury",
+    stage: "Published macaque proof-of-concept and university-reported May 2025 anesthetized-macaque movement experiment",
+    evidenceLevel: "E2",
+    hq: { city: "Haikou", country: "China", lat: 20.0442, lng: 110.1999 },
+    website: "https://en.hainanu.edu.cn",
+    summary:
+      "Hainan University's BCI integrated-circuit and neural-engineering team describes a Brain-Spine-Machine closed-loop system that directly collects brain motor signals, bypasses damaged spinal cords, and activates muscles. Its WukongBot paper reports human motion intentions driving left-right stepping-like lower-limb movements in an anesthetized macaque.",
+    hypeCheck:
+      "This is preclinical and partly cross-species: human intention signals controlled stimulation in an anesthetized monkey. It is not yet a human spinal-cord-injury therapy.",
+    sourceLinks: [
+      source("Hainan University BCI chip and Brain-Spine-Machine report", "company-update", "https://en.hainanu.edu.cn/info/1131/12891.htm", "Hainan University"),
+      source("Liang Fengyan faculty profile and BSI publication list", "company-update", "https://bme.hainanu.edu.cn/info/1106/10921.htm", "Hainan University"),
+      source("WukongBot BIO Integration paper", "paper", "https://bio-integration.org/10-15212-bioi-2025-0171/", "BIO Integration")
+    ],
+    isSample: false
+  },
+  {
+    slug: "tianjin-haihe-bci",
+    name: "Tianjin University / Haihe BCI Lab",
+    kind: "academic",
+    category: "non-invasive",
+    region: "asia",
+    modality: "Non-invasive EEG brain-computer interaction using hybrid SSVEP, P300, motor imagery, optical/electrical monitoring, and clinical neuroICU workflows",
+    targetFunction: "High-speed typing, large-command-set control, neurointensive monitoring, diagnosis, modulation, and rehabilitation",
+    stage: "Public 216-command high-speed BCI demo plus multi-center neuroICU clinical-trial program",
+    evidenceLevel: "E2",
+    hq: { city: "Tianjin", country: "China", lat: 39.3434, lng: 117.3616 },
+    website: "https://en.tju.edu.cn",
+    summary:
+      "Tianjin University's Brain-Computer Interaction and Human-Machine Fusion Haihe Laboratory is one of China's clearest non-invasive BCI hubs. It reported a 216-key high-speed spelling system and launched a multi-center neuroICU BCI clinical-trial program with major Chinese hospitals.",
+    hypeCheck:
+      "The 216-key system is a public performance and the neuroICU work is announced as clinical translation, but published clinical endpoints and standardized registry records remain limited.",
+    sourceLinks: [
+      source("TJU 216-key non-invasive BCI report", "company-update", "https://en.tju.edu.cn/info/1010/7179.htm", "Tianjin University"),
+      source("TJU neuroICU multi-center BCI trial launch", "company-update", "https://en.tju.edu.cn/info/1010/10336.htm", "Tianjin University"),
+      source("TJU national BCI education alliance", "company-update", "https://en.tju.edu.cn/info/1010/13216.htm", "Tianjin University"),
+      source("High-speed hybrid BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/36608342/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering")
+    ],
+    isSample: false
+  },
+  {
+    slug: "nankai-interventional-bci",
+    name: "Nankai Interventional BCI",
+    kind: "academic",
+    category: "minimally-invasive",
+    region: "asia",
+    modality: "Endovascular stent-electrode brain-computer interface placed through blood vessels near motor cortex",
+    targetFunction: "Motor-function rehabilitation, robotic-arm control, and limb movement restoration without craniotomy",
+    stage: "Animal, non-human-primate, and first human interventional BCI reports from Nankai University",
+    evidenceLevel: "E2",
+    hq: { city: "Tianjin", country: "China", lat: 39.0842, lng: 117.2009 },
+    website: "https://en.nankai.edu.cn",
+    summary:
+      "Professor Duan Feng's Nankai University team develops an interventional/endovascular BCI designed to collect brain signals through vascular access. Nankai reports sheep experiments, non-human-primate robotic-arm control, sensor retrieval, and a human motor-restoration case using interventional BCI plus FES.",
+    hypeCheck:
+      "The public human result is institution-announced and not yet a peer-reviewed endpoint readout. Treat safety, retrieval, and functional claims as early clinical feasibility signals.",
+    sourceLinks: [
+      source("Nankai human interventional BCI restoration report", "company-update", "https://en.nankai.edu.cn/2025/0911/c23047a577316/page.htm", "Nankai University"),
+      source("Nankai non-human-primate interventional BCI report", "company-update", "https://en.nankai.edu.cn/2023/0613/c22796a515048/page.htm", "Nankai University"),
+      source("Nankai sheep interventional BCI report", "company-update", "https://en.nankai.edu.cn/2022/0801/c22796a465078/page.htm", "Nankai University"),
+      source("Interventional BCI long-term EEG sheep paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/40257874/", "PubMed")
+    ],
+    isSample: false
+  },
+  {
+    slug: "cas-cebsit-invasive-bci",
+    name: "CAS CEBSIT / Huashan Invasive BCI",
+    kind: "academic",
+    category: "invasive",
+    region: "asia",
+    modality: "High-throughput wireless invasive BCI with cortical microelectrode recording",
+    targetFunction: "Digital control, gaming, wheelchair control, robot-dog control, and future robotic-arm grasping for severe paralysis or limb loss",
+    stage: "China first prospective invasive BCI clinical-trial program reported with multiple public cases",
+    evidenceLevel: "E2",
+    hq: { city: "Shanghai", country: "China", lat: 31.2304, lng: 121.4737 },
+    website: "https://english.cebsit.cas.cn",
+    summary:
+      "The Chinese Academy of Sciences Center for Excellence in Brain Science and Intelligence Technology, with Huashan Hospital and collaborators, reported a wireless invasive BCI clinical-trial program in Shanghai. Public reports describe a first participant playing a racing game and later cases controlling a wheelchair and robotic dog.",
+    hypeCheck:
+      "Most results are official or media-reported demonstrations rather than peer-reviewed clinical outcomes. The system should be tracked as early invasive clinical translation, not an approved assistive BCI.",
+    sourceLinks: [
+      source("CAS invasive BCI clinical-trial report", "company-update", "https://english.cas.cn/newsroom/cas_media/202506/t20250616_1045625.shtml", "Chinese Academy of Sciences"),
+      source("CAS/CEBSIT second-case report", "company-update", "https://english.cas.cn/newsroom/cas_media/202512/t20251219_1138007.shtml", "Chinese Academy of Sciences"),
+      source("CEBSIT first invasive BCI trial media report", "news-report", "https://www.globaltimes.cn/page/202506/1336164.shtml", "Global Times", false),
+      source("CEBSIT wheelchair and robot-dog report", "news-report", "https://www.globaltimes.cn/page/202512/1350829.shtml", "Global Times", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "brainco",
+    name: "BrainCo",
+    kind: "company",
+    category: "non-invasive",
+    region: "asia",
+    modality: "Wearable non-invasive EEG/neural-signal acquisition, AI decoding, and bionic prosthetic control",
+    targetFunction: "Bionic hand/knee control, attention training, social communication training, sleep and stress products, and neuro-AI human-machine interaction",
+    stage: "Commercial non-invasive BCI product portfolio with public bionic-prosthetic deployments",
+    evidenceLevel: "E2",
+    hq: { city: "Hangzhou", country: "China", lat: 30.2741, lng: 120.1551 },
+    founded: 2015,
+    website: "https://www.brainco.cn/en-US",
+    summary:
+      "BrainCo is a Hangzhou-based non-invasive BCI company with EEG-based products across bionic hands, training systems, sleep/stress devices, and neuro-AI interaction. Official product pages list the BrainCo Intelligent Bionic Hand and BCI modulation products; local reporting describes full production of smart bionic prosthetics.",
+    hypeCheck:
+      "BrainCo has real commercial neurotechnology products, but product pages mix assistive prosthetics, wellness, education, and health-management claims. Do not treat consumer/wellness BCI claims as clinical restoration evidence without controlled outcomes.",
+    sourceLinks: [
+      source("BrainCo BCI technology and products", "company-update", "https://www.brainco.cn/en-US/technology", "BrainCo"),
+      source("BrainCo about page", "company-update", "https://www.brainco.cn/en-US/about", "BrainCo"),
+      source("BrainCo bionic prosthetics production report", "news-report", "https://www.ehangzhou.gov.cn/2025-02/26/c_292773.htm", "Hangzhou Municipal Government", false),
+      source("BrainCo accessibility update", "company-update", "https://www.brainco.cn/en-US/news/ss68tshjwmoocsayo5elb7nl", "BrainCo")
+    ],
+    isSample: false
+  },
+  {
+    slug: "shanghaitech-bci-center",
+    name: "ShanghaiTech BCI Research Center",
+    kind: "academic",
+    category: "invasive",
+    region: "asia",
+    modality: "Interdisciplinary BCI center spanning neural mechanisms, ultra-flexible neural interfaces, implantable systems, intelligent BCI software, and clinical translation",
+    targetFunction: "Clinical BCI translation, invasive Chinese-language BCI, bidirectional BCI interaction, and AI-enabled neurotechnology",
+    stage: "Research center launched in 2026 with BCI clinical-translation agenda",
+    evidenceLevel: "E1",
+    hq: { city: "Shanghai", country: "China", lat: 31.1796, lng: 121.5904 },
+    website: "https://www.shanghaitech.edu.cn",
+    summary:
+      "ShanghaiTech University launched its Research Center for Brain-Computer Interface in May 2026, with stated focus areas in neural interfaces, implantable systems, intelligent BCI systems, invasive Chinese-language BCI, large AI models, and clinical translational applications.",
+    hypeCheck:
+      "This is an institutional capacity and research-direction signal, not a demonstrated product or clinical endpoint. Track it as a watchable center until project-specific results are published.",
+    sourceLinks: [
+      source("ShanghaiTech BCI Research Center launch", "company-update", "https://www.shanghaitech.edu.cn/en/2026/0519/c1260a1122115/page.htm", "ShanghaiTech University")
+    ],
+    isSample: false
+  },
+  {
+    slug: "scut-pazhou-multimodal-bci",
+    name: "SCUT / Pazhou Multimodal BCI",
+    kind: "academic",
+    category: "non-invasive",
+    region: "asia",
+    modality: "Wearable multimodal non-invasive BCI using EEG, hybrid paradigms, fMRI/brain-signal analysis, and adaptive decoding",
+    targetFunction: "Wheelchair control, BCI mouse/web browsing, disorders-of-consciousness assessment, rehabilitation support, and wearable neurohealth products",
+    stage: "Long-running academic BCI program with peer-reviewed wheelchair/control papers and product-transfer reporting",
+    evidenceLevel: "E4",
+    hq: { city: "Guangzhou", country: "China", lat: 23.1291, lng: 113.2644 },
+    website: "https://www.scut.edu.cn",
+    summary:
+      "Yuanqing Li's South China University of Technology and Pazhou Lab line has published hybrid BCI wheelchair, BCI mouse, awareness-detection, and multimodal non-invasive BCI work. Guangzhou reporting says the team won a 2024 Guangdong technology invention award and that translated wearable BCI products are entering hospitals, homes, and sports settings.",
+    hypeCheck:
+      "The strongest evidence is academic prototypes and publications; local deployment and product-transfer reporting should not be read as broad clinical efficacy without trial endpoints.",
+    sourceLinks: [
+      source("SCUT main BCI program summary", "company-update", "https://www2.scut.edu.cn/autonlab/4514/list.htm", "South China University of Technology"),
+      source("Yuanqing Li SCUT profile", "company-update", "https://www2.scut.edu.cn/auto_en/2015/0716/c6242a94208/page.htm", "South China University of Technology"),
+      source("Pazhou Lab Yuanqing Li profile", "company-update", "https://www.pazhoulab.com/2025/11/7252/", "Pazhou Lab"),
+      source("Guangzhou BCI product-transfer report", "news-report", "https://kjj.gz.gov.cn/xwlb/yw/content/post_10662998.html", "Guangzhou Science and Technology Bureau", false),
+      source("Hybrid BCI wheelchair paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/22692936/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering")
+    ],
+    isSample: false
+  },
+  {
+    slug: "shanghai-yansi-speech-bci",
+    name: "Shanghai Yansi / Huashan Speech BCI",
+    kind: "academic",
+    category: "minimally-invasive",
+    region: "asia",
+    modality: "High-density flexible ECoG and AI language decoding for Mandarin Chinese speech BCI",
+    targetFunction: "Chinese speech decoding and future communication restoration for ALS, stroke, and anarthria",
+    stage: "Peer-reviewed real-time Mandarin decoding result and clinical-trial-phase reporting",
+    evidenceLevel: "E4",
+    hq: { city: "Shanghai", country: "China", lat: 31.2304, lng: 121.4737 },
+    summary:
+      "The Shanghai Yansi Institute of Brain-like Artificial Intelligence and Huashan Hospital collaboration reported Mandarin Chinese speech decoding from implanted high-density cortical signals, including a Science Advances paper on full-spectrum Chinese decoding.",
+    hypeCheck:
+      "The result is important for tonal-language speech BCI, but the public clinical work still uses small, specialized participant contexts and is not an approved communication aid.",
+    sourceLinks: [
+      source("Shanghai speech BCI government report", "company-update", "https://english.shanghai.gov.cn/en-InnovationPolicies/20250722/c4b71a2bb59b404e8a25660a8531b013.html", "Shanghai Municipal Government"),
+      source("Shanghai Chinese-speech BCI science report", "company-update", "https://stcsm.sh.gov.cn/news/20250108/8a4556cc3536464e8a3f81b122443a3e.html", "Shanghai Science and Technology Commission"),
+      source("Real-time decoding of full-spectrum Chinese paper", "paper", "https://www.science.org/doi/10.1126/sciadv.adz9968", "Science Advances"),
+      source("PubMed record for Mandarin speech BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/41191764/", "PubMed")
+    ],
+    isSample: false
+  },
+  {
     slug: "clinatec-wimagine",
     name: "Clinatec / CEA WIMAGINE",
     kind: "academic",
     category: "minimally-invasive",
     region: "europe",
-    modality: "Bilateral epidural ECoG implants (WIMAGINE) reading cortical-surface signals",
-    targetFunction: "Whole-body exoskeleton and effector control for tetraplegia",
-    stage: "Peer-reviewed proof-of-concept in a tetraplegic patient; multi-patient study ongoing",
+    modality: "Bilateral epidural ECoG implants (WIMAGINE) reading cortical-surface signals for exoskeleton and spinal-stimulation control",
+    targetFunction: "Whole-body exoskeleton control, brain-spine interface control, and future neurorehabilitation feedback",
+    stage: "Peer-reviewed exoskeleton proof-of-concept plus WIMAGINE contribution to the 2023 Nature brain-spine interface",
     evidenceLevel: "E4",
     hq: { city: "Grenoble", country: "France", lat: 45.1885, lng: 5.7245 },
     summary:
-      "Clinatec, a CEA laboratory in Grenoble, developed the WIMAGINE epidural ECoG implant. In 2019 a tetraplegic patient used two implants to control a four-limb exoskeleton, published in The Lancet Neurology. CEA has since licensed WIMAGINE to ONWARD Medical.",
+      "Clinatec, a CEA laboratory in Grenoble, developed the WIMAGINE epidural ECoG implant. In 2019 a tetraplegic patient used two implants to control a four-limb exoskeleton, and in 2023 WIMAGINE was part of the Nature brain-spine interface that restored thought-driven walking in one participant. CEA has since licensed WIMAGINE to ONWARD Medical.",
     hypeCheck:
       "The landmark result is a single-patient proof-of-concept requiring months of training; epidural ECoG trades signal detail for safety, and the exoskeleton is a research platform, not a home device.",
     sourceLinks: [
       source("Exoskeleton controlled by epidural BCI", "paper", "https://www.thelancet.com/journals/laneur/article/PIIS1474-4422(19)30321-7/abstract", "The Lancet Neurology"),
+      source("CEA WIMAGINE brain-spine and exoskeleton summary", "company-update", "https://www.cea.fr/presse/Pages/actualites-communiques/sante-sciences-du-vivant/innovation-wimagine-espoir-personnes-handicapees-recompense-ces-2024.aspx", "CEA"),
+      source("CEA-Leti WIMAGINE rehabilitation update", "company-update", "https://www.cea.fr/cea-tech/leti/english/Pages/What%27s-On/News/AVC-Brain-Computer-Interface.aspx", "CEA-Leti"),
       source("Groundbreaking neuroprosthetic (UGA)", "company-update", "https://international.univ-grenoble-alpes.fr/about/flagship-projects/a-groundbreaking-neuroprosthetic-enables-a-tetraplegic-patient-fitted-with-an-exoskeleton-to-move-808028.kjsp", "Universite Grenoble Alpes"),
+      source("Exoskeleton controlled by BCI video", "demo-video", "https://www.youtube.com/watch?v=1GyJBBB8O_M", "YouTube", false),
       source("ONWARD licenses WIMAGINE from CEA", "company-update", "https://www.globenewswire.com/news-release/2024/10/15/2962898/0/en/ONWARD-Medical-Signs-Agreement-with-CEA-for-Exclusive-Rights-to-Clinatec-s-WIMAGINE-Brain-Computer-Interface-BCI-Technology.html", "GlobeNewswire / ONWARD")
+    ],
+    isSample: false
+  },
+  {
+    slug: "neurorestore-epfl-bsi",
+    name: "NeuroRestore / EPFL-CHUV-UNIL",
+    kind: "academic",
+    category: "invasive",
+    region: "europe",
+    modality: "Wireless digital bridge linking cortical ECoG decoding to epidural spinal cord stimulation",
+    targetFunction: "Thought-controlled standing, walking, stair climbing, and future arm/hand restoration after paralysis",
+    stage: "Peer-reviewed one-participant human brain-spine interface result plus earlier primate BSI evidence",
+    evidenceLevel: "E4",
+    hq: { city: "Lausanne", country: "Switzerland", lat: 46.5197, lng: 6.6323 },
+    website: "https://www.neurorestore.swiss",
+    summary:
+      "NeuroRestore, the EPFL/CHUV/UNIL center led by Grégoire Courtine and Jocelyne Bloch, reported a wireless brain-spine interface that restored voluntary walking control in one person with chronic tetraplegia, building on earlier primate brain-spine interface work.",
+    hypeCheck:
+      "The human digital-bridge result is landmark peer-reviewed evidence, but it remains one participant with specialized implants and intensive rehabilitation. It is not yet a scalable therapy available to routine patients.",
+    sourceLinks: [
+      source("EPFL thought-controlled walking report", "company-update", "https://actu.epfl.ch/news/thought-controlled-walking-again-after-spinal-co-3/", "EPFL"),
+      source("NeuroRestore BSI press summary", "company-update", "https://www.neurorestore.swiss/press-1/bci2023", "NeuroRestore"),
+      source("Brain-spine interface Nature paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
+      source("NeuroRestore official BSI video", "demo-video", "https://vimeo.com/829445531", "NeuroRestore / Vimeo"),
+      source("EPFL primate BSI report", "company-update", "https://actu.epfl.ch/news/primates-regain-control-of-paralyzed-limb/", "EPFL")
     ],
     isSample: false
   },
@@ -408,7 +676,7 @@ export const companies: Company[] = [
     region: "north-america",
     modality: "Utah/NeuroPort intracortical microelectrode arrays and the next-gen Neuralace high-density array",
     targetFunction: "Cursor, device, prosthetic, and communication control for paralysis and motor disorders",
-    stage: "MoveAgain BCI holds FDA Breakthrough Device Designation; Utah array used across human research",
+    stage: "FDA-cleared NeuroPort electrode; MoveAgain BCI holds FDA Breakthrough Device Designation; Utah arrays used across long-duration human BCI research",
     evidenceLevel: "E5",
     hq: { city: "Salt Lake City, UT", country: "United States", lat: 40.7608, lng: -111.891 },
     founded: 2008,
@@ -417,10 +685,14 @@ export const companies: Company[] = [
     summary:
       "Salt Lake City-based Blackrock Neurotech makes the Utah/NeuroPort array — the microelectrode implant behind much of the last two decades of human BCI research — and is developing the MoveAgain assistive BCI plus the 10,000+ channel Neuralace array.",
     hypeCheck:
-      "The Utah array underpins many peer-reviewed human results, but MoveAgain as an integrated commercial BCI remains investigational (breakthrough-designated), and Neuralace is still early.",
+      "The NeuroPort electrode has FDA 510(k) clearance and the Utah array underpins many peer-reviewed human results, but MoveAgain as an integrated commercial assistive BCI remains investigational, and Neuralace is still early.",
     sourceLinks: [
+      source("NeuroPort Electrode 96 product page", "company-update", "https://blackrockneurotech.com/products/neuroport-electrode/", "Blackrock Neurotech"),
+      source("FDA 510(k) K110010 NeuroPort entry", "regulatory-page", "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K110010", "U.S. FDA"),
       source("MoveAgain gets FDA Breakthrough Device Designation", "regulatory-page", "https://www.prnewswire.com/news-releases/blackrock-neurotechs-moveagain-brain-computer-interface-system-receives-breakthrough-device-designation-from-the-fda-301425013.html", "PR Newswire / Blackrock"),
       source("Blackrock reveals Neuralace 10,000+ channel BCI", "company-update", "https://www.prnewswire.com/news-releases/blackrock-neurotech-reveals-neuralace-10-000-channel-next-gen-bci-301679826.html", "PR Newswire / Blackrock"),
+      source("NEJM NeuroPort speech neuroprosthesis paper", "paper", "https://www.nejm.org/doi/full/10.1056/NEJMoa2314132", "New England Journal of Medicine"),
+      source("Utah array longevity and reliability paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/34847547/", "PubMed / Journal of Neural Engineering"),
       source("How the Utah Array advances BCI science", "company-update", "https://www.medicaldesignandoutsourcing.com/utah-array-brain-computer-interface-blackrock-neurotech/", "Medical Design & Outsourcing")
     ],
     isSample: false
@@ -448,6 +720,230 @@ export const companies: Company[] = [
       source("Nudge study overview", "company-update", "https://nudge.com/blog/about-studies/", "Nudge"),
       source("Nudge Series A announcement", "company-update", "https://nudge.com/blog/series-a/", "Nudge"),
       source("Nudge company profile", "company-update", "https://www.linkedin.com/company/nudge-corp", "LinkedIn", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "forest-neurotech",
+    name: "Forest Neurotech",
+    kind: "company",
+    category: "minimally-invasive",
+    region: "north-america",
+    modality: "Ultrasound-based whole-brain interface for imaging and neuromodulation",
+    targetFunction: "Whole-brain read/write research, neural-circuit mapping, and future therapeutic brain-interface applications",
+    stage: "Nonprofit focused research organization developing Forest 1; early safety work reported, no approved product",
+    evidenceLevel: "E1",
+    hq: { city: "Los Angeles, CA", country: "United States", lat: 34.0522, lng: -118.2437 },
+    founded: 2023,
+    website: "https://forestneurotech.org",
+    funding: "$14M non-dilutive commitment (2024)",
+    summary:
+      "Forest Neurotech is a nonprofit focused research organization developing ultrasound-based brain-computer interfaces. Its Forest 1 whole-brain computer interface is described as a wearable ultrasonic neural interface for imaging and neuromodulation where direct brain access is available.",
+    hypeCheck:
+      "Forest is one of the clearest ultrasound-BCI efforts, but its public evidence is still mostly platform description, funding, and early safety-trial reporting rather than demonstrated clinical restoration of communication or movement.",
+    sourceLinks: [
+      source("Forest Neurotech overview", "company-update", "https://forestneurotech.org/", "Forest Neurotech"),
+      source("Forest 1 whole-brain interface", "company-update", "https://forestneurotech.org/forest-1", "Forest Neurotech"),
+      source("Forest team intro", "company-update", "https://forestneurotech.org/team-intro", "Forest Neurotech"),
+      source("Forest funding announcement", "company-update", "https://www.businesswire.com/news/home/20240311581698/en/Convergent-Research-Announces-Major-New-Funding-Commitment-to-Forest-Neurotech", "Business Wire / Convergent Research"),
+      source("Forest early safety trial reporting", "news-report", "https://www.theguardian.com/science/2025/jan/20/brain-implant-boost-mood-ultrasound-nhs-trial", "The Guardian", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "openwater-lifu",
+    name: "Openwater Open-LIFU",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Open-source light and focused-ultrasound medical-device platform",
+    targetFunction: "Programmable ultrasound neuromodulation, optical/hemodynamic measurement, disease treatment research, and long-term BCI-adjacent sensing goals",
+    stage: "Open-source platform in clinical research; current public products are medical research tools, not approved BCIs",
+    evidenceLevel: "E1",
+    hq: { city: "San Francisco, CA", country: "United States", lat: 37.7749, lng: -122.4194 },
+    founded: 2016,
+    website: "https://www.openwater.health",
+    summary:
+      "Openwater is building open-source, lower-cost medical devices that combine light and sound. Its technology page frames Open-LIFU for treatment, Open-Motion for measurement, and closed-loop adjustment as a modular platform.",
+    hypeCheck:
+      "Openwater has long discussed BCI ambitions, but the current public evidence is stronger for open medical-device infrastructure and clinical trials than for a demonstrated thought-to-text or assistive BCI.",
+    sourceLinks: [
+      source("Openwater home page", "company-update", "https://www.openwater.health/", "Openwater"),
+      source("Openwater technology page", "company-update", "https://www.openwater.health/technology", "Openwater"),
+      source("Openwater contact page", "company-update", "https://www.openwater.health/contact", "Openwater"),
+      source("Openwater founder resume", "company-update", "https://www.maryloujepsen.com/resume", "Mary Lou Jepsen", false),
+      source("Focused Ultrasound Foundation profile", "company-update", "https://www.fusfoundation.org/posts/company-profile-openwater/", "Focused Ultrasound Foundation", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "attune-neurosciences",
+    name: "Attune Neurosciences",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Wearable low-intensity focused-ultrasound neuromodulation with EEG and motion sensing",
+    targetFunction: "Deep-brain neuromodulation for chronic pain, depression, sleep, addiction, and future closed-loop human-performance research",
+    stage: "Clinical-stage investigational wearable focused-ultrasound platform",
+    evidenceLevel: "E1",
+    hq: { city: "San Francisco, CA", country: "United States", lat: 37.7849, lng: -122.4094 },
+    founded: 2019,
+    website: "https://www.attuneneuro.com",
+    summary:
+      "Attune Neurosciences develops a wearable low-intensity focused-ultrasound platform for non-invasive deep-brain neuromodulation, with research profiles describing EEG and motion sensing on the investigational head-worn device.",
+    hypeCheck:
+      "Attune is a neuromodulation platform, not yet a demonstrated assistive BCI. Closed-loop or human-performance BCI interpretations should stay prospective until published studies show that loop in humans.",
+    sourceLinks: [
+      source("Attune home page", "company-update", "https://attuneneuro.com/", "Attune Neurosciences"),
+      source("Attune research page", "company-update", "https://www.attuneneuro.com/research", "Attune Neurosciences"),
+      source("Attune MTEC profile", "company-update", "https://mtec-sc.org/life-sciences/attune-neurosciences", "MTEC", false),
+      source("Attune wearable feasibility paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC11640868/", "PubMed Central")
+    ],
+    isSample: false
+  },
+  {
+    slug: "neurofus-sonic-concepts",
+    name: "NeuroFUS / Sonic Concepts",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Turnkey low-intensity transcranial focused-ultrasound neuromodulation research system",
+    targetFunction: "Human and animal TUS/tFUS neuromodulation research, protocol development, and BCI-enabling stimulation studies",
+    stage: "Commercial research hardware for neuroscience and medical-device R&D",
+    evidenceLevel: "E2",
+    hq: { city: "Bothell, WA", country: "United States", lat: 47.7601, lng: -122.2054 },
+    website: "https://neurofus.com",
+    summary:
+      "NeuroFUS, powered by Sonic Concepts, provides laboratory-ready low-intensity focused-ultrasound systems for transcranial brain and peripheral nerve modulation research.",
+    hypeCheck:
+      "NeuroFUS is enabling hardware. Its presence in the stack does not prove any specific therapeutic, cognitive, or assistive BCI outcome without a separate study.",
+    sourceLinks: [
+      source("NeuroFUS home page", "company-update", "https://neurofus.com/", "NeuroFUS"),
+      source("NeuroFUS neuromodulation overview", "company-update", "https://neurofus.com/fus-neuromodulation/", "NeuroFUS"),
+      source("NeuroFUS about/collaborators", "company-update", "https://neurofus.com/about/", "NeuroFUS"),
+      source("Sonic Concepts contact page", "company-update", "https://sonicconcepts.com/contact-us/", "Sonic Concepts")
+    ],
+    isSample: false
+  },
+  {
+    slug: "navifus",
+    name: "NaviFUS",
+    kind: "company",
+    category: "non-invasive",
+    region: "asia",
+    modality: "Neuronavigation-guided transcranial focused-ultrasound system for BBB opening and neuromodulation",
+    targetFunction: "Brain-drug delivery, epilepsy neuromodulation, CNS disease trials, and focused-ultrasound platform research",
+    stage: "Human clinical trials and pilot neuromodulation publications; no approved BCI indication",
+    evidenceLevel: "E4",
+    hq: { city: "Taipei", country: "Taiwan", lat: 25.033, lng: 121.5654 },
+    website: "https://navifus.com",
+    summary:
+      "NaviFUS builds a neuronavigation-guided focused-ultrasound system for non-invasive CNS therapy, including blood-brain-barrier opening and low-intensity neuromodulation studies.",
+    hypeCheck:
+      "NaviFUS has human neuromodulation evidence in epilepsy and active clinical studies, but it is not a communication or control BCI product.",
+    sourceLinks: [
+      source("NaviFUS home page", "company-update", "https://navifus.com/", "NaviFUS"),
+      source("NaviFUS system page", "company-update", "https://navifus.com/navifus-system/", "NaviFUS"),
+      source("NaviFUS epilepsy pilot article", "company-update", "https://navifus.com/2021/11/24/epilepsy-trial-for-fus-neuromodulation/", "NaviFUS"),
+      source("NaviFUS epilepsy trial record", "trial-registry", clinicalTrials("NCT05947656"), "ClinicalTrials.gov"),
+      source("Neuronavigation-guided focused ultrasound paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC7327352/", "PubMed Central")
+    ],
+    isSample: false
+  },
+  {
+    slug: "caltech-fus-bmi",
+    name: "Caltech fUS BMI",
+    kind: "academic",
+    category: "minimally-invasive",
+    region: "north-america",
+    modality: "Functional ultrasound imaging brain-machine interface through a cranial acoustic window",
+    targetFunction: "Motor-intention decoding and closed-loop cursor/control research using ultrasonic hemodynamic readout",
+    stage: "Peer-reviewed closed-loop non-human-primate fUS-BMI; human fUS through cranial windows remains proof-of-principle",
+    evidenceLevel: "E2",
+    hq: { city: "Pasadena, CA", country: "United States", lat: 34.1478, lng: -118.1445 },
+    website: "https://www.caltech.edu",
+    summary:
+      "Caltech teams led by the Shapiro, Andersen, and Christopoulos research groups demonstrated functional-ultrasound BMI work, including online closed-loop decoding of motor plans in non-human primates.",
+    hypeCheck:
+      "The strongest closed-loop results are non-human primate studies and rely on ultrasound access conditions that are not yet a consumer-grade non-invasive headset.",
+    sourceLinks: [
+      source("Caltech ultrasound BMI news", "company-update", "https://www.caltech.edu/about/news/ultrasound-enables-less-invasive-brainmachine-interfaces", "Caltech"),
+      source("Caltech reading minds with ultrasound", "company-update", "https://www.caltech.edu/about/news/reading-minds-with-ultrasound-a-less-invasive-technique-to-decode-the-brains-intentions", "Caltech"),
+      source("Closed-loop ultrasonic BMI paper", "paper", "https://www.nature.com/articles/s41593-023-01500-7", "Nature Neuroscience"),
+      source("Shapiro Lab ultrasonic BMI note", "company-update", "https://shapirolab.caltech.edu/?p=1288", "Caltech Shapiro Lab")
+    ],
+    isSample: false
+  },
+  {
+    slug: "cmu-tfus-bci",
+    name: "Carnegie Mellon tFUS BCI",
+    kind: "academic",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "EEG BCI paired with transcranial focused-ultrasound neuromodulation",
+    targetFunction: "Bidirectional non-invasive BCI, visual-motion BCI speller performance enhancement, and ultrasonic feedback/stimulation research",
+    stage: "Peer-reviewed 25-participant human study showing improved BCI speller performance with tFUS",
+    evidenceLevel: "E4",
+    hq: { city: "Pittsburgh, PA", country: "United States", lat: 40.4406, lng: -79.9959 },
+    website: "https://www.cmu.edu",
+    summary:
+      "Carnegie Mellon's Bin He lab demonstrated a non-invasive BCI study where transcranial focused ultrasound to visual area V5 improved human visual-motion BCI speller performance.",
+    hypeCheck:
+      "This is a strong human BCI paper, but it improves an EEG speller task in a controlled study; it is not a released assistive communication system.",
+    sourceLinks: [
+      source("CMU bidirectional BCI release", "company-update", "https://engineering.cmu.edu/news-events/news/2024/06/11-enhancing-bci.html", "Carnegie Mellon University"),
+      source("CMU He Lab", "company-update", "https://www.cmu.edu/bme/helab/", "Carnegie Mellon University"),
+      source("Nature Communications tFUS BCI paper", "paper", "https://www.nature.com/articles/s41467-024-48576-8", "Nature Communications"),
+      source("NCCIH research summary", "company-update", "https://www.nccih.nih.gov/research/research-results/transcranial-focused-ultrasound-improves-the-performance-of-a-noninvasive-brain-computer-interface", "NCCIH", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "wvu-rni-lifu",
+    name: "WVU Rockefeller Neuroscience Institute LIFU",
+    kind: "academic",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Low-intensity focused-ultrasound neuromodulation for deep brain targets",
+    targetFunction: "Addiction/craving neuromodulation, brain health trials, and biomarker-driven focused-ultrasound research",
+    stage: "Human clinical neuromodulation studies; not a direct BCI product",
+    evidenceLevel: "E4",
+    hq: { city: "Morgantown, WV", country: "United States", lat: 39.6295, lng: -79.9559 },
+    website: "https://wvumedicine.org/our-care/institutes/rni/",
+    summary:
+      "WVU Rockefeller Neuroscience Institute runs human low-intensity focused-ultrasound neuromodulation research, including addiction/craving studies targeting the nucleus accumbens.",
+    hypeCheck:
+      "This is clinically important focused-ultrasound neuromodulation, but it is not a BCI for computer control or communication. Track it as adjacent interface evidence.",
+    sourceLinks: [
+      source("WVU RNI research overview", "company-update", "https://wvumedicine.org/our-care/institutes/rni/our-research/", "WVU Medicine"),
+      source("WVU focused-ultrasound state funding", "company-update", "https://wvutoday.wvu.edu/stories/2024/10/28/wvu-rockefeller-neuroscience-institute-receives-state-funding-to-expand-research-and-treatment-for-food-addiction-and-post-traumatic-stress-disorder", "WVU Today"),
+      source("LIFU neuromodulation trial record", "trial-registry", clinicalTrials("NCT05997030"), "ClinicalTrials.gov"),
+      source("Opioid-use focused ultrasound paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/39798597/", "PubMed")
+    ],
+    isSample: false
+  },
+  {
+    slug: "sononeu-sonogenetics",
+    name: "SonoNeu",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Sonogenetics platform pairing engineered ultrasound-sensitive proteins with focused ultrasound delivery",
+    targetFunction: "Programmable cellular control, drug-free neuromodulation, and longer-term ultrasound interface biology for peripheral and central nervous system disorders",
+    stage: "Stealth exit with ARPA-H-supported preclinical sonogenetics translation program",
+    evidenceLevel: "E1",
+    hq: { city: "Palo Alto, CA", country: "United States", lat: 37.4419, lng: -122.143 },
+    website: "https://www.sononeu.com",
+    funding: "Part of up to $41.3M ARPA-H sonogenetics program (2026)",
+    summary:
+      "SonoNeu is a Salk Institute spinout co-founded with General Inception to translate sonogenetics: using focused ultrasound to control engineered ultrasound-responsive cells with spatial and temporal precision.",
+    hypeCheck:
+      "SonoNeu is not a computer-control BCI today. It belongs in the ultrasound interface queue because sonogenetics could become a precise biological write-interface, but public work is preclinical translation.",
+    sourceLinks: [
+      source("SonoNeu home page", "company-update", "https://www.sononeu.com/", "SonoNeu"),
+      source("ARPA-H sonogenetics award", "regulatory-page", "https://arpa-h.gov/explore-funding/awards/3941", "ARPA-H"),
+      source("Salk ARPA-H sonogenetics announcement", "company-update", "https://www.salk.edu/news-release/salk-institute-to-lead-arpa-h-project-with-up-to-41-3m-to-advance-sonogenetics-as-a-noninvasive-therapeutic/", "Salk Institute"),
+      source("SonoNeu stealth-exit release", "company-update", "https://www.globenewswire.com/news-release/2026/04/07/3268843/0/en/sononeu-exits-stealth-as-key-part-of-us-government-funded-research-program-worth-up-to-41-3m-to-advance-sonogenetics-into-clinic.html", "GlobeNewswire / SonoNeu")
     ],
     isSample: false
   },
@@ -530,6 +1026,480 @@ export const companies: Company[] = [
     isSample: false
   },
   {
+    slug: "gtec-unicorn",
+    name: "g.tec / Unicorn Hybrid Black",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "EEG-based BCI platforms, biosignal amplifiers, wearable EEG headsets, and clinical/research BCI software",
+    targetFunction: "BCI prototyping, neurofeedback, motor-imagery/P300/SSVEP research, neurorehabilitation, and assistive communication research",
+    stage: "Commercial research and clinical BCI platform ecosystem with published validation and application literature",
+    evidenceLevel: "E4",
+    hq: { city: "Schiedlberg", country: "Austria", lat: 48.0565, lng: 14.2894 },
+    website: "https://www.gtec.at",
+    summary:
+      "g.tec develops integrated BCI platforms spanning EEG acquisition hardware, real-time signal processing, application frameworks, hackathon/developer tooling, and clinical/research systems such as Unicorn Hybrid Black, recoveriX, mindBEAGLE, and intendiX.",
+    hypeCheck:
+      "g.tec is a serious BCI infrastructure company, but most public EEG demonstrations are research, rehabilitation, or developer workflows rather than proof of a universal consumer mind-control interface.",
+    sourceLinks: [
+      source("g.tec BCI platform overview", "company-update", "https://www.gtec.at/", "g.tec"),
+      source("Unicorn Hybrid Black BCI platform", "company-update", "https://www.gtec.at/product/unicorn-hybrid-black-bci-platform/", "g.tec"),
+      source("g.tec headquarters listing", "company-update", "https://www.advantageaustria.org/ae/company/en/g-tec-medical-engineering-gmbh", "Advantage Austria", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "openbci-galea",
+    name: "OpenBCI / Galea",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Open-source EEG, EMG, ECG, EOG, and multimodal biosensing hardware including Galea for XR research",
+    targetFunction: "Developer BCI tools, neurofeedback, biosensing research, XR interaction, accessibility prototyping, and open-source neurotechnology",
+    stage: "Commercial developer/research platform with open-source hardware and Galea mixed-reality biosensing headset",
+    evidenceLevel: "E2",
+    hq: { city: "Brooklyn, NY", country: "United States", lat: 40.7306, lng: -73.9352 },
+    website: "https://openbci.com",
+    summary:
+      "OpenBCI makes open-source tools for biosensing and neuroscience, from boards and headsets to Galea, a multimodal headset intended to combine biosensing with spatial-computing workflows.",
+    hypeCheck:
+      "OpenBCI is infrastructure for researchers, artists, developers, and accessibility demos; it should not be counted as clinical evidence for a finished medical BCI product.",
+    sourceLinks: [
+      source("OpenBCI home page", "company-update", "https://openbci.com/", "OpenBCI"),
+      source("Galea biosensing headset", "company-update", "https://galea.co/", "OpenBCI / Galea"),
+      source("OpenBCI privacy and registered office", "company-update", "https://docs.openbci.com/FAQ/Privacy/", "OpenBCI Docs")
+    ],
+    isSample: false
+  },
+  {
+    slug: "cognixion-one",
+    name: "Cognixion ONE",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Non-invasive EEG integrated with augmented reality, AI, and steady-state visual evoked potential classification",
+    targetFunction: "Assistive communication and control for people with complex disabilities, plus researcher-facing Axon-R workflows",
+    stage: "FDA Breakthrough Device Designation for Cognixion ONE Axon; Axon-R listed for research use only",
+    evidenceLevel: "E1",
+    hq: { city: "Santa Barbara, CA", country: "United States", lat: 34.4208, lng: -119.6982 },
+    website: "https://www.cognixion.com",
+    summary:
+      "Cognixion builds non-invasive EEG/AR communication technology aimed at assistive communication for people with severe motor or speech impairments. Its Axon-R research platform combines AR, EEG, AI, and SSVEP classification in a headset.",
+    hypeCheck:
+      "Cognixion ONE has FDA Breakthrough Device Designation, not clearance or approval. The company also states Axon-R is for research use only and makes no medical claims on its products.",
+    sourceLinks: [
+      source("Cognixion home page", "company-update", "https://www.cognixion.com/", "Cognixion"),
+      source("Cognixion FDA Breakthrough announcement", "company-update", "https://www.cognixion.com/blog/2023/5/3/cognixion-receives-fda-breakthrough-device-designation-for-its-brain-computer-interface-with-augmented-reality-for-assistive-communication", "Cognixion"),
+      source("Cognixion contact page", "company-update", "https://www.cognixion.com/contact", "Cognixion")
+    ],
+    isSample: false
+  },
+  {
+    slug: "neurable-mw75",
+    name: "Neurable MW75 Neuro",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Consumer EEG headphones with dry fabric EEG sensors and AI focus/cognitive-state software",
+    targetFunction: "Focus tracking, brain-break prompts, cognitive insights, and everyday non-invasive BCI interface research",
+    stage: "Commercial EEG headphone platform for wellness/productivity, not a medical BCI",
+    evidenceLevel: "E2",
+    hq: { city: "Boston, MA", country: "United States", lat: 42.3601, lng: -71.0589 },
+    founded: 2016,
+    website: "https://www.neurable.com",
+    summary:
+      "Neurable sells EEG-enabled headphones such as MW75 Neuro and MW75 Neuro LT, using dry fabric sensors and AI software to track focus and provide productivity-oriented neurofeedback.",
+    hypeCheck:
+      "The current public product is a consumer wellness/productivity device. Focus tracking and cognitive reports are not evidence of clinical diagnosis, treatment, or assistive communication restoration.",
+    sourceLinks: [
+      source("MW75 Neuro product page", "company-update", "https://www.neurable.com/products/mw75neuro", "Neurable"),
+      source("MW75 Neuro LT product page", "company-update", "https://www.neurable.com/products/mw75neurolt", "Neurable"),
+      source("Neurable contact page", "company-update", "https://www.neurable.com/contact", "Neurable"),
+      source("Neurable company profile", "company-update", "https://www.m-ventures.com/portfolio/neurable", "M Ventures", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "bitbrain",
+    name: "Bitbrain",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Wireless and mobile EEG, dry/textile EEG, multimodal biosignal hardware, and BCI software platforms",
+    targetFunction: "BCI communication/control research, motor rehabilitation, neuroprosthesis integration, passive BCI, neurofeedback, and brain-to-vehicle research",
+    stage: "Commercial research platform with BCI application work including MoreGrasp and brain-to-vehicle examples",
+    evidenceLevel: "E2",
+    hq: { city: "Zaragoza", country: "Spain", lat: 41.6488, lng: -0.8891 },
+    founded: 2010,
+    website: "https://www.bitbrain.com",
+    summary:
+      "Bitbrain develops high-tech EEG and multimodal monitoring devices plus software for applied neuroscience and BCI research, including P300 wheelchair work, MoreGrasp neuroprosthesis integration, and brain-to-vehicle experiments.",
+    hypeCheck:
+      "Bitbrain's products support many BCI research workflows, but the public evidence surface should be treated as enabling infrastructure and project demonstrations unless a given clinical endpoint is separately sourced.",
+    sourceLinks: [
+      source("Bitbrain home page", "company-update", "https://www.bitbrain.com/en", "Bitbrain"),
+      source("Bitbrain BCI applications", "company-update", "https://www.bitbrain.com/applications/brain-computer-interface", "Bitbrain"),
+      source("Bitbrain contact page", "company-update", "https://www.bitbrain.com/neurotechnology-contact", "Bitbrain")
+    ],
+    isSample: false
+  },
+  {
+    slug: "ant-neuro-eego",
+    name: "ANT Neuro eego",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Research-grade EEG amplifiers, EEG caps, high-density EEG systems, and real-time eego rt BCI hardware",
+    targetFunction: "Real-time BCI, neurofeedback, neurorehabilitation, high-density EEG research, and mobile EEG studies",
+    stage: "Commercial research and clinical EEG platform; eego rt is positioned for BCI and neurofeedback",
+    evidenceLevel: "E2",
+    hq: { city: "Hengelo", country: "Netherlands", lat: 52.2574, lng: 6.7928 },
+    website: "https://www.ant-neuro.com",
+    summary:
+      "ANT Neuro provides EEG hardware and software for clinical and research applications. Its eego rt platform is explicitly designed for real-time BCI, neurofeedback, and neurorehabilitation use.",
+    hypeCheck:
+      "ANT Neuro is an EEG systems vendor and BCI-enabling platform. Device availability and certification do not by themselves prove a specific assistive BCI clinical outcome.",
+    sourceLinks: [
+      source("eego rt product page", "company-update", "https://www.ant-neuro.com/products/eego-rt", "ANT Neuro"),
+      source("ANT Neuro BCI application page", "company-update", "https://www.ant-neuro.com/applications/bci", "ANT Neuro"),
+      source("ANT Neuro contact page", "company-update", "https://www.ant-neuro.com/contact-us", "ANT Neuro")
+    ],
+    isSample: false
+  },
+  {
+    slug: "neurosky",
+    name: "NeuroSky",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Single-lead EEG biosensors and consumer/developer EEG headsets such as MindWave Mobile 2",
+    targetFunction: "Low-cost attention/meditation sensing, education, entertainment, wellness, OEM BCI applications, and developer prototyping",
+    stage: "Commercial consumer/OEM EEG biosensor platform",
+    evidenceLevel: "E2",
+    hq: { city: "San Jose, CA", country: "United States", lat: 37.3382, lng: -121.8863 },
+    website: "https://neurosky.com",
+    summary:
+      "NeuroSky supplies single-lead EEG biosensors and MindWave headsets for consumer, education, entertainment, wellness, OEM, and developer applications.",
+    hypeCheck:
+      "Single-lead EEG can be useful for simple attention/meditation and developer demos, but it has limited spatial information and should not be framed as clinical assistive BCI evidence.",
+    sourceLinks: [
+      source("NeuroSky home page", "company-update", "https://neurosky.com/", "NeuroSky"),
+      source("MindWave product page", "company-update", "https://store.neurosky.com/pages/mindwave", "NeuroSky"),
+      source("NeuroSky contact page", "company-update", "https://neurosky.com/contact-us/", "NeuroSky")
+    ],
+    isSample: false
+  },
+  {
+    slug: "cgx-cognionics",
+    name: "CGX / Cognionics",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Wireless dry EEG headsets, active dry electrodes, gel EEG options, and mobile neuroimaging systems",
+    targetFunction: "Dry EEG research, real-world neuroimaging, human factors, affective science, sleep monitoring, and BCI-enabling data acquisition",
+    stage: "Commercial dry EEG research hardware platform",
+    evidenceLevel: "E2",
+    hq: { city: "San Diego, CA", country: "United States", lat: 32.7157, lng: -117.1611 },
+    website: "https://www.cgxsystems.com",
+    summary:
+      "CGX, formerly Cognionics, builds wireless dry EEG headsets and electrode technology for researchers who need mobile EEG without gel preparation.",
+    hypeCheck:
+      "CGX is best tracked as enabling EEG hardware. Dry EEG mobility is important, but the company page is not evidence of a specific therapeutic or assistive BCI outcome.",
+    sourceLinks: [
+      source("CGX home page", "company-update", "https://www.cgxsystems.com/", "CGX"),
+      source("CGX product page", "company-update", "https://www.cgxsystems.com/products", "CGX"),
+      source("CGX technology page", "company-update", "https://www.cgxsystems.com/technology", "CGX"),
+      source("CGX contact page", "company-update", "https://www.cgxsystems.com/contact", "CGX")
+    ],
+    isSample: false
+  },
+  {
+    slug: "mentalab-explore",
+    name: "Mentalab Explore",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Mobile EEG/ExG amplifiers, open APIs, Lab Streaming Layer support, and wireless timing/synchronization tools",
+    targetFunction: "Mobile EEG research, BCI and neurofeedback systems, motor-imagery/SSVEP examples, hyperscanning, and real-time neurointerfaces",
+    stage: "Commercial mobile EEG research platform with BCI and neurofeedback workflows",
+    evidenceLevel: "E2",
+    hq: { city: "Munich", country: "Germany", lat: 48.1351, lng: 11.582 },
+    website: "https://mentalab.com",
+    summary:
+      "Mentalab builds portable EEG/ExG devices for mobile research and explicitly positions Explore Pro for BCI and neurofeedback systems with open APIs, LSL, and sub-millisecond event timing.",
+    hypeCheck:
+      "Mentalab supports real-time BCI research and has validation literature, but it remains a research platform unless a particular downstream medical or assistive application is separately demonstrated.",
+    sourceLinks: [
+      source("Mentalab BCI and neurofeedback page", "company-update", "https://mentalab.com/mobile-eeg-for-brain-computer-interface-bci-and-neurofeedback/", "Mentalab"),
+      source("Mentalab product page", "company-update", "https://mentalab.com/products/", "Mentalab"),
+      source("Mentalab Explore validation paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/36402176/", "PubMed")
+    ],
+    isSample: false
+  },
+  {
+    slug: "mbraintrain-smarting",
+    name: "mBrainTrain Smarting",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Wireless mobile EEG systems including Smarting S and Smarting PRO for real-world EEG research",
+    targetFunction: "Mobile EEG, hyperscanning, cognitive neuroscience, auditory and movement studies, and BCI-enabling raw EEG streaming",
+    stage: "Commercial mobile EEG research platform",
+    evidenceLevel: "E2",
+    hq: { city: "Belgrade", country: "Serbia", lat: 44.7866, lng: 20.4489 },
+    founded: 2012,
+    website: "https://mbraintrain.com",
+    summary:
+      "mBrainTrain builds Smarting mobile EEG systems for wireless, out-of-lab research, with real-time raw data streaming and mobile workflows.",
+    hypeCheck:
+      "mBrainTrain is enabling hardware for mobile EEG and BCI research; it should not be treated as a standalone clinical BCI therapy or assistive communication product.",
+    sourceLinks: [
+      source("Smarting wireless EEG page", "company-update", "https://mbraintrain.com/smarting-wireless-eeg/", "mBrainTrain"),
+      source("mBrainTrain who-we-are page", "company-update", "https://mbraintrain.com/who-we-are/", "mBrainTrain"),
+      source("mBrainTrain privacy policy contact", "company-update", "https://mbraintrain.com/company-privacy-policy/", "mBrainTrain"),
+      source("mBrainTrain company profile", "company-update", "https://www.blockstart.eu/portfolio/mbrain-train/", "BlockStart", false)
+    ],
+    isSample: false
+  },
+  {
+    slug: "kernel-flow",
+    name: "Kernel Flow",
+    kind: "company",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Wearable time-domain fNIRS system for high-density hemodynamic brain measurement",
+    targetFunction: "Real-time brain measurement, cognitive-state research, neurofeedback-enabling studies, and hemodynamic BCI research infrastructure",
+    stage: "Commercial research platform with peer-reviewed device validation; not marketed as a medical BCI",
+    evidenceLevel: "E4",
+    hq: { city: "Los Angeles, CA", country: "United States", lat: 34.0522, lng: -118.2437 },
+    founded: 2016,
+    website: "https://www.kernel.com",
+    summary:
+      "Kernel Flow is a wearable time-domain fNIRS platform designed to measure cortical blood-oxygenation changes at scale, giving researchers a portable hemodynamic brain-data system for cognition, mental-health, and human-performance studies.",
+    hypeCheck:
+      "Flow is a research neuroimaging platform, not a demonstrated assistive BCI for paralysis or communication. Kernel documentation says Flow data is research/informational and not clinically significant by itself.",
+    sourceLinks: [
+      source("Kernel Flow technology page", "company-update", "https://www.kernel.com/technology", "Kernel"),
+      source("Kernel developer page", "company-update", "https://www.kernel.com/developers", "Kernel"),
+      source("Kernel Flow device validation paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8765296/", "PubMed Central"),
+      source("Kernel Flow medical-device/IRB note", "company-update", "https://docs.kernel.com/docs/is-flow-a-medical-device-irb", "Kernel Docs")
+    ],
+    isSample: false
+  },
+  {
+    slug: "nirx-fnirs",
+    name: "NIRx fNIRS",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Wearable and lab-based fNIRS systems with real-time Turbo-Satori BCI/neurofeedback workflows",
+    targetFunction: "fNIRS BCI, neurofeedback, mobile neuroimaging, multimodal EEG/fNIRS studies, and hemodynamic signal acquisition",
+    stage: "Commercial fNIRS platform with explicit BCI/neurofeedback software support and peer-reviewed Turbo-Satori paper",
+    evidenceLevel: "E4",
+    hq: { city: "Berlin", country: "Germany", lat: 52.52, lng: 13.405 },
+    website: "https://nirx.net",
+    summary:
+      "NIRx provides fNIRS systems such as NIRSport2 and NIRScout plus Turbo-Satori real-time analysis software, explicitly supporting fNIRS-based BCI and neurofeedback research.",
+    hypeCheck:
+      "NIRx is enabling research infrastructure. Real-time fNIRS classification and feedback support should not be counted as an approved clinical BCI outcome unless a downstream study separately demonstrates it.",
+    sourceLinks: [
+      source("NIRx BCI and neurofeedback page", "company-update", "https://nirx.net/fnirs-bci-neurofeedback", "NIRx"),
+      source("Turbo-Satori page", "company-update", "https://nirx.net/turbosatori", "NIRx"),
+      source("NIRSport2 product page", "company-update", "https://nirx.net/nirsport", "NIRx"),
+      source("Turbo-Satori peer-reviewed paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5629919/", "PubMed Central"),
+      source("NIRx contact page", "company-update", "https://nirx.net/contact", "NIRx")
+    ],
+    isSample: false
+  },
+  {
+    slug: "artinis-brite",
+    name: "Artinis Brite / OxyMon",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Wearable and lab-based fNIRS/NIRS systems with EEG-fNIRS integration options",
+    targetFunction: "fNIRS BCI, neurofeedback, neurorehabilitation research, cognitive workload, and hybrid EEG/fNIRS studies",
+    stage: "Commercial fNIRS research hardware; BCI relevance documented in company application notes",
+    evidenceLevel: "E2",
+    hq: { city: "Elst", country: "Netherlands", lat: 51.9194, lng: 5.8417 },
+    website: "https://artinis.com",
+    summary:
+      "Artinis builds portable and wearable fNIRS devices such as Brite and OxyMon, and publishes application material on fNIRS use in BCI and neurofeedback workflows.",
+    hypeCheck:
+      "Artinis hardware can be used in fNIRS-BCI research, but product availability and application notes are not themselves proof of clinical rehabilitation efficacy or everyday assistive control.",
+    sourceLinks: [
+      source("Artinis fNIRS in BCI and neurofeedback", "company-update", "https://artinis.com/blogpost-all/fnirs-in-brain-computer-interface-and-neurofeedback", "Artinis"),
+      source("Artinis Brite product page", "company-update", "https://artinis.com/brite", "Artinis"),
+      source("Artinis fNIRS-EEG package", "company-update", "https://artinis.com/nirs-eeg-package", "Artinis"),
+      source("Artinis FAQ", "company-update", "https://artinis.com/faq", "Artinis")
+    ],
+    isSample: false
+  },
+  {
+    slug: "gowerlabs-lumo",
+    name: "Gowerlabs LUMO",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Wearable high-density diffuse optical tomography / fNIRS system",
+    targetFunction: "High-density hemodynamic brain imaging for neuroscience, real-time BCI research, and naturalistic neurotechnology studies",
+    stage: "Commercial high-density fNIRS/DOT platform with peer-reviewed system evaluation and BCI-use impact evidence",
+    evidenceLevel: "E4",
+    hq: { city: "London", country: "United Kingdom", lat: 51.5072, lng: -0.1276 },
+    website: "https://www.gowerlabs.co.uk",
+    summary:
+      "Gowerlabs' LUMO is a modular wearable high-density fNIRS/DOT system. UCL impact material links Gowerlabs systems to real-time BCI development, including Facebook Reality Labs' non-invasive thought-typing research.",
+    hypeCheck:
+      "LUMO is a powerful optical brain-imaging platform, but its public BCI role is enabling research rather than a released assistive communication product.",
+    sourceLinks: [
+      source("LUMO product page", "company-update", "https://www.gowerlabs.co.uk/lumo", "Gowerlabs"),
+      source("Gowerlabs home page", "company-update", "https://www.gowerlabs.co.uk/", "Gowerlabs"),
+      source("UCL Gowerlabs impact case study", "news-report", "https://www.ucl.ac.uk/impact/case-studies/2022/apr/gowerlabs-advancing-optical-brain-imaging-neuroscience-applications-industry", "University College London", false),
+      source("Wearable high-density fNIRS evaluation", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8033536/", "PubMed Central")
+    ],
+    isSample: false
+  },
+  {
+    slug: "cortivision-photon",
+    name: "Cortivision Photon",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Wireless fNIRS systems, Photon Cap, Spectrum, and fNIRS-plus-EEG integrations",
+    targetFunction: "fNIRS BCI studies, hybrid EEG/fNIRS research, VR/mobile neuroimaging, and microgravity human-computer-interaction experiments",
+    stage: "Commercial fNIRS research platform; company-announced PhotonGrav fNIRS-BCI experiment on the ISS",
+    evidenceLevel: "E1",
+    hq: { city: "Lublin", country: "Poland", lat: 51.2465, lng: 22.5684 },
+    website: "https://www.cortivision.com",
+    summary:
+      "Cortivision builds mobile fNIRS systems and publishes BCI-specific use cases. Its PhotonGrav project tested whether fNIRS-based BCI technology could operate in microgravity during the Ax-4 mission.",
+    hypeCheck:
+      "PhotonGrav is an important environment test, not evidence that Cortivision has a clinical assistive BCI. Treat the space claim as company-reported until peer-reviewed results appear.",
+    sourceLinks: [
+      source("Cortivision BCI use case", "company-update", "https://www.cortivision.com/use-case/brain-computer-interfaces-bci/", "Cortivision"),
+      source("Cortivision products page", "company-update", "https://www.cortivision.com/products/", "Cortivision"),
+      source("Cortivision space projects", "company-update", "https://www.cortivision.com/space-projects/", "Cortivision"),
+      source("Cortivision contact page", "company-update", "https://www.cortivision.com/spectrum-contact/", "Cortivision")
+    ],
+    isSample: false
+  },
+  {
+    slug: "brain-innovation-rtfmri",
+    name: "Brain Innovation",
+    kind: "company",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Real-time fMRI and fNIRS analysis software, including Turbo-BrainVoyager and Turbo-Satori",
+    targetFunction: "Real-time fMRI BCI, fMRI neurofeedback, fNIRS BCI, and neurofeedback experiment software",
+    stage: "Commercial research software used for real-time fMRI and fNIRS BCI/neurofeedback workflows",
+    evidenceLevel: "E4",
+    hq: { city: "Maastricht", country: "Netherlands", lat: 50.8514, lng: 5.691 },
+    website: "https://brainvoyager.com",
+    summary:
+      "Brain Innovation develops BrainVoyager, Turbo-BrainVoyager, and Satori/Turbo-Satori software. Its product pages explicitly position Turbo-BrainVoyager for real-time fMRI neurofeedback and BCI applications, while Turbo-Satori has a peer-reviewed fNIRS BCI/neurofeedback paper.",
+    hypeCheck:
+      "This is enabling software, not a medical device that restores function by itself. Clinical or assistive claims need to be tied to specific studies using the software.",
+    sourceLinks: [
+      source("Brain Innovation product overview", "company-update", "https://brainvoyager.com/", "Brain Innovation"),
+      source("Turbo-BrainVoyager product page", "company-update", "https://brainvoyager.com/products/turbo-brainvoyager/", "Brain Innovation"),
+      source("Turbo-Satori peer-reviewed paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5629919/", "PubMed Central"),
+      source("Turbo-Satori publication record", "paper", "https://cris.maastrichtuniversity.nl/en/publications/turbo-satori-a-neurofeedback-and-brain-computer-interface-toolbox/", "Maastricht University")
+    ],
+    isSample: false
+  },
+  {
+    slug: "eth-relab-fnirs",
+    name: "ETH RELab fNIRS BCI",
+    kind: "academic",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Wearable modular fNIRS plus biosignal interfaces for motor-intention decoding",
+    targetFunction: "Upper-limb motion-intention decoding, stroke rehabilitation guidance, and home-environment fNIRS BCI research",
+    stage: "Academic research project with published feasibility work",
+    evidenceLevel: "E4",
+    hq: { city: "Zurich", country: "Switzerland", lat: 47.3769, lng: 8.5417 },
+    website: "https://relab.ethz.ch",
+    summary:
+      "ETH Zurich's Rehabilitation Engineering Laboratory develops fNIRS-based BCI systems for real-time decoding of upper-limb motion intention and stroke-rehabilitation feedback.",
+    hypeCheck:
+      "This is academic feasibility and rehabilitation-interface research, not a commercial therapy or proven home-use assistive BCI.",
+    sourceLinks: [
+      source("ETH fNIRS BCI project", "company-update", "https://relab.ethz.ch/research/current-research-projects/interfacing-the-brain-using-functional-near-infrared-spectroscop.html", "ETH Zurich"),
+      source("ETH current research projects", "company-update", "https://relab.ethz.ch/research/current-research-projects.html", "ETH Zurich"),
+      source("Hybrid fNIRS-biosignal BCI feasibility paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3637588/", "PubMed Central")
+    ],
+    isSample: false
+  },
+  {
+    slug: "holland-bloorview-prism",
+    name: "Holland Bloorview PRISM Lab",
+    kind: "academic",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Clinical BCI program using EEG and near-infrared spectroscopy/fNIRS communication paradigms",
+    targetFunction: "Communication and environmental access for children and youth with severe disabilities and limited speech or movement",
+    stage: "Clinical BCI program plus peer-reviewed pediatric and fNIRS communication studies",
+    evidenceLevel: "E4",
+    hq: { city: "Toronto", country: "Canada", lat: 43.6532, lng: -79.3832 },
+    website: "https://hollandbloorview.ca",
+    summary:
+      "Holland Bloorview's PRISM Lab and Clinical BCI Program develop access technologies for people with complex disabilities, including near-infrared spectroscopy and fNIRS BCI communication paradigms.",
+    hypeCheck:
+      "The clinical program provides training and research access pathways; public papers still show small-sample or pediatric feasibility rather than an approved standalone communication product.",
+    sourceLinks: [
+      source("Holland Bloorview BCI overview", "company-update", "https://hollandbloorview.ca/research-education/bloorview-research-institute/innovations-industry-opportunities/brain-computer", "Holland Bloorview"),
+      source("Clinical BCI Program", "company-update", "https://hollandbloorview.ca/clinical-brain-computer-interface-bci-program", "Holland Bloorview"),
+      source("Online fNIRS imagined-speech BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/30260320/", "PubMed"),
+      source("Pediatric fNIRS BCI paper", "paper", "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2022.938708/full", "Frontiers in Human Neuroscience")
+    ],
+    isSample: false
+  },
+  {
+    slug: "maastricht-rtfmri-bci",
+    name: "Maastricht real-time fMRI BCI",
+    kind: "academic",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Real-time fMRI brain-computer interfaces using whole-brain hemodynamic signals",
+    targetFunction: "Motor-independent communication, fMRI spelling, neurofeedback, and high-spatial-resolution non-invasive BCI research",
+    stage: "Academic rt-fMRI BCI program with fMRI spelling and review literature",
+    evidenceLevel: "E4",
+    hq: { city: "Maastricht", country: "Netherlands", lat: 50.8514, lng: 5.701 },
+    website: "https://www.maastrichtuniversity.nl",
+    summary:
+      "Maastricht researchers led work on real-time fMRI BCIs, including an fMRI-based spelling device and later reviews framing rt-fMRI as a high-spatial-resolution but nonportable BCI approach.",
+    hypeCheck:
+      "Real-time fMRI BCI is expensive, scanner-bound, noisy, and slow compared with electrical BCIs. It is best tracked as research evidence and a fallback communication paradigm, not a near-term consumer product.",
+    sourceLinks: [
+      source("Real-time fMRI for brain-computer interfacing", "paper", "https://cris.maastrichtuniversity.nl/en/publications/real-time-fmri-for-brain-computer-interfacing/", "Maastricht University"),
+      source("fMRI spelling device paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/22748322/", "PubMed / Current Biology"),
+      source("Topographic somatosensory imagery for rt-fMRI BCI", "paper", "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2019.00427/full", "Frontiers in Human Neuroscience")
+    ],
+    isSample: false
+  },
+  {
+    slug: "yale-rtfmri-bci",
+    name: "Yale real-time fMRI BCI",
+    kind: "academic",
+    category: "non-invasive",
+    region: "north-america",
+    modality: "Real-time fMRI BCI mapped to each participant's neural manifold geometry",
+    targetFunction: "Fast learning of brain-controlled game/avatar control and future non-invasive motor or communication interfaces",
+    stage: "Peer-reviewed 2026 Nature Neuroscience human learning study",
+    evidenceLevel: "E4",
+    hq: { city: "New Haven, CT", country: "United States", lat: 41.3083, lng: -72.9279 },
+    website: "https://news.yale.edu",
+    summary:
+      "Yale researchers used real-time fMRI and manifold-aware feedback mappings to let participants control a video-game avatar with brain activity, showing much faster learning when the BCI aligned with natural neural geometry.",
+    hypeCheck:
+      "The study used healthy participants in an fMRI scanner. It is a strong research result, but not yet a portable system for patients or a clinical communication aid.",
+    sourceLinks: [
+      source("Yale rt-fMRI BCI news release", "company-update", "https://news.yale.edu/2026/06/09/brain-computer-interface-works-not-against-brain", "Yale University"),
+      source("Nature Neuroscience rt-fMRI BCI paper", "paper", "https://www.nature.com/articles/s41593-026-02311-2", "Nature Neuroscience")
+    ],
+    isSample: false
+  },
+  {
     slug: "science-corp",
     name: "Science Corporation",
     kind: "company",
@@ -601,6 +1571,377 @@ export const programProjects: ProgramProject[] = [
       source("Visual Prosthesis trial interest page", "company-update", "https://neuralink.com/trials/visual-prosthesis/", "Neuralink"),
       source("FDA Breakthrough Devices Program overview", "regulatory-page", "https://www.fda.gov/medical-devices/how-study-and-market-your-device/breakthrough-devices-program", "U.S. FDA", false),
       source("IEEE Spectrum analysis of Blindsight claims", "news-report", "https://spectrum.ieee.org/neuralink-blindsight", "IEEE Spectrum", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "blackrock-neuroport-utah-array",
+    companySlug: "blackrock-neurotech",
+    name: "NeuroPort / Utah Array",
+    focus: "Intracortical recording and stimulation platform for human BCI research",
+    modality: "Penetrating Utah-style microelectrode arrays plus NeuroPort acquisition hardware",
+    statusLabel: "FDA 510(k)-cleared electrode/recording component; chronic assistive BCI use remains investigational",
+    evidenceLevel: "E6",
+    latestUpdateLabel: "2011 FDA 510(k); active human BCI research use",
+    sortDate: "2011-02-09",
+    summary:
+      "Blackrock's NeuroPort/Utah Array platform is an enabling intracortical interface used across human BCI research, including motor-control and speech-neuroprosthesis studies.",
+    demonstrated:
+      "FDA 510(k) records for the NeuroPort cortical microelectrode array system and peer-reviewed human studies using NeuroPort arrays and acquisition hardware.",
+    notYetShown:
+      "The clearance is for recording/monitoring components and does not by itself approve a chronic home assistive BCI product such as MoveAgain.",
+    sourceLinks: [
+      source("FDA 510(k) K110010 NeuroPort entry", "regulatory-page", "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K110010", "U.S. FDA"),
+      source("NeuroPort Electrode 96 product page", "company-update", "https://blackrockneurotech.com/products/neuroport-electrode/", "Blackrock Neurotech"),
+      source("NEJM NeuroPort speech neuroprosthesis paper", "paper", "https://www.nejm.org/doi/full/10.1056/NEJMoa2314132", "New England Journal of Medicine"),
+      source("Open-access NEJM full text", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC11328962/", "PubMed Central")
+    ],
+    isSample: false
+  },
+  {
+    id: "blackrock-moveagain",
+    companySlug: "blackrock-neurotech",
+    name: "MoveAgain",
+    focus: "Commercial assistive BCI path for cursor, keyboard, wheelchair, and prosthetic control",
+    modality: "Intracortical array signals decoded to external device commands",
+    statusLabel: "FDA Breakthrough Device Designation announced; no commercial clearance yet",
+    evidenceLevel: "E1",
+    latestUpdateLabel: "Nov 2021 FDA Breakthrough announcement",
+    sortDate: "2021-11-18",
+    summary:
+      "MoveAgain is Blackrock's integrated assistive-BCI product program, framed around restoring control of digital and mobility devices for people with paralysis.",
+    demonstrated:
+      "Company-announced FDA Breakthrough Device Designation and a product description grounded in prior human intracortical BCI research.",
+    notYetShown:
+      "FDA marketing clearance, published MoveAgain pivotal outcomes, or routine commercial home deployment.",
+    sourceLinks: [
+      source("MoveAgain gets FDA Breakthrough Device Designation", "regulatory-page", "https://www.prnewswire.com/news-releases/blackrock-neurotechs-moveagain-brain-computer-interface-system-receives-breakthrough-device-designation-from-the-fda-301425013.html", "PR Newswire / Blackrock"),
+      source("Blackrock MoveAgain overview", "company-update", "https://blackrockneurotech.com/insights/blackrock-neurotech-moveagain-brain-computer-interface-system/", "Blackrock Neurotech")
+    ],
+    isSample: false
+  },
+  {
+    id: "onward-arc-bci-digital-bridge",
+    companySlug: "onward-arc-bci",
+    name: "ARC-BCI / DigitalBridge",
+    focus: "Thought-driven spinal cord stimulation after spinal cord injury",
+    modality: "Implanted cortical decoding linked wirelessly to implanted epidural spinal cord stimulation",
+    statusLabel: "Peer-reviewed one-participant digital bridge; feasibility study active with seven ARC-BCI participants reported",
+    evidenceLevel: "E4",
+    latestUpdateLabel: "Jan 2026 participant-count update",
+    sortDate: "2026-01-22",
+    summary:
+      "ONWARD's ARC-BCI program pairs brain-signal decoding with ARC-IM spinal cord stimulation so intended leg or arm movement can trigger targeted stimulation patterns.",
+    demonstrated:
+      "A Nature paper reported one participant standing, walking, and climbing stairs with a wireless brain-spine interface; ONWARD later reported seven ARC-BCI study participants across upper- and lower-limb restoration work.",
+    notYetShown:
+      "Peer-reviewed multi-participant endpoint data, long-term durability across a larger cohort, regulatory clearance, or routine clinical availability.",
+    sourceLinks: [
+      source("ARC-BCI overview", "company-update", "https://www.onwd.com/brain-computer-interface/", "ONWARD Medical"),
+      source("Seven ARC-BCI participants reported", "company-update", "https://ir.onwd.com/static-files/48e1c5b9-e843-4895-ac81-e0e936a841e2", "ONWARD Medical"),
+      source("Brain-spine interface paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
+      source("Brain-controlled spinal cord stimulation trial", "trial-registry", clinicalTrials("NCT06243952"), "ClinicalTrials.gov")
+    ],
+    isSample: false
+  },
+  {
+    id: "neucyber-beinao-spinal-stimulation",
+    companySlug: "neucyber-beinao",
+    name: "Beinao-1 Brain-Spinal Cord-Exoskeleton Path",
+    focus: "Motor-intention decoding linked to spinal stimulation and exoskeleton-assisted walking",
+    modality: "Semi-invasive Beinao-1 cortical recording paired with temporally patterned spinal cord stimulation and lower-limb exoskeleton training",
+    statusLabel: "CIBR-reported human walking case inside a broader Beinao-1 clinical program",
+    evidenceLevel: "E3",
+    latestUpdateLabel: "2026 CIBR and state-media reports",
+    sortDate: "2026-06-22",
+    summary:
+      "NeuCyber/CIBR's Beinao-1 program includes a brain-spinal cord-exoskeleton pathway for spinal cord injury alongside motor and speech reconstruction use cases.",
+    demonstrated:
+      "CIBR reports that one paraplegia patient used Beinao-controlled spinal stimulation plus lower-limb exoskeleton training and achieved autonomous walking with axillary crutches.",
+    notYetShown:
+      "Peer-reviewed protocol details, independent outcome measures, adverse-event reporting, and reproducibility across a larger spinal-cord-injury cohort.",
+    sourceLinks: [
+      source("CIBR Beinao No.1 achievement note", "company-update", "https://en.cibr.ac.cn/detail/cibrNewsnews/80c9eacb37164c5fadc21c696edf5cd7", "Chinese Institute for Brain Research, Beijing"),
+      source("Beinao brain-spinal cord-exoskeleton report", "company-update", "https://www.globaltimes.cn/page/202605/1361687.shtml", "Global Times", false),
+      source("Beinao-1 simultaneous BCI and spinal stimulation report", "company-update", "https://www.chinadailyhk.com/hk/article/635325", "Xinhua / China Daily Hong Kong", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "fudan-ai-bsi",
+    companySlug: "fudan-bsi",
+    name: "AI-Empowered Brain-Spine Interface",
+    focus: "Restoring lower-limb movement and assisted walking after spinal cord injury",
+    modality: "Minimally invasive motor-intention decoding linked to spinal nerve-root stimulation",
+    statusLabel: "Four university-reported human proof-of-concept surgeries by March 2025",
+    evidenceLevel: "E2",
+    latestUpdateLabel: "Mar 2025 Fudan report",
+    sortDate: "2025-03-05",
+    summary:
+      "Fudan's Institute of Science and Technology for Brain-Inspired Intelligence reported a triple-integrated brain-spine interface led by Jia Fumin's team.",
+    demonstrated:
+      "Fudan reports four proof-of-concept surgeries, including rapid post-operative leg movement and assisted stepping/walking outcomes in spinal-cord-injury patients.",
+    notYetShown:
+      "Peer-reviewed clinical outcomes, a public trial registry, standardized endpoint data, adverse-event reporting, or longer follow-up across the reported cases.",
+    sourceLinks: [
+      source("Fudan English BSI report", "company-update", "https://www.fudan.edu.cn/en/2025/0305/c344a144344/page.htm", "Fudan University"),
+      source("Fudan Chinese BSI feature", "company-update", "https://news.fudan.edu.cn/2025/0304/c1268a144336/page.htm", "Fudan University"),
+      source("Fudan BSI video report", "demo-video", "https://cn.chinadaily.com.cn/a/202503/07/WS67ca8cd9a310510f19eea453.html", "China Daily", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "zju-closed-loop-spinal-interface",
+    companySlug: "zju-nanhu-spinal-interface",
+    name: "Closed-Loop Spinal Nerve Interface",
+    focus: "Standing, walking, stair climbing, balance, and partial sensory/autonomic recovery after spinal cord injury",
+    modality: "Sixteen-contact spinal electrode, wireless stimulation controller, EMG sensing, and adaptive closed-loop software",
+    statusLabel: "Zhejiang University-reported first China closed-loop spinal nerve interface case",
+    evidenceLevel: "E2",
+    latestUpdateLabel: "Jun 2025 ZJU report",
+    sortDate: "2025-06-19",
+    summary:
+      "Zhejiang University, SAHZU, Nanhu Brain-Computer Interface Institute, and Brain-Machine Intelligence Lab reported a closed-loop spinal nerve interface in a 61-year-old man with paraplegia.",
+    demonstrated:
+      "ZJU reports that the participant could stand and walk unaided within 15 days and recovered basic mobility by two months, with additional sensory and autonomic improvements described.",
+    notYetShown:
+      "Direct cortical BCI control, peer-reviewed outcomes, larger-cohort reproducibility, or enough detail to classify it as a direct brain-spine interface rather than a spinal-interface result.",
+    sourceLinks: [
+      source("ZJU closed-loop spinal nerve interface report", "company-update", "https://www.zju.edu.cn/english/2025/0619/c19573a3063161/page.htm", "Zhejiang University"),
+      source("ZJU/SAHZU walking video", "demo-video", "https://www.facebook.com/ZhejiangUniversityChina/videos/from-paralysis-to-walking-again-%EF%B8%8Fafter-a-devastating-spinal-injury-61-year-old-m/9811658218962668/", "Zhejiang University / Facebook", false),
+      source("Global Times ZJU spinal interface report", "news-report", "https://www.globaltimes.cn/page/202505/1334573.shtml", "Global Times", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "hainan-wukongbot-brain-spine-machine",
+    companySlug: "hainan-wukongbot-bsi",
+    name: "WukongBot Brain-Spine-Machine Interface",
+    focus: "Preclinical non-invasive BSI proof-of-concept for lower-limb movement after spinal cord injury",
+    modality: "Non-invasive EEG intention decoding linked to epidural electrical stimulation",
+    statusLabel: "Published macaque proof-of-concept; not a human SCI therapy yet",
+    evidenceLevel: "E2",
+    latestUpdateLabel: "2025 university report and BIO Integration paper",
+    sortDate: "2025-11-11",
+    summary:
+      "Hainan University's WukongBot work tests a Brain-Spine-Machine pathway where decoded movement intent bypasses spinal injury and drives lower-limb stimulation.",
+    demonstrated:
+      "The paper and university report describe human motion intentions driving alternating lower-limb movements in an anesthetized macaque through a non-invasive BCI plus stimulation loop.",
+    notYetShown:
+      "Human spinal-cord-injury use, awake animal locomotion, chronic implant performance, or clinical endpoint data.",
+    sourceLinks: [
+      source("Hainan University BCI chip and Brain-Spine-Machine report", "company-update", "https://en.hainanu.edu.cn/info/1131/12891.htm", "Hainan University"),
+      source("WukongBot BIO Integration paper", "paper", "https://bio-integration.org/10-15212-bioi-2025-0171/", "BIO Integration"),
+      source("Liang Fengyan faculty profile and BSI publication list", "company-update", "https://bme.hainanu.edu.cn/info/1106/10921.htm", "Hainan University")
+    ],
+    isSample: false
+  },
+  {
+    id: "tianjin-haihe-noninvasive-bci",
+    companySlug: "tianjin-haihe-bci",
+    name: "Haihe Non-Invasive BCI Platform",
+    focus: "Large-command-set EEG typing/control and neuroICU translation",
+    modality: "Hybrid SSVEP, P300, motor imagery, optical/electrical monitoring, and clinical neuroICU workflows",
+    statusLabel: "216-key public demo plus multi-center neuroICU trial launch",
+    evidenceLevel: "E2",
+    latestUpdateLabel: "2025 neuroICU trial launch; 2026 BCI education alliance",
+    sortDate: "2026-05-29",
+    summary:
+      "Tianjin University's Haihe BCI program combines high-speed non-invasive typing/control research with clinical neuroICU monitoring and modulation translation.",
+    demonstrated:
+      "TJU reported a 216-key spelling/control system with over 300 bits/min online average information transfer rate, and announced a multi-center neuroICU BCI trial program with major Chinese hospitals.",
+    notYetShown:
+      "Peer-reviewed clinical endpoint data for the neuroICU program, registry-linked trial records, or evidence that the large-command-set demo works reliably outside supervised settings.",
+    sourceLinks: [
+      source("TJU 216-key non-invasive BCI report", "company-update", "https://en.tju.edu.cn/info/1010/7179.htm", "Tianjin University"),
+      source("TJU neuroICU multi-center BCI trial launch", "company-update", "https://en.tju.edu.cn/info/1010/10336.htm", "Tianjin University"),
+      source("High-speed hybrid BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/36608342/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering")
+    ],
+    isSample: false
+  },
+  {
+    id: "nankai-endovascular-bci",
+    companySlug: "nankai-interventional-bci",
+    name: "Interventional / Endovascular BCI",
+    focus: "Minimally invasive motor decoding and rehabilitation through vascular access",
+    modality: "Stent-electrode array implanted through blood vessels near cortex, paired with decoding and FES in the human restoration report",
+    statusLabel: "Animal, primate, retrieval, and human feasibility reports",
+    evidenceLevel: "E2",
+    latestUpdateLabel: "Jul 2025 human restoration report",
+    sortDate: "2025-07-03",
+    summary:
+      "Nankai's interventional BCI line tries to occupy the middle ground between scalp EEG and open-craniotomy implants by placing electrodes endovascularly.",
+    demonstrated:
+      "Nankai reports sheep signal acquisition, non-human-primate robotic-arm control, successful sensor retrieval, and a 2025 human case where interventional BCI plus FES supported impaired-limb motor restoration.",
+    notYetShown:
+      "Published peer-reviewed human outcomes, larger-cohort safety and thrombosis data, and direct comparison against conventional rehabilitation or other implant approaches.",
+    sourceLinks: [
+      source("Nankai human interventional BCI restoration report", "company-update", "https://en.nankai.edu.cn/2025/0911/c23047a577316/page.htm", "Nankai University"),
+      source("Nankai non-human-primate interventional BCI report", "company-update", "https://en.nankai.edu.cn/2023/0613/c22796a515048/page.htm", "Nankai University"),
+      source("Nankai sheep interventional BCI report", "company-update", "https://en.nankai.edu.cn/2022/0801/c22796a465078/page.htm", "Nankai University")
+    ],
+    isSample: false
+  },
+  {
+    id: "cas-cebsit-wireless-invasive-bci",
+    companySlug: "cas-cebsit-invasive-bci",
+    name: "Wireless Invasive Clinical BCI",
+    focus: "High-throughput implanted BCI for digital and embodied-device control",
+    modality: "Wireless invasive cortical recording implant and external decoding system",
+    statusLabel: "Public China clinical-trial reports with gaming, wheelchair, and robot-dog control",
+    evidenceLevel: "E2",
+    latestUpdateLabel: "2025 CAS/CEBSIT case reports",
+    sortDate: "2025-12-19",
+    summary:
+      "CAS CEBSIT's invasive BCI program with Huashan Hospital is one of China's most visible implanted BCI clinical-translation efforts.",
+    demonstrated:
+      "CAS and media reports describe a March 2025 implant in a participant with limb loss who later played a racing game, plus a later high-level paraplegia case controlling a smart wheelchair and robot dog.",
+    notYetShown:
+      "Peer-reviewed endpoint data, trial registration details, long-term implant performance, or validated home-use assistive workflows.",
+    sourceLinks: [
+      source("CAS invasive BCI clinical-trial report", "company-update", "https://english.cas.cn/newsroom/cas_media/202506/t20250616_1045625.shtml", "Chinese Academy of Sciences"),
+      source("CAS/CEBSIT second-case report", "company-update", "https://english.cas.cn/newsroom/cas_media/202512/t20251219_1138007.shtml", "Chinese Academy of Sciences"),
+      source("CEBSIT wheelchair and robot-dog report", "news-report", "https://www.globaltimes.cn/page/202512/1350829.shtml", "Global Times", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "brainco-noninvasive-bci-products",
+    companySlug: "brainco",
+    name: "Non-Invasive BCI Product Stack",
+    focus: "Wearable EEG products, bionic prosthetics, and neuro-AI human-machine interfaces",
+    modality: "Dry/wearable EEG, nerve/muscle signal interpretation, AI decoding, and prosthetic control",
+    statusLabel: "Commercial products and public prosthetic deployments",
+    evidenceLevel: "E2",
+    latestUpdateLabel: "2025-2026 product and deployment updates",
+    sortDate: "2026-04-01",
+    summary:
+      "BrainCo's product stack spans assistive bionic hands/knees, attention and social-communication training systems, sleep/stress devices, and broader non-invasive BCI interaction.",
+    demonstrated:
+      "Official pages list multiple BCI product families, BrainCo says it has reached large-scale production for at least one device, and Hangzhou reporting describes bionic prosthetics entering full production.",
+    notYetShown:
+      "Independent clinical endpoint data across the wellness/training products, or evidence that consumer neurofeedback claims translate into durable medical benefit.",
+    sourceLinks: [
+      source("BrainCo BCI technology and products", "company-update", "https://www.brainco.cn/en-US/technology", "BrainCo"),
+      source("BrainCo about page", "company-update", "https://www.brainco.cn/en-US/about", "BrainCo"),
+      source("BrainCo accessibility update", "company-update", "https://www.brainco.cn/en-US/news/ss68tshjwmoocsayo5elb7nl", "BrainCo"),
+      source("BrainCo bionic prosthetics production report", "news-report", "https://www.ehangzhou.gov.cn/2025-02/26/c_292773.htm", "Hangzhou Municipal Government", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "shanghaitech-bci-center-track",
+    companySlug: "shanghaitech-bci-center",
+    name: "Research Center for Brain-Computer Interface",
+    focus: "Interdisciplinary BCI research center for implantable systems, intelligent decoding, and clinical translation",
+    modality: "Neural interfaces, implantable systems, intelligent BCI software, and AI-enabled clinical translation",
+    statusLabel: "Institutional research center launched May 2026",
+    evidenceLevel: "E1",
+    latestUpdateLabel: "May 2026 center launch",
+    sortDate: "2026-05-13",
+    summary:
+      "ShanghaiTech's BCI center is a new institutional platform intended to connect biomedical engineering, life sciences, clinical medicine, and intelligent systems.",
+    demonstrated:
+      "ShanghaiTech officially launched the center and named research directions including ultra-flexible neural interfaces, bidirectional BCI interaction, invasive Chinese-language BCI, and clinical translational applications.",
+    notYetShown:
+      "Named device programs, registered trials, published participant outcomes, or a specific commercial translation path.",
+    sourceLinks: [
+      source("ShanghaiTech BCI Research Center launch", "company-update", "https://www.shanghaitech.edu.cn/en/2026/0519/c1260a1122115/page.htm", "ShanghaiTech University")
+    ],
+    isSample: false
+  },
+  {
+    id: "scut-pazhou-multimodal-bci-track",
+    companySlug: "scut-pazhou-multimodal-bci",
+    name: "Multimodal Non-Invasive BCI",
+    focus: "Wearable non-invasive BCI for wheelchair control, awareness assessment, rehabilitation, and neurohealth products",
+    modality: "Hybrid EEG paradigms, multimodal brain-signal analysis, fMRI methods, and product-transfer hardware/software",
+    statusLabel: "Peer-reviewed academic BCI prototypes plus product-transfer reporting",
+    evidenceLevel: "E4",
+    latestUpdateLabel: "2025-2026 Pazhou/Guangzhou updates",
+    sortDate: "2026-01-16",
+    summary:
+      "The SCUT/Pazhou BCI line is a long-running non-invasive research and translation program led by Yuanqing Li.",
+    demonstrated:
+      "Published papers include hybrid BCI wheelchair control, BCI mouse/web browsing, and audiovisual awareness-detection work; local reporting describes wearable BCI products entering hospitals, homes, and sports settings.",
+    notYetShown:
+      "Randomized clinical evidence for the translated product set, broad real-world reliability data, or regulatory clearance details for each application.",
+    sourceLinks: [
+      source("SCUT main BCI program summary", "company-update", "https://www2.scut.edu.cn/autonlab/4514/list.htm", "South China University of Technology"),
+      source("Pazhou Lab Yuanqing Li profile", "company-update", "https://www.pazhoulab.com/2025/11/7252/", "Pazhou Lab"),
+      source("Hybrid BCI wheelchair paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/22692936/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering"),
+      source("Guangzhou BCI product-transfer report", "news-report", "https://kjj.gz.gov.cn/xwlb/yw/content/post_10662998.html", "Guangzhou Science and Technology Bureau", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "shanghai-yansi-mandarin-speech-bci",
+    companySlug: "shanghai-yansi-speech-bci",
+    name: "Mandarin Speech BCI",
+    focus: "Real-time Chinese speech decoding from cortical signals",
+    modality: "High-density flexible ECoG with AI language modeling for Mandarin syllables and sentences",
+    statusLabel: "Peer-reviewed Science Advances result and clinical-trial-phase reporting",
+    evidenceLevel: "E4",
+    latestUpdateLabel: "2025 Science Advances paper",
+    sortDate: "2025-11-07",
+    summary:
+      "Shanghai Yansi and Huashan Hospital's speech BCI work is focused on Mandarin Chinese decoding, where tone and syllable structure make the task different from English speech BCI.",
+    demonstrated:
+      "A Science Advances paper reports real-time full-spectrum Chinese decoding from cortical signals, with public Shanghai reporting describing clinical-trial-phase work and implanted epilepsy-patient sessions.",
+    notYetShown:
+      "Long-term take-home use, larger patient cohorts with speech impairment, and approved clinical communication-aid deployment.",
+    sourceLinks: [
+      source("Real-time decoding of full-spectrum Chinese paper", "paper", "https://www.science.org/doi/10.1126/sciadv.adz9968", "Science Advances"),
+      source("Shanghai speech BCI government report", "company-update", "https://english.shanghai.gov.cn/en-InnovationPolicies/20250722/c4b71a2bb59b404e8a25660a8531b013.html", "Shanghai Municipal Government"),
+      source("PubMed record for Mandarin speech BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/41191764/", "PubMed")
+    ],
+    isSample: false
+  },
+  {
+    id: "clinatec-wimagine-brain-spine",
+    companySlug: "clinatec-wimagine",
+    name: "WIMAGINE Exoskeleton and Brain-Spine Platform",
+    focus: "Epidural ECoG control of exoskeletons and spinal-stimulation neuroprostheses",
+    modality: "Bilateral WIMAGINE ECoG implants decoded into external effector or spinal-stimulation commands",
+    statusLabel: "Peer-reviewed exoskeleton proof-of-concept and WIMAGINE contribution to 2023 BSI result",
+    evidenceLevel: "E4",
+    latestUpdateLabel: "2024 CEA WIMAGINE update",
+    sortDate: "2024-01-09",
+    summary:
+      "CEA/Clinatec's WIMAGINE implant underpins both the 2019 exoskeleton proof-of-concept and the cortical-decoding side of the 2023 brain-spine interface collaboration.",
+    demonstrated:
+      "A tetraplegic participant controlled a four-limb exoskeleton in a Lancet Neurology proof-of-concept, and CEA describes WIMAGINE as part of the Nature brain-spine interface that restored thought-driven walking in one participant.",
+    notYetShown:
+      "A broadly deployed exoskeleton product, multi-participant brain-spine efficacy, or approved rehabilitation use.",
+    sourceLinks: [
+      source("Exoskeleton controlled by epidural BCI", "paper", "https://www.thelancet.com/journals/laneur/article/PIIS1474-4422(19)30321-7/abstract", "The Lancet Neurology"),
+      source("CEA WIMAGINE brain-spine and exoskeleton summary", "company-update", "https://www.cea.fr/presse/Pages/actualites-communiques/sante-sciences-du-vivant/innovation-wimagine-espoir-personnes-handicapees-recompense-ces-2024.aspx", "CEA"),
+      source("CEA-Leti WIMAGINE rehabilitation update", "company-update", "https://www.cea.fr/cea-tech/leti/english/Pages/What%27s-On/News/AVC-Brain-Computer-Interface.aspx", "CEA-Leti"),
+      source("Exoskeleton controlled by BCI video", "demo-video", "https://www.youtube.com/watch?v=1GyJBBB8O_M", "YouTube", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "neurorestore-digital-bridge",
+    companySlug: "neurorestore-epfl-bsi",
+    name: "Digital Bridge Brain-Spine Interface",
+    focus: "Wireless thought-controlled spinal stimulation for standing, walking, and stair climbing",
+    modality: "Cortical ECoG decoding connected to epidural spinal cord stimulation",
+    statusLabel: "Peer-reviewed one-participant human result with official demo video",
+    evidenceLevel: "E4",
+    latestUpdateLabel: "May 2023 Nature result",
+    sortDate: "2023-05-24",
+    summary:
+      "NeuroRestore's digital bridge re-established a communication loop between cortical movement intention and spinal stimulation in one participant with chronic tetraplegia.",
+    demonstrated:
+      "The participant could stand, walk, and climb stairs using the implanted brain-spine interface, with NeuroRestore/EPFL publishing both a Nature paper and official video material.",
+    notYetShown:
+      "Peer-reviewed replication in a larger cohort, a commercial-grade implant package, or routine availability outside specialized research settings.",
+    sourceLinks: [
+      source("EPFL thought-controlled walking report", "company-update", "https://actu.epfl.ch/news/thought-controlled-walking-again-after-spinal-co-3/", "EPFL"),
+      source("NeuroRestore BSI press summary", "company-update", "https://www.neurorestore.swiss/press-1/bci2023", "NeuroRestore"),
+      source("Brain-spine interface Nature paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
+      source("NeuroRestore official BSI video", "demo-video", "https://vimeo.com/829445531", "NeuroRestore / Vimeo")
     ],
     isSample: false
   },
@@ -833,6 +2174,28 @@ export const milestones: Milestone[] = [
     hypeCheck:
       "This is a company-reported participant count, not independently published clinical outcome evidence.",
     sourceLinks: [source("Two Years of Telepathy update", "company-update", "https://neuralink.com/updates/two-years-of-telepathy/", "Neuralink")],
+    isSample: false
+  },
+  {
+    id: "onward-seven-arc-bci-participants-2026",
+    title: "ONWARD reports seven ARC-BCI study participants",
+    companySlug: "onward-arc-bci",
+    dateLabel: "Jan 22, 2026",
+    sortDate: "2026-01-22",
+    status: "confirmed",
+    type: "additional-implant",
+    evidenceLevel: "E1",
+    confidence: "medium",
+    summary:
+      "ONWARD reported that seven study participants had received ARC-BCI systems across upper- and lower-limb restoration work.",
+    whyItMatters:
+      "Participant count helps track whether the brain-spine concept is moving beyond the original one-person Nature demonstration.",
+    hypeCheck:
+      "This is a company-announced feasibility update, not a peer-reviewed multi-participant outcome paper.",
+    sourceLinks: [
+      source("Seven ARC-BCI participants reported", "company-update", "https://ir.onwd.com/static-files/48e1c5b9-e843-4895-ac81-e0e936a841e2", "ONWARD Medical"),
+      source("Brain-controlled spinal cord stimulation trial", "trial-registry", clinicalTrials("NCT06243952"), "ClinicalTrials.gov")
+    ],
     isSample: false
   },
   {
@@ -1136,6 +2499,52 @@ export const milestones: Milestone[] = [
     isSample: false
   },
   {
+    id: "neurorestore-digital-bridge-nature-2023",
+    title: "NeuroRestore digital bridge walking study published",
+    companySlug: "neurorestore-epfl-bsi",
+    dateLabel: "May 24, 2023",
+    sortDate: "2023-05-24",
+    status: "confirmed",
+    type: "paper-published",
+    evidenceLevel: "E4",
+    confidence: "high",
+    summary:
+      "NeuroRestore, EPFL, CHUV, UNIL, CEA, and ONWARD collaborators published the wireless digital bridge result in Nature.",
+    whyItMatters:
+      "It is the clearest peer-reviewed human brain-spine interface evidence: decoded movement intention directly controlled spinal stimulation.",
+    hypeCheck:
+      "It remains a one-participant research result and should not be read as routine restored walking for SCI patients.",
+    sourceLinks: [
+      source("Brain-spine interface Nature paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
+      source("NeuroRestore BSI press summary", "company-update", "https://www.neurorestore.swiss/press-1/bci2023", "NeuroRestore"),
+      source("NeuroRestore official BSI video", "demo-video", "https://vimeo.com/829445531", "NeuroRestore / Vimeo")
+    ],
+    isSample: false
+  },
+  {
+    id: "clinatec-wimagine-brain-spine-2023",
+    title: "WIMAGINE contributes to Nature brain-spine interface",
+    companySlug: "clinatec-wimagine",
+    dateLabel: "May 24, 2023",
+    sortDate: "2023-05-24",
+    status: "confirmed",
+    type: "paper-published",
+    evidenceLevel: "E4",
+    confidence: "high",
+    summary:
+      "CEA describes its WIMAGINE epidural ECoG implant as the cortical recording component used in the 2023 brain-spine interface collaboration.",
+    whyItMatters:
+      "It links Clinatec's WIMAGINE platform to both exoskeleton control and spinal-stimulation control.",
+    hypeCheck:
+      "The peer-reviewed brain-spine result is still one participant and does not make WIMAGINE a cleared rehabilitation product.",
+    sourceLinks: [
+      source("CEA WIMAGINE brain-spine and exoskeleton summary", "company-update", "https://www.cea.fr/presse/Pages/actualites-communiques/sante-sciences-du-vivant/innovation-wimagine-espoir-personnes-handicapees-recompense-ces-2024.aspx", "CEA"),
+      source("CEA-Leti WIMAGINE rehabilitation update", "company-update", "https://www.cea.fr/cea-tech/leti/english/Pages/What%27s-On/News/AVC-Brain-Computer-Interface.aspx", "CEA-Leti"),
+      source("Brain-spine interface paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature")
+    ],
+    isSample: false
+  },
+  {
     id: "synchron-switch-jama-2023",
     title: "SWITCH endovascular BCI case series published",
     companySlug: "synchron-stentrode",
@@ -1260,6 +2669,29 @@ export const milestones: Milestone[] = [
     isSample: false
   },
   {
+    id: "neucyber-beinao-spinal-stim-walking-2026",
+    title: "Beinao-1 brain-spinal cord-exoskeleton walking case reported",
+    companySlug: "neucyber-beinao",
+    dateLabel: "2026",
+    sortDate: "2026-06-22",
+    status: "confirmed",
+    type: "demo-released",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "CIBR reported that a Beinao-1 participant with paraplegia used brain-controlled spinal stimulation and exoskeleton training to walk with axillary crutches.",
+    whyItMatters:
+      "It is one of the clearest China-based public claims for a brain-spine interface applied to spinal cord injury.",
+    hypeCheck:
+      "The public record is still mainly institutional and media reporting; peer-reviewed BSI outcome data has not been published.",
+    sourceLinks: [
+      source("CIBR Beinao No.1 achievement note", "company-update", "https://en.cibr.ac.cn/detail/cibrNewsnews/80c9eacb37164c5fadc21c696edf5cd7", "Chinese Institute for Brain Research, Beijing"),
+      source("Beinao brain-spinal cord-exoskeleton report", "company-update", "https://www.globaltimes.cn/page/202605/1361687.shtml", "Global Times", false),
+      source("Beinao-1 simultaneous BCI and spinal stimulation report", "company-update", "https://www.chinadailyhk.com/hk/article/635325", "Xinhua / China Daily Hong Kong", false)
+    ],
+    isSample: false
+  },
+  {
     id: "neucyber-beinao2-clinical-2026",
     title: "Invasive Beinao-2 targets first clinical validation",
     companySlug: "neucyber-beinao",
@@ -1365,6 +2797,248 @@ export const milestones: Milestone[] = [
     isSample: false
   },
   {
+    id: "fudan-bsi-poc-series-2025",
+    title: "Fudan reports four brain-spine interface proof-of-concept surgeries",
+    companySlug: "fudan-bsi",
+    dateLabel: "Mar 2025",
+    sortDate: "2025-03-05",
+    status: "confirmed",
+    type: "demo-released",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "Fudan reported four proof-of-concept brain-spine interface surgeries for spinal cord injury, including rapid leg-movement and assisted walking outcomes.",
+    whyItMatters:
+      "It explicitly adds a China-based brain-spine interface line to the tracker with official university documentation.",
+    hypeCheck:
+      "The reports are not yet peer-reviewed clinical outcomes and should be treated as early feasibility evidence.",
+    sourceLinks: [
+      source("Fudan English BSI report", "company-update", "https://www.fudan.edu.cn/en/2025/0305/c344a144344/page.htm", "Fudan University"),
+      source("Fudan Chinese BSI feature", "company-update", "https://news.fudan.edu.cn/2025/0304/c1268a144336/page.htm", "Fudan University"),
+      source("Fudan BSI video report", "demo-video", "https://cn.chinadaily.com.cn/a/202503/07/WS67ca8cd9a310510f19eea453.html", "China Daily", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "zju-spinal-interface-walking-2025",
+    title: "ZJU reports closed-loop spinal nerve interface walking result",
+    companySlug: "zju-nanhu-spinal-interface",
+    dateLabel: "Jun 19, 2025",
+    sortDate: "2025-06-19",
+    status: "confirmed",
+    type: "demo-released",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "Zhejiang University reported a 61-year-old paraplegia patient standing and walking after a closed-loop spinal nerve interface implant.",
+    whyItMatters:
+      "It is a China-based spinal-interface result from BCI/neuroengineering teams and helps distinguish adjacent spinal-interface progress from direct cortical BSI.",
+    hypeCheck:
+      "Public descriptions emphasize spinal stimulation, EMG, and feedback software, not direct cortical decoding.",
+    sourceLinks: [
+      source("ZJU closed-loop spinal nerve interface report", "company-update", "https://www.zju.edu.cn/english/2025/0619/c19573a3063161/page.htm", "Zhejiang University"),
+      source("ZJU/SAHZU walking video", "demo-video", "https://www.facebook.com/ZhejiangUniversityChina/videos/from-paralysis-to-walking-again-%EF%B8%8Fafter-a-devastating-spinal-injury-61-year-old-m/9811658218962668/", "Zhejiang University / Facebook", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "hainan-wukongbot-paper-2025",
+    title: "WukongBot brain-spine interface proof-of-concept paper published",
+    companySlug: "hainan-wukongbot-bsi",
+    dateLabel: "Nov 2025",
+    sortDate: "2025-11-11",
+    status: "confirmed",
+    type: "paper-published",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "Hainan University authors published WukongBot, a non-invasive BCI to spinal-stimulation proof-of-concept in a monkey model.",
+    whyItMatters:
+      "It adds a China-based preclinical BSI route that is explicit about a brain-to-spine stimulation loop.",
+    hypeCheck:
+      "The result is preclinical and cross-species; it is not a human SCI therapy.",
+    sourceLinks: [
+      source("WukongBot BIO Integration paper", "paper", "https://bio-integration.org/10-15212-bioi-2025-0171/", "BIO Integration"),
+      source("Hainan University BCI chip and Brain-Spine-Machine report", "company-update", "https://en.hainanu.edu.cn/info/1131/12891.htm", "Hainan University")
+    ],
+    isSample: false
+  },
+  {
+    id: "tianjin-haihe-216-key-bci-2023",
+    title: "Tianjin University reports 216-key non-invasive BCI system",
+    companySlug: "tianjin-haihe-bci",
+    dateLabel: "May 18, 2023",
+    sortDate: "2023-05-18",
+    status: "confirmed",
+    type: "demo-released",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "Tianjin University reported a non-invasive BCI system supporting a 216-key virtual keyboard and high-speed mind typing.",
+    whyItMatters:
+      "Large command sets and fast selection are central limits for practical non-invasive EEG BCIs.",
+    hypeCheck:
+      "A conference/public demo is not the same as unsupervised home communication or clinical assistive use.",
+    sourceLinks: [
+      source("TJU 216-key non-invasive BCI report", "company-update", "https://en.tju.edu.cn/info/1010/7179.htm", "Tianjin University"),
+      source("High-speed hybrid BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/36608342/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering")
+    ],
+    isSample: false
+  },
+  {
+    id: "tianjin-neuroicu-bci-trial-2025",
+    title: "Tianjin University launches multi-center neuroICU BCI trial program",
+    companySlug: "tianjin-haihe-bci",
+    dateLabel: "Aug 24, 2025",
+    sortDate: "2025-08-24",
+    status: "confirmed",
+    type: "trial-opened",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "TJU and Tianjin Huanhu Hospital announced a multi-center clinical-trial program applying non-invasive BCI technology in neurointensive care units.",
+    whyItMatters:
+      "It expands BCI translation beyond classic assistive typing into bedside monitoring, diagnosis, treatment, and modulation workflows.",
+    hypeCheck:
+      "This is an announced clinical-trial program; published endpoints and registry-level details still need to be tracked.",
+    sourceLinks: [
+      source("TJU neuroICU multi-center BCI trial launch", "company-update", "https://en.tju.edu.cn/info/1010/10336.htm", "Tianjin University")
+    ],
+    isSample: false
+  },
+  {
+    id: "nankai-interventional-human-2025",
+    title: "Nankai reports human interventional BCI motor-restoration case",
+    companySlug: "nankai-interventional-bci",
+    dateLabel: "Jul 3, 2025",
+    sortDate: "2025-07-03",
+    status: "confirmed",
+    type: "demo-released",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "Nankai reported a 67-year-old hemiplegic patient regaining affected-limb task ability after interventional BCI implantation paired with FES.",
+    whyItMatters:
+      "It is a China-based endovascular/interventional BCI human feasibility signal, distinct from both scalp EEG and craniotomy-based implants.",
+    hypeCheck:
+      "The result is institution-announced and needs peer-reviewed clinical data before being treated as established efficacy.",
+    sourceLinks: [
+      source("Nankai human interventional BCI restoration report", "company-update", "https://en.nankai.edu.cn/2025/0911/c23047a577316/page.htm", "Nankai University")
+    ],
+    isSample: false
+  },
+  {
+    id: "cas-cebsit-invasive-bci-trial-2025",
+    title: "CAS CEBSIT and Huashan report wireless invasive BCI trial",
+    companySlug: "cas-cebsit-invasive-bci",
+    dateLabel: "Mar 25, 2025",
+    sortDate: "2025-03-25",
+    status: "confirmed",
+    type: "first-implant",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "CAS CEBSIT and Huashan Hospital reported a wireless invasive BCI implantation in a participant with severe limb loss, followed by public mind-controlled gaming material.",
+    whyItMatters:
+      "It marks a visible China-based invasive BCI clinical-translation pathway independent from the already tracked NeuroXess and NeuCyber programs.",
+    hypeCheck:
+      "The public evidence is still demonstration/reporting, not a peer-reviewed multi-participant endpoint paper.",
+    sourceLinks: [
+      source("CAS invasive BCI clinical-trial report", "company-update", "https://english.cas.cn/newsroom/cas_media/202506/t20250616_1045625.shtml", "Chinese Academy of Sciences"),
+      source("CEBSIT first invasive BCI trial media report", "news-report", "https://www.globaltimes.cn/page/202506/1336164.shtml", "Global Times", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "brainco-bionic-prosthetics-production-2025",
+    title: "BrainCo smart bionic prosthetics move into production",
+    companySlug: "brainco",
+    dateLabel: "Feb 26, 2025",
+    sortDate: "2025-02-26",
+    status: "confirmed",
+    type: "product-update",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "Hangzhou reporting described BrainCo launching full production of smart bionic prosthetics using non-invasive neural-signal interpretation.",
+    whyItMatters:
+      "It represents the commercial, non-invasive side of China's BCI ecosystem, separate from implant-heavy paralysis programs.",
+    hypeCheck:
+      "Bionic prosthetic deployment is meaningful, but it should not be conflated with implanted BCI clinical restoration evidence.",
+    sourceLinks: [
+      source("BrainCo bionic prosthetics production report", "news-report", "https://www.ehangzhou.gov.cn/2025-02/26/c_292773.htm", "Hangzhou Municipal Government", false),
+      source("BrainCo BCI technology and products", "company-update", "https://www.brainco.cn/en-US/technology", "BrainCo")
+    ],
+    isSample: false
+  },
+  {
+    id: "shanghaitech-bci-center-2026",
+    title: "ShanghaiTech launches Research Center for Brain-Computer Interface",
+    companySlug: "shanghaitech-bci-center",
+    dateLabel: "May 13, 2026",
+    sortDate: "2026-05-13",
+    status: "confirmed",
+    type: "product-update",
+    evidenceLevel: "E1",
+    confidence: "high",
+    summary:
+      "ShanghaiTech University launched a dedicated BCI research center focused on neural interfaces, implantable systems, intelligent BCI systems, and clinical translation.",
+    whyItMatters:
+      "It adds a formal Shanghai academic BCI hub to the tracker, useful for watching future clinical and engineering output.",
+    hypeCheck:
+      "A center launch is infrastructure, not evidence of a working device or patient outcome.",
+    sourceLinks: [
+      source("ShanghaiTech BCI Research Center launch", "company-update", "https://www.shanghaitech.edu.cn/en/2026/0519/c1260a1122115/page.htm", "ShanghaiTech University")
+    ],
+    isSample: false
+  },
+  {
+    id: "scut-pazhou-bci-transfer-2025",
+    title: "SCUT/Pazhou multimodal BCI reports product-transfer progress",
+    companySlug: "scut-pazhou-multimodal-bci",
+    dateLabel: "2025",
+    sortDate: "2025-12-01",
+    status: "confirmed",
+    type: "product-update",
+    evidenceLevel: "E2",
+    confidence: "medium",
+    summary:
+      "Guangzhou reporting described the SCUT/Pazhou multimodal BCI line moving wearable non-invasive BCI products into hospitals, homes, and sports settings.",
+    whyItMatters:
+      "It represents a translational non-invasive BCI path in Guangdong grounded in a long academic publication record.",
+    hypeCheck:
+      "Product-transfer reporting is not a substitute for application-specific clinical trial data.",
+    sourceLinks: [
+      source("Guangzhou BCI product-transfer report", "news-report", "https://kjj.gz.gov.cn/xwlb/yw/content/post_10662998.html", "Guangzhou Science and Technology Bureau", false),
+      source("Pazhou Lab Yuanqing Li profile", "company-update", "https://www.pazhoulab.com/2025/11/7252/", "Pazhou Lab"),
+      source("Hybrid BCI wheelchair paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/22692936/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering")
+    ],
+    isSample: false
+  },
+  {
+    id: "shanghai-yansi-mandarin-speech-paper-2025",
+    title: "Mandarin Chinese speech BCI paper published",
+    companySlug: "shanghai-yansi-speech-bci",
+    dateLabel: "Nov 2025",
+    sortDate: "2025-11-07",
+    status: "confirmed",
+    type: "paper-published",
+    evidenceLevel: "E4",
+    confidence: "high",
+    summary:
+      "The Shanghai Yansi / Huashan collaboration published real-time full-spectrum Chinese speech decoding using a brain-computer interface.",
+    whyItMatters:
+      "Speech BCI evidence has been English-heavy; Mandarin decoding tests tonal-language communication restoration more directly.",
+    hypeCheck:
+      "The result is still a specialized research setting, not a take-home communication product for Mandarin speakers with paralysis.",
+    sourceLinks: [
+      source("Real-time decoding of full-spectrum Chinese paper", "paper", "https://www.science.org/doi/10.1126/sciadv.adz9968", "Science Advances"),
+      source("PubMed record for Mandarin speech BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/41191764/", "PubMed"),
+      source("Shanghai speech BCI government report", "company-update", "https://english.shanghai.gov.cn/en-InnovationPolicies/20250722/c4b71a2bb59b404e8a25660a8531b013.html", "Shanghai Municipal Government")
+    ],
+    isSample: false
+  },
+  {
     id: "clinatec-exoskeleton-2019",
     title: "Tetraplegic patient controls exoskeleton via epidural BCI",
     companySlug: "clinatec-wimagine",
@@ -1466,6 +3140,29 @@ export const milestones: Milestone[] = [
       "This is an expected next step after approval, not a confirmed or scheduled procedure.",
     sourceLinks: [
       source("Fully implantable BCI consortium", "company-update", "https://wysscenter.ch/update/consortium-to-develop-fully-implantable-brain-computer-interface-to-enable-communication-for-people-with-paralysis/", "Wyss Center")
+    ],
+    isSample: false
+  },
+  {
+    id: "blackrock-neuroport-510k-2011",
+    title: "NeuroPort cortical microelectrode array receives FDA 510(k) clearance",
+    companySlug: "blackrock-neurotech",
+    dateLabel: "Feb 9, 2011",
+    sortDate: "2011-02-09",
+    status: "confirmed",
+    type: "approval-clearance",
+    evidenceLevel: "E6",
+    confidence: "high",
+    summary:
+      "FDA 510(k) K110010 lists Blackrock Microsystems' NeuroPort cortical microelectrode array system as substantially equivalent.",
+    whyItMatters:
+      "It is the key regulatory anchor for Blackrock's human-use cortical electrode platform.",
+    hypeCheck:
+      "This clearance covers the electrode/recording component and is not approval of the MoveAgain assistive BCI system or any chronic home-use BCI product.",
+    sourceLinks: [
+      source("FDA 510(k) K110010 NeuroPort entry", "regulatory-page", "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K110010", "U.S. FDA"),
+      source("FDA 510(k) summary PDF", "regulatory-page", "https://www.accessdata.fda.gov/cdrh_docs/pdf11/K110010.pdf", "U.S. FDA"),
+      source("NeuroPort Electrode 96 product page", "company-update", "https://blackrockneurotech.com/products/neuroport-electrode/", "Blackrock Neurotech")
     ],
     isSample: false
   },
@@ -1728,7 +3425,223 @@ export const demos: Demo[] = [
       "This is a landmark one-participant implanted-system result, not routine restored walking for spinal cord injury.",
     sourceLinks: [
       source("Brain-spine interface paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
-      source("NeuroRestore press summary", "company-update", "https://www.neurorestore.swiss/press-1/bci2023", "NeuroRestore")
+      source("NeuroRestore press summary", "company-update", "https://www.neurorestore.swiss/press-1/bci2023", "NeuroRestore"),
+      source("NeuroRestore official BSI video", "demo-video", "https://vimeo.com/829445531", "NeuroRestore / Vimeo")
+    ],
+    isSample: false
+  },
+  {
+    id: "neurorestore-digital-bridge-video",
+    title: "Official digital-bridge brain-spine walking video",
+    companySlug: "neurorestore-epfl-bsi",
+    dateLabel: "May 24, 2023",
+    sortDate: "2023-05-24",
+    classification: "actual-patient-use",
+    evidenceLevel: "E4",
+    setting: "Peer-reviewed human brain-spine interface study",
+    summary:
+      "NeuroRestore's official video accompanies the Nature digital-bridge result showing thought-controlled standing, walking, and stair climbing in one participant.",
+    hypeCheck:
+      "The video illustrates the peer-reviewed case; it is not evidence of routine clinical deployment or broad reproducibility.",
+    sourceLinks: [
+      source("NeuroRestore official BSI video", "demo-video", "https://vimeo.com/829445531", "NeuroRestore / Vimeo"),
+      source("Brain-spine interface Nature paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
+      source("EPFL thought-controlled walking report", "company-update", "https://actu.epfl.ch/news/thought-controlled-walking-again-after-spinal-co-3/", "EPFL")
+    ],
+    isSample: false
+  },
+  {
+    id: "clinatec-wimagine-exoskeleton-demo",
+    title: "WIMAGINE-controlled exoskeleton proof-of-concept",
+    companySlug: "clinatec-wimagine",
+    dateLabel: "Oct 2019",
+    sortDate: "2019-10-04",
+    classification: "actual-patient-use",
+    evidenceLevel: "E4",
+    setting: "Peer-reviewed exoskeleton BCI proof-of-concept",
+    summary:
+      "A tetraplegic participant used two WIMAGINE epidural ECoG implants to control a four-limb exoskeleton in a supervised research setup.",
+    hypeCheck:
+      "The exoskeleton required extensive training and support; it was not a home mobility product.",
+    sourceLinks: [
+      source("Exoskeleton controlled by epidural BCI", "paper", "https://www.thelancet.com/journals/laneur/article/PIIS1474-4422(19)30321-7/abstract", "The Lancet Neurology"),
+      source("Exoskeleton controlled by BCI video", "demo-video", "https://www.youtube.com/watch?v=1GyJBBB8O_M", "YouTube", false),
+      source("CEA WIMAGINE brain-spine and exoskeleton summary", "company-update", "https://www.cea.fr/presse/Pages/actualites-communiques/sante-sciences-du-vivant/innovation-wimagine-espoir-personnes-handicapees-recompense-ces-2024.aspx", "CEA")
+    ],
+    isSample: false
+  },
+  {
+    id: "neucyber-beinao-spinal-stim-demo",
+    title: "Beinao-1 brain-controlled spinal stimulation walking case",
+    companySlug: "neucyber-beinao",
+    dateLabel: "2026",
+    sortDate: "2026-06-22",
+    classification: "actual-patient-use",
+    evidenceLevel: "E2",
+    setting: "CIBR-reported human spinal-cord-injury case",
+    summary:
+      "CIBR reported a Beinao-1 participant using motor intention decoding to trigger spinal stimulation and exoskeleton-assisted walking with crutches.",
+    hypeCheck:
+      "The available evidence is institution/media reporting rather than a peer-reviewed human BSI outcomes paper.",
+    sourceLinks: [
+      source("CIBR Beinao No.1 achievement note", "company-update", "https://en.cibr.ac.cn/detail/cibrNewsnews/80c9eacb37164c5fadc21c696edf5cd7", "Chinese Institute for Brain Research, Beijing"),
+      source("Beinao brain-spinal cord-exoskeleton report", "company-update", "https://www.globaltimes.cn/page/202605/1361687.shtml", "Global Times", false),
+      source("Beinao-1 simultaneous BCI and spinal stimulation report", "company-update", "https://www.chinadailyhk.com/hk/article/635325", "Xinhua / China Daily Hong Kong", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "fudan-bsi-assisted-walking-demo",
+    title: "Fudan brain-spine interface assisted walking reports",
+    companySlug: "fudan-bsi",
+    dateLabel: "Mar 2025",
+    sortDate: "2025-03-05",
+    classification: "actual-patient-use",
+    evidenceLevel: "E2",
+    setting: "Fudan/Huashan/Zhongshan proof-of-concept reporting",
+    summary:
+      "Fudan reported rapid leg movement and assisted stepping or walking outcomes after brain-spine interface surgeries for spinal cord injury.",
+    hypeCheck:
+      "Treat the video/reporting as early feasibility evidence until peer-reviewed protocols and follow-up are available.",
+    sourceLinks: [
+      source("Fudan English BSI report", "company-update", "https://www.fudan.edu.cn/en/2025/0305/c344a144344/page.htm", "Fudan University"),
+      source("Fudan Chinese BSI feature", "company-update", "https://news.fudan.edu.cn/2025/0304/c1268a144336/page.htm", "Fudan University"),
+      source("Fudan BSI video report", "demo-video", "https://cn.chinadaily.com.cn/a/202503/07/WS67ca8cd9a310510f19eea453.html", "China Daily", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "zju-spinal-interface-walking-demo",
+    title: "ZJU closed-loop spinal interface walking demo",
+    companySlug: "zju-nanhu-spinal-interface",
+    dateLabel: "Jun 19, 2025",
+    sortDate: "2025-06-19",
+    classification: "actual-patient-use",
+    evidenceLevel: "E2",
+    setting: "Zhejiang University and SAHZU reported clinical case",
+    summary:
+      "ZJU reported a paraplegia participant standing and walking after an implanted closed-loop spinal nerve interface using stimulation, EMG sensing, and adaptive feedback.",
+    hypeCheck:
+      "This is spinal-interface evidence from BCI teams, but not yet direct cortical brain-spine decoding.",
+    sourceLinks: [
+      source("ZJU closed-loop spinal nerve interface report", "company-update", "https://www.zju.edu.cn/english/2025/0619/c19573a3063161/page.htm", "Zhejiang University"),
+      source("ZJU/SAHZU walking video", "demo-video", "https://www.facebook.com/ZhejiangUniversityChina/videos/from-paralysis-to-walking-again-%EF%B8%8Fafter-a-devastating-spinal-injury-61-year-old-m/9811658218962668/", "Zhejiang University / Facebook", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "hainan-wukongbot-macaque-demo",
+    title: "WukongBot human-intention to macaque lower-limb movement demo",
+    companySlug: "hainan-wukongbot-bsi",
+    dateLabel: "2025",
+    sortDate: "2025-11-11",
+    classification: "animal-demo",
+    evidenceLevel: "E2",
+    setting: "Preclinical Brain-Spine-Machine proof-of-concept",
+    summary:
+      "Hainan University reported human movement-intention signals driving alternating lower-limb movements in an anesthetized macaque through a non-invasive BCI and epidural stimulation loop.",
+    hypeCheck:
+      "The setup is preclinical and cross-species, so it should not be framed as restored walking in a human patient.",
+    sourceLinks: [
+      source("Hainan University BCI chip and Brain-Spine-Machine report", "company-update", "https://en.hainanu.edu.cn/info/1131/12891.htm", "Hainan University"),
+      source("WukongBot BIO Integration paper", "paper", "https://bio-integration.org/10-15212-bioi-2025-0171/", "BIO Integration")
+    ],
+    isSample: false
+  },
+  {
+    id: "tianjin-haihe-216-key-demo",
+    title: "216-key non-invasive BCI typing/control demo",
+    companySlug: "tianjin-haihe-bci",
+    dateLabel: "May 18, 2023",
+    sortDate: "2023-05-18",
+    classification: "lab-demo",
+    evidenceLevel: "E2",
+    setting: "World Intelligence Congress public release",
+    summary:
+      "Tianjin University reported a high-speed non-invasive BCI spelling setup with a 216-key virtual keyboard and Chinese/English input switching.",
+    hypeCheck:
+      "This is a supervised public/demo result; it does not prove daily-use communication reliability.",
+    sourceLinks: [
+      source("TJU 216-key non-invasive BCI report", "company-update", "https://en.tju.edu.cn/info/1010/7179.htm", "Tianjin University"),
+      source("High-speed hybrid BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/36608342/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering")
+    ],
+    isSample: false
+  },
+  {
+    id: "nankai-interventional-bci-human-demo",
+    title: "Interventional BCI plus FES impaired-limb movement case",
+    companySlug: "nankai-interventional-bci",
+    dateLabel: "Jul 2025",
+    sortDate: "2025-07-03",
+    classification: "actual-patient-use",
+    evidenceLevel: "E2",
+    setting: "Nankai-reported human clinical feasibility case",
+    summary:
+      "Nankai reported a human interventional BCI case where a hemiplegic patient regained the ability to grasp objects and retrieve medication after implantation and closed-loop FES training.",
+    hypeCheck:
+      "The demonstration is institution-reported and needs peer-reviewed outcomes plus longer follow-up.",
+    sourceLinks: [
+      source("Nankai human interventional BCI restoration report", "company-update", "https://en.nankai.edu.cn/2025/0911/c23047a577316/page.htm", "Nankai University")
+    ],
+    isSample: false
+  },
+  {
+    id: "cas-cebsit-mind-control-demo",
+    title: "Wireless invasive BCI gaming, wheelchair, and robot-dog demos",
+    companySlug: "cas-cebsit-invasive-bci",
+    dateLabel: "2025",
+    sortDate: "2025-12-19",
+    classification: "actual-patient-use",
+    evidenceLevel: "E2",
+    setting: "CAS/CEBSIT and Huashan public case reports",
+    summary:
+      "CAS/CEBSIT reports describe participants using an invasive wireless BCI for mind-controlled gaming and, in a later case, controlling a smart wheelchair and robot dog.",
+    hypeCheck:
+      "Public demos show feasibility, not endpoint-validated assistive use or long-term reliability.",
+    sourceLinks: [
+      source("CAS invasive BCI clinical-trial report", "company-update", "https://english.cas.cn/newsroom/cas_media/202506/t20250616_1045625.shtml", "Chinese Academy of Sciences"),
+      source("CAS/CEBSIT second-case report", "company-update", "https://english.cas.cn/newsroom/cas_media/202512/t20251219_1138007.shtml", "Chinese Academy of Sciences"),
+      source("CEBSIT wheelchair and robot-dog report", "news-report", "https://www.globaltimes.cn/page/202512/1350829.shtml", "Global Times", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "brainco-bionic-hand-demo",
+    title: "BrainCo non-invasive bionic hand public-use reports",
+    companySlug: "brainco",
+    dateLabel: "2025-2026",
+    sortDate: "2026-04-01",
+    classification: "actual-patient-use",
+    evidenceLevel: "E2",
+    setting: "Commercial product and public deployment reporting",
+    summary:
+      "BrainCo official and Hangzhou reports describe users performing tasks with BrainCo bionic prosthetics controlled through non-invasive neural, muscle, and AI signal interpretation.",
+    hypeCheck:
+      "This supports product deployment, but it should not be treated as evidence for BrainCo's broader wellness or training claims.",
+    sourceLinks: [
+      source("BrainCo BCI technology and products", "company-update", "https://www.brainco.cn/en-US/technology", "BrainCo"),
+      source("BrainCo accessibility update", "company-update", "https://www.brainco.cn/en-US/news/ss68tshjwmoocsayo5elb7nl", "BrainCo"),
+      source("BrainCo bionic prosthetics production report", "news-report", "https://www.ehangzhou.gov.cn/2025-02/26/c_292773.htm", "Hangzhou Municipal Government", false)
+    ],
+    isSample: false
+  },
+  {
+    id: "scut-pazhou-wheelchair-demo",
+    title: "SCUT/Pazhou hybrid BCI wheelchair control",
+    companySlug: "scut-pazhou-multimodal-bci",
+    dateLabel: "2012-2016",
+    sortDate: "2016-01-01",
+    classification: "lab-demo",
+    evidenceLevel: "E4",
+    setting: "Peer-reviewed non-invasive BCI wheelchair research",
+    summary:
+      "SCUT/Pazhou's publication record includes hybrid EEG BCI systems for simulated and real wheelchair control plus automated indoor wheelchair navigation.",
+    hypeCheck:
+      "These are research prototypes and do not establish a marketed wheelchair-control medical product.",
+    sourceLinks: [
+      source("Hybrid BCI wheelchair paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/22692936/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering"),
+      source("Indoor BCI wheelchair paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/26054072/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering"),
+      source("SCUT main BCI program summary", "company-update", "https://www2.scut.edu.cn/autonlab/4514/list.htm", "South China University of Technology")
     ],
     isSample: false
   },
@@ -1770,6 +3683,156 @@ export const demos: Demo[] = [
 ];
 
 export const papers: Paper[] = [
+  {
+    id: "yale-rtfmri-bci-manifold-paper",
+    title: "Human learning of noninvasive brain-computer interfaces via manifold geometry",
+    companySlug: "yale-rtfmri-bci",
+    dateLabel: "Jun 9, 2026",
+    sortDate: "2026-06-09",
+    evidenceLevel: "E4",
+    summary:
+      "Nature Neuroscience paper from Yale reporting real-time fMRI BCI avatar control that learned faster when feedback mappings followed each participant's neural manifold geometry.",
+    sourceLinks: [
+      source("Nature Neuroscience rt-fMRI BCI paper", "paper", "https://www.nature.com/articles/s41593-026-02311-2", "Nature Neuroscience"),
+      source("Yale rt-fMRI BCI news release", "company-update", "https://news.yale.edu/2026/06/09/brain-computer-interface-works-not-against-brain", "Yale University")
+    ],
+    isSample: false
+  },
+  {
+    id: "cmu-tfus-bci-paper",
+    title: "Transcranial focused ultrasound to V5 enhances human visual motion brain-computer interface by modulating feature-based attention",
+    companySlug: "cmu-tfus-bci",
+    dateLabel: "Jun 11, 2024",
+    sortDate: "2024-06-11",
+    evidenceLevel: "E4",
+    summary:
+      "Nature Communications paper from Carnegie Mellon researchers reporting a human EEG BCI speller study where V5-targeted transcranial focused ultrasound reduced visual-motion BCI error versus controls.",
+    sourceLinks: [
+      source("Nature Communications tFUS BCI paper", "paper", "https://www.nature.com/articles/s41467-024-48576-8", "Nature Communications"),
+      source("CMU tFUS BCI news release", "company-update", "https://engineering.cmu.edu/news-events/news/2024/06/11-enhancing-bci.html", "Carnegie Mellon University")
+    ],
+    isSample: false
+  },
+  {
+    id: "caltech-fus-bmi-paper",
+    title: "Decoding motor plans using a closed-loop ultrasonic brain-machine interface",
+    companySlug: "caltech-fus-bmi",
+    dateLabel: "Nov 30, 2023",
+    sortDate: "2023-11-30",
+    evidenceLevel: "E2",
+    summary:
+      "Nature Neuroscience paper from Caltech/USC collaborators reporting closed-loop functional-ultrasound BMI control in two rhesus macaques, supporting a possible less-invasive epidural interface path.",
+    sourceLinks: [
+      source("Closed-loop ultrasonic BMI paper", "paper", "https://www.nature.com/articles/s41593-023-01500-7", "Nature Neuroscience"),
+      source("Caltech ultrasound BMI news release", "company-update", "https://www.caltech.edu/about/news/reading-minds-with-ultrasound-a-less-invasive-technique-to-decode-the-brains-intentions", "Caltech")
+    ],
+    isSample: false
+  },
+  {
+    id: "kernel-flow-device-paper",
+    title: "Kernel Flow: a high channel count scalable time-domain functional near-infrared spectroscopy system",
+    companySlug: "kernel-flow",
+    dateLabel: "Jan 2022",
+    sortDate: "2022-01-13",
+    evidenceLevel: "E4",
+    summary:
+      "Peer-reviewed device paper describing Kernel Flow as a wearable time-domain fNIRS system for scalable, non-invasive optical brain imaging.",
+    sourceLinks: [source("Kernel Flow device validation paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8765296/", "PubMed Central")],
+    isSample: false
+  },
+  {
+    id: "gowerlabs-lumo-evaluation-paper",
+    title: "Evaluating a new generation of wearable high-density diffuse optical tomography technology",
+    companySlug: "gowerlabs-lumo",
+    dateLabel: "Apr 2021",
+    sortDate: "2021-04-12",
+    evidenceLevel: "E4",
+    summary:
+      "Peer-reviewed evaluation of wearable high-density diffuse optical tomography/fNIRS technology underlying the LUMO platform.",
+    sourceLinks: [source("Wearable high-density fNIRS evaluation", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8033536/", "PubMed Central")],
+    isSample: false
+  },
+  {
+    id: "brain-innovation-turbo-satori-paper",
+    title: "Turbo-Satori: a neurofeedback and brain-computer interface toolbox for real-time fNIRS",
+    companySlug: "brain-innovation-rtfmri",
+    dateLabel: "Oct 2017",
+    sortDate: "2017-10-01",
+    evidenceLevel: "E4",
+    summary:
+      "Neurophotonics paper describing Turbo-Satori as a real-time fNIRS toolbox for neurofeedback and BCI applications.",
+    sourceLinks: [
+      source("Turbo-Satori peer-reviewed paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5629919/", "PubMed Central"),
+      source("Turbo-Satori publication record", "paper", "https://cris.maastrichtuniversity.nl/en/publications/turbo-satori-a-neurofeedback-and-brain-computer-interface-toolbox/", "Maastricht University")
+    ],
+    isSample: false
+  },
+  {
+    id: "holland-bloorview-imagined-speech-fnirs-paper",
+    title: "Online classification of imagined speech using functional near-infrared spectroscopy signals",
+    companySlug: "holland-bloorview-prism",
+    dateLabel: "2019",
+    sortDate: "2019-01-01",
+    evidenceLevel: "E4",
+    summary:
+      "Peer-reviewed online fNIRS BCI study from the PRISM/Holland Bloorview research line using imagined speech as a more intuitive communication paradigm.",
+    sourceLinks: [source("Online fNIRS imagined-speech BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/30260320/", "PubMed")],
+    isSample: false
+  },
+  {
+    id: "maastricht-fmri-spelling-paper",
+    title: "A real-time fMRI-based spelling device immediately enabling robust motor-independent communication",
+    companySlug: "maastricht-rtfmri-bci",
+    dateLabel: "Jun 28, 2012",
+    sortDate: "2012-06-28",
+    evidenceLevel: "E4",
+    summary:
+      "Current Biology paper reporting an fMRI-based spelling device that decoded freely chosen answers in real time within a single scanning session.",
+    sourceLinks: [source("fMRI spelling device paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/22748322/", "PubMed / Current Biology")],
+    isSample: false
+  },
+  {
+    id: "eth-relab-fnirs-bci-feasibility-paper",
+    title: "Detection of motor execution using a hybrid fNIRS-biosignal BCI",
+    companySlug: "eth-relab-fnirs",
+    dateLabel: "Apr 2013",
+    sortDate: "2013-04-19",
+    evidenceLevel: "E4",
+    summary:
+      "Feasibility study testing single-trial motor-execution detection using a hybrid fNIRS and biosignal BCI approach tied to ETH Zurich's rehabilitation-interface research.",
+    sourceLinks: [source("Hybrid fNIRS-biosignal BCI feasibility paper", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3637588/", "PubMed Central")],
+    isSample: false
+  },
+  {
+    id: "blackrock-neuroport-speech-paper",
+    title: "An Accurate and Rapidly Calibrating Speech Neuroprosthesis",
+    companySlug: "blackrock-neurotech",
+    dateLabel: "Aug 15, 2024",
+    sortDate: "2024-08-15",
+    evidenceLevel: "E5",
+    summary:
+      "NEJM paper reporting a one-participant ALS speech neuroprosthesis that used four NeuroPort Arrays from Blackrock Neurotech in speech motor cortex.",
+    sourceLinks: [
+      source("NEJM speech neuroprosthesis paper", "paper", "https://www.nejm.org/doi/full/10.1056/NEJMoa2314132", "New England Journal of Medicine"),
+      source("Open-access full text", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC11328962/", "PubMed Central")
+    ],
+    isSample: false
+  },
+  {
+    id: "blackrock-utah-array-longevity-paper",
+    title: "Longevity and reliability of chronic unit recordings using the Utah, intracortical multi-electrode arrays",
+    companySlug: "blackrock-neurotech",
+    dateLabel: "Dec 28, 2021",
+    sortDate: "2021-12-28",
+    evidenceLevel: "E4",
+    summary:
+      "Journal of Neural Engineering paper analyzing chronic unit-recording longevity and reliability for Utah intracortical multi-electrode arrays.",
+    sourceLinks: [
+      source("Utah array longevity and reliability paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/34847547/", "PubMed / Journal of Neural Engineering"),
+      source("Open-access full text", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8981395/", "PubMed Central")
+    ],
+    isSample: false
+  },
   {
     id: "precision-layer-7-initial-experience-paper",
     title: "Initial experience with the Precision Neuroscience Layer 7 micro-ECoG array",
@@ -1822,6 +3885,98 @@ export const papers: Paper[] = [
     summary:
       "Nature paper describing a wireless digital bridge between cortical signals and spinal cord stimulation in one participant with chronic tetraplegia.",
     sourceLinks: [source("Brain-spine interface paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature")],
+    isSample: false
+  },
+  {
+    id: "neurorestore-brain-spine-interface-paper",
+    title: "Walking naturally after spinal cord injury using a brain-spine interface",
+    companySlug: "neurorestore-epfl-bsi",
+    dateLabel: "May 24, 2023",
+    sortDate: "2023-05-24",
+    evidenceLevel: "E4",
+    summary:
+      "Nature paper from the NeuroRestore/EPFL/CHUV/UNIL-led collaboration describing a wireless digital bridge between cortical signals and spinal cord stimulation in one participant with chronic tetraplegia.",
+    sourceLinks: [
+      source("Brain-spine interface paper", "paper", "https://www.nature.com/articles/s41586-023-06094-5", "Nature"),
+      source("NeuroRestore BSI press summary", "company-update", "https://www.neurorestore.swiss/press-1/bci2023", "NeuroRestore"),
+      source("NeuroRestore official BSI video", "demo-video", "https://vimeo.com/829445531", "NeuroRestore / Vimeo")
+    ],
+    isSample: false
+  },
+  {
+    id: "hainan-wukongbot-bsi-paper",
+    title: "WukongBot: A Brain-Spine Interface Proof of Concept Based on Non-Invasive Brain-Computer Interface for Spinal Cord Injury in a Monkey",
+    companySlug: "hainan-wukongbot-bsi",
+    dateLabel: "Nov 2025",
+    sortDate: "2025-11-11",
+    evidenceLevel: "E2",
+    summary:
+      "BIO Integration paper reporting a preclinical non-invasive BCI to epidural stimulation loop where human motion intentions drove lower-limb movements in an anesthetized macaque.",
+    sourceLinks: [
+      source("WukongBot BIO Integration paper", "paper", "https://bio-integration.org/10-15212-bioi-2025-0171/", "BIO Integration"),
+      source("Hainan University BCI chip and Brain-Spine-Machine report", "company-update", "https://en.hainanu.edu.cn/info/1131/12891.htm", "Hainan University")
+    ],
+    isSample: false
+  },
+  {
+    id: "tianjin-high-speed-hybrid-bci-paper",
+    title: "A high-speed hybrid brain-computer interface with more than 200 targets",
+    companySlug: "tianjin-haihe-bci",
+    dateLabel: "2023",
+    sortDate: "2023-01-01",
+    evidenceLevel: "E4",
+    summary:
+      "Peer-reviewed paper from the Tianjin University BCI line describing a high-speed non-invasive hybrid BCI with more than 200 command targets.",
+    sourceLinks: [
+      source("High-speed hybrid BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/36608342/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering"),
+      source("TJU 216-key non-invasive BCI report", "company-update", "https://en.tju.edu.cn/info/1010/7179.htm", "Tianjin University")
+    ],
+    isSample: false
+  },
+  {
+    id: "nankai-interventional-bci-sheep-paper",
+    title: "An Interventional Brain-Computer Interface for Long-Term EEG Collection and Motion Classification of a Quadruped Mammal",
+    companySlug: "nankai-interventional-bci",
+    dateLabel: "2025",
+    sortDate: "2025-04-01",
+    evidenceLevel: "E2",
+    summary:
+      "Preclinical paper describing Nankai's endovascular/interventional BCI approach for long-term intracerebral EEG collection and motion classification in sheep.",
+    sourceLinks: [
+      source("Interventional BCI long-term EEG sheep paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/40257874/", "PubMed"),
+      source("Nankai sheep interventional BCI report", "company-update", "https://en.nankai.edu.cn/2022/0801/c22796a465078/page.htm", "Nankai University")
+    ],
+    isSample: false
+  },
+  {
+    id: "scut-hybrid-bci-wheelchair-paper",
+    title: "A hybrid brain computer interface to control the direction and speed of a simulated or real wheelchair",
+    companySlug: "scut-pazhou-multimodal-bci",
+    dateLabel: "2012",
+    sortDate: "2012-09-01",
+    evidenceLevel: "E4",
+    summary:
+      "Peer-reviewed SCUT-linked paper reporting hybrid EEG BCI control of simulated and real wheelchairs using motor imagery and P300 signals.",
+    sourceLinks: [
+      source("Hybrid BCI wheelchair paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/22692936/", "PubMed / IEEE Transactions on Neural Systems and Rehabilitation Engineering"),
+      source("SCUT main BCI program summary", "company-update", "https://www2.scut.edu.cn/autonlab/4514/list.htm", "South China University of Technology")
+    ],
+    isSample: false
+  },
+  {
+    id: "shanghai-yansi-mandarin-speech-bci-paper",
+    title: "Real-time decoding of full-spectrum Chinese using brain-computer interface",
+    companySlug: "shanghai-yansi-speech-bci",
+    dateLabel: "Nov 2025",
+    sortDate: "2025-11-07",
+    evidenceLevel: "E4",
+    summary:
+      "Science Advances paper reporting real-time Mandarin Chinese speech decoding from high-density flexible ECoG signals, connected to the Shanghai Yansi / Huashan speech BCI line.",
+    sourceLinks: [
+      source("Real-time decoding of full-spectrum Chinese paper", "paper", "https://www.science.org/doi/10.1126/sciadv.adz9968", "Science Advances"),
+      source("PubMed record for Mandarin speech BCI paper", "paper", "https://pubmed.ncbi.nlm.nih.gov/41191764/", "PubMed"),
+      source("Shanghai speech BCI government report", "company-update", "https://english.shanghai.gov.cn/en-InnovationPolicies/20250722/c4b71a2bb59b404e8a25660a8531b013.html", "Shanghai Municipal Government")
+    ],
     isSample: false
   },
   {

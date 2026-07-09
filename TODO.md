@@ -110,15 +110,38 @@
 - [x] Add Nudge with sourced company profile, milestones, and evidence notes.
 - [x] Add Neurosity with sourced company profile, milestones, and evidence notes.
 - [x] Add Muse and Emotiv as non-invasive EEG companies with clear consumer/wellness vs medical-evidence boundaries.
-- [ ] Expand Blackrock Neurotech with additional papers/trials where useful.
-- [ ] Add a ranked, sourced watchlist for top EEG, fMRI, focused-ultrasound, and Chinese BCI programs before promoting entries into the main dataset.
+- [x] Expand Blackrock Neurotech with NeuroPort/Utah Array and MoveAgain project tracks, FDA 510(k) clearance, and paper anchors.
+- [x] Promote a sourced top-10 EEG/dev/research-hardware batch into the main dataset.
+- [x] Promote a sourced top-10 fMRI/fNIRS/hemodynamic BCI and BCI-enabling batch into the main dataset.
+- [x] Promote a sourced top-10 focused-ultrasound/ultrasound-interface and adjacent neuromodulation batch into the main dataset.
+- [x] Add explicit China/Europe brain-spine interface coverage with sourced result notes, project tracks, demo/doc links, and conservative evidence labels.
+- [x] Promote the China BCI expansion batch into the main dataset: Tianjin University/Haihe Lab, Nankai Interventional BCI, CAS CEBSIT/Huashan, BrainCo, ShanghaiTech BCI Center, SCUT/Pazhou, and Shanghai Yansi/Huashan.
+- [x] Add a ranked, sourced watchlist for Chinese BCI programs before promoting more entries into the main dataset.
+
+## Brain-Spine Interface Data Loop
+
+- [x] Add at least 3 China-based brain-spine or spinal-interface programs with sources: NeuCyber/CIBR Beinao, Fudan ISTBI, Zhejiang University/Nanhu, and Hainan University WukongBot.
+- [x] Add at least 3 Europe-based brain-spine interface programs with sources: ONWARD ARC-BCI, NeuroRestore/EPFL-CHUV-UNIL, and CEA/Clinatec WIMAGINE.
+- [x] Add demonstrated-result and not-yet-shown project-track notes for each brain-spine/spinal-interface line.
+- [x] Add available official video or document links, using non-primary flags for media reports where appropriate.
+- [x] Run validation, tests, lint, typecheck, and build after the data expansion.
 
 ## Candidate Sourcing Queue
 
-These are not dataset records yet. Promote only after a source pass with primary links, a conservative evidence level, and a hype-check note.
+These are not dataset records yet unless checked. Promote only after a source pass with primary links, a conservative evidence level, and a hype-check note.
 
-- EEG batch: collect and rank 10 non-invasive EEG/developer/clinical-BCI candidates, including consumer EEG, clinical access, and research hardware categories.
-- fMRI / hemodynamic batch: collect and rank active fMRI, fNIRS, and other hemodynamic interface programs only if the BCI relevance is explicit and sourced.
-- Focused-ultrasound batch: collect and rank focused-ultrasound neuromodulation/interface programs separately from lesioning or imaging-only programs.
-- China batch: collect at least 10 more China-based BCI programs or hospital/lab/company collaborations, with Chinese and English primary sources where possible.
+- [x] EEG batch: promoted 10 non-invasive EEG/developer/research-hardware candidates into the main dataset.
+- [x] fMRI / hemodynamic batch: promoted 10 active fMRI, fNIRS, and other hemodynamic interface programs where BCI relevance is explicit and sourced.
+- [x] Focused-ultrasound batch: promoted Nudge plus 9 sourced focused-ultrasound, ultrasound-interface, and adjacent neuromodulation programs; lesioning-only programs left out.
+- [x] China batch: promoted 10-plus China-based BCI programs or hospital/lab/company collaborations across invasive, interventional, non-invasive, speech, and brain-spine/spinal-interface categories. Press-only or thin-primary candidates remain watchlisted until a stronger source pass clears them.
 - For every candidate, capture: slug, likely category, modality, target function, evidence level, primary source URLs, what has been demonstrated, and what has not.
+
+## China Watchlist
+
+Ranked candidates that are not dataset records yet:
+
+1. Gestala - ultrasound BCI startup with credible funding/media coverage, but only thin official public detail found so far. Sources: LinkedIn company page (`https://www.linkedin.com/company/gestala`), Wired (`https://www.wired.com/story/this-chinese-startup-wants-to-build-a-new-brain-computer-interface-no-implant-required-gestalta/`), TechCrunch (`https://techcrunch.com/2026/03/11/bci-startup-gestala-raises-21-million-for-non-invasive-ultrasound-brain-tech/`), and MassDevice (`https://www.massdevice.com/chinese-ultrasound-based-bci-startup-gestala-raises-21-7m/`).
+2. UESTC / Sichuan non-invasive BCI groups - included in Tianjin University's national BCI education alliance (`https://en.tju.edu.cn/info/1010/13216.htm`), but needs project-specific primary sources before promotion.
+3. Beihang University BCI groups - included in Tianjin University's national BCI education alliance (`https://en.tju.edu.cn/info/1010/13216.htm`), but project-specific evidence still needs sourcing.
+4. Southeast University / brain-computer-metasurface work - technically relevant via the brain-computer-metasurface paper (`https://arxiv.org/abs/2205.00280`), but needs stronger mapping from paper/demo to sustained BCI program.
+5. Southern University of Science and Technology brain-on-chip / organoid interface work - interesting adjacent interface work (see Xinhua `https://www.news.cn/20240627/431d44f8824348d6b353459f9eb061b5/c.html` and Tianjin University Medical School `https://mstu.tju.edu.cn/info/1445/3971.htm`), but too far from assistive BCI until better program evidence is collected.
