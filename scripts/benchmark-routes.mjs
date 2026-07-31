@@ -1,4 +1,4 @@
-const baseUrl = (process.env.BENCHMARK_BASE_URL ?? process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
+const baseUrl = (process.env.BENCHMARK_BASE_URL ?? process.argv[2] ?? "http://localhost:3100").replace(/\/$/, "");
 const sampleCount = Number.parseInt(process.env.BENCHMARK_SAMPLES ?? "5", 10);
 
 const paths = [

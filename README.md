@@ -26,7 +26,7 @@ npm install
 npm run dev
 ```
 
-Then open the local URL printed by Next.js.
+Then open `http://localhost:3100`. Port 3100 is the project default because port 3000 is commonly occupied. To use another port temporarily, run `npm exec next dev -- -p 4200`.
 
 ## Validate
 
@@ -36,6 +36,7 @@ npm run test:data
 npm run lint
 npm run typecheck
 npm run build
+npm run check:build-size
 npm run ci
 ```
 
@@ -43,19 +44,19 @@ To benchmark rendered routes and static assets against a running local server:
 
 ```bash
 npm run dev
-BENCHMARK_BASE_URL=http://localhost:3000 npm run benchmark:routes
+BENCHMARK_BASE_URL=http://localhost:3100 npm run benchmark:routes
 ```
 
 In PowerShell, set the benchmark target like this:
 
 ```powershell
-$env:BENCHMARK_BASE_URL = "http://localhost:3000"
+$env:BENCHMARK_BASE_URL = "http://localhost:3100"
 npm run benchmark:routes
 ```
 
 ## Add data
 
-Data lives in `data/seed-data.ts`, with shared types in `data/schema.ts`. Company-level project tracks use `programProjects` for product lines, clinical programs, or research programs that should sit under a company without pretending they are all the same kind of milestone.
+Core tracker data lives in `data/seed-data.ts`, NeuroFounders company research lives in `data/company-research.ts`, and shared types live in `data/schema.ts`. Company-level project tracks use `programProjects` for product lines, clinical programs, or research programs that should sit under a company without pretending they are all the same kind of milestone.
 
 When adding or editing records:
 
@@ -64,7 +65,7 @@ When adding or editing records:
 3. Separate demonstrated capability from interpretation.
 4. Include source links for every real milestone, project track, trial, demo, paper, and company claim.
 5. Use `isSample: true` only for fictional placeholders, and do not mix placeholders into real milestone counts.
-6. Run `npm run validate:data` and `npm run test:data` before review. `npm run build` also runs the data validator before compiling. `npm run ci` runs the full local gate.
+6. Run `npm run validate:data` and `npm run test:data` before review. `npm run build` also runs the data validator before compiling. `npm run check:build-size` protects the cold homepage and map-shell payload budgets. `npm run ci` runs the full local gate.
 
 ## Pages
 
@@ -75,7 +76,7 @@ When adding or editing records:
 - `/milestones` activity archive (upcoming checkpoints + confirmed evidence)
 - `/milestones/[id]` milestone detail with sources and program link
 - `/companies` redirect to `/explore` for compatibility
-- `/companies/[slug]` organization detail: profile, device classes, readiness, project tracks, upcoming checkpoints, accomplishments, trials, demos, papers
+- `/companies/[slug]` organization detail: profile, company research, founders/location/value notes, official-source highlights, paper/video resources, project tracks, upcoming checkpoints, accomplishments, trials, demos, and evidence papers
 - `/trials` trial tracker
 - `/demos` demo library
 - `/search` redirect to `/explore` for compatibility
@@ -87,12 +88,18 @@ The repo includes `netlify.toml` for Netlify's Next.js runtime:
 - Build command: `npm run build`
 - Publish directory: `.next`
 - Node version: `22`
+- Netlify Dev target: `3100` (Netlify's proxy remains on `8888`)
+- Map data: generated as cacheable `/map-nodes.json`; Leaflet and the 547-node dataset load separately from the initial landing-page payload
 
 GitHub Actions runs `npm run ci` on pull requests, pushes to `main`, and manual dispatch. To turn on Netlify automatic deploys, link the repo/site with Netlify (`netlify init` or the Netlify UI) and let Netlify use the committed `netlify.toml` settings.
 
 ## Data coverage
 
-The dataset covers 355 clinical, translational, and BCI-enabling organizations across the US, Canada, Europe, China, Taiwan, India, Israel, South Korea, Singapore, Japan, Australia, Brazil, and other regions. It now includes 50 additional companies plus 44 university research organizations and 50 university project tracks: 30 US projects, 10 Europe projects, and 10 Asia projects. The tracker classifies each organization by invasiveness, normalized device class, organization profile, and readiness; academic research is always separated from commercial product readiness. The dataset includes conservative slices of EEG, MEG, MEA, ECoG, intracortical, endovascular, fMRI/fNIRS/hemodynamic, focused-ultrasound, neuroimaging, neuromodulation, assistive-control, and neural-interface infrastructure programs. Company project tracks split multi-line programs such as Neuralink Telepathy vs Blindsight, Blackrock NeuroPort/Utah Array vs MoveAgain, university research tracks, and brain-spine interface lines from ONWARD, NeuroRestore/EPFL-CHUV-UNIL, CEA/Clinatec, NeuCyber/CIBR, Fudan, Zhejiang University/Nanhu, and Hainan University. Every milestone, project track, trial, demo, paper, and company or institution profile links to a primary or reputable source.
+The dataset covers 547 clinical, translational, and BCI-enabling organizations: 503 companies and 44 university research organizations. It includes every company in the NeuroFounders Startup Map captured on 2026-07-31: 157 were already represented and 192 were added in the complete reconciliation. The source-by-source inclusion audit lives in [`docs/neurofounders-company-catalog.md`](docs/neurofounders-company-catalog.md); the 349-company enrichment coverage table lives in [`docs/neurofounders-company-research.md`](docs/neurofounders-company-research.md).
+
+Every reconciled NeuroFounders company has a dated enrichment profile. It records founding year, founder and headquarters research status, funding and regulatory labels, a conservative company-value note, company-reported accomplishment leads, and curated official paper/publication and YouTube/Vimeo links. Private-company value is never inferred from funding stage, and first-party claims remain visibly separate from demonstrated NextBCI milestones.
+
+The tracker classifies each organization by invasiveness, normalized device class, organization profile, and readiness; academic research is always separated from commercial product readiness. The dataset includes conservative slices of EEG, MEG, MEA, ECoG, intracortical, endovascular, fMRI/fNIRS/hemodynamic, focused-ultrasound, neuroimaging, neuromodulation, assistive-control, and neural-interface infrastructure programs. Company project tracks split multi-line programs such as Neuralink Telepathy vs Blindsight, Blackrock NeuroPort/Utah Array vs MoveAgain, university research tracks, and brain-spine interface lines from ONWARD, NeuroRestore/EPFL-CHUV-UNIL, CEA/Clinatec, NeuCyber/CIBR, Fudan, Zhejiang University/Nanhu, and Hainan University. Every milestone, project track, trial, demo, paper, and company or institution profile links to a primary or reputable source. NeuroFounders-only discovery records remain at E1 until product-specific primary evidence supports a stronger level. Because the source map exposes country rather than city headquarters, those new records use visibly labeled country-level map points.
 
 The product requirements distilled from the Next Spaceflight launch-feed benchmark live in [`docs/nextspaceflight-launch-feed-requirements.md`](docs/nextspaceflight-launch-feed-requirements.md).
 
@@ -100,6 +107,8 @@ The page-by-page simplification decisions live in [`docs/ux-simplification-audit
 
 ## World map data
 
-The `/map` route uses Leaflet, OpenStreetMap tiles, and `leaflet.markercluster` so dense regions can be zoomed and clicked apart. The page is a map-first surface with overlay stats and an activity-sorted program directory. The homepage uses the same Leaflet map in compact mode: tiles, clusters, zoom controls, popups, and same-city pin separation are shared with `/map`, while the directory overlays stay on the full map page. Same-city programs receive a visual-only spread in `components/LeafletMap.tsx`; source coordinates remain in `data/seed-data.ts`.
+The `/map` route uses Leaflet, OpenStreetMap tiles, and `leaflet.markercluster` so dense regions can be zoomed and clicked apart. The page is a map-first surface with overlay stats and an activity-sorted program directory. The homepage uses the same Leaflet map in compact mode: tiles, clusters, zoom controls, popups, and same-city pin separation are shared with `/map`, while the directory overlays stay on the full map page. Both surfaces fetch the generated `public/map-nodes.json` asset after the page shell loads; the homepage waits until its map approaches the viewport. This keeps Leaflet and the full map dataset out of the first-page HTML and React payload while preserving the interactive map. Same-city programs receive a visual-only spread in `components/LeafletMap.tsx`; source coordinates remain in `data/seed-data.ts`.
+
+Regenerate the cacheable map dataset with `npm run generate:map-data`. It also runs automatically before local development and during production builds.
 
 The legacy static world-map assets remain available for reference. Regenerate local country outlines from `public/world-110m.json` into `data/world-paths.ts` with `npm run generate:world` when needed (also runs automatically in `npm run build`).

@@ -5,6 +5,7 @@ import { ProgramProjectCard } from "@/components/ProgramProjectCard";
 import { Signal } from "@/components/Signal";
 import { SourceList } from "@/components/SourceList";
 import { VideoCard } from "@/components/VideoCard";
+import { getCompanyResearch } from "@/data/company-research";
 import {
   categoryLabel,
   companies,
@@ -27,6 +28,20 @@ import {
   regionLabel
 } from "@/data/queries";
 import type { Milestone } from "@/data/schema";
+
+function ResearchLinks({ links }: { links: Array<{ title: string; url: string; publisher: string }> }) {
+  return (
+    <div className="card-grid">
+      {links.map((link) => (
+        <a className="tile" href={link.url} key={link.url} rel="noreferrer" target="_blank">
+          <span className="eyebrow">{link.publisher}</span>
+          <h3 style={{ fontSize: "1rem" }}>{link.title}</h3>
+          <span className="btn btn-ghost btn-sm" style={{ alignSelf: "flex-start" }}>Open source ↗</span>
+        </a>
+      ))}
+    </div>
+  );
+}
 
 export function generateStaticParams() {
   return companies.map((company) => ({ slug: company.slug }));
@@ -75,6 +90,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
   const deviceTypes = getDeviceTypes(company);
   const organizationScale = getOrganizationScale(company);
   const readiness = getReadiness(company);
+  const research = getCompanyResearch(company.slug);
 
   return (
     <div className="page-shell page-stack">
@@ -188,6 +204,103 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
           ) : null}
         </div>
       </section>
+
+      {research ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Company research</p>
+              <h2>Founding, location, value, and source leads</h2>
+            </div>
+            <span className="badge type-badge">Researched {research.researchedOn}</span>
+          </div>
+          <div className="two-col">
+            <div className="panel panel-pad">
+              <dl className="kv">
+                <dt>Founded</dt>
+                <dd>{research.founding.year ?? "Not verified"}</dd>
+                <dt>Founders</dt>
+                <dd>
+                  {research.founding.note}{" "}
+                  {research.founding.sourceUrl ? <a href={research.founding.sourceUrl} rel="noreferrer" target="_blank">Source ↗</a> : null}
+                </dd>
+                <dt>Location research</dt>
+                <dd>
+                  {research.headquarters.display}. {research.headquarters.note}{" "}
+                  {research.headquarters.sourceUrl ? <a href={research.headquarters.sourceUrl} rel="noreferrer" target="_blank">Source ↗</a> : null}
+                </dd>
+                <dt>Company value</dt>
+                <dd>
+                  <b>{research.companyValue.label}.</b> {research.companyValue.note}{" "}
+                  {research.companyValue.sourceUrl ? <a href={research.companyValue.sourceUrl} rel="noreferrer" target="_blank">Source ↗</a> : null}
+                </dd>
+                <dt>Funding stage</dt>
+                <dd>{research.fundingStage}</dd>
+                <dt>Regulatory label</dt>
+                <dd>{research.regulatoryStatus}</dd>
+              </dl>
+            </div>
+            <div className="panel panel-pad" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div>
+                <p className="eyebrow" style={{ marginBottom: 10 }}>Research overview</p>
+                <p className="muted-copy">{research.overview}</p>
+              </div>
+              <p className="hype">{research.notes}</p>
+              <div className="meta-row">
+                <a className="btn btn-ghost btn-sm" href={research.sourceProfileUrl} rel="noreferrer" target="_blank">NeuroFounders profile ↗</a>
+                {research.officialWebsite ? <a className="btn btn-ghost btn-sm" href={research.officialWebsite} rel="noreferrer" target="_blank">Official website ↗</a> : null}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {research?.reportedAccomplishments.length ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Company-reported highlights</p>
+              <h2>Accomplishment leads to verify</h2>
+            </div>
+            <span className="badge type-badge">First-party claims</span>
+          </div>
+          <div className="card-grid">
+            {research.reportedAccomplishments.map((item) => (
+              <div className="tile" key={`${item.sourceUrl}-${item.note}`}>
+                <span className="badge type-badge">Company-reported</span>
+                <p className="muted-copy" style={{ fontSize: 13 }}>{item.note}</p>
+                <a className="btn btn-ghost btn-sm" href={item.sourceUrl} rel="noreferrer" target="_blank">{item.publisher} ↗</a>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {research?.papers.length ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Research links</p>
+              <h2>Papers and publication resources</h2>
+            </div>
+            <span className="badge type-badge">{research.papers.length} found</span>
+          </div>
+          <ResearchLinks links={research.papers} />
+        </section>
+      ) : null}
+
+      {research?.videos.length ? (
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Watch</p>
+              <h2>Videos, talks, and official channels</h2>
+            </div>
+            <span className="badge type-badge">{research.videos.length} found</span>
+          </div>
+          <ResearchLinks links={research.videos} />
+        </section>
+      ) : null}
 
       {projects.length > 0 ? (
         <section className="section">

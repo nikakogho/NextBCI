@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { LeafletMap } from "@/components/LeafletMap";
-import { mapNodes } from "@/data/queries";
+import { LazyLeafletMap } from "@/components/LazyLeafletMap";
 
 export const metadata: Metadata = {
   title: "World map - NextBCI",
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
 export default function MapPage() {
   return (
     <div className="map-page-shell">
-      <LeafletMap nodes={mapNodes} />
+      <LazyLeafletMap />
     </div>
   );
 }

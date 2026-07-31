@@ -174,3 +174,32 @@ Ranked candidates that are not dataset records yet:
 - [x] Differentiate company and university research visually on map, directory, and detail pages.
 - [x] Simplify Activity, Trials, and Demos by removing repeated explanatory or source-list chrome.
 - [x] Record page-by-page decisions in `docs/ux-simplification-audit.md` and run complete verification.
+
+## NeuroFounders Complete Catalog Reconciliation
+
+- [x] Catalog all 349 profiles on the live NeuroFounders Startup Map across all four pages.
+- [x] Reconcile source profiles against existing NextBCI slugs, names, official domains, and verified aliases.
+- [x] Record the 157 already-included and 192 previously-missing companies in `docs/neurofounders-company-catalog.md`.
+- [x] Add all 192 missing companies with official-site and NeuroFounders profile links.
+- [x] Keep profile-only evidence at E1 and avoid promoting source-map regulatory labels into unsupported evidence claims.
+- [x] Plot source-only locations as explicitly labeled country-level points because verified city headquarters were not present in the source profiles.
+- [x] Run validation, data tests, lint, typecheck, build, and rendered map checks after the complete reconciliation.
+
+## NeuroFounders Company Research Enrichment
+
+- [x] Research all 349 reconciled NeuroFounders profiles against their structured source profiles and official company sites.
+- [x] Record a dated founding year, founder-attribution status, location status, funding stage, regulatory label, and conservative company-value note for every profile.
+- [x] Keep private-company valuations as not publicly disclosed unless a reliable figure is available; do not substitute funding stage for net worth.
+- [x] Log company-reported accomplishment leads without promoting them to demonstrated evidence milestones.
+- [x] Curate official paper/publication resources and YouTube/Vimeo links where found.
+- [x] Render research fields and resources on company detail pages and validate the complete 349-profile research dataset.
+
+## Local Port and First-Load Performance
+
+- [x] Make `npm run dev` and `npm run start` use port 3100 by default and align Netlify Dev with that target.
+- [x] Move the 547-node map dataset out of landing-page HTML and React payloads into a generated static JSON asset.
+- [x] Defer the homepage Leaflet bundle and map-data request until the map approaches the viewport.
+- [x] Load the full map data client-side on `/map` while preserving its map-first loading shell.
+- [x] Add CDN-oriented caching for the generated map dataset in `netlify.toml`.
+- [x] Rebuild, compare cold payload sizes, and verify the homepage and full map in a real browser.
+- [x] Add CI payload budgets for the homepage and map route shells to prevent the first-load regression from returning.

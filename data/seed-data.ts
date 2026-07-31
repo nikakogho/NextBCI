@@ -193,7 +193,435 @@ const productTrack = (record: ResearchProjectInput): ProgramProject => ({
     "Product availability, regulatory status, and outcome evidence must be read from the linked source and separate trial or paper records; this profile does not establish broader clinical benefit."
 });
 
+type NeurofoundersCompanyInput = {
+  slug: string;
+  name: string;
+  country: string;
+  founded: string;
+  category: string;
+  modality: string;
+  formFactor: string;
+  interfaceDepth: string;
+  indication: string;
+  targetUser: string;
+  regulatory: string;
+  funding: string;
+  website: string;
+  profileUrl: string;
+};
+
+const neurofoundersCountryCoordinates: Record<string, [lat: number, lng: number]> = {
+  "Argentina": [
+    -38.4161,
+    -63.6167
+  ],
+  "Australia": [
+    -25.2744,
+    133.7751
+  ],
+  "Austria": [
+    47.5162,
+    14.5501
+  ],
+  "Belgium": [
+    50.5039,
+    4.4699
+  ],
+  "Canada": [
+    56.1304,
+    -106.3468
+  ],
+  "China": [
+    35.8617,
+    104.1954
+  ],
+  "Czechia": [
+    49.8175,
+    15.473
+  ],
+  "Denmark": [
+    56.2639,
+    9.5018
+  ],
+  "Finland": [
+    61.9241,
+    25.7482
+  ],
+  "France": [
+    46.2276,
+    2.2137
+  ],
+  "Germany": [
+    51.1657,
+    10.4515
+  ],
+  "Hong Kong": [
+    22.3193,
+    114.1694
+  ],
+  "Hungary": [
+    47.1625,
+    19.5033
+  ],
+  "India": [
+    20.5937,
+    78.9629
+  ],
+  "Ireland": [
+    53.1424,
+    -7.6921
+  ],
+  "Israel": [
+    31.0461,
+    34.8516
+  ],
+  "Italy": [
+    41.8719,
+    12.5674
+  ],
+  "Japan": [
+    36.2048,
+    138.2529
+  ],
+  "Netherlands": [
+    52.1326,
+    5.2913
+  ],
+  "Poland": [
+    51.9194,
+    19.1451
+  ],
+  "Spain": [
+    40.4637,
+    -3.7492
+  ],
+  "Switzerland": [
+    46.8182,
+    8.2275
+  ],
+  "Turkey": [
+    38.9637,
+    35.2433
+  ],
+  "UK": [
+    55.3781,
+    -3.436
+  ],
+  "United Kingdom": [
+    55.3781,
+    -3.436
+  ],
+  "United States": [
+    39.8283,
+    -98.5795
+  ],
+  "USA": [
+    39.8283,
+    -98.5795
+  ]
+};
+
+const neurofoundersEurope = new Set([
+  "Austria", "Belgium", "Czechia", "Denmark", "Finland", "France", "Germany", "Hungary", "Ireland",
+  "Italy", "Netherlands", "Poland", "Spain", "Switzerland", "UK", "United Kingdom"
+]);
+
+const neurofoundersAsia = new Set(["China", "Hong Kong", "India", "Israel", "Japan", "Turkey"]);
+
+const neurofoundersDeviceTypes: Partial<Record<string, DeviceType[]>> = {
+  "(f)MRI": ["fmri"],
+  DBS: ["dbs"],
+  ECoG: ["ecog"],
+  EEG: ["eeg"],
+  EMG: ["emg"],
+  Endovascular: ["endovascular"],
+  ExG: ["eeg", "emg"],
+  Intracortical: ["intracortical"],
+  MEA: ["mea"],
+  MEG: ["meg"],
+  "Motor prosthetics": ["emg", "rehab-robotics"],
+  "Nerve stimulator": ["peripheral-stimulation"],
+  SCS: ["spinal-stimulation"],
+  TMS: ["tms"],
+  Ultrasound: ["ultrasound"],
+  VNS: ["peripheral-stimulation"],
+  "Visual prosthesis": ["neural-probe"],
+  fNIRS: ["fnirs", "optical-imaging"],
+  "tDCS/tES": ["tes"]
+};
+
+const neurofoundersRegion = (country: string): Company["region"] => {
+  if (country === "USA" || country === "United States" || country === "Canada") return "north-america";
+  if (neurofoundersEurope.has(country)) return "europe";
+  if (neurofoundersAsia.has(country)) return "asia";
+  return "rest-of-world";
+};
+
+const neurofoundersCategory = (record: NeurofoundersCompanyInput): Company["category"] => {
+  if (record.interfaceDepth === "Minimally invasive" || record.modality === "Endovascular") {
+    return "minimally-invasive";
+  }
+  if (
+    record.interfaceDepth === "Implantable" &&
+    (record.modality === "ECoG" || record.modality === "Intracortical")
+  ) {
+    return "invasive";
+  }
+  if (record.interfaceDepth === "Implantable") return "minimally-invasive";
+  return "non-invasive";
+};
+
+const neurofoundersReadiness = (regulatory: string): ProductReadiness => {
+  if (/FDA|CE-Marked|Other approval/.test(regulatory)) return "regulated-medical";
+  if (regulatory === "Investigational") return "human-research";
+  if (regulatory === "Preclinical") return "preclinical";
+  if (regulatory === "Non-medical") return "commercial-nonmedical";
+  return "research-infrastructure";
+};
+
+const neurofoundersCompany = (record: NeurofoundersCompanyInput): Company => {
+  const readiness = neurofoundersReadiness(record.regulatory);
+  const coordinates = neurofoundersCountryCoordinates[record.country];
+  const formFactorArticle = /^[aeiou]/i.test(record.formFactor) ? "an" : "a";
+  if (!coordinates) {
+    throw new Error("Missing country-level map coordinates for " + record.country);
+  }
+
+  return {
+    slug: record.slug,
+    name: record.name,
+    kind: "company",
+    category: neurofoundersCategory(record),
+    region: neurofoundersRegion(record.country),
+    modality: record.modality,
+    targetFunction: record.indication + " technology for " + record.targetUser.toLowerCase(),
+    stage: record.regulatory + "; " + record.category + " profile",
+    evidenceLevel: "E1",
+    deviceTypes: neurofoundersDeviceTypes[record.modality],
+    organizationScale:
+      readiness === "regulated-medical" || readiness === "human-research" ? "clinical-growth" : "early-startup",
+    readiness,
+    hq: {
+      city: "Country-level location",
+      country: record.country,
+      lat: coordinates[0],
+      lng: coordinates[1]
+    },
+    founded: /^\d{4}$/.test(record.founded) ? Number(record.founded) : undefined,
+    website: record.website,
+    funding: record.funding === "Unknown" ? undefined : record.funding + " (NeuroFounders profile)",
+    summary:
+      "NeuroFounders categorizes " + record.name + " under " + record.category.toLowerCase() + ". " +
+      "Its profile lists " + record.modality + " in " + formFactorArticle + " " + record.formFactor.toLowerCase() +
+      " format, focused on " + record.indication.toLowerCase() + " for " + record.targetUser.toLowerCase() + ".",
+    hypeCheck:
+      "This catalog entry records the company's stated focus. It does not independently verify clinical benefit or extend the listed regulatory status to every product; product-level claims require primary trial, paper, or regulatory evidence.",
+    sourceLinks: [
+      source(record.name + " official website", "company-update", record.website, record.name),
+      source(record.name + " NeuroFounders profile", "news-report", record.profileUrl, "NeuroFounders", false)
+    ],
+    isSample: false
+  };
+};
+
+const neurofoundersCatalogCompanies: Company[] = [
+  {"slug":"cranius-therapeutics","name":"CraniUS Therapeutics","country":"USA","founded":"2021","category":"Tools and Infrastructure","modality":"Others","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Tumors","targetUser":"Clinicians","regulatory":"Preclinical","funding":"Series A","website":"https://craniustherapeutics.com/","profileUrl":"https://www.neurofounders.co/startups/cranius-therapeutics"},
+  {"slug":"ctrl-labs","name":"CTRL-labs (Meta)","country":"USA","founded":"2015","category":"Consumer Neurotech","modality":"EMG","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Acquired","website":"https://tech.facebook.com/reality-labs/","profileUrl":"https://www.neurofounders.co/startups/ctrl-labs"},
+  {"slug":"curonix","name":"Curonix","country":"USA","founded":"2003","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Unknown","website":"https://curonix.com/intl/","profileUrl":"https://www.neurofounders.co/startups/curonix"},
+  {"slug":"dandelion-science","name":"Dandelion Science","country":"USA","founded":"2020","category":"Neuromodulation","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Vision","targetUser":"Clinicians","regulatory":"Investigational","funding":"Non-dilutive","website":"https://www.dandelion.science/","profileUrl":"https://www.neurofounders.co/startups/dandelion-science"},
+  {"slug":"deegtal","name":"DEEGtal","country":"Switzerland","founded":"2024","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Epilepsy","targetUser":"Clinicians","regulatory":"Investigational","funding":"Seed","website":"https://www.deegtal.ai/","profileUrl":"https://www.neurofounders.co/startups/deegtal"},
+  {"slug":"deepspin","name":"DeepSpin","country":"Germany","founded":"2020","category":"Neuroimaging","modality":"(f)MRI","formFactor":"Imaging system","interfaceDepth":"Non-invasive","indication":"General brain health","targetUser":"Clinicians","regulatory":"Investigational","funding":"Seed","website":"https://deepspin.io/","profileUrl":"https://www.neurofounders.co/startups/deepspin"},
+  {"slug":"eightsix-science","name":"Eightsix Science","country":"UK","founded":"2023","category":"Tools and Infrastructure","modality":"Others","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"Preclinical","funding":"Pre-seed","website":"https://eightsix.science/","profileUrl":"https://www.neurofounders.co/startups/eightsix-science"},
+  {"slug":"electrocore","name":"ElectroCore","country":"USA","founded":"2005","category":"Neuromodulation","modality":"VNS","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Public","website":"https://www.electrocore.com/","profileUrl":"https://www.neurofounders.co/startups/electrocore"},
+  {"slug":"elemind","name":"Elemind","country":"USA","founded":"2019","category":"Consumer Neurotech","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Consumers","regulatory":"Non-medical","funding":"Seed","website":"https://elemindtech.com/","profileUrl":"https://www.neurofounders.co/startups/elemind"},
+  {"slug":"empatica","name":"Empatica","country":"USA","founded":"2013","category":"Diagnostics and Assessment","modality":"Multimodal","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Parkinson's","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Series B","website":"https://www.empatica.com/","profileUrl":"https://www.neurofounders.co/startups/empatica"},
+  {"slug":"emteq-labs","name":"Emteq Labs","country":"UK","founded":"2015","category":"Tools and Infrastructure","modality":"Biomarkers","formFactor":"Other","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Researchers","regulatory":"Research only","funding":"Seed","website":"https://www.emteqlabs.com/","profileUrl":"https://www.neurofounders.co/startups/emteq-labs"},
+  {"slug":"encora-therapeutics","name":"Encora Therapeutics","country":"USA","founded":"2018","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Other","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Seed","website":"https://encoratherapeutics.com/","profileUrl":"https://www.neurofounders.co/startups/encora-therapeutics"},
+  {"slug":"eneura-edb82","name":"eNeura","country":"United States","founded":"2000","category":"Neuromodulation","modality":"TMS","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Series C+","website":"https://eneura.com/","profileUrl":"https://www.neurofounders.co/startups/eneura-edb82"},
+  {"slug":"epia-neuro","name":"Epia Neuro","country":"USA","founded":"2021","category":"Brain-Computer Interface","modality":"ECoG","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Epilepsy","targetUser":"Clinicians","regulatory":"Preclinical","funding":"Unknown","website":"https://epianeuro.com/","profileUrl":"https://www.neurofounders.co/startups/epia-neuro"},
+  {"slug":"epiwatch","name":"EpiWatch","country":"USA","founded":"2017","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Epilepsy","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Seed","website":"https://epiwatch.com/","profileUrl":"https://www.neurofounders.co/startups/epiwatch"},
+  {"slug":"evocal-health","name":"EVOCAL Health","country":"Germany","founded":"2020","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Pharma","regulatory":"Investigational","funding":"Defunct","website":"https://evocalhealth.com/","profileUrl":"https://www.neurofounders.co/startups/evocal-health"},
+  {"slug":"eysz","name":"Eysz","country":"USA","founded":"2018","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Psychiatry","targetUser":"Clinicians","regulatory":"Investigational","funding":"Non-dilutive","website":"http://www.eyszlab.com/","profileUrl":"https://www.neurofounders.co/startups/eysz"},
+  {"slug":"farow","name":"Farow","country":"Belgium","founded":"2017","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Epilepsy","targetUser":"Mixed","regulatory":"CE-Marked","funding":"Non-dilutive","website":"https://www.epihunter.com/","profileUrl":"https://www.neurofounders.co/startups/farow"},
+  {"slug":"finalspark","name":"FinalSpark","country":"Switzerland","founded":"2014","category":"Tools and Infrastructure","modality":"MEA","formFactor":"Other","interfaceDepth":"Ex vivo","indication":"Research","targetUser":"Researchers","regulatory":"Research only","funding":"Seed","website":"https://finalspark.com/neuroplatform/","profileUrl":"https://www.neurofounders.co/startups/finalspark"},
+  {"slug":"flectothink","name":"FlectoThink","country":"China","founded":"2020","category":"Consumer Neurotech","modality":"EEG","formFactor":"Patch","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Consumers","regulatory":"Non-medical","funding":"Seed","website":"https://www.flexolinkai.com/","profileUrl":"https://www.neurofounders.co/startups/flectothink"},
+  {"slug":"fluent-bci","name":"Fluent","country":"Australia","founded":"2025","category":"Brain-Computer Interface","modality":"ECoG","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Communication","targetUser":"Patients","regulatory":"Preclinical","funding":"Pre-seed","website":"https://fluentbci.com/","profileUrl":"https://www.neurofounders.co/startups/fluent-bci"},
+  {"slug":"general-sense","name":"General Sense","country":"USA","founded":"2020","category":"Tools and Infrastructure","modality":"Others","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Mixed","regulatory":"Non-medical","funding":"Seed","website":"https://www.canaery.com/","profileUrl":"https://www.neurofounders.co/startups/general-sense"},
+  {"slug":"gestala","name":"Gestala","country":"China","founded":"2026","category":"Brain-Computer Interface","modality":"Ultrasound","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Pain/migraine","targetUser":"Clinicians","regulatory":"Preclinical","funding":"Seed","website":"https://www.gestala.com/","profileUrl":"https://www.neurofounders.co/startups/gestala"},
+  {"slug":"great-lakes-neurotech","name":"Great Lakes NeuroTech","country":"USA","founded":"2010","category":"Tools and Infrastructure","modality":"Others","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Parkinson's","targetUser":"Researchers","regulatory":"Research only","funding":"Non-dilutive","website":"https://www.glneurotech.com/","profileUrl":"https://www.neurofounders.co/startups/great-lakes-neurotech"},
+  {"slug":"grey-matter-neurosciences","name":"Grey Matter Neurosciences","country":"Canada","founded":"2024","category":"Neuromodulation","modality":"Ultrasound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Dementia/impairment","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://greymatterneurosciences.com/","profileUrl":"https://www.neurofounders.co/startups/grey-matter-neurosciences"},
+  {"slug":"halo-neuroscience","name":"Halo Neuroscience","country":"USA","founded":"2013","category":"Consumer Neurotech","modality":"tDCS/tES","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Acquired","website":"https://haloneuroscience.com/","profileUrl":"https://www.neurofounders.co/startups/halo-neuroscience"},
+  {"slug":"i-braintech","name":"i-BrainTech","country":"Israel","founded":"2019","category":"Consumer Neurotech","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Mixed","regulatory":"Unknown","funding":"Seed","website":"https://www.i-brain.tech/","profileUrl":"https://www.neurofounders.co/startups/i-braintech"},
+  {"slug":"icometrix","name":"Icometrix","country":"Belgium","founded":"2011","category":"Neuroimaging","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Acquired","website":"https://www.icometrix.com/","profileUrl":"https://www.neurofounders.co/startups/icometrix"},
+  {"slug":"iconeus","name":"ICONEUS","country":"France","founded":"2016","category":"Neuroimaging","modality":"Ultrasound","formFactor":"Imaging system","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Researchers","regulatory":"Research only","funding":"Non-dilutive","website":"http://iconeus.com/","profileUrl":"https://www.neurofounders.co/startups/iconeus"},
+  {"slug":"imeka","name":"Imeka","country":"USA","founded":"2011","category":"Neuroimaging","modality":"(f)MRI","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Seed","website":"http://www.imeka.ca/","profileUrl":"https://www.neurofounders.co/startups/imeka"},
+  {"slug":"insai","name":"Insai","country":"Denmark","founded":"2019","category":"Neuromodulation","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Pharma","regulatory":"Research only","funding":"Unknown","website":"https://insai.tech/","profileUrl":"https://www.neurofounders.co/startups/insai"},
+  {"slug":"insellar","name":"Insellar","country":"Germany","founded":"2025","category":"Neuromodulation","modality":"DBS","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Psychiatry","targetUser":"Patients","regulatory":"Preclinical","funding":"Pre-seed","website":"https://www.insellar.com/","profileUrl":"https://www.neurofounders.co/startups/insellar"},
+  {"slug":"intactis-bio","name":"Intactis Bio","country":"United States","founded":"2024","category":"Tools and Infrastructure","modality":"MEA","formFactor":"Software/app","interfaceDepth":"Ex vivo","indication":"Research","targetUser":"Developers","regulatory":"Non-medical","funding":"Pre-seed","website":"https://www.intactis.bio/","profileUrl":"https://www.neurofounders.co/startups/intactis-bio"},
+  {"slug":"iota-biosciences","name":"Iota Biosciences","country":"USA","founded":"2017","category":"Tools and Infrastructure","modality":"Ultrasound","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Other","targetUser":"Researchers","regulatory":"Preclinical","funding":"Acquired","website":"https://iota.bio/","profileUrl":"https://www.neurofounders.co/startups/iota-biosciences"},
+  {"slug":"kandu","name":"Kandu","country":"USA","founded":"2019","category":"Diagnostics and Assessment","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Stroke","targetUser":"Patients","regulatory":"Other approval","funding":"Series A","website":"http://www.kandu.com/","profileUrl":"https://www.neurofounders.co/startups/kandu"},
+  {"slug":"karavela-ai","name":"Karavela AI","country":"France","founded":"2025","category":"Tools and Infrastructure","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Mixed","regulatory":"Research only","funding":"Pre-seed","website":"https://karavela.ai/","profileUrl":"https://www.neurofounders.co/startups/karavela-ai"},
+  {"slug":"kinesix-xr","name":"Kinesix XR","country":"Canada","founded":"2018","category":"Diagnostics and Assessment","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Rehabilitation","targetUser":"Patients","regulatory":"Investigational","funding":"Unknown","website":"https://kinesixvr.com/","profileUrl":"https://www.neurofounders.co/startups/kinesix-xr"},
+  {"slug":"kneu-health","name":"Kneu Health","country":"UK","founded":"2022","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Parkinson's","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Seed","website":"https://kneu.com/","profileUrl":"https://www.neurofounders.co/startups/kneu-health"},
+  {"slug":"koniku","name":"Koniku","country":"USA","founded":"2015","category":"Tools and Infrastructure","modality":"MEA","formFactor":"Other","interfaceDepth":"Ex vivo","indication":"Research","targetUser":"Mixed","regulatory":"Research only","funding":"Series B","website":"https://koniku.com/","profileUrl":"https://www.neurofounders.co/startups/koniku"},
+  {"slug":"kyma-neuro","name":"Kyma Neuro","country":"United States","founded":"2026","category":"Tools and Infrastructure","modality":"Software","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Developers","regulatory":"Non-medical","funding":"Unknown","website":"https://www.kymaneuro.com/","profileUrl":"https://www.neurofounders.co/startups/kyma-neuro"},
+  {"slug":"linus-health","name":"Linus Health","country":"USA","founded":"2019","category":"Diagnostics and Assessment","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Dementia/impairment","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Series B","website":"http://www.linushealth.com/","profileUrl":"https://www.neurofounders.co/startups/linus-health"},
+  {"slug":"longeviti-neuro-solutions","name":"Longeviti Neuro Solutions","country":"USA","founded":"2016","category":"Tools and Infrastructure","modality":"Ultrasound","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Series A","website":"http://www.longeviti.com/","profileUrl":"https://www.neurofounders.co/startups/longeviti-neuro-solutions"},
+  {"slug":"lyeons-neurotech","name":"LYEONS Neurotech","country":"USA","founded":"2020","category":"Consumer Neurotech","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Pre-seed","website":"https://lyeons.com/","profileUrl":"https://www.neurofounders.co/startups/lyeons-neurotech"},
+  {"slug":"machinemd","name":"MachineMD","country":"Switzerland","founded":"2019","category":"Diagnostics and Assessment","modality":"Others","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"CE-Marked","funding":"Seed","website":"https://www.machinemd.com/2019","profileUrl":"https://www.neurofounders.co/startups/machinemd"},
+  {"slug":"machine-medicine","name":"Machine Medicine","country":"UK","founded":"2017","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Parkinson's","targetUser":"Mixed","regulatory":"Research only","funding":"Seed","website":"https://machinemedicine.com/","profileUrl":"https://www.neurofounders.co/startups/machine-medicine"},
+  {"slug":"magnetic-tides","name":"Magnetic Tides","country":"USA","founded":"2019","category":"Neuromodulation","modality":"TMS","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Stroke","targetUser":"Patients","regulatory":"Investigational","funding":"Non-dilutive","website":"https://www.magnetictides.com/","profileUrl":"https://www.neurofounders.co/startups/magnetic-tides"},
+  {"slug":"magnus-medical","name":"Magnus Medical","country":"USA","founded":"2021","category":"Neuromodulation","modality":"TMS","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Psychiatry","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Series B","website":"https://www.magnusmedical.com/","profileUrl":"https://www.neurofounders.co/startups/magnus-medical"},
+  {"slug":"manava-plus","name":"Manava Plus","country":"Italy","founded":"2022","category":"Neuromodulation","modality":"SCS","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Paralysis/motor","targetUser":"Patients","regulatory":"Preclinical","funding":"Non-dilutive","website":"https://manava.plus/","profileUrl":"https://www.neurofounders.co/startups/manava-plus"},
+  {"slug":"marbles-health","name":"Marbles Health","country":"India","founded":"2020","category":"Neuromodulation","modality":"tDCS/tES","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Psychiatry","targetUser":"Patients","regulatory":"Other approval","funding":"Seed","website":"https://www.marbles.health/","profileUrl":"https://www.neurofounders.co/startups/marbles-health"},
+  {"slug":"maxwell-biosystems","name":"MaxWell Biosystems","country":"Switzerland","founded":"2016","category":"Tools and Infrastructure","modality":"MEA","formFactor":"Other","interfaceDepth":"Ex vivo","indication":"Research","targetUser":"Mixed","regulatory":"Research only","funding":"Series A","website":"http://www.mxwbio.com/","profileUrl":"https://www.neurofounders.co/startups/maxwell-biosystems"},
+  {"slug":"merge-labs","name":"Merge Labs","country":"USA","founded":"2025","category":"Brain-Computer Interface","modality":"Ultrasound","formFactor":"Other","interfaceDepth":"Non-invasive","indication":"Other","targetUser":"Other","regulatory":"Preclinical","funding":"Seed","website":"https://www.merge.io/blog","profileUrl":"https://www.neurofounders.co/startups/merge-labs"},
+  {"slug":"mindrove","name":"MindRove","country":"Hungary","founded":"2017","category":"Tools and Infrastructure","modality":"EMG","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Mixed","regulatory":"Non-medical","funding":"Seed","website":"https://mindrove.com/","profileUrl":"https://www.neurofounders.co/startups/mindrove"},
+  {"slug":"mintneuro","name":"MintNeuro","country":"UK","founded":"2022","category":"Tools and Infrastructure","modality":"Intracortical","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Multi-indication","targetUser":"Mixed","regulatory":"Research only","funding":"Non-dilutive","website":"https://mintneuro.com/","profileUrl":"https://www.neurofounders.co/startups/mintneuro"},
+  {"slug":"mjn-neuroserveis","name":"MJN Neuroserveis","country":"Spain","founded":"2014","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Epilepsy","targetUser":"Patients","regulatory":"CE-Marked","funding":"Non-dilutive","website":"https://mjn.cat/en/","profileUrl":"https://www.neurofounders.co/startups/mjn-neuroserveis"},
+  {"slug":"mobia-medical","name":"Mobia Medical","country":"United States","founded":"2007","category":"Neuromodulation","modality":"VNS","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Stroke","targetUser":"Patients","regulatory":"FDA approved (PMA)","funding":"Public","website":"https://www.mobia.com/","profileUrl":"https://www.neurofounders.co/startups/mobia-medical"},
+  {"slug":"morph-labs","name":"Morph Labs","country":"USA","founded":"2023","category":"Brain-Computer Interface","modality":"Motor prosthetics","formFactor":"Prosthetic/assistive","interfaceDepth":"Non-invasive","indication":"Rehabilitation","targetUser":"Patients","regulatory":"Preclinical","funding":"Pre-seed","website":"https://morphlabs.tech/","profileUrl":"https://www.neurofounders.co/startups/morph-labs"},
+  {"slug":"myndlift","name":"Myndlift","country":"Israel","founded":"2016","category":"Consumer Neurotech","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Series A","website":"https://www.myndlift.com/","profileUrl":"https://www.neurofounders.co/startups/myndlift"},
+  {"slug":"myndspan","name":"MYndspan","country":"UK","founded":"2020","category":"Neuroimaging","modality":"MEG","formFactor":"Imaging system","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Non-dilutive","website":"https://myndspan.com/","profileUrl":"https://www.neurofounders.co/startups/myndspan"},
+  {"slug":"naox-technologies","name":"NAOX Technologies","country":"France","founded":"2018","category":"Neuroimaging","modality":"EEG","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Mixed","regulatory":"FDA cleared (510k)","funding":"Seed","website":"https://naox-technologies.com/","profileUrl":"https://www.neurofounders.co/startups/naox-technologies"},
+  {"slug":"naqi-logix","name":"Naqi Logix","country":"Canada","founded":"2020","category":"Consumer Neurotech","modality":"EEG","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Other","targetUser":"Mixed","regulatory":"Non-medical","funding":"Seed","website":"https://www.naqilogix.com/","profileUrl":"https://www.neurofounders.co/startups/naqi-logix"},
+  {"slug":"nervonik","name":"Nervonik","country":"USA","founded":"2020","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://nervonik.com/","profileUrl":"https://www.neurofounders.co/startups/nervonik"},
+  {"slug":"netholabs","name":"Netholabs","country":"UK","founded":"2022","category":"Tools and Infrastructure","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Researchers","regulatory":"Research only","funding":"Seed","website":"https://netholabs.com/","profileUrl":"https://www.neurofounders.co/startups/netholabs"},
+  {"slug":"neubond","name":"Neubond","country":"United Kingdom","founded":"2024","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Stroke","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://neubond.co.uk/","profileUrl":"https://www.neurofounders.co/startups/neubond"},
+  {"slug":"neunos","name":"Neunos","country":"Hungary","founded":"2018","category":"Neuromodulation","modality":"Intracortical","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Epilepsy","targetUser":"Patients","regulatory":"Investigational","funding":"Non-dilutive","website":"http://www.neunos.com/","profileUrl":"https://www.neurofounders.co/startups/neunos"},
+  {"slug":"neupulse","name":"Neupulse","country":"UK","founded":"2021","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Neurodevelopmental","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://www.neupulse.co/","profileUrl":"https://www.neurofounders.co/startups/neupulse"},
+  {"slug":"neural-galaxy","name":"Neural Galaxy","country":"China","founded":"2019","category":"Neuromodulation","modality":"TMS","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Multi-indication","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"https://www.neuralgalaxy.com/","profileUrl":"https://www.neurofounders.co/startups/neural-galaxy"},
+  {"slug":"neuralight","name":"NeuraLight","country":"Israel","founded":"2021","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Parkinson's","targetUser":"Pharma","regulatory":"Research only","funding":"Series A","website":"https://neuralight.ai/","profileUrl":"https://www.neurofounders.co/startups/neuralight"},
+  {"slug":"neuralpulse","name":"NeuralPulse","country":"UK","founded":"2025","category":"Neuromodulation","modality":"Intracortical","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Epilepsy","targetUser":"Patients","regulatory":"Investigational","funding":"Non-dilutive","website":"https://www.neural-pulse.com/","profileUrl":"https://www.neurofounders.co/startups/neuralpulse"},
+  {"slug":"neuramatrix","name":"NeuraMatrix","country":"China","founded":"2019","category":"Tools and Infrastructure","modality":"Multimodal","formFactor":"Other","interfaceDepth":"Other","indication":"Research","targetUser":"Researchers","regulatory":"Unknown","funding":"Series A","website":"https://www.neuramatrix.com.cn/","profileUrl":"https://www.neurofounders.co/startups/neuramatrix"},
+  {"slug":"neuraura","name":"Neuraura","country":"Canada","founded":"2017","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Women's health","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://www.getlooop.com/","profileUrl":"https://www.neurofounders.co/startups/neuraura"},
+  {"slug":"neuraworx","name":"NeuraWorx","country":"USA","founded":"2021","category":"Neuromodulation","modality":"Others","formFactor":"Other","interfaceDepth":"Non-invasive","indication":"Multi-indication","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://www.neuraworx.com/","profileUrl":"https://www.neurofounders.co/startups/neuraworx"},
+  {"slug":"neurinnov","name":"Neurinnov","country":"France","founded":"2018","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Paralysis/motor","targetUser":"Patients","regulatory":"Investigational","funding":"Non-dilutive","website":"https://neurinnov.com/","profileUrl":"https://www.neurofounders.co/startups/neurinnov"},
+  {"slug":"neuroacoustics","name":"Neuroacoustics","country":"USA","founded":"2023","category":"Neuromodulation","modality":"Light/sound","formFactor":"Other","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Patients","regulatory":"Preclinical","funding":"Pre-seed","website":"https://www.neuroacoustics.io/","profileUrl":"https://www.neurofounders.co/startups/neuroacoustics"},
+  {"slug":"neurobell","name":"NeuroBell","country":"Ireland","founded":"2022","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Other","interfaceDepth":"Non-invasive","indication":"Epilepsy","targetUser":"Clinicians","regulatory":"Investigational","funding":"Seed","website":"https://www.neurobell.com/","profileUrl":"https://www.neurofounders.co/startups/neurobell"},
+  {"slug":"neurobionics","name":"NeuroBionics","country":"USA","founded":"2023","category":"Tools and Infrastructure","modality":"Endovascular","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Multi-indication","targetUser":"Mixed","regulatory":"Preclinical","funding":"Seed","website":"https://neurobionics.io/","profileUrl":"https://www.neurofounders.co/startups/neurobionics"},
+  {"slug":"neurobrave","name":"NeuroBrave","country":"USA","founded":"2020","category":"Tools and Infrastructure","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Mixed","regulatory":"Non-medical","funding":"Seed","website":"http://neurobrave.com/","profileUrl":"https://www.neurofounders.co/startups/neurobrave"},
+  {"slug":"neurocast","name":"Neurocast","country":"Netherlands","founded":"2017","category":"Diagnostics and Assessment","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Mixed","regulatory":"Investigational","funding":"Seed","website":"https://www.neurocast.ai/","profileUrl":"https://www.neurofounders.co/startups/neurocast"},
+  {"slug":"neuroclues","name":"neuroClues","country":"Belgium","founded":"2020","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Non-invasive","indication":"Parkinson's","targetUser":"Clinicians","regulatory":"CE-Marked","funding":"Series A","website":"https://neuroclues.com/","profileUrl":"https://www.neurofounders.co/startups/neuroclues"},
+  {"slug":"neuroconcise","name":"NeuroCONCISE","country":"UK","founded":"2016","category":"Tools and Infrastructure","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Mixed","regulatory":"Research only","funding":"Seed","website":"http://www.neuroconcise.co.uk/","profileUrl":"https://www.neurofounders.co/startups/neuroconcise"},
+  {"slug":"neurode","name":"Neurode","country":"Australia","founded":"2021","category":"Neuromodulation","modality":"tDCS/tES","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Psychiatry","targetUser":"Patients","regulatory":"Investigational","funding":"Pre-seed","website":"https://www.neurodelabs.com/","profileUrl":"https://www.neurofounders.co/startups/neurode"},
+  {"slug":"neuroem-therapeutics","name":"NeuroEM Therapeutics","country":"USA","founded":"2013","category":"Neuromodulation","modality":"Others","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Dementia/impairment","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"https://neuroem.com/","profileUrl":"https://www.neurofounders.co/startups/neuroem-therapeutics"},
+  {"slug":"neuro-event-labs","name":"Neuro Event Labs","country":"Finland","founded":"2015","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Non-invasive","indication":"Epilepsy","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Series A","website":"https://neuroeventlabs.com/","profileUrl":"https://www.neurofounders.co/startups/neuro-event-labs"},
+  {"slug":"neurolief","name":"Neurolief","country":"Israel","founded":"2014","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Psychiatry","targetUser":"Patients","regulatory":"FDA approved (PMA)","funding":"Seed","website":"http://www.neurolief.com/","profileUrl":"https://www.neurofounders.co/startups/neurolief"},
+  {"slug":"neurolife","name":"NeuroLife","country":"United States","founded":"2026","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Rehabilitation","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://www.neurolifetech.com/","profileUrl":"https://www.neurofounders.co/startups/neurolife"},
+  {"slug":"neurolight","name":"NeuroLight","country":"USA","founded":"2017","category":"Neuromodulation","modality":"Light/sound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Patients","regulatory":"Investigational","funding":"Non-dilutive","website":"https://www.neurolight.co/","profileUrl":"https://www.neurofounders.co/startups/neurolight"},
+  {"slug":"neuronic","name":"Neuronic","country":"UK","founded":"2021","category":"Consumer Neurotech","modality":"Light/sound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Bootstrapped","website":"https://www.neuronic.online/","profileUrl":"https://www.neurofounders.co/startups/neuronic"},
+  {"slug":"neuronoff","name":"Neuronoff","country":"USA","founded":"2017","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://www.neuronoff.com/","profileUrl":"https://www.neurofounders.co/startups/neuronoff"},
+  {"slug":"neuronostics","name":"Neuronostics","country":"UK","founded":"2018","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Epilepsy","targetUser":"Clinicians","regulatory":"CE-Marked","funding":"Seed","website":"https://neuronostics.com/","profileUrl":"https://www.neurofounders.co/startups/neuronostics"},
+  {"slug":"neuros-medical","name":"Neuros Medical","country":"USA","founded":"2008","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"FDA approved (PMA)","funding":"Series C+","website":"https://www.neurosmedical.com/","profileUrl":"https://www.neurofounders.co/startups/neuros-medical"},
+  {"slug":"neurosteer","name":"Neurosteer","country":"USA","founded":"2015","category":"Neuroimaging","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Non-dilutive","website":"https://www.neurosteer.com/","profileUrl":"https://www.neurofounders.co/startups/neurosteer"},
+  {"slug":"neurotrack","name":"Neurotrack","country":"USA","founded":"2012","category":"Diagnostics and Assessment","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Dementia/impairment","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Series C+","website":"http://www.neurotrack.com/","profileUrl":"https://www.neurofounders.co/startups/neurotrack"},
+  {"slug":"neuroventis","name":"Neuroventis","country":"Belgium","founded":"2017","category":"Diagnostics and Assessment","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Mixed","regulatory":"CE-Marked","funding":"Acquired","website":"http://www.neuroventis.care/","profileUrl":"https://www.neurofounders.co/startups/neuroventis"},
+  {"slug":"neurox","name":"NeuroX","country":"UK","founded":"2024","category":"Consumer Neurotech","modality":"EEG","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Unknown","website":"https://www.neurox.co.uk/","profileUrl":"https://www.neurofounders.co/startups/neurox"},
+  {"slug":"neuspera","name":"Neuspera","country":"USA","founded":"2019","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Other","targetUser":"Patients","regulatory":"FDA approved (PMA)","funding":"Series C+","website":"https://www.neuspera.com/","profileUrl":"https://www.neurofounders.co/startups/neuspera"},
+  {"slug":"neuvana","name":"Neuvana","country":"USA","founded":"2015","category":"Consumer Neurotech","modality":"VNS","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Non-dilutive","website":"https://neuvanalife.com/","profileUrl":"https://www.neurofounders.co/startups/neuvana"},
+  {"slug":"nextmind-snap-ar","name":"NextMind (Snap AR)","country":"France","founded":"2017","category":"Consumer Neurotech","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Consumers","regulatory":"Non-medical","funding":"Acquired","website":"https://ar.snap.com/welcome-nextmind","profileUrl":"https://www.neurofounders.co/startups/nextmind-snap-ar"},
+  {"slug":"nimbus","name":"Nimbus","country":"Netherlands","founded":"2025","category":"Tools and Infrastructure","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Developers","regulatory":"Research only","funding":"Unknown","website":"https://nimbusbci.com/","profileUrl":"https://www.neurofounders.co/startups/nimbus"},
+  {"slug":"noctrix-health","name":"Noctrix Health","country":"USA","founded":"2018","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Patch","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Patients","regulatory":"Other approval","funding":"Acquired","website":"https://www.noctrixhealth.com/","profileUrl":"https://www.neurofounders.co/startups/noctrix-health"},
+  {"slug":"noxisense","name":"Noxisense","country":"Argentina","founded":"2024","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Non-invasive","indication":"Pain/migraine","targetUser":"Mixed","regulatory":"Preclinical","funding":"Non-dilutive","website":"https://www.noxisense.com/","profileUrl":"https://www.neurofounders.co/startups/noxisense"},
+  {"slug":"nubrain","name":"Nubrain","country":"USA","founded":"2025","category":"Tools and Infrastructure","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Researchers","regulatory":"Research only","funding":"Seed","website":"https://nubrain.com/","profileUrl":"https://www.neurofounders.co/startups/nubrain"},
+  {"slug":"nuromova-technology","name":"Nuromova Technology","country":"Hong Kong","founded":"2026","category":"Consumer Neurotech","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Unknown","website":"https://nuromova.com/","profileUrl":"https://www.neurofounders.co/startups/nuromova-technology"},
+  {"slug":"nuropod","name":"Nuropod","country":"United Kingdom","founded":"2015","category":"Consumer Neurotech","modality":"VNS","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Unknown","website":"https://nuropod.com/","profileUrl":"https://www.neurofounders.co/startups/nuropod"},
+  {"slug":"nuuron","name":"Nuuron","country":"Germany","founded":"2023","category":"Neuromodulation","modality":"Light/sound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Dementia/impairment","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://www.nuuron.com/","profileUrl":"https://www.neurofounders.co/startups/nuuron"},
+  {"slug":"oculogica","name":"Oculogica","country":"USA","founded":"2014","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Head injury","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Non-dilutive","website":"https://www.oculogica.com/","profileUrl":"https://www.neurofounders.co/startups/oculogica"},
+  {"slug":"open-neurotech","name":"Open Neurotech","country":"USA","founded":"2025","category":"Tools and Infrastructure","modality":"Others","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Paralysis/motor","targetUser":"Researchers","regulatory":"Research only","funding":"Unknown","website":"https://openneuro.tech/","profileUrl":"https://www.neurofounders.co/startups/open-neurotech"},
+  {"slug":"optohive","name":"Optohive","country":"Switzerland","founded":"2024","category":"Neuroimaging","modality":"fNIRS","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"General brain health","targetUser":"Researchers","regulatory":"Research only","funding":"Non-dilutive","website":"https://optohive.io/","profileUrl":"https://www.neurofounders.co/startups/optohive"},
+  {"slug":"orbit","name":"Orbit","country":"USA","founded":"2024","category":"Tools and Infrastructure","modality":"Software","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Developers","regulatory":"Research only","funding":"Pre-seed","website":"https://orbitneuro.com/","profileUrl":"https://www.neurofounders.co/startups/orbit"},
+  {"slug":"oymotion-technology","name":"OYMotion Technology","country":"China","founded":"2015","category":"Tools and Infrastructure","modality":"Motor prosthetics","formFactor":"Prosthetic/assistive","interfaceDepth":"Non-invasive","indication":"Rehabilitation","targetUser":"Mixed","regulatory":"Unknown","funding":"Series C+","website":"https://www.oymotion.com/en/indexen","profileUrl":"https://www.neurofounders.co/startups/oymotion-technology"},
+  {"slug":"panaxium","name":"Panaxium","country":"Canada","founded":"2016","category":"Neuromodulation","modality":"ECoG","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Stroke","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://panaxium.com/","profileUrl":"https://www.neurofounders.co/startups/panaxium"},
+  {"slug":"panda-surgical","name":"Panda Surgical","country":"UK","founded":"2022","category":"Tools and Infrastructure","modality":"Others","formFactor":"Surgical system","interfaceDepth":"Other","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"Preclinical","funding":"Seed","website":"https://www.panda-surgical.com/","profileUrl":"https://www.neurofounders.co/startups/panda-surgical"},
+  {"slug":"pathmaker-neurosystems","name":"PathMaker Neurosystems","country":"USA","founded":"2014","category":"Neuromodulation","modality":"tDCS/tES","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Paralysis/motor","targetUser":"Patients","regulatory":"Investigational","funding":"Non-dilutive","website":"https://pmneuro.com/","profileUrl":"https://www.neurofounders.co/startups/pathmaker-neurosystems"},
+  {"slug":"phantom-neuro","name":"Phantom Neuro","country":"USA","founded":"2016","category":"Tools and Infrastructure","modality":"EMG","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Rehabilitation","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"http://www.phantomneuro.com/","profileUrl":"https://www.neurofounders.co/startups/phantom-neuro"},
+  {"slug":"pieeg","name":"PiEEG","country":"UK","founded":"2022","category":"Tools and Infrastructure","modality":"EEG","formFactor":"Other","interfaceDepth":"Non-invasive","indication":"Research","targetUser":"Researchers","regulatory":"Research only","funding":"Non-dilutive","website":"https://pieeg.com/","profileUrl":"https://www.neurofounders.co/startups/pieeg"},
+  {"slug":"pigpug-health","name":"PigPug Health","country":"USA","founded":"2018","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Neurodevelopmental","targetUser":"Patients","regulatory":"Preclinical","funding":"Pre-seed","website":"https://pigpug.co/","profileUrl":"https://www.neurofounders.co/startups/pigpug-health"},
+  {"slug":"piramidal","name":"Piramidal","country":"USA","founded":"2024","category":"Tools and Infrastructure","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"General brain health","targetUser":"Clinicians","regulatory":"Investigational","funding":"Seed","website":"https://piramidal.ai/","profileUrl":"https://www.neurofounders.co/startups/piramidal"},
+  {"slug":"pison-technology","name":"Pison Technology","country":"USA","founded":"2016","category":"Tools and Infrastructure","modality":"ExG","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Pre-seed","website":"https://pison.com/","profileUrl":"https://www.neurofounders.co/startups/pison-technology"},
+  {"slug":"pixyl","name":"PIXYL","country":"France","founded":"2015","category":"Neuroimaging","modality":"(f)MRI","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Acquired","website":"https://pixyl.ai/","profileUrl":"https://www.neurofounders.co/startups/pixyl"},
+  {"slug":"positrigo","name":"Positrigo","country":"Switzerland","founded":"2018","category":"Neuroimaging","modality":"Others","formFactor":"Imaging system","interfaceDepth":"Non-invasive","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Series A","website":"https://www.positrigo.com/","profileUrl":"https://www.neurofounders.co/startups/positrigo"},
+  {"slug":"presidio-medical","name":"Presidio Medical","country":"USA","founded":"2017","category":"Neuromodulation","modality":"SCS","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Pain/migraine","targetUser":"Patients","regulatory":"Investigational","funding":"Series C+","website":"http://presidiomedical.com/","profileUrl":"https://www.neurofounders.co/startups/presidio-medical"},
+  {"slug":"prima-mente","name":"Prima Mente","country":"UK","founded":"2023","category":"Tools and Infrastructure","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Dementia/impairment","targetUser":"Pharma","regulatory":"Investigational","funding":"Seed","website":"https://www.primamente.com/","profileUrl":"https://www.neurofounders.co/startups/prima-mente"},
+  {"slug":"prophetic","name":"Prophetic","country":"USA","founded":"2023","category":"Consumer Neurotech","modality":"Ultrasound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Consumers","regulatory":"Non-medical","funding":"Pre-seed","website":"https://prophetic.com/","profileUrl":"https://www.neurofounders.co/startups/prophetic"},
+  {"slug":"purple-gaze","name":"Purple Gaze","country":"Netherlands","founded":"2019","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"General brain health","targetUser":"Researchers","regulatory":"Research only","funding":"Pre-seed","website":"http://purplegaze.io/","profileUrl":"https://www.neurofounders.co/startups/purple-gaze"},
+  {"slug":"qmenta","name":"QMENTA","country":"USA","founded":"2013","category":"Neuroimaging","modality":"(f)MRI","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Seed","website":"http://www.qmenta.com/","profileUrl":"https://www.neurofounders.co/startups/qmenta"},
+  {"slug":"quantanosis","name":"Quantanosis","country":"United States","founded":"2020","category":"Tools and Infrastructure","modality":"Ultrasound","formFactor":"Surgical system","interfaceDepth":"Non-invasive","indication":"Stroke","targetUser":"Patients","regulatory":"Preclinical","funding":"Seed","website":"https://www.quantanosis.ai/","profileUrl":"https://www.neurofounders.co/startups/quantanosis"},
+  {"slug":"qv-bioelectronics","name":"QV Bioelectronics","country":"UK","founded":"2018","category":"Neuromodulation","modality":"Others","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Tumors","targetUser":"Patients","regulatory":"Preclinical","funding":"Seed","website":"http://www.qvbio.co.uk/","profileUrl":"https://www.neurofounders.co/startups/qv-bioelectronics"},
+  {"slug":"qviti","name":"QVITI","country":"Poland","founded":"2010","category":"Neuromodulation","modality":"tDCS/tES","formFactor":"Patch","interfaceDepth":"Non-invasive","indication":"Rehabilitation","targetUser":"Clinicians","regulatory":"Other approval","funding":"Unknown","website":"http://neurodevice.pl/en/","profileUrl":"https://www.neurofounders.co/startups/qviti"},
+  {"slug":"reach-neuro","name":"Reach Neuro","country":"USA","founded":"2021","category":"Neuromodulation","modality":"SCS","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Stroke","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"http://www.reachneuro.com/","profileUrl":"https://www.neurofounders.co/startups/reach-neuro"},
+  {"slug":"resolve-stroke","name":"Resolve Stroke","country":"France","founded":"2022","category":"Neuroimaging","modality":"Ultrasound","formFactor":"Imaging system","interfaceDepth":"Non-invasive","indication":"Stroke","targetUser":"Clinicians","regulatory":"Investigational","funding":"Seed","website":"https://www.resolvestroke.com/","profileUrl":"https://www.neurofounders.co/startups/resolve-stroke"},
+  {"slug":"retispec","name":"RetiSpec","country":"Canada","founded":"2016","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Non-invasive","indication":"Dementia/impairment","targetUser":"Clinicians","regulatory":"Research only","funding":"Series A","website":"http://retispec.ai/","profileUrl":"https://www.neurofounders.co/startups/retispec"},
+  {"slug":"revision-implant","name":"ReVision Implant","country":"Belgium","founded":"2020","category":"Brain-Computer Interface","modality":"Visual prosthesis","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Vision","targetUser":"Patients","regulatory":"Preclinical","funding":"Series A","website":"https://revision-implant.com/","profileUrl":"https://www.neurofounders.co/startups/revision-implant"},
+  {"slug":"rhovica-neuroimaging","name":"Rhovica Neuroimaging","country":"Switzerland","founded":"2023","category":"Tools and Infrastructure","modality":"Others","formFactor":"Surgical system","interfaceDepth":"Minimally invasive","indication":"Other","targetUser":"Clinicians","regulatory":"Preclinical","funding":"Seed","website":"https://rhovica.com/","profileUrl":"https://www.neurofounders.co/startups/rhovica-neuroimaging"},
+  {"slug":"ruten-inc","name":"Ruten Inc","country":"USA","founded":"2016","category":"Brain-Computer Interface","modality":"Intracortical","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Paralysis/motor","targetUser":"Patients","regulatory":"Preclinical","funding":"Seed","website":"https://www.ruten-neuro.com/","profileUrl":"https://www.neurofounders.co/startups/ruten-inc"},
+  {"slug":"sabi","name":"Sabi","country":"USA","founded":"2023","category":"Consumer Neurotech","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Seed","website":"https://sabi.com/","profileUrl":"https://www.neurofounders.co/startups/sabi"},
+  {"slug":"samphire-neuroscience","name":"Samphire Neuroscience","country":"UK","founded":"2021","category":"Neuromodulation","modality":"tDCS/tES","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Women's health","targetUser":"Mixed","regulatory":"CE-Marked","funding":"Seed","website":"http://www.samphireneuro.com/","profileUrl":"https://www.neurofounders.co/startups/samphire-neuroscience"},
+  {"slug":"sana-health","name":"Sana Health","country":"USA","founded":"2015","category":"Neuromodulation","modality":"Light/sound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"Other approval","funding":"Series A","website":"http://www.sana.io/","profileUrl":"https://www.neurofounders.co/startups/sana-health"},
+  {"slug":"sanmai","name":"Sanmai","country":"USA","founded":"2020","category":"Neuromodulation","modality":"Ultrasound","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Psychiatry","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"https://sanmai.tech/","profileUrl":"https://www.neurofounders.co/startups/sanmai"},
+  {"slug":"secondwave-systems","name":"SecondWave Systems","country":"USA","founded":"2019","category":"Neuromodulation","modality":"Ultrasound","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Multi-indication","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"https://www.secondwaveus.com/","profileUrl":"https://www.neurofounders.co/startups/secondwave-systems"},
+  {"slug":"sensars","name":"Sensars","country":"USA","founded":"2014","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Other","targetUser":"Patients","regulatory":"Investigational","funding":"Pre-seed","website":"https://www.sensars.com/","profileUrl":"https://www.neurofounders.co/startups/sensars"},
+  {"slug":"sense-neuro-diagnostics","name":"Sense Neuro Diagnostics","country":"USA","founded":"2017","category":"Diagnostics and Assessment","modality":"Others","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Stroke","targetUser":"Clinicians","regulatory":"Investigational","funding":"Series B","website":"http://www.senseneuro.com/","profileUrl":"https://www.neurofounders.co/startups/sense-neuro-diagnostics"},
+  {"slug":"senseye","name":"Senseye","country":"USA","founded":"2015","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Psychiatry","targetUser":"Clinicians","regulatory":"Investigational","funding":"Series B","website":"http://www.senseye.co/","profileUrl":"https://www.neurofounders.co/startups/senseye"},
+  {"slug":"sensome","name":"Sensome","country":"France","founded":"2014","category":"Tools and Infrastructure","modality":"Endovascular","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Stroke","targetUser":"Clinicians","regulatory":"Investigational","funding":"Series B","website":"https://www.sensome.com/","profileUrl":"https://www.neurofounders.co/startups/sensome"},
+  {"slug":"sevaro","name":"Sevaro","country":"USA","founded":"2019","category":"Tools and Infrastructure","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"Other approval","funding":"Series B","website":"https://sevaro.com/","profileUrl":"https://www.neurofounders.co/startups/sevaro"},
+  {"slug":"sharper-sense","name":"Sharper Sense","country":"USA","founded":"2020","category":"Consumer Neurotech","modality":"VNS","formFactor":"Patch","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Seed","website":"http://www.sharpersense.com/","profileUrl":"https://www.neurofounders.co/startups/sharper-sense"},
+  {"slug":"shiratronics","name":"ShiraTronics","country":"USA","founded":"2018","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Pain/migraine","targetUser":"Patients","regulatory":"Investigational","funding":"Series B","website":"https://shiratronics.com/","profileUrl":"https://www.neurofounders.co/startups/shiratronics"},
+  {"slug":"somareality","name":"Somareality","country":"Austria","founded":"2020","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Mixed","regulatory":"Research only","funding":"Seed","website":"http://somareality.com/","profileUrl":"https://www.neurofounders.co/startups/somareality"},
+  {"slug":"somnee","name":"Somnee","country":"USA","founded":"2017","category":"Consumer Neurotech","modality":"tDCS/tES","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Consumers","regulatory":"Non-medical","funding":"Seed","website":"http://somneesleep.com/","profileUrl":"https://www.neurofounders.co/startups/somnee"},
+  {"slug":"sona","name":"SONA","country":"UK","founded":"2019","category":"Consumer Neurotech","modality":"VNS","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Pre-seed","website":"https://sona.help/","profileUrl":"https://www.neurofounders.co/startups/sona"},
+  {"slug":"sond","name":"SOND","country":"United States","founded":"2022","category":"Consumer Neurotech","modality":"Others","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Consumers","regulatory":"Non-medical","funding":"Seed","website":"https://sond.com/","profileUrl":"https://www.neurofounders.co/startups/sond"},
+  {"slug":"sonomind","name":"SonoMind","country":"France","founded":"2024","category":"Neuromodulation","modality":"Ultrasound","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Psychiatry","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"https://www.sonomind.com/","profileUrl":"https://www.neurofounders.co/startups/sonomind"},
+  {"slug":"sound-wave-innovation","name":"Sound Wave Innovation","country":"Japan","founded":"2020","category":"Neuromodulation","modality":"Ultrasound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Dementia/impairment","targetUser":"Patients","regulatory":"Investigational","funding":"Series C+","website":"https://sw-innovation.com/","profileUrl":"https://www.neurofounders.co/startups/sound-wave-innovation"},
+  {"slug":"spark-biomedical","name":"Spark Biomedical","country":"USA","founded":"2018","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Multi-indication","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Series A","website":"http://www.sparkbiomedical.com/","profileUrl":"https://www.neurofounders.co/startups/spark-biomedical"},
+  {"slug":"spinally","name":"Spinally","country":"Spain","founded":"2022","category":"Neuromodulation","modality":"SCS","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"Preclinical","funding":"Pre-seed","website":"https://spinallymedical.com/","profileUrl":"https://www.neurofounders.co/startups/spinally"},
+  {"slug":"spinex","name":"SpineX","country":"USA","founded":"2018","category":"Neuromodulation","modality":"SCS","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Paralysis/motor","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://spinex.co/","profileUrl":"https://www.neurofounders.co/startups/spinex"},
+  {"slug":"spiro-medical","name":"Spiro Medical","country":"USA","founded":"2023","category":"Neuromodulation","modality":"Nerve stimulator","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Other","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"https://www.spiro-medical.com/","profileUrl":"https://www.neurofounders.co/startups/spiro-medical"},
+  {"slug":"starfish-neuroscience","name":"Starfish Neuroscience","country":"USA","founded":"2022","category":"Tools and Infrastructure","modality":"Others","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Multi-indication","targetUser":"Patients","regulatory":"Preclinical","funding":"Unknown","website":"https://starfishneuroscience.com/","profileUrl":"https://www.neurofounders.co/startups/starfish-neuroscience"},
+  {"slug":"stimvia","name":"Stimvia","country":"Czechia","founded":"2014","category":"Neuromodulation","modality":"VNS","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Other","targetUser":"Patients","regulatory":"CE-Marked","funding":"Series A","website":"https://www.stimvia.com/en/","profileUrl":"https://www.neurofounders.co/startups/stimvia"},
+  {"slug":"subsense-inc","name":"Subsense Inc","country":"USA","founded":"2024","category":"Brain-Computer Interface","modality":"Others","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Multi-indication","targetUser":"Patients","regulatory":"Preclinical","funding":"Series A","website":"https://www.subsense-bci.com/","profileUrl":"https://www.neurofounders.co/startups/subsense-inc"},
+  {"slug":"subtle-medical","name":"Subtle Medical","country":"USA","founded":"2017","category":"Neuroimaging","modality":"(f)MRI","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Series C+","website":"http://www.subtlemedical.com/","profileUrl":"https://www.neurofounders.co/startups/subtle-medical"},
+  {"slug":"surf-therapeutics","name":"Surf Therapeutics","country":"USA","founded":"2023","category":"Neuromodulation","modality":"Ultrasound","formFactor":"Other","interfaceDepth":"Non-invasive","indication":"Other","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"https://www.surftherapeutics.com/","profileUrl":"https://www.neurofounders.co/startups/surf-therapeutics"},
+  {"slug":"sychedelic","name":"Sychedelic","country":"India","founded":"2023","category":"Consumer Neurotech","modality":"EEG","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Pre-seed","website":"https://sychedelic.com/","profileUrl":"https://www.neurofounders.co/startups/sychedelic"},
+  {"slug":"synaptive-medical","name":"Synaptive Medical","country":"Canada","founded":"2012","category":"Neuroimaging","modality":"(f)MRI","formFactor":"Imaging system","interfaceDepth":"Non-invasive","indication":"Tumors","targetUser":"Clinicians","regulatory":"CE-Marked","funding":"Series C+","website":"https://www.synaptivemedical.com/","profileUrl":"https://www.neurofounders.co/startups/synaptive-medical"},
+  {"slug":"synaptrix-labs","name":"Synaptrix Labs","country":"USA","founded":"2023","category":"Brain-Computer Interface","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Paralysis/motor","targetUser":"Patients","regulatory":"Preclinical","funding":"Seed","website":"https://www.synaptrix-labs.com/","profileUrl":"https://www.neurofounders.co/startups/synaptrix-labs"},
+  {"slug":"synchneuro","name":"SynchNeuro","country":"USA","founded":"2021","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Other","targetUser":"Patients","regulatory":"Preclinical","funding":"Seed","website":"http://www.synchneuro.com/","profileUrl":"https://www.neurofounders.co/startups/synchneuro"},
+  {"slug":"synchroni","name":"Synchroni","country":"USA","founded":"2024","category":"Tools and Infrastructure","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Mixed","regulatory":"Research only","funding":"Pre-seed","website":"https://synchroni.co/","profileUrl":"https://www.neurofounders.co/startups/synchroni"},
+  {"slug":"synergia-medical","name":"Synergia Medical","country":"Belgium","founded":"2015","category":"Neuromodulation","modality":"VNS","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Epilepsy","targetUser":"Patients","regulatory":"Investigational","funding":"Series B","website":"https://www.synergia-medical.com/","profileUrl":"https://www.neurofounders.co/startups/synergia-medical"},
+  {"slug":"syntropic","name":"Syntropic","country":"Austria","founded":"2023","category":"Neuromodulation","modality":"Light/sound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Psychiatry","targetUser":"Patients","regulatory":"Investigational","funding":"Seed","website":"http://www.syntropicmedical.com/","profileUrl":"https://www.neurofounders.co/startups/syntropic"},
+  {"slug":"temple","name":"Temple","country":"India","founded":"2025","category":"Consumer Neurotech","modality":"Others","formFactor":"Patch","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Seed","website":"https://temple.com/","profileUrl":"https://www.neurofounders.co/startups/temple"},
+  {"slug":"the-biological-computing-co","name":"The Biological Computing Co","country":"USA","founded":"2022","category":"Tools and Infrastructure","modality":"MEA","formFactor":"Other","interfaceDepth":"Ex vivo","indication":"Research","targetUser":"Mixed","regulatory":"Research only","funding":"Seed","website":"https://www.tbc.co/","profileUrl":"https://www.neurofounders.co/startups/the-biological-computing-co"},
+  {"slug":"therasonic","name":"TheraSonic","country":"France","founded":"2023","category":"Tools and Infrastructure","modality":"Ultrasound","formFactor":"Surgical system","interfaceDepth":"Non-invasive","indication":"Other","targetUser":"Pharma","regulatory":"Preclinical","funding":"Pre-seed","website":"https://www.therasonic.fr/","profileUrl":"https://www.neurofounders.co/startups/therasonic"},
+  {"slug":"theta-neurotech","name":"Theta Neurotech","country":"USA","founded":"2022","category":"Neuroimaging","modality":"EEG","formFactor":"Patch","interfaceDepth":"Non-invasive","indication":"Epilepsy","targetUser":"Patients","regulatory":"Preclinical","funding":"Pre-seed","website":"https://www.thetaneurotech.com/","profileUrl":"https://www.neurofounders.co/startups/theta-neurotech"},
+  {"slug":"thymia","name":"Thymia","country":"UK","founded":"2020","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Psychiatry","targetUser":"Clinicians","regulatory":"Investigational","funding":"Seed","website":"https://thymia.ai/","profileUrl":"https://www.neurofounders.co/startups/thymia"},
+  {"slug":"tiposi","name":"Tiposi","country":"USA","founded":"2020","category":"Neuroimaging","modality":"Others","formFactor":"Imaging system","interfaceDepth":"Non-invasive","indication":"Stroke","targetUser":"Clinicians","regulatory":"Investigational","funding":"Bootstrapped","website":"https://tiposi.com/","profileUrl":"https://www.neurofounders.co/startups/tiposi"},
+  {"slug":"uneeg-medical","name":"UNEEG Medical","country":"Denmark","founded":"2005","category":"Neuroimaging","modality":"EEG","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Epilepsy","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Non-dilutive","website":"http://uneeg.com/","profileUrl":"https://www.neurofounders.co/startups/uneeg-medical"},
+  {"slug":"universal-brain","name":"Universal Brain","country":"USA","founded":"2022","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Psychiatry","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Seed","website":"https://universal-brain.com/","profileUrl":"https://www.neurofounders.co/startups/universal-brain"},
+  {"slug":"u-the-mind-company","name":"U: The mind company","country":"USA","founded":"2018","category":"Consumer Neurotech","modality":"tDCS/tES","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Pre-seed","website":"https://uthemind.company/","profileUrl":"https://www.neurofounders.co/startups/u-the-mind-company"},
+  {"slug":"vagustim","name":"Vagustim","country":"Turkey","founded":"2019","category":"Consumer Neurotech","modality":"VNS","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Seed","website":"https://vagustim.io/","profileUrl":"https://www.neurofounders.co/startups/vagustim"},
+  {"slug":"vielight","name":"Vielight","country":"Canada","founded":"2011","category":"Consumer Neurotech","modality":"Light/sound","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Investigational","funding":"Unknown","website":"https://www.vielight.com/","profileUrl":"https://www.neurofounders.co/startups/vielight"},
+  {"slug":"viewmind","name":"ViewMind","country":"USA","founded":"2016","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Dementia/impairment","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"http://www.viewmind.com/","profileUrl":"https://www.neurofounders.co/startups/viewmind"},
+  {"slug":"vistim-labs","name":"Vistim Labs","country":"USA","founded":"2021","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Dementia/impairment","targetUser":"Clinicians","regulatory":"Other approval","funding":"Seed","website":"http://vistimlabs.com/","profileUrl":"https://www.neurofounders.co/startups/vistim-labs"},
+  {"slug":"vonova","name":"Vonova","country":"USA","founded":"2019","category":"Tools and Infrastructure","modality":"Endovascular","formFactor":"Implant","interfaceDepth":"Minimally invasive","indication":"Multi-indication","targetUser":"Patients","regulatory":"Preclinical","funding":"Seed","website":"http://www.vonova.io/","profileUrl":"https://www.neurofounders.co/startups/vonova"},
+  {"slug":"wave-neuroscience","name":"Wave Neuroscience","country":"USA","founded":"2019","category":"Neuromodulation","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Psychiatry","targetUser":"Mixed","regulatory":"FDA cleared (510k)","funding":"Series B","website":"https://www.waveneuro.com/","profileUrl":"https://www.neurofounders.co/startups/wave-neuroscience"},
+  {"slug":"wearable-devices","name":"Wearable Devices","country":"Israel","founded":"2014","category":"Tools and Infrastructure","modality":"EMG","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Public","website":"https://www.wearabledevices.co.il/","profileUrl":"https://www.neurofounders.co/startups/wearable-devices"},
+  {"slug":"winterlight-labs","name":"Winterlight Labs","country":"Canada","founded":"2015","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Dementia/impairment","targetUser":"Researchers","regulatory":"Research only","funding":"Acquired","website":"http://www.winterlightlabs.com/","profileUrl":"https://www.neurofounders.co/startups/winterlight-labs"},
+  {"slug":"wise","name":"WISE","country":"Italy","founded":"2011","category":"Tools and Infrastructure","modality":"ECoG","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Tumors","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Series C+","website":"https://wiseneuro.com/","profileUrl":"https://www.neurofounders.co/startups/wise"},
+  {"slug":"wisear","name":"Wisear","country":"France","founded":"2019","category":"Consumer Neurotech","modality":"EEG","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Wellness","targetUser":"Consumers","regulatory":"Non-medical","funding":"Acquired","website":"https://www.wisear.io/","profileUrl":"https://www.neurofounders.co/startups/wisear"},
+  {"slug":"xanastim","name":"XanaStim","country":"Switzerland","founded":"2021","category":"Neuromodulation","modality":"VNS","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"Sleep","targetUser":"Patients","regulatory":"Investigational","funding":"Unknown","website":"https://www.xanastim.com/","profileUrl":"https://www.neurofounders.co/startups/xanastim"},
+  {"slug":"x-trodes","name":"X-trodes","country":"Israel","founded":"2019","category":"Tools and Infrastructure","modality":"EEG","formFactor":"Patch","interfaceDepth":"Non-invasive","indication":"Other","targetUser":"Mixed","regulatory":"FDA cleared (510k)","funding":"Seed","website":"http://www.xtrodes.com/","profileUrl":"https://www.neurofounders.co/startups/x-trodes"},
+  {"slug":"yneuro","name":"Yneuro","country":"France","founded":"2019","category":"Consumer Neurotech","modality":"Software","formFactor":"Software/app","interfaceDepth":"Software","indication":"Other","targetUser":"Developers","regulatory":"Non-medical","funding":"Seed","website":"http://www.yneuro.com/","profileUrl":"https://www.neurofounders.co/startups/yneuro"},
+  {"slug":"zander-labs","name":"Zander Labs","country":"Netherlands","founded":"2016","category":"Tools and Infrastructure","modality":"EEG","formFactor":"Software/app","interfaceDepth":"Software","indication":"Research","targetUser":"Mixed","regulatory":"Non-medical","funding":"Non-dilutive","website":"https://www.zanderlabs.com/","profileUrl":"https://www.neurofounders.co/startups/zander-labs"},
+  {"slug":"zenowell","name":"ZenoWell","country":"Germany","founded":"2024","category":"Consumer Neurotech","modality":"VNS","formFactor":"Earbud/headphone","interfaceDepth":"Non-invasive","indication":"General brain health","targetUser":"Consumers","regulatory":"Non-medical","funding":"Unknown","website":"https://zenowell.ai/","profileUrl":"https://www.neurofounders.co/startups/zenowell"},
+  {"slug":"zeta-surgical","name":"Zeta Surgical","country":"USA","founded":"2018","category":"Tools and Infrastructure","modality":"Software","formFactor":"Surgical system","interfaceDepth":"Other","indication":"Multi-indication","targetUser":"Clinicians","regulatory":"FDA cleared (510k)","funding":"Seed","website":"https://www.zetasurgical.com/","profileUrl":"https://www.neurofounders.co/startups/zeta-surgical"},
+  {"slug":"zhiran-medical","name":"Zhiran Medical","country":"China","founded":"2022","category":"Brain-Computer Interface","modality":"Intracortical","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Paralysis/motor","targetUser":"Patients","regulatory":"Investigational","funding":"Series A","website":"https://bciflex.com/","profileUrl":"https://www.neurofounders.co/startups/zhiran-medical"}
+].map(neurofoundersCompany);
+
+
 export const companies: Company[] = [
+  ...neurofoundersCatalogCompanies,
   // Global priority company expansion: official product or technology material is linked for every profile.
   expansionCompany({ slug: "medtronic-neuromodulation", name: "Medtronic", category: "minimally-invasive", region: "north-america", modality: "Implantable DBS, spinal-cord stimulation, and neurostimulation systems", targetFunction: "Neurological and chronic-pain treatment through implanted neuromodulation", stage: "Major medical-device company with commercial neuromodulation product lines", evidenceLevel: "E6", deviceTypes: ["dbs", "spinal-stimulation", "peripheral-stimulation"], organizationScale: "major-medtech", readiness: "regulated-medical", hq: ["Minneapolis, MN", "United States", 44.9778, -93.265], website: "https://www.medtronic.com/us-en/healthcare-professionals/therapies-procedures/neurological.html" }),
   expansionCompany({ slug: "abbott-neuromodulation", name: "Abbott Neuromodulation", category: "minimally-invasive", region: "north-america", modality: "Implantable DBS, spinal-cord stimulation, and peripheral nerve stimulation", targetFunction: "Movement-disorder and chronic-pain treatment through implanted neuromodulation", stage: "Major medical-device company with commercial neuromodulation product lines", evidenceLevel: "E6", deviceTypes: ["dbs", "spinal-stimulation", "peripheral-stimulation"], organizationScale: "major-medtech", readiness: "regulated-medical", hq: ["Abbott Park, IL", "United States", 42.2589, -87.877], website: "https://www.neuromodulation.abbott/us/en/healthcare-professionals.html" }),

@@ -198,6 +198,56 @@ export interface Company {
   isSample: boolean;
 }
 
+export type ResearchVerificationStatus =
+  | "official-source-lead"
+  | "catalog-city"
+  | "country-only"
+  | "not-verified";
+
+export interface CompanyResearchLink {
+  title: string;
+  url: string;
+  publisher: string;
+}
+
+export interface CompanyResearchProfile {
+  companySlug: string;
+  companyName: string;
+  researchedOn: string;
+  sourceProfileUrl: string;
+  officialWebsite?: string;
+  overview: string;
+  founding: {
+    year?: number;
+    status: ResearchVerificationStatus;
+    note: string;
+    sourceUrl?: string;
+  };
+  headquarters: {
+    status: ResearchVerificationStatus;
+    display: string;
+    note: string;
+    sourceUrl?: string;
+  };
+  companyValue: {
+    status: "company-reported" | "dynamic-public-value" | "not-publicly-disclosed" | "not-verified";
+    label: string;
+    note: string;
+    sourceUrl?: string;
+  };
+  fundingStage: string;
+  regulatoryStatus: string;
+  reportedAccomplishments: Array<{
+    note: string;
+    sourceUrl: string;
+    publisher: string;
+    evidence: "company-reported";
+  }>;
+  papers: CompanyResearchLink[];
+  videos: CompanyResearchLink[];
+  notes: string;
+}
+
 export interface ProgramProject {
   id: string;
   companySlug: string;

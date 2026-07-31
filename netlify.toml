@@ -7,6 +7,12 @@
 
 [dev]
   command = "npm run dev"
-  targetPort = 3000
+  targetPort = 3100
   port = 8888
   framework = "#auto"
+
+[[headers]]
+  for = "/map-nodes.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Netlify-CDN-Cache-Control = "public, s-maxage=31536000, must-revalidate"

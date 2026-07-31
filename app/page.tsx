@@ -2,7 +2,7 @@ import Link from "next/link";
 import { EvidenceBadge, MilestoneTypeBadge, StatusChip } from "@/components/Badge";
 import { Countdown } from "@/components/Countdown";
 import { HomeActivityBoard, type HomeActivityItem } from "@/components/HomeActivityBoard";
-import { LeafletMap } from "@/components/LeafletMap";
+import { LazyLeafletMap } from "@/components/LazyLeafletMap";
 import { Signal } from "@/components/Signal";
 import {
   companies,
@@ -11,7 +11,6 @@ import {
   getCompanyName,
   getPrimarySource,
   getYoutubeSource,
-  mapNodes,
   papers,
   trials,
   upcomingMilestones
@@ -126,7 +125,7 @@ export default function HomePage() {
             Full map
           </Link>
         </div>
-        <LeafletMap nodes={mapNodes} variant="compact" />
+        <LazyLeafletMap variant="compact" />
         <div className="home-map-footer">
           <span>{companies.length} organizations across {countryCount} countries</span>
           <Link href="/explore">Explore organizations</Link>
