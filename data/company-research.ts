@@ -1,5 +1,6 @@
 import type { CompanyResearchProfile } from "./schema";
 import { sourcedExpansionResearchProfiles } from "./sourced-expansion";
+import { africaSouthAmericaResearchProfiles } from "./africa-south-america-expansion";
 
 export const companyResearchProfiles: CompanyResearchProfile[] = [
   {
@@ -16559,7 +16560,8 @@ export const companyResearchProfiles: CompanyResearchProfile[] = [
     "videos": [],
     "notes": "This record represents one documented project, not evidence of a mature dedicated BCI center or clinical system."
   },
-  ...sourcedExpansionResearchProfiles
+  ...sourcedExpansionResearchProfiles,
+  ...africaSouthAmericaResearchProfiles
 ];
 
 const companyResearchBySlug = new Map(companyResearchProfiles.map((profile) => [profile.companySlug, profile]));

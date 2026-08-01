@@ -91,7 +91,11 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
   const organizationScale = getOrganizationScale(company);
   const readiness = getReadiness(company);
   const research = getCompanyResearch(company.slug);
-  const discoverySourceUrl = company.sourceLinks.find((source) => !source.isPrimary)?.url ?? research?.sourceProfileUrl;
+  const representativePaperUrl = company.sourceLinks.find((source) => source.sourceType === "paper")?.url
+    ?? research?.papers[0]?.url;
+  const discoverySourceUrl = company.kind === "academic"
+    ? representativePaperUrl
+    : company.sourceLinks.find((source) => !source.isPrimary)?.url ?? research?.sourceProfileUrl;
   const discoverySourceLabel = discoverySourceUrl?.includes("neurofounders.co")
     ? "NeuroFounders profile ↗"
     : company.kind === "academic"

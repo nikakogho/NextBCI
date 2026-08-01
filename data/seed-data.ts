@@ -11,6 +11,7 @@ import type {
   Trial
 } from "./schema";
 import { sourcedExpansionOrganizations } from "./sourced-expansion";
+import { africaSouthAmericaOrganizations } from "./africa-south-america-expansion";
 
 const source = (
   title: string,
@@ -2583,7 +2584,8 @@ export const companies: Company[] = [
     ],
     isSample: false
   },
-  ...sourcedExpansionOrganizations
+  ...sourcedExpansionOrganizations,
+  ...africaSouthAmericaOrganizations
 ];
 
 export const programProjects: ProgramProject[] = [

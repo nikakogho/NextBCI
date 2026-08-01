@@ -222,3 +222,11 @@ Ranked candidates that are not dataset records yet:
 - [x] Replace parked, acquired, merged, semantically duplicated, or oncology-only candidates with current evidence-backed records, including a suffix-aware duplicate guard.
 - [x] Finish source-reachability, semantic-duplicate, build-size, and rendered-browser verification for the 864-record catalog.
 - [x] Run data validation, data-query tests, lint, typecheck, build, payload-budget checks, and a rendered map/profile smoke test.
+
+## Africa / South America 200-Organization Expansion
+
+- [x] Add exactly 100 new African and 100 new South American neurotechnology research organizations with recent DOI-backed evidence.
+- [x] Resolve paper affiliations to active ROR identities, official institutional homepages, organization types, founding-year leads, and city coordinates.
+- [x] Deduplicate normalized names and slugs against the complete 864-record catalog and within the regional expansion.
+- [x] Publish a complete 200-row source catalog with country coverage and explicit evidence limitations.
+- [x] Rebuild the 1,064-node static map payload, validate all profiles, audit 561 unique evidence/institution links, and run rendered map/profile smoke tests on port 3100. The link audit found no broken DOI or ROR evidence targets; 44 registry-supplied institutional homepages were unavailable from the audit host and remain explicitly non-authoritative identity leads.
