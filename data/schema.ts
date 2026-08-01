@@ -72,7 +72,8 @@ export type DemoClassification = keyof typeof demoClassificationLabels;
 export const companyCategories = {
   invasive: "Invasive",
   "minimally-invasive": "Minimally invasive",
-  "non-invasive": "Non-invasive"
+  "non-invasive": "Non-invasive",
+  unspecified: "Interface depth not verified"
 } as const;
 
 export type CompanyCategory = keyof typeof companyCategories;
@@ -88,6 +89,7 @@ export type Region = keyof typeof regions;
 
 export const organizationScales = {
   "university-research": "University research",
+  "company-maturity-unverified": "Company maturity unverified",
   "early-startup": "Early startup",
   "clinical-growth": "Clinical / growth company",
   "established-company": "Established company",
@@ -98,6 +100,7 @@ export type OrganizationScale = keyof typeof organizationScales;
 
 export const productReadiness = {
   "research-program": "Research program",
+  "readiness-unverified": "Readiness unverified",
   "research-infrastructure": "Research infrastructure",
   preclinical: "Preclinical",
   "human-research": "Human research",
@@ -108,6 +111,7 @@ export const productReadiness = {
 export type ProductReadiness = keyof typeof productReadiness;
 
 export const deviceTypes = {
+  "bci-unspecified": "BCI (device unspecified)",
   eeg: "EEG",
   meg: "MEG",
   mea: "MEA",
@@ -115,6 +119,7 @@ export const deviceTypes = {
   intracortical: "Intracortical",
   endovascular: "Endovascular",
   fmri: "fMRI",
+  mri: "MRI",
   fnirs: "fNIRS",
   ultrasound: "Ultrasound",
   "neural-probe": "Neural probe",
@@ -125,6 +130,9 @@ export const deviceTypes = {
   "spinal-stimulation": "Spinal stimulation",
   emg: "EMG",
   "eye-tracking": "Eye tracking",
+  "digital-neurology": "Digital neurology",
+  neurosurgical: "Neurosurgical / neurovascular",
+  "other-neurotech": "Other neurotechnology",
   "optical-imaging": "Optical imaging",
   "rehab-robotics": "Rehab robotics"
 } as const;

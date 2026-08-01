@@ -91,6 +91,12 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
   const organizationScale = getOrganizationScale(company);
   const readiness = getReadiness(company);
   const research = getCompanyResearch(company.slug);
+  const discoverySourceUrl = company.sourceLinks.find((source) => !source.isPrimary)?.url ?? research?.sourceProfileUrl;
+  const discoverySourceLabel = discoverySourceUrl?.includes("neurofounders.co")
+    ? "NeuroFounders profile ↗"
+    : company.kind === "academic"
+      ? "Representative paper ↗"
+      : "Discovery source ↗";
 
   return (
     <div className="page-shell page-stack">
@@ -209,8 +215,8 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         <section className="section">
           <div className="section-head">
             <div>
-              <p className="eyebrow">Company research</p>
-              <h2>Founding, location, value, and source leads</h2>
+              <p className="eyebrow">{company.kind === "academic" ? "Institution research" : "Company research"}</p>
+              <h2>{company.kind === "academic" ? "Location, evidence, and source leads" : "Founding, location, value, and source leads"}</h2>
             </div>
             <span className="badge type-badge">Researched {research.researchedOn}</span>
           </div>
@@ -219,7 +225,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
               <dl className="kv">
                 <dt>Founded</dt>
                 <dd>{research.founding.year ?? "Not verified"}</dd>
-                <dt>Founders</dt>
+                <dt>{company.kind === "academic" ? "Founding history" : "Founders"}</dt>
                 <dd>
                   {research.founding.note}{" "}
                   {research.founding.sourceUrl ? <a href={research.founding.sourceUrl} rel="noreferrer" target="_blank">Source ↗</a> : null}
@@ -229,12 +235,12 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
                   {research.headquarters.display}. {research.headquarters.note}{" "}
                   {research.headquarters.sourceUrl ? <a href={research.headquarters.sourceUrl} rel="noreferrer" target="_blank">Source ↗</a> : null}
                 </dd>
-                <dt>Company value</dt>
+                <dt>{company.kind === "academic" ? "Commercial valuation" : "Company value"}</dt>
                 <dd>
                   <b>{research.companyValue.label}.</b> {research.companyValue.note}{" "}
                   {research.companyValue.sourceUrl ? <a href={research.companyValue.sourceUrl} rel="noreferrer" target="_blank">Source ↗</a> : null}
                 </dd>
-                <dt>Funding stage</dt>
+                <dt>{company.kind === "academic" ? "Organization type" : "Funding stage"}</dt>
                 <dd>{research.fundingStage}</dd>
                 <dt>Regulatory label</dt>
                 <dd>{research.regulatoryStatus}</dd>
@@ -247,7 +253,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
               </div>
               <p className="hype">{research.notes}</p>
               <div className="meta-row">
-                <a className="btn btn-ghost btn-sm" href={research.sourceProfileUrl} rel="noreferrer" target="_blank">NeuroFounders profile ↗</a>
+                {discoverySourceUrl ? <a className="btn btn-ghost btn-sm" href={discoverySourceUrl} rel="noreferrer" target="_blank">{discoverySourceLabel}</a> : null}
                 {research.officialWebsite ? <a className="btn btn-ghost btn-sm" href={research.officialWebsite} rel="noreferrer" target="_blank">Official website ↗</a> : null}
               </div>
             </div>
@@ -259,15 +265,15 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         <section className="section">
           <div className="section-head">
             <div>
-              <p className="eyebrow">Company-reported highlights</p>
-              <h2>Accomplishment leads to verify</h2>
+              <p className="eyebrow">{company.kind === "academic" ? "Publication-linked highlights" : "Company-reported highlights"}</p>
+              <h2>{company.kind === "academic" ? "Representative research contribution" : "Accomplishment leads to verify"}</h2>
             </div>
-            <span className="badge type-badge">First-party claims</span>
+            <span className="badge type-badge">{company.kind === "academic" ? "Affiliation evidence" : "First-party claims"}</span>
           </div>
           <div className="card-grid">
             {research.reportedAccomplishments.map((item) => (
               <div className="tile" key={`${item.sourceUrl}-${item.note}`}>
-                <span className="badge type-badge">Company-reported</span>
+                <span className="badge type-badge">{company.kind === "academic" ? "Publication evidence" : "Company-reported"}</span>
                 <p className="muted-copy" style={{ fontSize: 13 }}>{item.note}</p>
                 <a className="btn btn-ghost btn-sm" href={item.sourceUrl} rel="noreferrer" target="_blank">{item.publisher} ↗</a>
               </div>

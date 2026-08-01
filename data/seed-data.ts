@@ -10,6 +10,7 @@ import type {
   SourceLink,
   Trial
 } from "./schema";
+import { sourcedExpansionOrganizations } from "./sourced-expansion";
 
 const source = (
   title: string,
@@ -673,7 +674,157 @@ export const companies: Company[] = [
   expansionCompany({ slug: "axiobionics", name: "Axiobionics", category: "non-invasive", region: "north-america", modality: "Functional electrical stimulation and rehabilitation systems", targetFunction: "Restoring movement and function after spinal cord injury and stroke", stage: "Commercial neurorehabilitation company", evidenceLevel: "E2", deviceTypes: ["tes", "rehab-robotics"], organizationScale: "early-startup", readiness: "commercial-nonmedical", hq: ["Wilmington, DE", "United States", 39.7391, -75.5398], founded: 2009, website: "https://axiobionics.com/" }),
   expansionCompany({ slug: "ottobock", name: "Ottobock", category: "non-invasive", region: "europe", modality: "Myoelectric prosthetics, orthotics, and rehabilitation technology", targetFunction: "Mobility and upper-limb assistive control", stage: "Major assistive-device company", evidenceLevel: "E2", deviceTypes: ["emg", "rehab-robotics"], organizationScale: "major-medtech", readiness: "regulated-medical", hq: ["Duderstadt", "Germany", 51.5091, 10.2598], website: "https://www.ottobock.com/" }),
   expansionCompany({ slug: "ossur", name: "Ossur", category: "non-invasive", region: "europe", modality: "Bionic prosthetics, orthotics, and mobility technology", targetFunction: "Upper- and lower-limb assistive control and rehabilitation", stage: "Major assistive-device company", evidenceLevel: "E2", deviceTypes: ["emg", "rehab-robotics"], organizationScale: "major-medtech", readiness: "regulated-medical", hq: ["Reykjavik", "Iceland", 64.1466, -21.9426], website: "https://www.ossur.com/" }),
+  // Russia: company and BCI-enabling infrastructure records with direct first-party sources.
+  expansionCompany({
+    slug: "neurobotics-russia",
+    name: "Neurobotics",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Dry-electrode EEG headsets, BCI software, neurorehabilitation, and assistive robotics",
+    targetFunction: "Non-invasive neural control, biofeedback, education, and assistive-device research",
+    stage: "Established BCI and neurophysiology equipment company",
+    evidenceLevel: "E2",
+    deviceTypes: ["eeg", "emg", "rehab-robotics"],
+    organizationScale: "established-company",
+    readiness: "research-infrastructure",
+    hq: ["Zelenograd, Moscow", "Russia", 55.9825, 37.1814],
+    founded: 2004,
+    website: "https://neurobotics.ru/en/",
+    referenceTitle: "Neurobotics neurophysiology and BCI portfolio",
+    summary: "Neurobotics develops NeuroPlay dry-electrode EEG systems, BCI software, neurorehabilitation equipment, and assistive robots in Zelenograd. Its official technical history documents BCI competition results, patents, and a publication list.",
+    hypeCheck: "The company has public products and demonstrations, but its performance and rehabilitation claims are not treated as clinical benefit without independent human outcome evidence.",
+    extraSources: [
+      source("Neurobotics company history, products, patents, and publications", "company-update", "https://neurobotics.ru/synopsis/", "Neurobotics"),
+      source("NeuroPlay EEG and BCI product manual", "institution-page", "https://neurobotics.ru/repo/neuroplaypro/NeuroPlay-Manual-v1.9-EN.pdf", "Neurobotics")
+    ]
+  }),
+  expansionCompany({
+    slug: "neiry",
+    name: "Neiry",
+    category: "minimally-invasive",
+    region: "europe",
+    modality: "Consumer EEG systems plus preclinical invasive neural interfaces and stimulation",
+    targetFunction: "Brain-state monitoring, device control, and preclinical bidirectional BCI research",
+    stage: "Commercial non-invasive products; invasive work remains preclinical or company-announced",
+    evidenceLevel: "E2",
+    deviceTypes: ["eeg", "neural-probe", "dbs"],
+    organizationScale: "clinical-growth",
+    readiness: "preclinical",
+    hq: ["Moscow", "Russia", 55.7558, 37.6173],
+    founded: 2017,
+    website: "https://neiry.ru/en",
+    funding: "Company reports a RUB 4.25B valuation; not independently verified",
+    referenceTitle: "Neiry technology portfolio",
+    summary: "Neiry, founded by Alexander Panov, sells non-invasive neurotechnology products and reports an expanding preclinical invasive program spanning thin-film electrodes, stimulation, and animal BCI experiments.",
+    hypeCheck: "The invasive accomplishments are animal studies and company reports. They are not human clinical evidence, and the company's valuation is recorded as a company-reported figure rather than independently verified net worth.",
+    extraSources: [
+      source("Neiry technologies and registration-certificate claims", "company-update", "https://neiry.ru/en/tech", "Neiry"),
+      source("Neiry conference video and biodrone demonstration", "demo-video", "https://neiry.ru/en/news/kh4icf9o11-neiryconf-2025-biorobots-and-other-neuro", "Neiry")
+    ]
+  }),
+  expansionCompany({
+    slug: "neurochat-russia",
+    name: "NeuroChat",
+    category: "non-invasive",
+    region: "europe",
+    modality: "P300 EEG communication and neurotraining platform",
+    targetFunction: "Text entry and digital communication for people with severe speech and motor impairment",
+    stage: "Commercial EEG communication system with published pilot research",
+    evidenceLevel: "E4",
+    deviceTypes: ["eeg"],
+    organizationScale: "clinical-growth",
+    readiness: "commercial-nonmedical",
+    hq: ["Moscow", "Russia", 55.7386, 37.5495],
+    founded: 2016,
+    website: "https://neuro.chat/en/",
+    referenceTitle: "NeuroChat official system history and demonstration",
+    summary: "NeuroChat is a P300 EEG communication and training system led by Natalia Galkina with scientific leadership from Alexander Kaplan. The company traces its first two-room demonstration to 2016 and commercial phase to 2019.",
+    hypeCheck: "A peer-reviewed post-stroke aphasia study supports text-entry feasibility, but the company site's broad cognitive-training and health language should not be read as established clinical efficacy.",
+    extraSources: [
+      source("Post-stroke aphasia text entry with NeuroChat", "paper", "https://www.sciencejournals.ru/view-article/?a=JourVND2004003Ganin&j=jourvnd&n=4&v=70&y=2020", "Journal of Higher Nervous Activity"),
+      source("NeuroChat user manual", "institution-page", "https://neuro.chat/upload/user_files/doc/rukovodstvo_polzovatelya.pdf", "NeuroChat")
+    ]
+  }),
+  expansionCompany({
+    slug: "bitronics-lab",
+    name: "BiTronics Lab",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Educational EEG, EMG, biosignal, and human-machine-interaction kits",
+    targetFunction: "Teaching and prototyping neurotechnology and biosignal interfaces",
+    stage: "Commercial educational neurotechnology company",
+    evidenceLevel: "E1",
+    deviceTypes: ["eeg", "emg"],
+    organizationScale: "early-startup",
+    readiness: "research-infrastructure",
+    hq: ["Moscow", "Russia", 55.7558, 37.6173],
+    founded: 2015,
+    website: "https://bitronicslab.com/en/",
+    referenceTitle: "BiTronics Lab neurotechnology education portfolio",
+    summary: "BiTronics Lab was founded by MIPT graduates and develops educational hardware, curricula, and software for physiology, neurotechnology, and human-machine interaction.",
+    hypeCheck: "This is BCI-enabling education and prototyping infrastructure, not a clinical BCI or evidence of restored patient function.",
+    extraSources: [source("BiTronics Lab company and production details", "company-update", "https://bitronicslab.com/terms", "BiTronics Lab")]
+  }),
+  expansionCompany({
+    slug: "neurotech-smc",
+    name: "SMC Neurotech",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Clinical EEG, EMG, evoked-potential, biofeedback, and rehabilitation systems",
+    targetFunction: "Electrophysiology diagnostics and biofeedback-supported neurological rehabilitation",
+    stage: "Established Russian medical-device manufacturer",
+    evidenceLevel: "E1",
+    deviceTypes: ["eeg", "emg", "rehab-robotics"],
+    organizationScale: "established-company",
+    readiness: "regulated-medical",
+    hq: ["Taganrog", "Russia", 47.2362, 38.8969],
+    founded: 1992,
+    website: "https://neurotech.ru/en/about/",
+    referenceTitle: "SMC Neurotech official company history",
+    summary: "SMC Neurotech develops and manufactures electrophysiology and rehabilitation systems in Taganrog. The company says its founding ideas originated with physician Valery Kotlyarov and lists Vadim Sakharov and Kotlyarov as current directors.",
+    hypeCheck: "The company is relevant as EEG and rehabilitation infrastructure. Its product registrations and biofeedback systems do not by themselves demonstrate a direct brain-computer interface or clinical superiority.",
+    extraSources: [source("Kinesis rehabilitation and biofeedback system", "company-update", "https://neurotech.ru/en/products/kinezis/", "SMC Neurotech")]
+  }),
+  expansionCompany({
+    slug: "mitsar-eeg",
+    name: "Mitsar",
+    category: "non-invasive",
+    region: "europe",
+    modality: "Clinical and research EEG systems with real-time BCI interfaces",
+    targetFunction: "EEG acquisition for clinical neurophysiology, research, and non-invasive BCI development",
+    stage: "Established EEG medical-device company",
+    evidenceLevel: "E4",
+    deviceTypes: ["eeg"],
+    organizationScale: "established-company",
+    readiness: "regulated-medical",
+    hq: ["Saint Petersburg", "Russia", 59.9311, 30.3609],
+    founded: 1996,
+    website: "https://mitsar-eeg.com/about-us/",
+    referenceTitle: "Mitsar official company history",
+    summary: "Mitsar was founded in 1996 by four Russian engineers and produces EEG hardware and software in Saint Petersburg. Its systems have been used as the acquisition layer in peer-reviewed BCI studies.",
+    hypeCheck: "The peer-reviewed result cited here validates a BCI study that used Mitsar acquisition hardware; it does not establish that Mitsar itself developed the decoder or therapy.",
+    extraSources: [
+      source("Mitsar company brochure and regulatory claims", "institution-page", "https://www.mitsar-eeg.com/download/MitsarEEG_Brochure_2020.pdf", "Mitsar"),
+      source("Encephalophone clinical pilot using Mitsar EEG", "paper", "https://pmc.ncbi.nlm.nih.gov/articles/PMC12206841/", "PubMed Central")
+    ]
+  }),
   // University research programs are shown as research organizations, not companies.
+  // Russia.
+  academicProgram({ slug: "msu-neurocomputer-interfaces", name: "MSU Laboratory for Neurophysiology and Neuro-Computer Interfaces", category: "non-invasive", region: "europe", modality: "EEG P300 and motor-imagery BCI, neurofeedback, and assistive communication", targetFunction: "Communication and rehabilitation research using non-invasive brain-computer interfaces", deviceTypes: ["eeg", "emg", "eye-tracking", "tms"], evidenceLevel: "E4", hq: ["Moscow", "Russia", 55.7033, 37.5287], founded: 1986, website: "https://human.bio.msu.ru/lab_neurophysiology.html", summary: "Alexander Kaplan founded the Human Brain Research Group in 1986; the current MSU laboratory develops EEG BCI methods including the scientific foundation used by NeuroChat.", referenceTitle: "MSU Laboratory for Neurophysiology and Neuro-Computer Interfaces" }),
+  academicProgram({ slug: "hse-bioelectric-interfaces", name: "HSE Center for Bioelectric Interfaces", category: "minimally-invasive", region: "europe", modality: "EEG, MEG, ECoG, neurofeedback, and state-dependent stimulation", targetFunction: "Non-invasive and invasive BCI methods for communication, prosthetic control, and neurofeedback", deviceTypes: ["eeg", "meg", "ecog", "tms", "tes", "emg"], evidenceLevel: "E1", hq: ["Moscow", "Russia", 55.7632, 37.6354], website: "https://bioelectric.hse.ru/", summary: "Directed by Alexey Ossadtchi, the HSE center develops bioelectric interfaces using EEG, MEG, EMG, and ECoG, including prosthetic-control and communication applications.", referenceTitle: "HSE Center for Bioelectric Interfaces" }),
+
+  // Western Asia.
+  academicProgram({ slug: "ktu-biomedical-bci", name: "Karadeniz Technical University Biomedical Research Laboratory", category: "non-invasive", region: "asia", modality: "EEG BCI, biomedical signal processing, and AI-assisted health systems", targetFunction: "Long-distance BCI communication and human-machine interaction research", deviceTypes: ["eeg"], evidenceLevel: "E1", hq: ["Trabzon", "Turkey", 41.0027, 39.7168], website: "https://www.ktu.edu.tr/ee/biomedical-research-laboratory-bal", summary: "Led by Onder Aydemir, KTU's Biomedical Research Laboratory conducts EEG BCI and biomedical-signal research, including a funded long-distance BCI communication project.", referenceTitle: "KTU Biomedical Research Laboratory" }),
+  academicProgram({ slug: "itu-cognitive-systems-bci", name: "ITU Cognitive Systems Laboratory", category: "non-invasive", region: "asia", modality: "EEG BCI, cognitive-state monitoring, signal processing, and machine learning", targetFunction: "Brain-computer interaction and cognitive human-machine systems research", deviceTypes: ["eeg"], evidenceLevel: "E1", hq: ["Istanbul", "Turkey", 41.1053, 29.0254], website: "https://cognitive.itu.edu.tr/", summary: "Istanbul Technical University's Cognitive Systems Laboratory lists brain-computer interfaces as a current research focus alongside cognitive monitoring and signal processing.", referenceTitle: "ITU Cognitive Systems Laboratory" }),
+  academicProgram({ slug: "kaust-neuroai", name: "KAUST NeuroAI", category: "non-invasive", region: "asia", modality: "Multimodal EEG-fNIRS neural decoding, foundation models, and brain-guided robotics", targetFunction: "Brain-computer control, assistive communication, and rehabilitative robotics", deviceTypes: ["eeg", "fnirs", "rehab-robotics"], evidenceLevel: "E1", hq: ["Thuwal", "Saudi Arabia", 22.3095, 39.1044], website: "https://cemse.kaust.edu.sa/research/resources/kaust-neuroai", summary: "Led by Mohamed Elhoseiny and Hernando Ombao, KAUST NeuroAI develops multimodal EEG-fNIRS decoding, brain-to-text and brain-to-image models, and BCI control for assistive robotic systems.", referenceTitle: "KAUST NeuroAI research program" }),
+  academicProgram({ slug: "neom-paradromics-bci-center", name: "NEOM-Paradromics BCI Center of Excellence", category: "invasive", region: "asia", modality: "Planned high-data-rate implanted BCI clinical research center", targetFunction: "Future clinical research and regional access to BCI-based therapies", deviceTypes: ["intracortical", "neural-probe"], evidenceLevel: "E1", hq: ["NEOM", "Saudi Arabia", 28.0, 35.0], website: "https://spa.gov.sa/en/N2260420", summary: "NEOM and Paradromics announced in February 2025 that a BCI Center of Excellence would be established in NEOM for clinical research and eventual MENA-region care.", referenceTitle: "Saudi Press Agency announcement of the NEOM-Paradromics agreement" }),
+  academicProgram({ slug: "kfsh-neuroscience-center", name: "KFSHRC Neuroscience Centre of Excellence", category: "invasive", region: "asia", modality: "Robot-assisted deep-brain stimulation and advanced neurological care", targetFunction: "Precision DBS surgery and clinical neuroscience programs", deviceTypes: ["dbs", "neural-probe", "optical-imaging"], evidenceLevel: "E1", hq: ["Riyadh", "Saudi Arabia", 24.7136, 46.6753], website: "https://www.spa.gov.sa/en/N2633987", summary: "King Faisal Specialist Hospital and Research Centre reports using an integrated robotic system for DBS procedures through its Neuroscience Centre of Excellence in 2026.", referenceTitle: "Saudi Press Agency report on KFSHRC robot-assisted DBS" }),
+  academicProgram({ slug: "mbzuai-assistive-bci", name: "MBZUAI Assistive BCI Research", category: "non-invasive", region: "asia", modality: "Brain-signal decoding for assistive robotic control", targetFunction: "Restoring independence through brain-controlled robots and assistive AI", deviceTypes: ["rehab-robotics"], evidenceLevel: "E2", hq: ["Abu Dhabi", "United Arab Emirates", 24.4539, 54.3773], website: "https://research.mbzuai.ac.ae/", summary: "Hisham Cholakkal's team at MBZUAI publicly demonstrated a brain-signal interface controlling a robotic dog as an assistive-mobility research example.", referenceTitle: "MBZUAI research showcase with assistive BCI demonstration" }),
+
+  // Central Asia and Mongolia.
+  academicProgram({ slug: "nazarbayev-bci-research", name: "Nazarbayev University BCI and Neural AI Research", category: "non-invasive", region: "asia", modality: "EEG BCI, brain-controlled robotics, explainable neural AI, and rehabilitation systems", targetFunction: "Assistive robot control, stroke rehabilitation, and epilepsy-focused neural decoding", deviceTypes: ["eeg", "rehab-robotics"], evidenceLevel: "E4", hq: ["Astana", "Kazakhstan", 51.0907, 71.3989], website: "https://research.nu.edu.kz/en/persons/berdakh-abibullaev/", summary: "Berdakh Abibullaev and collaborators at Nazarbayev University maintain active BCI projects spanning telepresence robots, stroke-rehabilitation exoskeletons, explainable EEG decoding, and epilepsy care.", referenceTitle: "Nazarbayev University BCI project portfolio" }),
+  academicProgram({ slug: "uzbekistan-neurocognitive-lab", name: "Uzbekistan Laboratory of Neurocognitive Research", category: "non-invasive", region: "asia", modality: "EEG, eye tracking, psychophysiology, and BCI research infrastructure", targetFunction: "Neurocognitive research, BCI prototyping, and neurorehabilitation education", deviceTypes: ["eeg", "eye-tracking", "emg"], evidenceLevel: "E1", hq: ["Tashkent", "Uzbekistan", 41.2995, 69.2401], website: "https://cfyi.uz/neurocognitive", summary: "The Center for Youth Initiatives' neurocognitive laboratory in Tashkent maintains EEG, eye-tracking, and psychophysiology equipment explicitly intended for BCI and neurorehabilitation research.", referenceTitle: "Laboratory of Neurocognitive Research equipment and remit" }),
+  academicProgram({ slug: "must-mongolia-bci", name: "Mongolian University of Science and Technology BCI Research", category: "non-invasive", region: "asia", modality: "EEG signal processing and imagined-action BCI prototypes", targetFunction: "Exploratory brain-command classification for device control", deviceTypes: ["eeg"], evidenceLevel: "E1", hq: ["Ulaanbaatar", "Mongolia", 47.8864, 106.9057], website: "https://must.edu.mn/media/uploads/2023/05/30/emhtegel23-8.pdf", summary: "A MUST electronics research team published an institution-hosted EEG BCI prototype that classified imagined light-control commands; this record represents a documented project, not a mature dedicated lab.", referenceTitle: "MUST proceedings paper on an EEG BCI prototype" }),
   academicProgram({ slug: "stanford-nptl", name: "Stanford Neural Prosthetics Translational Laboratory", category: "invasive", region: "north-america", modality: "Intracortical neural recording and speech/motor decoding", targetFunction: "Restoring communication and motor control through neural prostheses", deviceTypes: ["intracortical", "neural-probe"], evidenceLevel: "E4", hq: ["Stanford, CA", "United States", 37.4275, -122.1697], website: "https://med.stanford.edu/neurosurgery/research/brain-machine-interface.html" }),
   academicProgram({ slug: "pitt-rnel", name: "University of Pittsburgh Rehab Neural Engineering Labs", category: "invasive", region: "north-america", modality: "Intracortical BCI, sensory feedback, and robotic-arm control", targetFunction: "Restoring upper-limb movement and sensation after paralysis", deviceTypes: ["intracortical", "neural-probe", "rehab-robotics"], evidenceLevel: "E4", hq: ["Pittsburgh, PA", "United States", 40.4406, -79.9959], website: "https://www.rnel.pitt.edu/" }),
   academicProgram({ slug: "utah-bionic-engineering", name: "University of Utah Bionic Engineering Lab", category: "invasive", region: "north-america", modality: "Peripheral nerve interfaces, Utah arrays, and sensory prosthetics", targetFunction: "Bidirectional prosthetic control and sensory restoration", deviceTypes: ["neural-probe", "peripheral-stimulation", "emg"], evidenceLevel: "E4", hq: ["Salt Lake City, UT", "United States", 40.7608, -111.891], website: "https://bionicengineeringlab.org/" }),
@@ -2431,7 +2582,8 @@ export const companies: Company[] = [
       source("Science Corp preparing first human brain sensor", "company-update", "https://techcrunch.com/2026/04/14/max-hodaks-science-corp-is-preparing-to-place-its-first-sensor-in-a-human-brain/", "TechCrunch")
     ],
     isSample: false
-  }
+  },
+  ...sourcedExpansionOrganizations
 ];
 
 export const programProjects: ProgramProject[] = [

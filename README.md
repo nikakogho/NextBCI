@@ -40,6 +40,8 @@ npm run check:build-size
 npm run ci
 ```
 
+The network-dependent `npm run audit:sourced-links` command checks the 100 expansion-company sites, 200 institutional sites, and all retained expansion paper/video links for hard failures and parked domains. It is intentionally separate from deterministic CI because some publishers and organization sites rate-limit automated requests or block particular regions and clients.
+
 To benchmark rendered routes and static assets against a running local server:
 
 ```bash
@@ -89,15 +91,15 @@ The repo includes `netlify.toml` for Netlify's Next.js runtime:
 - Publish directory: `.next`
 - Node version: `22`
 - Netlify Dev target: `3100` (Netlify's proxy remains on `8888`)
-- Map data: generated as cacheable `/map-nodes.json`; Leaflet and the 547-node dataset load separately from the initial landing-page payload
+- Map data: generated as cacheable `/map-nodes.json`; Leaflet and the 864-node dataset load separately from the initial landing-page payload
 
 GitHub Actions runs `npm run ci` on pull requests, pushes to `main`, and manual dispatch. To turn on Netlify automatic deploys, link the repo/site with Netlify (`netlify init` or the Netlify UI) and let Netlify use the committed `netlify.toml` settings.
 
 ## Data coverage
 
-The dataset covers 547 clinical, translational, and BCI-enabling organizations: 503 companies and 44 university research organizations. It includes every company in the NeuroFounders Startup Map captured on 2026-07-31: 157 were already represented and 192 were added in the complete reconciliation. The source-by-source inclusion audit lives in [`docs/neurofounders-company-catalog.md`](docs/neurofounders-company-catalog.md); the 349-company enrichment coverage table lives in [`docs/neurofounders-company-research.md`](docs/neurofounders-company-research.md).
+The dataset covers 864 clinical, translational, and BCI-enabling organizations across 57 countries: 588 companies and 276 university, hospital, nonprofit, or public research organizations. It includes every company in the NeuroFounders Startup Map captured on 2026-07-31: 157 were already represented and 192 were added in the complete reconciliation. The source-by-source inclusion audit lives in [`docs/neurofounders-company-catalog.md`](docs/neurofounders-company-catalog.md); the 349-company enrichment coverage table lives in [`docs/neurofounders-company-research.md`](docs/neurofounders-company-research.md). A separate evidence audit documents the Russia, Western Asia, Central Asia, and East Asia-outside-China expansion in [`docs/russia-and-asia-coverage-audit.md`](docs/russia-and-asia-coverage-audit.md). The additional 100-company and 200-institution evidence catalog, including one retained source trail per record, lives in [`docs/sourced-neurotechnology-expansion-2026.md`](docs/sourced-neurotechnology-expansion-2026.md); its company-by-company founding, location, value-disclosure, paper, and video audit lives in [`docs/sourced-company-enrichment-2026.md`](docs/sourced-company-enrichment-2026.md).
 
-Every reconciled NeuroFounders company has a dated enrichment profile. It records founding year, founder and headquarters research status, funding and regulatory labels, a conservative company-value note, company-reported accomplishment leads, and curated official paper/publication and YouTube/Vimeo links. Private-company value is never inferred from funding stage, and first-party claims remain visibly separate from demonstrated NextBCI milestones.
+Every reconciled NeuroFounders company has a dated enrichment profile. It records founding year, founder and headquarters research status, funding and regulatory labels, a conservative company-value note, company-reported accomplishment leads, and curated official paper/publication and YouTube/Vimeo links. The 300 sourced-expansion profiles retain the same schema while explicitly leaving fields unverified when the discovery pass did not establish them. Private-company value is never inferred from funding stage, and first-party claims remain visibly separate from demonstrated NextBCI milestones.
 
 The tracker classifies each organization by invasiveness, normalized device class, organization profile, and readiness; academic research is always separated from commercial product readiness. The dataset includes conservative slices of EEG, MEG, MEA, ECoG, intracortical, endovascular, fMRI/fNIRS/hemodynamic, focused-ultrasound, neuroimaging, neuromodulation, assistive-control, and neural-interface infrastructure programs. Company project tracks split multi-line programs such as Neuralink Telepathy vs Blindsight, Blackrock NeuroPort/Utah Array vs MoveAgain, university research tracks, and brain-spine interface lines from ONWARD, NeuroRestore/EPFL-CHUV-UNIL, CEA/Clinatec, NeuCyber/CIBR, Fudan, Zhejiang University/Nanhu, and Hainan University. Every milestone, project track, trial, demo, paper, and company or institution profile links to a primary or reputable source. NeuroFounders-only discovery records remain at E1 until product-specific primary evidence supports a stronger level. Because the source map exposes country rather than city headquarters, those new records use visibly labeled country-level map points.
 

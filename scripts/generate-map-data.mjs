@@ -11,6 +11,8 @@ const projectRoot = resolve(scriptDir, "..");
 const loadSeedData = async () => {
   const sourcePath = join(projectRoot, "data", "seed-data.ts");
   const sourceText = await readFile(sourcePath, "utf8");
+  const expansionPath = join(projectRoot, "data", "sourced-expansion.ts");
+  const expansionText = await readFile(expansionPath, "utf8");
   const transpiled = ts.transpileModule(sourceText, {
     compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022, verbatimModuleSyntax: true },
     fileName: sourcePath,
@@ -24,8 +26,14 @@ const loadSeedData = async () => {
   const tempDir = join(tmpdir(), `nextbci-map-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   await mkdir(tempDir, { recursive: true });
   const modulePath = join(tempDir, "seed-data.mjs");
+  const transpiledExpansion = ts.transpileModule(expansionText, {
+    compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022, verbatimModuleSyntax: true },
+    fileName: expansionPath,
+    reportDiagnostics: true
+  });
   try {
-    await writeFile(modulePath, transpiled.outputText, "utf8");
+    await writeFile(join(tempDir, "sourced-expansion.mjs"), transpiledExpansion.outputText, "utf8");
+    await writeFile(modulePath, transpiled.outputText.replace('"./sourced-expansion"', '"./sourced-expansion.mjs"'), "utf8");
     return await import(`${pathToFileURL(modulePath).href}?t=${Date.now()}`);
   } finally {
     await rm(tempDir, { recursive: true, force: true });

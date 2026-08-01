@@ -53,12 +53,44 @@ const isAscendingByDate = (items) =>
 
 try {
   await mkdir(tempDir, { recursive: true });
-  await Promise.all(["schema.ts", "seed-data.ts", "queries.ts"].map(transpileDataFile));
+  await Promise.all(["schema.ts", "sourced-expansion.ts", "seed-data.ts", "queries.ts"].map(transpileDataFile));
 
   const schema = requireFromTemp("./schema.js");
   const queries = requireFromTemp("./queries.js");
   const companySlugs = new Set(queries.companies.map((company) => company.slug));
   const evidenceLevelKeys = Object.keys(schema.evidenceLevels);
+
+  assert(queries.companies.length === 864, "the catalog should contain 864 organizations after the sourced expansion");
+  assert(
+    queries.companies.filter((organization) => organization.kind === "company").length === 588,
+    "the catalog should contain 588 companies"
+  );
+  assert(
+    queries.companies.filter((organization) => organization.kind === "academic").length === 276,
+    "the catalog should contain 276 academic or institutional organizations"
+  );
+  const normalizedOrganizationNames = queries.companies.map((organization) => organization.name
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\b(incorporated|corporation|company|limited|inc|corp|ltd|llc|plc|ag|gmbh|sa|bv|the)\b/g, "")
+    .replace(/[^a-z0-9]+/g, ""));
+  assert(
+    new Set(normalizedOrganizationNames).size === normalizedOrganizationNames.length,
+    "organization names should remain unique after conservative normalization"
+  );
+  const semanticallyNormalizedCompanyNames = queries.companies
+    .filter((organization) => organization.kind === "company")
+    .map((organization) => organization.name
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/\b(incorporated|corporation|company|limited|inc|corp|ltd|llc|plc|ag|gmbh|sa|bv|the|technology|technologies|tech)\b/g, "")
+      .replace(/[^a-z0-9]+/g, ""));
+  assert(
+    new Set(semanticallyNormalizedCompanyNames).size === semanticallyNormalizedCompanyNames.length,
+    "company names should remain unique after stripping common corporate and technology suffixes"
+  );
 
   assert(
     evidenceLevelKeys.join(",") === "E0,E1,E2,E3,E4,E5,E6",

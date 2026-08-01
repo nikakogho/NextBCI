@@ -10,6 +10,8 @@ const projectRoot = resolve(import.meta.dirname, "..");
 const loadModule = async (fileName) => {
   const sourcePath = join(projectRoot, "data", fileName);
   const sourceText = await readFile(sourcePath, "utf8");
+  const expansionPath = join(projectRoot, "data", "sourced-expansion.ts");
+  const expansionText = await readFile(expansionPath, "utf8");
   const transpiled = ts.transpileModule(sourceText, {
     compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022, verbatimModuleSyntax: true },
     fileName: sourcePath,
@@ -23,8 +25,14 @@ const loadModule = async (fileName) => {
   const tempDir = join(tmpdir(), `nextbci-research-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   await mkdir(tempDir, { recursive: true });
   const modulePath = join(tempDir, fileName.replace(/\.ts$/, ".mjs"));
+  const transpiledExpansion = ts.transpileModule(expansionText, {
+    compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022, verbatimModuleSyntax: true },
+    fileName: expansionPath,
+    reportDiagnostics: true
+  });
   try {
-    await writeFile(modulePath, transpiled.outputText, "utf8");
+    await writeFile(join(tempDir, "sourced-expansion.mjs"), transpiledExpansion.outputText, "utf8");
+    await writeFile(modulePath, transpiled.outputText.replace('"./sourced-expansion"', '"./sourced-expansion.mjs"'), "utf8");
     return await import(`${pathToFileURL(modulePath).href}?t=${Date.now()}`);
   } finally {
     await rm(tempDir, { recursive: true, force: true });
@@ -45,8 +53,8 @@ const validUrl = (value) => {
   }
 };
 
-if (!Array.isArray(companyResearchProfiles) || companyResearchProfiles.length !== 349) {
-  errors.push(`companyResearchProfiles must contain all 349 NeuroFounders profiles; found ${companyResearchProfiles?.length ?? "non-array"}`);
+if (!Array.isArray(companyResearchProfiles) || companyResearchProfiles.length < 349) {
+  errors.push(`companyResearchProfiles must contain the 349 NeuroFounders profiles plus any sourced regional additions; found ${companyResearchProfiles?.length ?? "non-array"}`);
 } else {
   companyResearchProfiles.forEach((profile, index) => {
     const path = `companyResearchProfiles[${index}]`;
@@ -71,10 +79,17 @@ if (!Array.isArray(companyResearchProfiles) || companyResearchProfiles.length !=
   });
 }
 
+const neurofoundersProfileCount = Array.isArray(companyResearchProfiles)
+  ? companyResearchProfiles.filter((profile) => profile.sourceProfileUrl.startsWith("https://www.neurofounders.co/startups/")).length
+  : 0;
+if (neurofoundersProfileCount !== 349) {
+  errors.push(`companyResearchProfiles must preserve all 349 NeuroFounders source profiles; found ${neurofoundersProfileCount}`);
+}
+
 if (errors.length) {
   console.error("Company research validation failed:");
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
 
-console.log(`Company research validation passed: ${companyResearchProfiles.length} NeuroFounders profiles.`);
+console.log(`Company research validation passed: ${companyResearchProfiles.length} profiles (${neurofoundersProfileCount} NeuroFounders).`);

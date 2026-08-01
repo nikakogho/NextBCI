@@ -203,3 +203,22 @@ Ranked candidates that are not dataset records yet:
 - [x] Add CDN-oriented caching for the generated map dataset in `netlify.toml`.
 - [x] Rebuild, compare cold payload sizes, and verify the homepage and full map in a real browser.
 - [x] Add CI payload budgets for the homepage and map route shells to prevent the first-load regression from returning.
+
+## Russia and Asia Coverage Audit
+
+- [x] Measure existing country coverage before adding records: Russia and Central Asia were empty; Western Asia already had 16 Israel records and one Turkey record; East Asia outside China already had 24 records across Japan, South Korea, and Taiwan.
+- [x] Add six sourced Russian companies and two Russian university BCI centers with city coordinates, leadership or founder status, value-disclosure status, accomplishments, and available papers or videos.
+- [x] Add six Western Asian research organizations across Turkey, Saudi Arabia, and the UAE without representing announced centers as operational programs.
+- [x] Add sustained or documented BCI work in Kazakhstan, Uzbekistan, and Mongolia, while keeping single-project and infrastructure records at E1.
+- [x] Record the regional methodology, additions, exclusions, and remaining evidence gaps in `docs/russia-and-asia-coverage-audit.md`.
+
+## 100 Company / 200 Research-Organization Expansion
+
+- [x] Deduplicate discovery candidates against the existing 564 records by normalized name, slug, and base website domain.
+- [x] Add exactly 100 current neurotechnology companies with an official site plus a dated discovery/audit source.
+- [x] Add exactly 200 academic, hospital, nonprofit, or public research organizations with a representative 2023-2026 peer-reviewed neurotechnology paper.
+- [x] Generate dated research profiles that preserve unknown founders, valuations, funding, regulatory status, videos, and papers as unknown instead of inferring them.
+- [x] Publish the complete 300-record source catalog in `docs/sourced-neurotechnology-expansion-2026.md` and keep the rendered map payload static.
+- [x] Replace parked, acquired, merged, semantically duplicated, or oncology-only candidates with current evidence-backed records, including a suffix-aware duplicate guard.
+- [x] Finish source-reachability, semantic-duplicate, build-size, and rendered-browser verification for the 864-record catalog.
+- [x] Run data validation, data-query tests, lint, typecheck, build, payload-budget checks, and a rendered map/profile smoke test.

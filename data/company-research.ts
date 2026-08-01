@@ -1,4 +1,5 @@
 import type { CompanyResearchProfile } from "./schema";
+import { sourcedExpansionResearchProfiles } from "./sourced-expansion";
 
 export const companyResearchProfiles: CompanyResearchProfile[] = [
   {
@@ -15830,7 +15831,735 @@ export const companyResearchProfiles: CompanyResearchProfile[] = [
     "papers": [],
     "videos": [],
     "notes": "NeuroFounders is used for structured discovery; linked first-party claims are not automatically treated as demonstrated clinical evidence."
-  }
+  },
+  {
+    "companySlug": "neurobotics-russia",
+    "companyName": "Neurobotics",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://neurobotics.ru/synopsis/",
+    "officialWebsite": "https://neurobotics.ru/en/",
+    "overview": "Russian BCI and neurophysiology company developing NeuroPlay dry-electrode EEG systems, BCI software, neurorehabilitation equipment, and assistive robotics.",
+    "founding": {
+      "year": 2004,
+      "status": "official-source-lead",
+      "note": "The company dates its founding to February 24, 2004. A founder name was not verified; Vladimir Konyshev is identified as current CEO.",
+      "sourceUrl": "https://neurobotics.ru/news/2020/nam-16-let/"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Zelenograd, Moscow, Russia",
+      "note": "The official contact page lists Zelenograd and the company says NeuroPlay production is in Zelenograd and Dolgoprudny.",
+      "sourceUrl": "https://neurobotics.ru/en/"
+    },
+    "companyValue": {
+      "status": "not-publicly-disclosed",
+      "label": "Not publicly disclosed",
+      "note": "No reliable public valuation was found. A 2020 strategic-investment announcement did not disclose an amount.",
+      "sourceUrl": "https://neurobotics.ru/news/2020/gk-nejrobotiks-poluchit-investiczii-ot-gk-med-robotiks/"
+    },
+    "fundingStage": "Private; strategic investment announced in 2020",
+    "regulatoryStatus": "Mixed research, education, and rehabilitation portfolio; product-level registrations require separate verification",
+    "reportedAccomplishments": [
+      {
+        "note": "The company reports second place in the 2021 CYBATHLON BCI competition and fourth place in 2016 using its brain-rhythm control approach.",
+        "sourceUrl": "https://neurobotics.ru/synopsis/",
+        "publisher": "Neurobotics",
+        "evidence": "company-reported"
+      },
+      {
+        "note": "The official technical history lists NeuroPlay hardware and software, assistive devices, BCI patents, and a multi-year publication record.",
+        "sourceUrl": "https://neurobotics.ru/synopsis/",
+        "publisher": "Neurobotics",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [
+      {
+        "title": "Neurobotics publication list",
+        "url": "https://neurobotics.ru/synopsis/",
+        "publisher": "Neurobotics"
+      },
+      {
+        "title": "NeuroPlay EEG and BCI manual",
+        "url": "https://neurobotics.ru/repo/neuroplaypro/NeuroPlay-Manual-v1.9-EN.pdf",
+        "publisher": "Neurobotics"
+      }
+    ],
+    "videos": [
+      {
+        "title": "Human beings and computers: Neurobotics BCI segment",
+        "url": "https://neurobotics.ru/en/news/2021y/chelovek-i-kompyuter-dve-formyi-zhizni-na-zemle.-chelovek-i-zakon.-fragment-vyipuska-ot-19.03.2021-en/",
+        "publisher": "Neurobotics"
+      }
+    ],
+    "notes": "Commercial availability and public demos are recorded separately from demonstrated clinical benefit."
+  },
+  {
+    "companySlug": "neiry",
+    "companyName": "Neiry",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://neiry.ru/en",
+    "officialWebsite": "https://neiry.ru/en",
+    "overview": "Moscow neurotechnology group with commercial non-invasive products and a preclinical invasive program covering thin-film electrodes, stimulation, and animal BCI experiments.",
+    "founding": {
+      "year": 2017,
+      "status": "official-source-lead",
+      "note": "An official company article says Neiry was founded in 2017; later company copy also describes work since 2018. Alexander Panov is identified as founder and CEO.",
+      "sourceUrl": "https://neiry.ru/news/tpost/xz80v4rsi1-neiry-i-skillbox-konsultatsii-po-viboru"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Moscow, Russia",
+      "note": "The official group page lists a Moscow address on Bakuninskaya Street; Neiry also reports a Dubai office.",
+      "sourceUrl": "https://neiry.ru/about-us"
+    },
+    "companyValue": {
+      "status": "company-reported",
+      "label": "RUB 4.25B company-reported valuation",
+      "note": "Neiry's own investor-strategy material reports a successful investment round at a RUB 4.25 billion valuation. It was not independently verified and is not presented as net worth.",
+      "sourceUrl": "https://neiry.ru/en/strategy"
+    },
+    "fundingStage": "Private growth company; company reports more than RUB 1B attracted over five years",
+    "regulatoryStatus": "Commercial non-invasive products; invasive systems remain preclinical or company-announced",
+    "reportedAccomplishments": [
+      {
+        "note": "Neiry reports that five rats carrying invasive interfaces completed a stratospheric flight and returned alive; this remains a company-reported animal experiment.",
+        "sourceUrl": "https://neiry.ru/en/news/nrlgu5yeo1-the-first-stratospheric-flight-of-pythia",
+        "publisher": "Neiry",
+        "evidence": "company-reported"
+      },
+      {
+        "note": "The company lists non-invasive products, medical-device registrations, laboratories, manufacturing sites, and more than 20 animal neurosurgical procedures per month.",
+        "sourceUrl": "https://neiry.ru/en/tech",
+        "publisher": "Neiry",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [
+      {
+        "title": "Neiry.Conf 2025 presentations and biodrone demonstration",
+        "url": "https://neiry.ru/en/news/kh4icf9o11-neiryconf-2025-biorobots-and-other-neuro",
+        "publisher": "Neiry"
+      }
+    ],
+    "notes": "Animal experiments and company metrics are not treated as human clinical evidence."
+  },
+  {
+    "companySlug": "neurochat-russia",
+    "companyName": "NeuroChat",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://neuro.chat/en/",
+    "officialWebsite": "https://neuro.chat/en/",
+    "overview": "P300 EEG communication and neurotraining system intended to let people with severe speech and motor impairment select characters and commands without muscular movement.",
+    "founding": {
+      "year": 2016,
+      "status": "official-source-lead",
+      "note": "The project dates its first public two-room NeuroChat experiment to December 2016. It identifies Natalia Galkina as CEO and ideological inspirer, with Alexander Kaplan as scientific leader; it does not provide a formal legal-founder statement.",
+      "sourceUrl": "https://neuro.chat/en/"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Moscow, Russia",
+      "note": "The official site lists 1-y Mozhayskiy Tupik, Moscow.",
+      "sourceUrl": "https://neuro.chat/en/"
+    },
+    "companyValue": {
+      "status": "not-publicly-disclosed",
+      "label": "Not publicly disclosed",
+      "note": "No reliable public company valuation was found. The listed retail price of a system is not a company valuation."
+    },
+    "fundingStage": "Private; funding stage not reliably disclosed",
+    "regulatoryStatus": "Commercially offered system; no independent clearance or approval was verified in this pass",
+    "reportedAccomplishments": [
+      {
+        "note": "The company documents a Moscow-to-Los Angeles neural-communication session in 2018, a CES Asia healthcare-category award, and transition to commercial phase in 2019.",
+        "sourceUrl": "https://neuro.chat/en/",
+        "publisher": "NeuroChat",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [
+      {
+        "title": "Text entry by patients with post-stroke aphasia using NeuroChat P300 BCI",
+        "url": "https://www.sciencejournals.ru/view-article/?a=JourVND2004003Ganin&j=jourvnd&n=4&v=70&y=2020",
+        "publisher": "Journal of Higher Nervous Activity"
+      },
+      {
+        "title": "NeuroChat user manual",
+        "url": "https://neuro.chat/upload/user_files/doc/rukovodstvo_polzovatelya.pdf",
+        "publisher": "NeuroChat"
+      }
+    ],
+    "videos": [
+      {
+        "title": "Official NeuroChat system film and demonstrations",
+        "url": "https://neuro.chat/en/",
+        "publisher": "NeuroChat"
+      }
+    ],
+    "notes": "The paper supports feasibility of text entry; broad cognitive-training benefits remain separate claims."
+  },
+  {
+    "companySlug": "bitronics-lab",
+    "companyName": "BiTronics Lab",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://bitronicslab.com/en/",
+    "officialWebsite": "https://bitronicslab.com/en/",
+    "overview": "Educational neurotechnology company producing EEG, EMG, physiology, and human-machine-interaction kits and curricula.",
+    "founding": {
+      "year": 2015,
+      "status": "official-source-lead",
+      "note": "The official site says the company was founded in 2015 by MIPT graduates; individual legal founders are not named there.",
+      "sourceUrl": "https://bitronicslab.com/terms"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Moscow and Moscow region, Russia",
+      "note": "The company says R&D, production, testing, and fulfillment are located in Moscow and the Moscow region.",
+      "sourceUrl": "https://bitronicslab.com/terms"
+    },
+    "companyValue": {
+      "status": "not-publicly-disclosed",
+      "label": "Not publicly disclosed",
+      "note": "No reliable valuation or net-worth figure was found."
+    },
+    "fundingStage": "Private; not publicly disclosed",
+    "regulatoryStatus": "Educational and research equipment",
+    "reportedAccomplishments": [
+      {
+        "note": "The company reports deployment in more than 200 educational institutions in Russia and Kazakhstan and a 2020 national educational-equipment competition win.",
+        "sourceUrl": "https://bitronicslab.com/en/",
+        "publisher": "BiTronics Lab",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [],
+    "notes": "This is BCI-enabling education infrastructure, not a clinical BCI company."
+  },
+  {
+    "companySlug": "neurotech-smc",
+    "companyName": "SMC Neurotech",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://neurotech.ru/en/about/",
+    "officialWebsite": "https://neurotech.ru/en/about/",
+    "overview": "Established electrophysiology and rehabilitation equipment manufacturer producing EEG, EMG, evoked-potential, biofeedback, and home-use systems.",
+    "founding": {
+      "year": 1992,
+      "status": "official-source-lead",
+      "note": "The company dates its activity to 1992 and says the original ideas began with Pyatigorsk physician Valery Kotlyarov. It lists Kotlyarov and Vadim Sakharov as directors, but does not explicitly label a legal founder.",
+      "sourceUrl": "https://neurotech.ru/news/2022-g/neirotekhu-30-let/"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Taganrog, Russia",
+      "note": "The official privacy policy lists SMC Neurotech at 119-A Dzerzhinsky, Taganrog.",
+      "sourceUrl": "https://neurotech.ru/en/neurotech_privacy_policy/"
+    },
+    "companyValue": {
+      "status": "not-publicly-disclosed",
+      "label": "Not publicly disclosed",
+      "note": "No reliable public valuation was found."
+    },
+    "fundingStage": "Private established company",
+    "regulatoryStatus": "Medical-device portfolio; product-specific registrations vary by market",
+    "reportedAccomplishments": [
+      {
+        "note": "The company reports more than three decades of electrophysiology manufacturing and commercial biofeedback rehabilitation systems.",
+        "sourceUrl": "https://neurotech.ru/en/about/",
+        "publisher": "SMC Neurotech",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [],
+    "notes": "The record is included as BCI-enabling clinical infrastructure; EEG and biofeedback products are not automatically direct BCIs."
+  },
+  {
+    "companySlug": "mitsar-eeg",
+    "companyName": "Mitsar",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://mitsar-eeg.com/about-us/",
+    "officialWebsite": "https://mitsar-eeg.com/about-us/",
+    "overview": "Saint Petersburg manufacturer of clinical and research EEG systems used in neurophysiology and real-time BCI experiments.",
+    "founding": {
+      "year": 1996,
+      "status": "official-source-lead",
+      "note": "Mitsar says it was founded in 1996 by four Russian engineers; their names were not identified in the official material reviewed.",
+      "sourceUrl": "https://www.mitsar-eeg.com/download/MitsarEEG_Brochure_2020.pdf"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Saint Petersburg, Russia",
+      "note": "The company lists its headquarters and production in Saint Petersburg.",
+      "sourceUrl": "https://mitsar-eeg.com/about-us/"
+    },
+    "companyValue": {
+      "status": "not-publicly-disclosed",
+      "label": "Not publicly disclosed",
+      "note": "No reliable public valuation was found."
+    },
+    "fundingStage": "Private established company",
+    "regulatoryStatus": "Company reports CE marking, ISO 13485, and FDA 510(k) K143233 for Mitsar-EEG",
+    "reportedAccomplishments": [
+      {
+        "note": "Mitsar reports international distribution since 2004 and regulatory certifications for its EEG systems.",
+        "sourceUrl": "https://www.mitsar-eeg.com/download/MitsarEEG_Brochure_2020.pdf",
+        "publisher": "Mitsar",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [
+      {
+        "title": "Musical auditory feedback BCI clinical pilot using Mitsar EEG",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12206841/",
+        "publisher": "PubMed Central"
+      }
+    ],
+    "videos": [],
+    "notes": "The cited study used Mitsar as acquisition hardware; it does not attribute the full BCI system or outcome to the manufacturer."
+  },
+  {
+    "companySlug": "msu-neurocomputer-interfaces",
+    "companyName": "MSU Laboratory for Neurophysiology and Neuro-Computer Interfaces",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://human.bio.msu.ru/lab_neurophysiology.html",
+    "officialWebsite": "https://human.bio.msu.ru/lab_neurophysiology.html",
+    "overview": "Long-running Moscow State University laboratory working on EEG communication, motor-imagery BCI, neurofeedback, and neurorehabilitation.",
+    "founding": {
+      "year": 1986,
+      "status": "official-source-lead",
+      "note": "MSU says Alexander Kaplan created the predecessor Human Brain Research Group in 1986 and continues to lead the laboratory.",
+      "sourceUrl": "https://human.bio.msu.ru/lab_neurophysiology.html"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Moscow, Russia",
+      "note": "The laboratory is located in the MSU Faculty of Biology on Leninskie Gory.",
+      "sourceUrl": "https://human.bio.msu.ru/lab_neurophysiology.html"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — university laboratory",
+      "note": "Academic laboratories do not have a company valuation or net worth."
+    },
+    "fundingStage": "University research program",
+    "regulatoryStatus": "Research program; deployments and products require separate review",
+    "reportedAccomplishments": [
+      {
+        "note": "MSU attributes the EEG P300 work underlying NeuroChat to the laboratory and reports more than 500 NeuroChat systems in hospital use; this deployment count is an institutional claim.",
+        "sourceUrl": "https://human.bio.msu.ru/lab_neurophysiology.html",
+        "publisher": "Moscow State University",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [
+      {
+        "title": "MSU laboratory research and BCI publication links",
+        "url": "https://brain.bio.msu.ru/research_e.htm",
+        "publisher": "Moscow State University"
+      },
+      {
+        "title": "P300 BCI with stimuli presented on moving objects",
+        "url": "https://istina.msu.ru/media/publications/articles/1cb/064/2222012/Ganin_Shishkin_Kaplan_2011_BCIGraz__A_P300_BCI_with_Stimuli_Presented_on_Moving_Objects_.pdf",
+        "publisher": "Moscow State University"
+      }
+    ],
+    "videos": [],
+    "notes": "Institutional deployment figures are not independently audited clinical outcomes."
+  },
+  {
+    "companySlug": "hse-bioelectric-interfaces",
+    "companyName": "HSE Center for Bioelectric Interfaces",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://bioelectric.hse.ru/",
+    "officialWebsite": "https://bioelectric.hse.ru/",
+    "overview": "HSE research center developing EEG, MEG, ECoG, neurofeedback, prosthetic-control, and state-dependent stimulation methods.",
+    "founding": {
+      "status": "not-verified",
+      "note": "A formal center founding year was not verified. The associated HSE brain-stimulation facility dates to 2015. Alexey Ossadtchi is the current center director.",
+      "sourceUrl": "https://www.hse.ru/cdm-centre/brain/about/"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Moscow, Russia",
+      "note": "The center lists Krivokolenny Lane in Moscow.",
+      "sourceUrl": "https://bioelectric.hse.ru/"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — university research center",
+      "note": "Academic centers do not have a company valuation or net worth."
+    },
+    "fundingStage": "University research center",
+    "regulatoryStatus": "Research program",
+    "reportedAccomplishments": [
+      {
+        "note": "HSE documents active work on non-invasive and invasive brain-signal analysis for communication, prosthetic control, neurofeedback, TMS, and tACS.",
+        "sourceUrl": "https://iri.hse.ru/ru/PD_CBI_2024",
+        "publisher": "HSE University",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [
+      {
+        "title": "Center publications",
+        "url": "https://bioelectric.hse.ru/",
+        "publisher": "HSE University"
+      }
+    ],
+    "videos": [],
+    "notes": "The center has a broad BCI remit; project-specific evidence should be evaluated separately."
+  },
+  {
+    "companySlug": "ktu-biomedical-bci",
+    "companyName": "Karadeniz Technical University Biomedical Research Laboratory",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://www.ktu.edu.tr/ee/biomedical-research-laboratory-bal",
+    "officialWebsite": "https://www.ktu.edu.tr/ee/biomedical-research-laboratory-bal",
+    "overview": "Trabzon laboratory focused on EEG BCI, biomedical signal processing, pattern recognition, and AI-assisted health systems.",
+    "founding": {
+      "status": "not-verified",
+      "note": "A laboratory founding year was not stated. Prof. Onder Aydemir is the director.",
+      "sourceUrl": "https://www.ktu.edu.tr/ee/biomedical-research-laboratory-bal"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Trabzon, Turkey",
+      "note": "The lab operates within Karadeniz Technical University's Electrical and Electronics Engineering department.",
+      "sourceUrl": "https://www.ktu.edu.tr/ee/biomedical-research-laboratory-bal"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — university laboratory",
+      "note": "Academic laboratories do not have a company valuation or net worth."
+    },
+    "fundingStage": "University research laboratory; includes a TUSEB-funded project",
+    "regulatoryStatus": "Research program",
+    "reportedAccomplishments": [
+      {
+        "note": "The lab lists the TUSEB-funded Long-Distance Brain-Computer Interface Communication Design project and a 2024 hands-on BCI training program.",
+        "sourceUrl": "https://www.ktu.edu.tr/ee/biomedical-research-laboratory-bal",
+        "publisher": "Karadeniz Technical University",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [],
+    "notes": "The current evidence establishes an active research program, not a clinical product."
+  },
+  {
+    "companySlug": "itu-cognitive-systems-bci",
+    "companyName": "ITU Cognitive Systems Laboratory",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://cognitive.itu.edu.tr/",
+    "officialWebsite": "https://cognitive.itu.edu.tr/",
+    "overview": "Istanbul Technical University laboratory studying BCI, cognitive-state monitoring, signal processing, and cognitive human-machine systems.",
+    "founding": {
+      "status": "not-verified",
+      "note": "A founding year and named founder were not stated on the current laboratory page."
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Istanbul, Turkey",
+      "note": "The laboratory lists ITU Ayazaga Campus in Maslak, Istanbul.",
+      "sourceUrl": "https://elk.itu.edu.tr/en/research/laboratories/cognitives-systems-laboratory"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — university laboratory",
+      "note": "Academic laboratories do not have a company valuation or net worth."
+    },
+    "fundingStage": "University research laboratory",
+    "regulatoryStatus": "Research program",
+    "reportedAccomplishments": [],
+    "papers": [],
+    "videos": [],
+    "notes": "The official page confirms a current BCI research focus but does not document a specific clinical deployment."
+  },
+  {
+    "companySlug": "kaust-neuroai",
+    "companyName": "KAUST NeuroAI",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://cemse.kaust.edu.sa/research/resources/kaust-neuroai",
+    "officialWebsite": "https://cemse.kaust.edu.sa/research/resources/kaust-neuroai",
+    "overview": "KAUST research community combining simultaneous EEG-fNIRS, neural foundation models, BCI control, and assistive robotics.",
+    "founding": {
+      "status": "not-verified",
+      "note": "A formal start year was not stated. The program lists Mohamed Elhoseiny and Hernando Ombao as leading faculty.",
+      "sourceUrl": "https://cemse.kaust.edu.sa/research/resources/kaust-neuroai"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Thuwal, Saudi Arabia",
+      "note": "The program is part of KAUST in Thuwal.",
+      "sourceUrl": "https://cemse.kaust.edu.sa/research/resources/kaust-neuroai"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — university research program",
+      "note": "Academic research programs do not have a company valuation or net worth."
+    },
+    "fundingStage": "University research program",
+    "regulatoryStatus": "Research program",
+    "reportedAccomplishments": [
+      {
+        "note": "The official program page documents integrated EEG-fNIRS infrastructure and active work on neural decoding, brain-to-text/image modeling, and BCI-controlled assistive systems.",
+        "sourceUrl": "https://cemse.kaust.edu.sa/research/resources/kaust-neuroai",
+        "publisher": "KAUST",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [],
+    "notes": "The program describes active research directions; it does not yet provide patient outcome evidence on the cited page."
+  },
+  {
+    "companySlug": "neom-paradromics-bci-center",
+    "companyName": "NEOM-Paradromics BCI Center of Excellence",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://spa.gov.sa/en/N2260420",
+    "officialWebsite": "https://spa.gov.sa/en/N2260420",
+    "overview": "Planned Saudi BCI clinical-research center announced as part of NEOM Investment Fund's strategic investment in Paradromics.",
+    "founding": {
+      "year": 2025,
+      "status": "official-source-lead",
+      "note": "The partnership and intention to establish the center were announced on February 12, 2025. This is an announcement date, not proof that the center is operational.",
+      "sourceUrl": "https://spa.gov.sa/en/N2260420"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "NEOM, Saudi Arabia",
+      "note": "The announcement says the center will be established within NEOM; a specific operating site was not identified.",
+      "sourceUrl": "https://spa.gov.sa/en/N2260420"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — announced joint center",
+      "note": "The center is not a standalone valued company, and the investment amount was not disclosed in the cited announcement."
+    },
+    "fundingStage": "Strategic partnership and investment announced; amount undisclosed",
+    "regulatoryStatus": "Planned clinical-research center; operations and trials not verified",
+    "reportedAccomplishments": [
+      {
+        "note": "NEOM and Paradromics signed a strategic agreement that includes establishing a BCI Center of Excellence.",
+        "sourceUrl": "https://spa.gov.sa/en/N2260420",
+        "publisher": "Saudi Press Agency",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [],
+    "notes": "Tracked as an announced center. No evidence was found that it is operating, recruiting, implanting, or running a registered trial."
+  },
+  {
+    "companySlug": "kfsh-neuroscience-center",
+    "companyName": "KFSHRC Neuroscience Centre of Excellence",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://www.spa.gov.sa/en/N2633987",
+    "officialWebsite": "https://www.spa.gov.sa/en/N2633987",
+    "overview": "Riyadh clinical neuroscience center using advanced imaging, navigation, and robotics for deep-brain-stimulation procedures.",
+    "founding": {
+      "status": "not-verified",
+      "note": "A formal founding year or individual founder for the center was not verified."
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Riyadh, Saudi Arabia",
+      "note": "The program is part of King Faisal Specialist Hospital and Research Centre in Riyadh.",
+      "sourceUrl": "https://www.spa.gov.sa/en/N2633987"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — hospital research center",
+      "note": "Hospital centers do not have a standalone company valuation or net worth."
+    },
+    "fundingStage": "Hospital clinical and research program",
+    "regulatoryStatus": "Clinical DBS procedures; device and indication approvals require product-level review",
+    "reportedAccomplishments": [
+      {
+        "note": "Saudi Press Agency reports that the center used an integrated robotic system for several DBS procedures in 2026, with submillimeter trajectory guidance.",
+        "sourceUrl": "https://www.spa.gov.sa/en/N2633987",
+        "publisher": "Saudi Press Agency",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [],
+    "notes": "This is neuromodulation and surgical infrastructure rather than a communication BCI."
+  },
+  {
+    "companySlug": "mbzuai-assistive-bci",
+    "companyName": "MBZUAI Assistive BCI Research",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://research.mbzuai.ac.ae/",
+    "officialWebsite": "https://research.mbzuai.ac.ae/",
+    "overview": "Abu Dhabi research demonstration using brain signals to control a robotic dog in an assistive-AI context.",
+    "founding": {
+      "status": "not-verified",
+      "note": "A formal program start year was not stated. The showcased work is attributed to Prof. Hisham Cholakkal and his team.",
+      "sourceUrl": "https://research.mbzuai.ac.ae/"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Abu Dhabi, United Arab Emirates",
+      "note": "The project is presented by Mohamed bin Zayed University of Artificial Intelligence in Abu Dhabi.",
+      "sourceUrl": "https://research.mbzuai.ac.ae/"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — university research project",
+      "note": "Academic research projects do not have a company valuation or net worth."
+    },
+    "fundingStage": "University research project",
+    "regulatoryStatus": "Research demonstration",
+    "reportedAccomplishments": [
+      {
+        "note": "MBZUAI reports a public demonstration in which brain signals controlled a robotic dog as an example of assistive AI and robotics.",
+        "sourceUrl": "https://research.mbzuai.ac.ae/",
+        "publisher": "MBZUAI",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [],
+    "notes": "The official showcase does not specify the sensing modality, participant protocol, accuracy, or clinical validation."
+  },
+  {
+    "companySlug": "nazarbayev-bci-research",
+    "companyName": "Nazarbayev University BCI and Neural AI Research",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://research.nu.edu.kz/en/persons/berdakh-abibullaev/",
+    "officialWebsite": "https://research.nu.edu.kz/en/persons/berdakh-abibullaev/",
+    "overview": "Active Astana research program spanning EEG BCI, brain-controlled robotics, stroke rehabilitation, explainable neural AI, and epilepsy-focused decoding.",
+    "founding": {
+      "status": "not-verified",
+      "note": "No formal lab founding year was verified. The official portfolio shows BCI projects from at least 2018 onward, led by Berdakh Abibullaev with collaborators including Amin Zollanvari.",
+      "sourceUrl": "https://research.nu.edu.kz/en/persons/berdakh-abibullaev/"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Astana, Kazakhstan",
+      "note": "The work is based at Nazarbayev University in Astana.",
+      "sourceUrl": "https://research.nu.edu.kz/en/persons/berdakh-abibullaev/"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — university research program",
+      "note": "Academic research programs do not have a company valuation or net worth."
+    },
+    "fundingStage": "Multiple Nazarbayev University competitive research grants",
+    "regulatoryStatus": "Research program",
+    "reportedAccomplishments": [
+      {
+        "note": "The program reports completed brain-controlled telepresence and 2021-2023 BCI-to-exoskeleton work, plus an active 2025-2027 epilepsy BCI project.",
+        "sourceUrl": "https://research.nu.edu.kz/en/persons/berdakh-abibullaev/",
+        "publisher": "Nazarbayev University",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [
+      {
+        "title": "Design and optimization of a BCI-driven telepresence robot",
+        "url": "https://nur.nu.edu.kz/bitstreams/783f64e1-4057-4d06-bca7-2a9e8197a64f/download",
+        "publisher": "IEEE Access / Nazarbayev University"
+      },
+      {
+        "title": "Data constraints and optimization for Transformer EEG BCIs",
+        "url": "https://nur.nu.edu.kz/bitstreams/bf50abd4-7f0e-4e66-961e-c18e7a02b526/download",
+        "publisher": "IEEE Access / Nazarbayev University"
+      },
+      {
+        "title": "BCI-to-exoskeleton project record",
+        "url": "https://research.nu.edu.kz/en/projects/brain-computer-interface-to-exoskeleton-system-design-for-persona/",
+        "publisher": "Nazarbayev University"
+      }
+    ],
+    "videos": [],
+    "notes": "This is the strongest sustained Central Asian BCI program found in the audit."
+  },
+  {
+    "companySlug": "uzbekistan-neurocognitive-lab",
+    "companyName": "Uzbekistan Laboratory of Neurocognitive Research",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://cfyi.uz/neurocognitive",
+    "officialWebsite": "https://cfyi.uz/neurocognitive",
+    "overview": "Tashkent neurocognitive research laboratory with EEG, eye tracking, psychophysiology sensors, and equipment explicitly intended for BCI prototyping and neurorehabilitation research.",
+    "founding": {
+      "status": "not-verified",
+      "note": "A founding year and named founder were not stated on the laboratory page."
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Tashkent, Uzbekistan",
+      "note": "The Center for Youth Initiatives operates in Tashkent; the laboratory page documents its local research equipment.",
+      "sourceUrl": "https://cfyi.uz/neurocognitive"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — research laboratory",
+      "note": "The laboratory is not a valued standalone company."
+    },
+    "fundingStage": "Institutional research infrastructure",
+    "regulatoryStatus": "Research and education infrastructure",
+    "reportedAccomplishments": [
+      {
+        "note": "The lab documents a 24-channel SmartBCI EEG system, eye tracking, and multimodal psychophysiology equipment for BCI and neurorehabilitation development.",
+        "sourceUrl": "https://cfyi.uz/neurocognitive",
+        "publisher": "Center for Youth Initiatives",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [],
+    "videos": [],
+    "notes": "This is an enabling-infrastructure record; no patient-facing BCI outcome was found."
+  },
+  {
+    "companySlug": "must-mongolia-bci",
+    "companyName": "Mongolian University of Science and Technology BCI Research",
+    "researchedOn": "2026-07-31",
+    "sourceProfileUrl": "https://must.edu.mn/media/uploads/2023/05/30/emhtegel23-8.pdf",
+    "officialWebsite": "https://must.edu.mn/media/uploads/2023/05/30/emhtegel23-8.pdf",
+    "overview": "Documented exploratory EEG BCI project at MUST that classified imagined light-control commands for device interaction.",
+    "founding": {
+      "year": 2023,
+      "status": "official-source-lead",
+      "note": "2023 is the publication year of the documented project, not the founding of a dedicated lab. The paper lists Bat-Erdene Munkhbayar, Dandar Bilegdemberel, and Amar Batmunkh.",
+      "sourceUrl": "https://must.edu.mn/media/uploads/2023/05/30/emhtegel23-8.pdf"
+    },
+    "headquarters": {
+      "status": "official-source-lead",
+      "display": "Ulaanbaatar, Mongolia",
+      "note": "The authors are affiliated with the Mongolian University of Science and Technology in Ulaanbaatar.",
+      "sourceUrl": "https://must.edu.mn/media/uploads/2023/05/30/emhtegel23-8.pdf"
+    },
+    "companyValue": {
+      "status": "not-verified",
+      "label": "Not applicable — university research project",
+      "note": "Academic projects do not have a company valuation or net worth."
+    },
+    "fundingStage": "University research project",
+    "regulatoryStatus": "Exploratory research",
+    "reportedAccomplishments": [
+      {
+        "note": "The institution-hosted paper reports 79.5% classification accuracy for imagined light on/off commands using EEG and logistic regression.",
+        "sourceUrl": "https://must.edu.mn/media/uploads/2023/05/30/emhtegel23-8.pdf",
+        "publisher": "Mongolian University of Science and Technology",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [
+      {
+        "title": "MUST EEG BCI prototype proceedings paper",
+        "url": "https://must.edu.mn/media/uploads/2023/05/30/emhtegel23-8.pdf",
+        "publisher": "Mongolian University of Science and Technology"
+      }
+    ],
+    "videos": [],
+    "notes": "This record represents one documented project, not evidence of a mature dedicated BCI center or clinical system."
+  },
+  ...sourcedExpansionResearchProfiles
 ];
 
 const companyResearchBySlug = new Map(companyResearchProfiles.map((profile) => [profile.companySlug, profile]));
