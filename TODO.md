@@ -230,3 +230,12 @@ Ranked candidates that are not dataset records yet:
 - [x] Deduplicate normalized names and slugs against the complete 864-record catalog and within the regional expansion.
 - [x] Publish a complete 200-row source catalog with country coverage and explicit evidence limitations.
 - [x] Rebuild the 1,064-node static map payload, validate all profiles, audit 561 unique evidence/institution links, and run rendered map/profile smoke tests on port 3100. The link audit found no broken DOI or ROR evidence targets; 44 registry-supplied institutional homepages were unavailable from the audit host and remain explicitly non-authoritative identity leads.
+
+## Top 100 Company Milestone Audit
+
+- [x] Define and document a prominence-weighted cohort of 100 catalog companies without presenting the order as an objective fame score.
+- [x] Measure pre-audit milestone coverage: 18 companies covered and 82 without tracker milestones.
+- [x] Add 94 primary-source-backed milestone records so all 100 companies have rendered activity, including 13 explicitly labeled upcoming watch points.
+- [x] Prefer FDA records, ClinicalTrials.gov, and peer-reviewed papers; keep company-only launches, implants, designations, and observational claims at conservative evidence levels.
+- [x] Add a deterministic 100-company coverage validator and a reproducible Markdown audit generator.
+- [x] Run the complete CI gate, regenerate the map payload, and smoke-test representative milestones, company profiles, and map markers on port 3200 (port 3100 was already owned by another local NextBCI process and was left untouched).

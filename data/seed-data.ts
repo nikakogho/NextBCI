@@ -12,6 +12,7 @@ import type {
 } from "./schema";
 import { sourcedExpansionOrganizations } from "./sourced-expansion";
 import { africaSouthAmericaOrganizations } from "./africa-south-america-expansion";
+import { topCompanyMilestones } from "./top-company-milestones";
 
 const source = (
   title: string,
@@ -3168,22 +3169,23 @@ export const programProjects: ProgramProject[] = [
 ];
 
 export const milestones: Milestone[] = [
+  ...topCompanyMilestones,
   {
     id: "neuralink-prime-primary-completion-2026",
-    title: "PRIME primary completion window listed",
+    title: "PRIME reaches its listed primary completion window",
     companySlug: "neuralink-prime",
     dateLabel: "Jun 2026 (estimated)",
     sortDate: "2026-06-30",
-    status: "upcoming",
+    status: "confirmed",
     type: "endpoint-readout",
     evidenceLevel: "E3",
     confidence: "medium",
     summary:
-      "The PRIME registry lists June 2026 as the estimated primary completion month for device- and procedure-related adverse-event endpoints.",
+      "The PRIME registry still lists June 2026 as its estimated primary completion month, but it remained marked recruiting and had no posted results when checked on Aug 2, 2026.",
     whyItMatters:
-      "Primary completion windows are a useful watchlist marker for when safety data may become easier to evaluate.",
+      "Recording an elapsed registry window makes the absence of a public readout visible instead of silently leaving a stale countdown on the tracker.",
     hypeCheck:
-      "A registry completion window is not a published readout and may move without fanfare.",
+      "This is not confirmation that primary data collection finished; the registry date was estimated and its record had last been verified in January 2026.",
     sourceLinks: [source("PRIME clinical trial record", "trial-registry", clinicalTrials("NCT06429735"), "ClinicalTrials.gov")],
     isSample: false
   },

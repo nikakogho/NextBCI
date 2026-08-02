@@ -22,9 +22,11 @@ export type HomeActivityItem = {
 
 type FeedMode = "upcoming" | "confirmed";
 
+export type HomeActivityTotals = Record<FeedMode, Record<MilestoneType | "all", number>>;
+
 const MAX_VISIBLE_ITEMS = 10;
 
-export function HomeActivityBoard({ items }: { items: HomeActivityItem[] }) {
+export function HomeActivityBoard({ items, totals }: { items: HomeActivityItem[]; totals: HomeActivityTotals }) {
   const [mode, setMode] = useState<FeedMode>("upcoming");
   const [type, setType] = useState<MilestoneType | "all">("all");
 
@@ -52,10 +54,10 @@ export function HomeActivityBoard({ items }: { items: HomeActivityItem[] }) {
       <div className="activity-controls" aria-label="Activity feed controls">
         <div className="activity-mode" role="group" aria-label="Milestone status">
           <button type="button" className="activity-mode-button" data-active={mode === "upcoming"} onClick={() => setMode("upcoming")}>
-            Upcoming <span>{items.filter((item) => item.status === "upcoming").length}</span>
+            Upcoming <span>{totals.upcoming.all}</span>
           </button>
           <button type="button" className="activity-mode-button" data-active={mode === "confirmed"} onClick={() => setMode("confirmed")}>
-            Confirmed <span>{items.filter((item) => item.status === "confirmed").length}</span>
+            Confirmed <span>{totals.confirmed.all}</span>
           </button>
         </div>
 
@@ -73,7 +75,7 @@ export function HomeActivityBoard({ items }: { items: HomeActivityItem[] }) {
       </div>
 
       <p className="activity-count" aria-live="polite">
-        Showing {visibleItems.length} of {modeItems.filter((item) => type === "all" || item.type === type).length} {mode} records
+        Showing {visibleItems.length} recent of {totals[mode][type]} {mode} records
       </p>
 
       <div className="activity-list">

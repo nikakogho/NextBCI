@@ -53,7 +53,7 @@ const isAscendingByDate = (items) =>
 
 try {
   await mkdir(tempDir, { recursive: true });
-  await Promise.all(["schema.ts", "sourced-expansion.ts", "africa-south-america-expansion.ts", "seed-data.ts", "queries.ts"].map(transpileDataFile));
+  await Promise.all(["schema.ts", "sourced-expansion.ts", "africa-south-america-expansion.ts", "top-company-milestones.ts", "seed-data.ts", "queries.ts"].map(transpileDataFile));
 
   const schema = requireFromTemp("./schema.js");
   const queries = requireFromTemp("./queries.js");

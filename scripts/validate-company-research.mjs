@@ -14,6 +14,8 @@ const loadModule = async (fileName) => {
   const expansionText = await readFile(expansionPath, "utf8");
   const regionalPath = join(projectRoot, "data", "africa-south-america-expansion.ts");
   const regionalText = await readFile(regionalPath, "utf8");
+  const topMilestonesPath = join(projectRoot, "data", "top-company-milestones.ts");
+  const topMilestonesText = await readFile(topMilestonesPath, "utf8");
   const transpiled = ts.transpileModule(sourceText, {
     compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022, verbatimModuleSyntax: true },
     fileName: sourcePath,
@@ -37,12 +39,19 @@ const loadModule = async (fileName) => {
     fileName: regionalPath,
     reportDiagnostics: true
   });
+  const transpiledTopMilestones = ts.transpileModule(topMilestonesText, {
+    compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022, verbatimModuleSyntax: true },
+    fileName: topMilestonesPath,
+    reportDiagnostics: true
+  });
   try {
     await writeFile(join(tempDir, "sourced-expansion.mjs"), transpiledExpansion.outputText, "utf8");
     await writeFile(join(tempDir, "africa-south-america-expansion.mjs"), transpiledRegional.outputText, "utf8");
+    await writeFile(join(tempDir, "top-company-milestones.mjs"), transpiledTopMilestones.outputText, "utf8");
     await writeFile(modulePath, transpiled.outputText
       .replace('"./sourced-expansion"', '"./sourced-expansion.mjs"')
-      .replace('"./africa-south-america-expansion"', '"./africa-south-america-expansion.mjs"'), "utf8");
+      .replace('"./africa-south-america-expansion"', '"./africa-south-america-expansion.mjs"')
+      .replace('"./top-company-milestones"', '"./top-company-milestones.mjs"'), "utf8");
     return await import(`${pathToFileURL(modulePath).href}?t=${Date.now()}`);
   } finally {
     await rm(tempDir, { recursive: true, force: true });

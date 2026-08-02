@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { EvidenceBadge, MilestoneTypeBadge, StatusChip } from "@/components/Badge";
 import { Countdown } from "@/components/Countdown";
-import { HomeActivityBoard, type HomeActivityItem } from "@/components/HomeActivityBoard";
+import { HomeActivityBoard, type HomeActivityItem, type HomeActivityTotals } from "@/components/HomeActivityBoard";
 import { LazyLeafletMap } from "@/components/LazyLeafletMap";
 import { Signal } from "@/components/Signal";
 import {
@@ -15,7 +15,7 @@ import {
   trials,
   upcomingMilestones
 } from "@/data/queries";
-import { evidenceLevels } from "@/data/schema";
+import { evidenceLevels, milestoneTypeLabels, type Milestone, type MilestoneStatus, type MilestoneType } from "@/data/schema";
 
 const toActivityItem = (milestone: (typeof upcomingMilestones)[number]): HomeActivityItem => {
   const primary = getPrimarySource(milestone.sourceLinks);
@@ -37,7 +37,27 @@ const toActivityItem = (milestone: (typeof upcomingMilestones)[number]): HomeAct
 };
 
 export default function HomePage() {
-  const activityItems = [...upcomingMilestones, ...confirmedMilestones].map(toActivityItem);
+  // The complete archive is static-generated at /milestones. Keep only a recent
+  // preview in the client payload so catalog growth cannot slow the first visit.
+  const activityItems = [...upcomingMilestones.slice(0, 20), ...confirmedMilestones.slice(0, 30)].map(toActivityItem);
+  const milestonesByStatus: Record<MilestoneStatus, Milestone[]> = {
+    upcoming: upcomingMilestones,
+    confirmed: confirmedMilestones
+  };
+  const activityTotals = Object.fromEntries(
+    (["upcoming", "confirmed"] as const).map((status) => [
+      status,
+      {
+        all: milestonesByStatus[status].length,
+        ...Object.fromEntries(
+          (Object.keys(milestoneTypeLabels) as MilestoneType[]).map((type) => [
+            type,
+            milestonesByStatus[status].filter((milestone) => milestone.type === type).length
+          ])
+        )
+      }
+    ])
+  ) as HomeActivityTotals;
   const primary = activityItems.find((item) => item.status === "upcoming");
   const evidenceRecordCount = upcomingMilestones.length + confirmedMilestones.length + trials.length + demos.length + papers.length;
   const countryCount = new Set(companies.map((company) => company.hq.country)).size;
@@ -113,7 +133,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <HomeActivityBoard items={activityItems} />
+      <HomeActivityBoard items={activityItems} totals={activityTotals} />
 
       <section className="home-map-section" aria-labelledby="home-map-title">
         <div className="section-head">
