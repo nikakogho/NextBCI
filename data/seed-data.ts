@@ -13,6 +13,12 @@ import type {
 import { sourcedExpansionOrganizations } from "./sourced-expansion";
 import { africaSouthAmericaOrganizations } from "./africa-south-america-expansion";
 import { topCompanyMilestones } from "./top-company-milestones";
+import {
+  europeEvidenceMilestones,
+  europeEvidencePapers,
+  europeEvidenceProjects,
+  europeEvidenceTrials
+} from "./europe-evidence";
 
 const source = (
   title: string,
@@ -443,7 +449,7 @@ const neurofoundersCatalogCompanies: Company[] = [
   {"slug":"eneura-edb82","name":"eNeura","country":"United States","founded":"2000","category":"Neuromodulation","modality":"TMS","formFactor":"External device","interfaceDepth":"Non-invasive","indication":"Pain/migraine","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Series C+","website":"https://eneura.com/","profileUrl":"https://www.neurofounders.co/startups/eneura-edb82"},
   {"slug":"epia-neuro","name":"Epia Neuro","country":"USA","founded":"2021","category":"Brain-Computer Interface","modality":"ECoG","formFactor":"Implant","interfaceDepth":"Implantable","indication":"Epilepsy","targetUser":"Clinicians","regulatory":"Preclinical","funding":"Unknown","website":"https://epianeuro.com/","profileUrl":"https://www.neurofounders.co/startups/epia-neuro"},
   {"slug":"epiwatch","name":"EpiWatch","country":"USA","founded":"2017","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Wearable (body)","interfaceDepth":"Non-invasive","indication":"Epilepsy","targetUser":"Patients","regulatory":"FDA cleared (510k)","funding":"Seed","website":"https://epiwatch.com/","profileUrl":"https://www.neurofounders.co/startups/epiwatch"},
-  {"slug":"evocal-health","name":"EVOCAL Health","country":"Germany","founded":"2020","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Pharma","regulatory":"Investigational","funding":"Defunct","website":"https://evocalhealth.com/","profileUrl":"https://www.neurofounders.co/startups/evocal-health"},
+  {"slug":"evocal-health","name":"EVOCAL Health","country":"Germany","founded":"2020","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Multi-indication","targetUser":"Pharma","regulatory":"Investigational","funding":"Defunct","website":"https://www.evocalhealth.com/","profileUrl":"https://www.neurofounders.co/startups/evocal-health"},
   {"slug":"eysz","name":"Eysz","country":"USA","founded":"2018","category":"Diagnostics and Assessment","modality":"Biomarkers","formFactor":"Software/app","interfaceDepth":"Software","indication":"Psychiatry","targetUser":"Clinicians","regulatory":"Investigational","funding":"Non-dilutive","website":"http://www.eyszlab.com/","profileUrl":"https://www.neurofounders.co/startups/eysz"},
   {"slug":"farow","name":"Farow","country":"Belgium","founded":"2017","category":"Diagnostics and Assessment","modality":"EEG","formFactor":"Headset/cap","interfaceDepth":"Non-invasive","indication":"Epilepsy","targetUser":"Mixed","regulatory":"CE-Marked","funding":"Non-dilutive","website":"https://www.epihunter.com/","profileUrl":"https://www.neurofounders.co/startups/farow"},
   {"slug":"finalspark","name":"FinalSpark","country":"Switzerland","founded":"2014","category":"Tools and Infrastructure","modality":"MEA","formFactor":"Other","interfaceDepth":"Ex vivo","indication":"Research","targetUser":"Researchers","regulatory":"Research only","funding":"Seed","website":"https://finalspark.com/neuroplatform/","profileUrl":"https://www.neurofounders.co/startups/finalspark"},
@@ -2460,8 +2466,25 @@ export const companies: Company[] = [
 
   // Europe expansion: official product or technology page is linked for every profile.
   expansionCompany({ slug: "neuroelectrics", name: "Neuroelectrics", category: "non-invasive", region: "europe", modality: "Personalized EEG, HD-tES, and closed-loop brain stimulation platform", targetFunction: "Research and clinical translation of EEG-guided non-invasive neuromodulation", stage: "Commercial neurotechnology platform; separate therapeutic efficacy claims require indication-specific evidence", evidenceLevel: "E2", hq: ["Barcelona", "Spain", 41.3874, 2.1686], founded: 2011, website: "https://www.neuroelectrics.com/technology/" }),
-  expansionCompany({ slug: "cortivis", name: "Cortivis", category: "minimally-invasive", region: "europe", modality: "High-channel-count neural interfaces and implantable BCI systems", targetFunction: "Cortical signal recording for assistive control and neuroscience research", stage: "Early implantable BCI company; public technical claims are tracked as company evidence", evidenceLevel: "E1", hq: ["Madrid", "Spain", 40.4168, -3.7038], founded: 2019, website: "https://cortivis.com/" }),
-  expansionCompany({ slug: "time-is-brain", name: "Time is Brain", category: "non-invasive", region: "europe", modality: "Portable brain-monitoring technology for acute stroke workflows", targetFunction: "Faster stroke triage through non-invasive cerebral monitoring", stage: "Clinical neurodiagnostic company; utility depends on prospective workflow and outcome evidence", evidenceLevel: "E1", hq: ["Barcelona", "Spain", 41.3874, 2.1686], founded: 2020, website: "https://timeisbrain.com/" }),
+  {
+    slug: "cortivis",
+    name: "Cortivis",
+    kind: "academic",
+    category: "minimally-invasive",
+    region: "europe",
+    modality: "High-channel-count neural interfaces and implantable BCI systems",
+    targetFunction: "Cortical signal recording for assistive control and neuroscience research",
+    stage: "University-led visual-neuroprosthesis research program; human feasibility does not establish restored functional vision",
+    evidenceLevel: "E3",
+    hq: { city: "Elche", country: "Spain", lat: 38.2699, lng: -0.7126 },
+    founded: 1996,
+    website: "https://cortivis.umh.es/",
+    summary: "The University Miguel Hernández CORTIVIS program develops and clinically studies an intracortical visual neuroprosthesis for people with profound blindness.",
+    hypeCheck: "The published human work shows evoked visual percepts and feasibility in a very small number of participants; it does not establish restored functional vision or a deployable clinical product.",
+    sourceLinks: [source("CORTIVIS official program site", "institution-page", "https://cortivis.umh.es/", "Universidad Miguel Hernández")],
+    isSample: false
+  },
+  expansionCompany({ slug: "time-is-brain", name: "Time is Brain", category: "non-invasive", region: "europe", modality: "Portable brain-monitoring technology for acute stroke workflows", targetFunction: "Faster stroke triage through non-invasive cerebral monitoring", stage: "Clinical neurodiagnostic company; utility depends on prospective workflow and outcome evidence", evidenceLevel: "E1", hq: ["Barcelona", "Spain", 41.3874, 2.1686], founded: 2020, website: "https://www.tibtimeisbrain.com/" }),
   expansionCompany({ slug: "corify-care", name: "Corify Care", category: "non-invasive", region: "europe", modality: "Non-invasive electrocardiographic imaging and signal analysis", targetFunction: "Cardiac electrophysiology mapping; adjacent bioelectric-signal infrastructure rather than a BCI", stage: "Commercial clinical signal-mapping company", evidenceLevel: "E2", hq: ["Madrid", "Spain", 40.4168, -3.7038], founded: 2017, website: "https://corify.care/" }),
   expansionCompany({ slug: "starlab-neuroscience", name: "Starlab", category: "non-invasive", region: "europe", modality: "EEG neurotechnology, neurofeedback, and brain-data services", targetFunction: "Brain-state measurement and applied neurotechnology research", stage: "Long-running European neurotechnology company", evidenceLevel: "E2", hq: ["Barcelona", "Spain", 41.3874, 2.1686], founded: 2000, website: "https://www.starlabgroup.com/" }),
   expansionCompany({ slug: "neuromod-devices", name: "Neuromod Devices", category: "non-invasive", region: "europe", modality: "Bimodal neuromodulation combining sound and tongue stimulation", targetFunction: "Tinnitus treatment through prescribed non-invasive neuromodulation", stage: "Commercial medical-device company with indication-specific regulatory and clinical evidence to be tracked separately", evidenceLevel: "E2", hq: ["Dublin", "Ireland", 53.3498, -6.2603], founded: 2010, website: "https://www.neuromoddevices.com/" }),
@@ -2470,9 +2493,9 @@ export const companies: Company[] = [
   expansionCompany({ slug: "bioinduction", name: "Bioinduction", category: "minimally-invasive", region: "europe", modality: "Miniaturized wireless neuromodulation implants", targetFunction: "Closed-loop neural sensing and stimulation for chronic neurological conditions", stage: "Implantable neurotechnology company with investigational programs", evidenceLevel: "E1", hq: ["Bristol", "United Kingdom", 51.4545, -2.5879], founded: 2012, website: "https://www.bioinduction.com/" }),
   expansionCompany({ slug: "nia-therapeutics", name: "Nia Therapeutics", category: "minimally-invasive", region: "europe", modality: "Closed-loop brain stimulation for memory-network modulation", targetFunction: "Cognitive restoration research through responsive neuromodulation", stage: "Clinical-stage neurostimulation company", evidenceLevel: "E2", hq: ["Cambridge", "United Kingdom", 52.2053, 0.1218], founded: 2019, website: "https://niatherapeutics.com/" }),
   expansionCompany({ slug: "magstim", name: "Magstim", category: "non-invasive", region: "europe", modality: "Transcranial magnetic stimulation systems", targetFunction: "Clinical and research TMS for neuropsychiatric and neurophysiology applications", stage: "Established TMS device manufacturer", evidenceLevel: "E2", hq: ["Whitland", "United Kingdom", 51.8221, -4.6144], founded: 1990, website: "https://www.magstim.com/" }),
-  expansionCompany({ slug: "nurokor", name: "NuroKor", category: "non-invasive", region: "europe", modality: "Wearable electrical neurostimulation systems", targetFunction: "At-home neuromodulation and rehabilitation support", stage: "Commercial consumer and clinical-adjacent stimulation company", evidenceLevel: "E1", hq: ["London", "United Kingdom", 51.5072, -0.1276], founded: 2016, website: "https://nurokor.com/" }),
+  expansionCompany({ slug: "nurokor", name: "NuroKor", category: "non-invasive", region: "europe", modality: "Wearable electrical neurostimulation systems", targetFunction: "At-home neuromodulation and rehabilitation support", stage: "Consumer neuromodulation brand marketed by NuroKor Lifetech; the original NuroKor Limited is in liquidation and the Lifetech entity has an active strike-off proposal, so operating status is fragile", evidenceLevel: "E1", hq: ["Winchester", "United Kingdom", 51.0632, -1.308], founded: 2016, website: "https://nklifetech.co.uk/pages/about-us" }),
   expansionCompany({ slug: "brainwavebank", name: "BrainWaveBank", category: "non-invasive", region: "europe", modality: "EEG analytics and personalized digital neurotherapy platform", targetFunction: "Brain-state measurement and mental-health support research", stage: "Early digital neurotechnology company", evidenceLevel: "E1", hq: ["London", "United Kingdom", 51.5072, -0.1276], founded: 2018, website: "https://brainwavebank.com/" }),
-  expansionCompany({ slug: "renishaw-neuro-solutions", name: "Renishaw Neuro Solutions", category: "minimally-invasive", region: "europe", modality: "Neurosurgical robotics, stereotactic systems, and implantable neural-interface tools", targetFunction: "Precise neural implant placement and translational neuroscience infrastructure", stage: "Established neurotechnology infrastructure supplier", evidenceLevel: "E2", hq: ["Wotton-under-Edge", "United Kingdom", 51.6328, -2.3451], founded: 1973, website: "https://www.renishaw.com/en/neuro-solutions--27864" }),
+  expansionCompany({ slug: "renishaw-neuro-solutions", name: "Renishaw Neuro Solutions", category: "minimally-invasive", region: "europe", modality: "Neurosurgical robotics, stereotactic systems, and implantable neural-interface tools", targetFunction: "Precise neural implant placement and translational neuroscience infrastructure", stage: "Established neurotechnology infrastructure supplier", evidenceLevel: "E2", hq: ["Wotton-under-Edge", "United Kingdom", 51.6328, -2.3451], founded: 1973, website: "https://www.renishaw.com/en/neurosurgery-products-and-systems--6332" }),
   expansionCompany({ slug: "sinaptica-therapeutics", name: "Sinaptica Therapeutics", category: "non-invasive", region: "europe", modality: "Personalized non-invasive TMS neuromodulation", targetFunction: "Alzheimer's disease and cognitive-impairment therapy development", stage: "Clinical-stage non-invasive neuromodulation company", evidenceLevel: "E3", hq: ["Cambridge", "United Kingdom", 52.2053, 0.1218], founded: 2016, website: "https://sinapticatx.com/" }),
   expansionCompany({ slug: "galvani-bioelectronics", name: "Galvani Bioelectronics", category: "minimally-invasive", region: "europe", modality: "Peripheral-nerve bioelectronic medicine and neuromodulation", targetFunction: "Treating chronic disease through targeted neural signals", stage: "Bioelectronic-medicine company; not a cortical BCI", evidenceLevel: "E1", hq: ["London", "United Kingdom", 51.5072, -0.1276], founded: 2016, website: "https://www.galvani.bio/" }),
   expansionCompany({ slug: "gripable", name: "GripAble", category: "non-invasive", region: "europe", modality: "Sensorized hand-rehabilitation device and software", targetFunction: "Stroke and neurological upper-limb rehabilitation measurement and therapy", stage: "Commercial digital rehabilitation company", evidenceLevel: "E2", hq: ["London", "United Kingdom", 51.5072, -0.1276], founded: 2018, website: "https://gripable.co/" }),
@@ -2489,7 +2512,7 @@ export const companies: Company[] = [
   expansionCompany({ slug: "precisis", name: "Precisis", category: "minimally-invasive", region: "europe", modality: "Minimally invasive cortical stimulation system", targetFunction: "Epilepsy neuromodulation and seizure management", stage: "Implantable neurostimulation company", evidenceLevel: "E2", hq: ["Heidelberg", "Germany", 49.3988, 8.6724], founded: 2014, website: "https://precisis.de/" }),
   expansionCompany({ slug: "brain-products", name: "Brain Products", category: "non-invasive", region: "europe", modality: "EEG, fNIRS, and psychophysiology research hardware and software", targetFunction: "High-quality brain-signal acquisition for neuroscience and BCI research", stage: "Established neurophysiology technology supplier", evidenceLevel: "E2", hq: ["Gilching", "Germany", 48.107, 11.299], founded: 1997, website: "https://www.brainproducts.com/" }),
   expansionCompany({ slug: "nirx", name: "NIRx", category: "non-invasive", region: "europe", modality: "Functional near-infrared spectroscopy brain-imaging systems", targetFunction: "Portable optical neuroimaging for cognitive and BCI research", stage: "Established fNIRS technology company", evidenceLevel: "E2", hq: ["Berlin", "Germany", 52.52, 13.405], founded: 2008, website: "https://nirx.de/" }),
-  expansionCompany({ slug: "implex", name: "Implex", category: "minimally-invasive", region: "europe", modality: "Long-term EEG monitoring implants and epilepsy systems", targetFunction: "Continuous seizure recording and epilepsy-management evidence generation", stage: "Implantable neurodiagnostic company", evidenceLevel: "E2", hq: ["Munich", "Germany", 48.1351, 11.582], founded: 2017, website: "https://implex-medical.com/" }),
+  expansionCompany({ slug: "implex", name: "Implex", category: "minimally-invasive", region: "europe", modality: "Reported long-term EEG monitoring implants and epilepsy systems", targetFunction: "Reported continuous seizure recording and epilepsy-management evidence generation", stage: "Historical catalog lead; the listed domain was unavailable and a current operating identity was not independently corroborated in the August 2026 audit", evidenceLevel: "E0", hq: ["Munich", "Germany", 48.1351, 11.582], founded: 2017, website: "https://implex-medical.com/" }),
   expansionCompany({ slug: "neurocare-group", name: "neurocare group", category: "non-invasive", region: "europe", modality: "EEG, neurofeedback, and brain-stimulation services", targetFunction: "Personalized mental-health assessment and neuromodulation support", stage: "Commercial neurocare provider", evidenceLevel: "E1", hq: ["Munich", "Germany", 48.1351, 11.582], founded: 2000, website: "https://www.neurocaregroup.com/" }),
   expansionCompany({ slug: "gtec-medical-engineering", name: "g.tec medical engineering", category: "non-invasive", region: "europe", modality: "EEG, ECoG, BCI spellers, and rehabilitation systems", targetFunction: "Non-invasive and invasive BCI research, communication, and neurorehabilitation", stage: "Established BCI hardware and software company", evidenceLevel: "E2", hq: ["Schiedlberg", "Austria", 48.093, 14.264], founded: 1999, website: "https://www.gtec.at/" }),
   expansionCompany({ slug: "sooma-medical", name: "Sooma Medical", category: "non-invasive", region: "europe", modality: "Home-use transcranial direct current stimulation", targetFunction: "Prescription neuromodulation for depression and related conditions", stage: "Commercial medical-device company", evidenceLevel: "E2", hq: ["Helsinki", "Finland", 60.1699, 24.9384], founded: 2013, website: "https://soomamedical.com/" }),
@@ -2590,6 +2613,7 @@ export const companies: Company[] = [
 ];
 
 export const programProjects: ProgramProject[] = [
+  ...europeEvidenceProjects,
   // University-research cohort: 30 US projects, 10 Europe projects, and 10 Asia projects.
   researchProject({ id: "braingate-intracortical-bci", companySlug: "braingate-consortium", name: "BrainGate intracortical communication and control", focus: "intracortical BCI communication and assistive control", modality: "Intracortical neural recording and decoding", evidenceLevel: "E5", sourceUrl: "https://www.braingate.org/", publisher: "BrainGate Consortium" }),
   researchProject({ id: "ucsf-speech-neuroprosthesis", companySlug: "ucsf-bravo", name: "UCSF speech neuroprosthesis", focus: "decoding intended speech from cortical activity", modality: "ECoG speech decoding and avatar/voice synthesis research", evidenceLevel: "E4", sourceUrl: "https://changlab.ucsf.edu/", publisher: "UCSF Chang Lab" }),
@@ -3170,6 +3194,7 @@ export const programProjects: ProgramProject[] = [
 
 export const milestones: Milestone[] = [
   ...topCompanyMilestones,
+  ...europeEvidenceMilestones,
   {
     id: "neuralink-prime-primary-completion-2026",
     title: "PRIME reaches its listed primary completion window",
@@ -4383,6 +4408,7 @@ export const milestones: Milestone[] = [
 ];
 
 export const trials: Trial[] = [
+  ...europeEvidenceTrials,
   {
     id: "neuralink-prime-nct06429735",
     title: "Precise Robotically Implanted Brain-Computer Interface",
@@ -4813,6 +4839,7 @@ export const demos: Demo[] = [
 ];
 
 export const papers: Paper[] = [
+  ...europeEvidencePapers,
   {
     id: "yale-rtfmri-bci-manifold-paper",
     title: "Human learning of noninvasive brain-computer interfaces via manifold geometry",

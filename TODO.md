@@ -239,3 +239,14 @@ Ranked candidates that are not dataset records yet:
 - [x] Prefer FDA records, ClinicalTrials.gov, and peer-reviewed papers; keep company-only launches, implants, designations, and observational claims at conservative evidence levels.
 - [x] Add a deterministic 100-company coverage validator and a reproducible Markdown audit generator.
 - [x] Run the complete CI gate, regenerate the map payload, and smoke-test representative milestones, company profiles, and map markers on port 3200 (port 3100 was already owned by another local NextBCI process and was left untouched).
+
+## Complete European Organization Evidence Audit
+
+- [x] Define an inclusive, documented European country scope and reconcile all 352 in-scope catalog organizations.
+- [x] Resolve a canonical institution-affiliated paper for every one of the 105 European academic programs.
+- [x] Promote 125 qualifying paper records and 64 sponsor/collaborator or explicitly named program/device ClinicalTrials.gov records without treating registration as a positive result.
+- [x] Add 40 trial-start, regulatory, or future registry checkpoints while rejecting lapsed estimated starts as upcoming milestones.
+- [x] Retain 77 organizations' paper/video research resources, distinguish 23 specific YouTube videos from generic channels, and avoid promoting undated videos to canonical demos.
+- [x] Add 152 limited project records where no stronger paper, trial, milestone, or dated demo qualified, keeping the uncorroborated Implex historical lead at E0 so all 352 render activity without invented accomplishments.
+- [x] Publish the complete organization-by-organization audit and add deterministic full-cohort validation.
+- [x] Run full CI, regenerate the 1,064-node map payload, and browser-test representative European company, academic, paper, trial, milestone, and E0 fallback-project pages plus the European map region on port 3210 with no console errors.

@@ -161,7 +161,11 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
             <dt>Approach</dt>
             <dd>{categoryLabel(company.category)}</dd>
             <dt>Organization</dt>
-            <dd>{organizationKindLabel(company.kind)} · {organizationScaleLabel(organizationScale)}</dd>
+            <dd>
+              {company.kind === "academic"
+                ? organizationKindLabel(company.kind)
+                : `${organizationKindLabel(company.kind)} · ${organizationScaleLabel(organizationScale)}`}
+            </dd>
             <dt>Readiness</dt>
             <dd>{readinessLabel(readiness)}</dd>
             <dt>Device classes</dt>

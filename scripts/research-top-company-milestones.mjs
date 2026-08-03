@@ -33,7 +33,8 @@ try {
     "africa-south-america-expansion.ts",
     "seed-data.ts",
     "company-research.ts",
-    "top-company-milestones.ts"
+    "top-company-milestones.ts",
+    "europe-evidence.ts"
   ].map((fileName) => transpile(fileName, tempDir)));
   const requireFromTemp = createRequire(resolve(tempDir, "research.cjs"));
   data = {

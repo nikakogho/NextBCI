@@ -4740,7 +4740,7 @@ export const companyResearchProfiles: CompanyResearchProfile[] = [
     "companyName": "EVOCAL Health",
     "researchedOn": "2026-07-31",
     "sourceProfileUrl": "https://www.neurofounders.co/startups/evocal-health",
-    "officialWebsite": "https://evocalhealth.com/",
+    "officialWebsite": "https://www.evocalhealth.com/",
     "overview": "Unlocking voice as a predictive biomarker using AI to detect diseases and support digital diagnostics and therapies across Longevity and neurodegeneration.",
     "founding": {
       "year": 2020,
@@ -14702,14 +14702,14 @@ export const companyResearchProfiles: CompanyResearchProfile[] = [
   {
     "companySlug": "time-is-brain",
     "companyName": "Time Is Brain",
-    "researchedOn": "2026-07-31",
+    "researchedOn": "2026-08-03",
     "sourceProfileUrl": "https://www.neurofounders.co/startups/time-is-brain",
     "officialWebsite": "https://www.tibtimeisbrain.com/",
     "overview": "Developing a portable brain-monitoring device (BraiN20) for rapid stroke diagnosis and real-time monitoring of brain activity in emergency care.",
     "founding": {
       "year": 2020,
       "status": "official-source-lead",
-      "note": "We have created The future of real-time neurological monitoring Request more Info Play video Meet the founders of Timeisbrain Three renowned neurologists with the shared ambition to revolutionize the management of stroke and other neurologi…",
+      "note": "Founded in 2020 as a Hospital Germans Trias i Pujol spin-off by neurologists Alicia Martínez, Antoni Dávalos, and Jaume Coll.",
       "sourceUrl": "https://www.tibtimeisbrain.com/about-tib/"
     },
     "headquarters": {
@@ -14723,11 +14723,30 @@ export const companyResearchProfiles: CompanyResearchProfile[] = [
       "note": "No reliable public company valuation was verified. Funding stage is not treated as net worth."
     },
     "fundingStage": "Non-dilutive",
-    "regulatoryStatus": "Investigational",
-    "reportedAccomplishments": [],
-    "papers": [],
-    "videos": [],
-    "notes": "NeuroFounders is used for structured discovery; linked first-party claims are not automatically treated as demonstrated clinical evidence."
+    "regulatoryStatus": "BraiN20 CE mark reported by the company under EU MDR; certificate not independently inspected in this pass",
+    "reportedAccomplishments": [
+      {
+        "note": "The company reports that BraiN20 obtained CE marking under the EU Medical Device Regulation in July 2026.",
+        "sourceUrl": "https://www.linkedin.com/feed/update/urn%3Ali%3Aactivity%3A7483474259923632129/",
+        "publisher": "Time is Brain",
+        "evidence": "company-reported"
+      }
+    ],
+    "papers": [
+      {
+        "title": "Prognostic Accuracy of N20 Somatosensory Potential in Patients With Acute Ischemic Stroke and Endovascular Thrombectomy",
+        "url": "https://doi.org/10.1161/SVIN.122.000735",
+        "publisher": "Stroke: Vascular and Interventional Neurology"
+      }
+    ],
+    "videos": [
+      {
+        "title": "BraiN20 device able to predict recovery in patients with ischemic stroke undergoing EVT",
+        "url": "https://www.vjneurology.com/video/asq0nj-rdi8-brain20-device-able-to-predict-recovery-in-patients-with-ischemic-stroke-undergoing-evt/",
+        "publisher": "VJNeurology"
+      }
+    ],
+    "notes": "The canonical paper and ClinicalTrials.gov record concern the N20/BraiN20 program. The CE-mark entry remains explicitly first-party until a certificate or notified-body record is independently inspected."
   },
   {
     "companySlug": "tiposi",

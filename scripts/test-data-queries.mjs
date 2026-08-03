@@ -53,7 +53,7 @@ const isAscendingByDate = (items) =>
 
 try {
   await mkdir(tempDir, { recursive: true });
-  await Promise.all(["schema.ts", "sourced-expansion.ts", "africa-south-america-expansion.ts", "top-company-milestones.ts", "seed-data.ts", "queries.ts"].map(transpileDataFile));
+  await Promise.all(["schema.ts", "sourced-expansion.ts", "africa-south-america-expansion.ts", "top-company-milestones.ts", "europe-evidence.ts", "seed-data.ts", "queries.ts"].map(transpileDataFile));
 
   const schema = requireFromTemp("./schema.js");
   const queries = requireFromTemp("./queries.js");
@@ -62,12 +62,12 @@ try {
 
   assert(queries.companies.length === 1064, "the catalog should contain 1064 organizations after the regional expansion");
   assert(
-    queries.companies.filter((organization) => organization.kind === "company").length === 588,
-    "the catalog should contain 588 companies"
+    queries.companies.filter((organization) => organization.kind === "company").length === 587,
+    "the catalog should contain 587 companies"
   );
   assert(
-    queries.companies.filter((organization) => organization.kind === "academic").length === 476,
-    "the catalog should contain 476 academic or institutional organizations"
+    queries.companies.filter((organization) => organization.kind === "academic").length === 477,
+    "the catalog should contain 477 academic or institutional organizations"
   );
   const normalizedOrganizationNames = queries.companies.map((organization) => organization.name
     .normalize("NFKD")
