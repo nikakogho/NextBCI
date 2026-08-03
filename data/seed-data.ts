@@ -19,6 +19,12 @@ import {
   europeEvidenceProjects,
   europeEvidenceTrials
 } from "./europe-evidence";
+import {
+  usEvidenceMilestones,
+  usEvidencePapers,
+  usEvidenceProjects,
+  usEvidenceTrials
+} from "./us-evidence";
 
 const source = (
   title: string,
@@ -2614,6 +2620,7 @@ export const companies: Company[] = [
 
 export const programProjects: ProgramProject[] = [
   ...europeEvidenceProjects,
+  ...usEvidenceProjects,
   // University-research cohort: 30 US projects, 10 Europe projects, and 10 Asia projects.
   researchProject({ id: "braingate-intracortical-bci", companySlug: "braingate-consortium", name: "BrainGate intracortical communication and control", focus: "intracortical BCI communication and assistive control", modality: "Intracortical neural recording and decoding", evidenceLevel: "E5", sourceUrl: "https://www.braingate.org/", publisher: "BrainGate Consortium" }),
   researchProject({ id: "ucsf-speech-neuroprosthesis", companySlug: "ucsf-bravo", name: "UCSF speech neuroprosthesis", focus: "decoding intended speech from cortical activity", modality: "ECoG speech decoding and avatar/voice synthesis research", evidenceLevel: "E4", sourceUrl: "https://changlab.ucsf.edu/", publisher: "UCSF Chang Lab" }),
@@ -3195,6 +3202,7 @@ export const programProjects: ProgramProject[] = [
 export const milestones: Milestone[] = [
   ...topCompanyMilestones,
   ...europeEvidenceMilestones,
+  ...usEvidenceMilestones,
   {
     id: "neuralink-prime-primary-completion-2026",
     title: "PRIME reaches its listed primary completion window",
@@ -4409,6 +4417,7 @@ export const milestones: Milestone[] = [
 
 export const trials: Trial[] = [
   ...europeEvidenceTrials,
+  ...usEvidenceTrials,
   {
     id: "neuralink-prime-nct06429735",
     title: "Precise Robotically Implanted Brain-Computer Interface",
@@ -4840,6 +4849,7 @@ export const demos: Demo[] = [
 
 export const papers: Paper[] = [
   ...europeEvidencePapers,
+  ...usEvidencePapers,
   {
     id: "yale-rtfmri-bci-manifold-paper",
     title: "Human learning of noninvasive brain-computer interfaces via manifold geometry",

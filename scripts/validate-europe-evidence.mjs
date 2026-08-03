@@ -6,13 +6,17 @@ import tsModule from "typescript";
 
 const ts = tsModule.default ?? tsModule;
 const projectRoot = resolve(import.meta.dirname, "..");
-const tempDir = join(tmpdir(), `nextbci-europe-validation-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+const isUsScope = process.argv.includes("--scope=us");
+const scopeKey = isUsScope ? "us" : "europe";
+const scopeLabel = isUsScope ? "U.S." : "European";
+const tempDir = join(tmpdir(), `nextbci-${scopeKey}-validation-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 const fileNames = [
   "schema.ts",
   "sourced-expansion.ts",
   "africa-south-america-expansion.ts",
   "top-company-milestones.ts",
   "europe-evidence.ts",
+  "us-evidence.ts",
   "seed-data.ts"
 ];
 const auditDate = "2026-08-03";
@@ -44,64 +48,72 @@ try {
 
   const requireFromTemp = createRequire(join(tempDir, "validator.cjs"));
   const seed = requireFromTemp("./seed-data.js");
-  const europe = requireFromTemp("./europe-evidence.js");
+  const evidence = requireFromTemp(`./${scopeKey}-evidence.js`);
   const errors = [];
-  const targetSlugs = new Set(europe.europeanOrganizationSlugs);
-  const expectedTargets = seed.companies.filter((company) => europeCountries.has(company.hq.country));
+  const organizationSlugs = isUsScope ? evidence.usOrganizationSlugs : evidence.europeanOrganizationSlugs;
+  const evidencePapers = isUsScope ? evidence.usEvidencePapers : evidence.europeEvidencePapers;
+  const evidenceTrials = isUsScope ? evidence.usEvidenceTrials : evidence.europeEvidenceTrials;
+  const evidenceMilestones = isUsScope ? evidence.usEvidenceMilestones : evidence.europeEvidenceMilestones;
+  const evidenceProjects = isUsScope ? evidence.usEvidenceProjects : evidence.europeEvidenceProjects;
+  const expected = isUsScope
+    ? { total: 215, companies: 136, academic: 79, papers: 85, trials: 54, milestones: 30, projects: 62 }
+    : { total: 352, companies: 247, academic: 105, papers: 125, trials: 64, milestones: 40, projects: 152 };
+  const targetSlugs = new Set(organizationSlugs);
+  const expectedTargets = seed.companies.filter((company) => isUsScope ? company.hq.country === "United States" : europeCountries.has(company.hq.country));
   const companyBySlug = new Map(seed.companies.map((company) => [company.slug, company]));
   const generatedCollections = [
-    europe.europeEvidencePapers,
-    europe.europeEvidenceTrials,
-    europe.europeEvidenceMilestones,
-    europe.europeEvidenceProjects
+    evidencePapers,
+    evidenceTrials,
+    evidenceMilestones,
+    evidenceProjects
   ];
   const generatedRecords = generatedCollections.flat();
   const generatedIds = new Set(generatedRecords.map((item) => item.id));
 
-  if (targetSlugs.size !== 352 || europe.europeanOrganizationSlugs.length !== 352) {
-    errors.push(`European cohort must contain exactly 352 unique organizations; found ${targetSlugs.size}`);
+  if (targetSlugs.size !== expected.total || organizationSlugs.length !== expected.total) {
+    errors.push(`${scopeLabel} cohort must contain exactly ${expected.total} unique organizations; found ${targetSlugs.size}`);
   }
   const expectedSlugs = new Set(expectedTargets.map((company) => company.slug));
-  if (expectedTargets.filter((item) => item.kind === "company").length !== 247 || expectedTargets.filter((item) => item.kind === "academic").length !== 105) {
-    errors.push("European cohort must contain 247 companies and 105 academic programs after the Cortivis classification correction");
+  if (expectedTargets.filter((item) => item.kind === "company").length !== expected.companies || expectedTargets.filter((item) => item.kind === "academic").length !== expected.academic) {
+    errors.push(`${scopeLabel} cohort must contain ${expected.companies} companies and ${expected.academic} academic programs`);
   }
   for (const slug of expectedSlugs) if (!targetSlugs.has(slug)) errors.push(`${slug} is in geographic scope but missing from the cohort`);
   for (const slug of targetSlugs) {
     if (!expectedSlugs.has(slug)) errors.push(`${slug} is in the cohort but outside the documented country scope`);
     if (!companyBySlug.has(slug)) errors.push(`${slug} does not reference a catalog organization`);
   }
-  if (generatedIds.size !== generatedRecords.length) errors.push("Generated European evidence IDs must be unique");
-  if (europe.europeEvidencePapers.length !== 125) errors.push(`Expected 125 generated papers; found ${europe.europeEvidencePapers.length}`);
-  if (europe.europeEvidenceTrials.length !== 64) errors.push(`Expected 64 generated trials; found ${europe.europeEvidenceTrials.length}`);
-  if (europe.europeEvidenceMilestones.length !== 40) errors.push(`Expected 40 generated milestones; found ${europe.europeEvidenceMilestones.length}`);
-  if (europe.europeEvidenceProjects.length !== 152) errors.push(`Expected 152 fallback projects; found ${europe.europeEvidenceProjects.length}`);
+  if (generatedIds.size !== generatedRecords.length) errors.push(`Generated ${scopeLabel} evidence IDs must be unique`);
+  if (evidencePapers.length !== expected.papers) errors.push(`Expected ${expected.papers} generated papers; found ${evidencePapers.length}`);
+  if (evidenceTrials.length !== expected.trials) errors.push(`Expected ${expected.trials} generated trials; found ${evidenceTrials.length}`);
+  if (evidenceMilestones.length !== expected.milestones) errors.push(`Expected ${expected.milestones} generated milestones; found ${evidenceMilestones.length}`);
+  if (evidenceProjects.length !== expected.projects) errors.push(`Expected ${expected.projects} fallback projects; found ${evidenceProjects.length}`);
 
   for (const item of generatedRecords) {
-    if (!targetSlugs.has(item.companySlug)) errors.push(`${item.id} points outside the European cohort`);
+    if (!targetSlugs.has(item.companySlug)) errors.push(`${item.id} points outside the ${scopeLabel} cohort`);
     if (!item.sourceLinks?.some((source) => source.isPrimary)) errors.push(`${item.id} lacks a primary source`);
     if (item.isSample) errors.push(`${item.id} must not be marked sample data`);
   }
-  for (const paper of europe.europeEvidencePapers) {
+  for (const paper of evidencePapers) {
     if (paper.sortDate > auditDate) errors.push(`${paper.id} is future-dated but rendered as a published paper`);
     if (!paper.sourceLinks.every((source) => source.sourceType === "paper")) errors.push(`${paper.id} must use a paper source`);
   }
-  for (const trial of europe.europeEvidenceTrials) {
+  for (const trial of evidenceTrials) {
     if (!trial.sourceLinks.every((source) => /clinicaltrials\.gov\/study\/NCT\d+/i.test(source.url))) {
       errors.push(`${trial.id} must link to a ClinicalTrials.gov study record`);
     }
   }
-  for (const milestone of europe.europeEvidenceMilestones) {
+  for (const milestone of evidenceMilestones) {
     if (milestone.status === "upcoming" && milestone.sortDate <= auditDate) {
       errors.push(`${milestone.id} is marked upcoming with a lapsed date`);
     }
   }
-  if (!europe.europeEvidenceTrials.some((item) => item.companySlug === "cortivis" && item.sourceLinks.some((source) => source.url.endsWith("NCT02983370")))) {
+  if (!isUsScope && !evidenceTrials.some((item) => item.companySlug === "cortivis" && item.sourceLinks.some((source) => source.url.endsWith("NCT02983370")))) {
     errors.push("Cortivis must retain its named-program ClinicalTrials.gov record");
   }
-  if (!europe.europeEvidenceTrials.some((item) => item.companySlug === "time-is-brain" && item.sourceLinks.some((source) => source.url.endsWith("NCT06149754")))) {
+  if (!isUsScope && !evidenceTrials.some((item) => item.companySlug === "time-is-brain" && item.sourceLinks.some((source) => source.url.endsWith("NCT06149754")))) {
     errors.push("Time is Brain must retain its BraiN20-named ClinicalTrials.gov record");
   }
-  if (!europe.europeEvidenceProjects.some((item) => item.companySlug === "implex" && item.evidenceLevel === "E0")) {
+  if (!isUsScope && !evidenceProjects.some((item) => item.companySlug === "implex" && item.evidenceLevel === "E0")) {
     errors.push("Implex must remain explicitly unverified while its operating identity cannot be corroborated");
   }
 
@@ -116,17 +128,17 @@ try {
     if (!seed.papers.some((paper) => paper.companySlug === company.slug)) errors.push(`${company.slug} academic program lacks a canonical paper`);
   }
 
-  const auditText = await readFile(join(projectRoot, "docs", "european-organization-evidence-audit.md"), "utf8");
+  const auditText = await readFile(join(projectRoot, "docs", isUsScope ? "us-organization-evidence-audit.md" : "european-organization-evidence-audit.md"), "utf8");
   const auditRows = auditText.split("\n").filter((line) => /^\| [^|-]/.test(line)).length - 1;
-  if (auditRows !== 352) errors.push(`European audit table must contain 352 rows; found ${auditRows}`);
+  if (auditRows !== expected.total) errors.push(`${scopeLabel} audit table must contain ${expected.total} rows; found ${auditRows}`);
 
   if (errors.length) {
-    console.error(`European evidence validation failed with ${errors.length} error(s):`);
+    console.error(`${scopeLabel} evidence validation failed with ${errors.length} error(s):`);
     errors.forEach((error) => console.error(`- ${error}`));
     process.exitCode = 1;
   } else {
     console.log(
-      `European evidence validation passed: 352 organizations, 125 papers, 64 trials, 40 milestones, 152 limited projects.`
+      `${scopeLabel} evidence validation passed: ${expected.total} organizations, ${expected.papers} papers, ${expected.trials} trials, ${expected.milestones} milestones, ${expected.projects} limited projects.`
     );
   }
 } finally {

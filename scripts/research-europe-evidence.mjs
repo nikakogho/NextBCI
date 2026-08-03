@@ -1,13 +1,15 @@
 import { createRequire } from "node:module";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import tsModule from "typescript";
 
 const ts = tsModule.default ?? tsModule;
 const projectRoot = resolve(import.meta.dirname, "..");
-const cacheDir = resolve(projectRoot, ".research-cache", "europe-evidence");
-const tempDir = join(tmpdir(), `nextbci-europe-evidence-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+const isUsScope = process.argv.includes("--scope=us");
+const scopeKey = isUsScope ? "us" : "europe";
+const cacheDir = resolve(projectRoot, ".research-cache", `${scopeKey}-evidence`);
+const tempDir = join(tmpdir(), `nextbci-${scopeKey}-evidence-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 
 // Inclusive geographic scope: conventional European states plus transcontinental
 // Russia, Turkey, and Kazakhstan and the South Caucasus. This errs toward inclusion.
@@ -21,6 +23,7 @@ export const europeCountries = new Set([
   "Slovenia", "Spain", "Sweden", "Switzerland", "Turkey", "UK", "Ukraine", "United Kingdom",
   "Vatican City"
 ]);
+const scopeCountries = isUsScope ? new Set(["United States"]) : europeCountries;
 
 const fileNames = [
   "schema.ts",
@@ -28,9 +31,15 @@ const fileNames = [
   "africa-south-america-expansion.ts",
   "top-company-milestones.ts",
   "europe-evidence.ts",
-  "seed-data.ts",
   "company-research.ts"
 ];
+try {
+  await access(resolve(projectRoot, "data", "us-evidence.ts"));
+  fileNames.push("us-evidence.ts");
+} catch {
+  // The first U.S. inventory run happens before the generated module exists.
+}
+fileNames.push("seed-data.ts");
 
 const transpile = async (fileName) => {
   const sourcePath = resolve(projectRoot, "data", fileName);
@@ -56,18 +65,20 @@ try {
   data = {
     seed: requireFromTemp("./seed-data.js"),
     research: requireFromTemp("./company-research.js"),
-    europe: requireFromTemp("./europe-evidence.js")
+    europe: requireFromTemp("./europe-evidence.js"),
+    us: fileNames.includes("us-evidence.ts") ? requireFromTemp("./us-evidence.js") : null
   };
 } finally {
   await rm(tempDir, { recursive: true, force: true });
 }
 
+const generatedModules = [data.europe, data.us].filter(Boolean);
 const generatedIds = {
-  milestones: new Set(data.europe.europeEvidenceMilestones.map((item) => item.id)),
-  trials: new Set(data.europe.europeEvidenceTrials.map((item) => item.id)),
+  milestones: new Set(generatedModules.flatMap((module) => [...(module.europeEvidenceMilestones ?? []), ...(module.usEvidenceMilestones ?? [])]).map((item) => item.id)),
+  trials: new Set(generatedModules.flatMap((module) => [...(module.europeEvidenceTrials ?? []), ...(module.usEvidenceTrials ?? [])]).map((item) => item.id)),
   demos: new Set(),
-  papers: new Set(data.europe.europeEvidencePapers.map((item) => item.id)),
-  projects: new Set(data.europe.europeEvidenceProjects.map((item) => item.id))
+  papers: new Set(generatedModules.flatMap((module) => [...(module.europeEvidencePapers ?? []), ...(module.usEvidencePapers ?? [])]).map((item) => item.id)),
+  projects: new Set(generatedModules.flatMap((module) => [...(module.europeEvidenceProjects ?? []), ...(module.usEvidenceProjects ?? [])]).map((item) => item.id))
 };
 const grouped = (items) => Map.groupBy(items, (item) => item.companySlug);
 const canonical = {
@@ -80,7 +91,7 @@ const canonical = {
 const profiles = new Map(data.research.companyResearchProfiles.map((profile) => [profile.companySlug, profile]));
 
 const records = data.seed.companies
-  .filter((company) => europeCountries.has(company.hq.country))
+  .filter((company) => scopeCountries.has(company.hq.country))
   .map((company) => {
     const profile = profiles.get(company.slug);
     const counts = Object.fromEntries(
@@ -114,7 +125,7 @@ const records = data.seed.companies
 
 const hasCanonicalEvidence = (record) => Object.values(record.canonical).some((count) => count > 0);
 const outputPath = resolve(cacheDir, "cohort.json");
-await writeFile(outputPath, `${JSON.stringify({ researchedOn: "2026-08-03", scope: [...europeCountries], records }, null, 2)}\n`, "utf8");
+await writeFile(outputPath, `${JSON.stringify({ researchedOn: "2026-08-03", scope: [...scopeCountries], records }, null, 2)}\n`, "utf8");
 
 console.log(JSON.stringify({
   outputPath,

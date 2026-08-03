@@ -7,7 +7,7 @@ import tsModule from "typescript";
 const ts = tsModule.default ?? tsModule;
 const projectRoot = resolve(import.meta.dirname, "..");
 const tempDir = join(tmpdir(), `nextbci-top-milestones-${Date.now()}-${Math.random().toString(36).slice(2)}`);
-const fileNames = ["schema.ts", "sourced-expansion.ts", "africa-south-america-expansion.ts", "top-company-milestones.ts", "europe-evidence.ts", "seed-data.ts"];
+const fileNames = ["schema.ts", "sourced-expansion.ts", "africa-south-america-expansion.ts", "top-company-milestones.ts", "europe-evidence.ts", "us-evidence.ts", "seed-data.ts"];
 
 await mkdir(tempDir, { recursive: true });
 try {
@@ -27,13 +27,15 @@ try {
   const requireFromTemp = createRequire(join(tempDir, "validator.cjs"));
   const { topCompanyMilestoneSlugs, topCompanyMilestones } = requireFromTemp("./top-company-milestones.js");
   const { europeEvidenceMilestones } = requireFromTemp("./europe-evidence.js");
+  const { usEvidenceMilestones } = requireFromTemp("./us-evidence.js");
   const { companies, milestones } = requireFromTemp("./seed-data.js");
   const errors = [];
   const companyBySlug = new Map(companies.map((company) => [company.slug, company]));
   const targetSet = new Set(topCompanyMilestoneSlugs);
   const generatedIds = new Set(topCompanyMilestones.map((milestone) => milestone.id));
   const europeIds = new Set(europeEvidenceMilestones.map((milestone) => milestone.id));
-  const baseMilestones = milestones.filter((milestone) => !generatedIds.has(milestone.id) && !europeIds.has(milestone.id));
+  const usIds = new Set(usEvidenceMilestones.map((milestone) => milestone.id));
+  const baseMilestones = milestones.filter((milestone) => !generatedIds.has(milestone.id) && !europeIds.has(milestone.id) && !usIds.has(milestone.id));
   const baseCoverage = new Set(baseMilestones.map((milestone) => milestone.companySlug));
   const addedCoverage = new Set(topCompanyMilestones.map((milestone) => milestone.companySlug));
 

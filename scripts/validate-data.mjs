@@ -66,6 +66,8 @@ const loadSeedData = async () => {
   const topMilestonesText = await readFile(topMilestonesPath, "utf8");
   const europeEvidencePath = join(projectRoot, "data", "europe-evidence.ts");
   const europeEvidenceText = await readFile(europeEvidencePath, "utf8");
+  const usEvidencePath = join(projectRoot, "data", "us-evidence.ts");
+  const usEvidenceText = await readFile(usEvidencePath, "utf8");
   const transpiled = ts.transpileModule(sourceText, {
     compilerOptions: {
       module: ts.ModuleKind.ES2022,
@@ -108,17 +110,24 @@ const loadSeedData = async () => {
     fileName: europeEvidencePath,
     reportDiagnostics: true
   });
+  const transpiledUsEvidence = ts.transpileModule(usEvidenceText, {
+    compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022, verbatimModuleSyntax: true },
+    fileName: usEvidencePath,
+    reportDiagnostics: true
+  });
 
   try {
     await writeFile(join(tempDir, "sourced-expansion.mjs"), transpiledExpansion.outputText, "utf8");
     await writeFile(join(tempDir, "africa-south-america-expansion.mjs"), transpiledRegional.outputText, "utf8");
     await writeFile(join(tempDir, "top-company-milestones.mjs"), transpiledTopMilestones.outputText, "utf8");
     await writeFile(join(tempDir, "europe-evidence.mjs"), transpiledEuropeEvidence.outputText, "utf8");
+    await writeFile(join(tempDir, "us-evidence.mjs"), transpiledUsEvidence.outputText, "utf8");
     await writeFile(modulePath, transpiled.outputText
       .replace('"./sourced-expansion"', '"./sourced-expansion.mjs"')
       .replace('"./africa-south-america-expansion"', '"./africa-south-america-expansion.mjs"')
       .replace('"./top-company-milestones"', '"./top-company-milestones.mjs"')
-      .replace('"./europe-evidence"', '"./europe-evidence.mjs"'), "utf8");
+      .replace('"./europe-evidence"', '"./europe-evidence.mjs"')
+      .replace('"./us-evidence"', '"./us-evidence.mjs"'), "utf8");
     return await import(`${pathToFileURL(modulePath).href}?t=${Date.now()}`);
   } finally {
     await rm(tempDir, { recursive: true, force: true });

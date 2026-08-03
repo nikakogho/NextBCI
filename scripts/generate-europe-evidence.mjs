@@ -2,7 +2,10 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const projectRoot = resolve(import.meta.dirname, "..");
-const cacheDir = resolve(projectRoot, ".research-cache", "europe-evidence");
+const isUsScope = process.argv.includes("--scope=us");
+const scopeKey = isUsScope ? "us" : "europe";
+const scopeLabel = isUsScope ? "U.S." : "European";
+const cacheDir = resolve(projectRoot, ".research-cache", `${scopeKey}-evidence`);
 const auditDate = "2026-08-03";
 
 const [cohort, paperCandidates, academicPaperCandidates, trialCandidates, videoCandidates] = await Promise.all([
@@ -18,7 +21,7 @@ const paperBySlug = bySlug(paperCandidates);
 const academicPaperBySlug = bySlug(academicPaperCandidates);
 const trialsBySlug = bySlug(trialCandidates);
 const videosBySlug = Map.groupBy(videoCandidates, (item) => item.slug);
-const verifiedPaperOverrides = new Map([
+const verifiedPaperOverrides = new Map(isUsScope ? [] : [
   ["cortivis", {
     title: "Visual percepts evoked with an intracortical 96-channel microelectrode array inserted in human occipital cortex",
     url: "https://doi.org/10.1172/JCI151331",
@@ -82,7 +85,8 @@ const genericTrialSponsorSlugs = new Set([
   "elekta",
   "neuromed",
   "neurotechnology-lithuania",
-  "noldus"
+  "noldus",
+  ...(isUsScope ? ["science-corp"] : [])
 ]);
 const statusPriority = {
   RECRUITING: 8,
@@ -94,7 +98,7 @@ const statusPriority = {
   TERMINATED: 1,
   WITHDRAWN: 0
 };
-const trialEligibleAcademicSlugs = new Set(["cortivis"]);
+const trialEligibleAcademicSlugs = new Set(isUsScope ? [] : ["cortivis"]);
 
 const selectTrial = (record) => {
   if ((record.kind !== "company" && !trialEligibleAcademicSlugs.has(record.slug)) || record.canonical.trials > 0 || genericTrialSponsorSlugs.has(record.slug)) return undefined;
@@ -143,7 +147,7 @@ for (const record of cohort.records) {
     const isPreprint = /doi\.org\/10\.1101\/|biorxiv\.org|arxiv\.org/i.test(paper.url);
     const publicationLabel = isPreprint ? "preprint" : "publication";
     paperRecords.push({
-      id: `europe-paper-${record.slug}`,
+      id: `${scopeKey}-paper-${record.slug}`,
       title,
       companySlug: record.slug,
       dateLabel: formatDate(paper.publicationDate),
@@ -177,7 +181,7 @@ for (const record of cohort.records) {
     isPrimary: true
   };
   trialRecords.push({
-    id: `europe-trial-${record.slug}-${study.nctId.toLowerCase()}`,
+    id: `${scopeKey}-trial-${record.slug}-${study.nctId.toLowerCase()}`,
     title: study.briefTitle,
     companySlug: record.slug,
     status: study.overallStatus.replaceAll("_", " ").toLowerCase(),
@@ -200,7 +204,7 @@ for (const record of cohort.records) {
     // upcoming checkpoint and is not evidence that the study opened.
     if (!(study.overallStatus === "NOT_YET_RECRUITING" && startDate <= auditDate)) {
       milestoneRecords.push({
-        id: `europe-milestone-${record.slug}-${study.nctId.toLowerCase()}-start`,
+        id: `${scopeKey}-milestone-${record.slug}-${study.nctId.toLowerCase()}-start`,
         title: startUpcoming ? `${record.name} study is scheduled to open` : `${record.name} study opens`,
         companySlug: record.slug,
         dateLabel: formatDate(study.startDate?.date, study.startDate?.type === "ESTIMATED"),
@@ -224,7 +228,7 @@ for (const record of cohort.records) {
     const completionDate = normalizeDate(completion?.date);
     if (completionDate && completionDate > auditDate) {
       milestoneRecords.push({
-        id: `europe-milestone-${record.slug}-${study.nctId.toLowerCase()}-completion`,
+        id: `${scopeKey}-milestone-${record.slug}-${study.nctId.toLowerCase()}-completion`,
         title: `${record.name} study completion window listed`,
         companySlug: record.slug,
         dateLabel: formatDate(completion.date, true),
@@ -243,33 +247,35 @@ for (const record of cohort.records) {
   }
 }
 
-milestoneRecords.push({
-  id: "europe-milestone-time-is-brain-brain20-ce-mark",
-  title: "Time is Brain reports EU MDR CE marking for BraiN20",
-  companySlug: "time-is-brain",
-  dateLabel: "Reported Jul 2026",
-  sortDate: "2026-07-01",
-  status: "confirmed",
-  type: "approval-clearance",
-  evidenceLevel: "E1",
-  confidence: "medium",
-  summary: "Time is Brain's official site and company post report that BraiN20 obtained CE marking under the EU Medical Device Regulation.",
-  whyItMatters: "A CE mark is a regulatory commercialization checkpoint for the named device in Europe.",
-  hypeCheck: "This pass found a first-party announcement, not an independently inspected certificate or notified-body database entry; the mark does not by itself establish improved stroke outcomes.",
-  sourceLinks: [{
-    title: "Time is Brain CE-mark announcement",
-    url: "https://www.linkedin.com/feed/update/urn%3Ali%3Aactivity%3A7483474259923632129/",
-    publisher: "Time is Brain",
-    sourceType: "company-update",
-    isPrimary: true
-  }],
-  isSample: false
-});
-milestoneSlugs.add("time-is-brain");
+if (!isUsScope) {
+  milestoneRecords.push({
+    id: "europe-milestone-time-is-brain-brain20-ce-mark",
+    title: "Time is Brain reports EU MDR CE marking for BraiN20",
+    companySlug: "time-is-brain",
+    dateLabel: "Reported Jul 2026",
+    sortDate: "2026-07-01",
+    status: "confirmed",
+    type: "approval-clearance",
+    evidenceLevel: "E1",
+    confidence: "medium",
+    summary: "Time is Brain's official site and company post report that BraiN20 obtained CE marking under the EU Medical Device Regulation.",
+    whyItMatters: "A CE mark is a regulatory commercialization checkpoint for the named device in Europe.",
+    hypeCheck: "This pass found a first-party announcement, not an independently inspected certificate or notified-body database entry; the mark does not by itself establish improved stroke outcomes.",
+    sourceLinks: [{
+      title: "Time is Brain CE-mark announcement",
+      url: "https://www.linkedin.com/feed/update/urn%3Ali%3Aactivity%3A7483474259923632129/",
+      publisher: "Time is Brain",
+      sourceType: "company-update",
+      isPrimary: true
+    }],
+    isSample: false
+  });
+  milestoneSlugs.add("time-is-brain");
+}
 
 const initiallyCovered = (record) => Object.values(record.canonical).some((count) => count > 0);
 const hasAddedCanonicalEvidence = (slug) => paperSlugs.has(slug) || trialSlugs.has(slug) || milestoneSlugs.has(slug);
-const uncorroboratedFallbackSlugs = new Set(["implex"]);
+const uncorroboratedFallbackSlugs = new Set(isUsScope ? [] : ["implex"]);
 
 for (const record of cohort.records) {
   if (initiallyCovered(record) || hasAddedCanonicalEvidence(record.slug)) continue;
@@ -279,7 +285,7 @@ for (const record of cohort.records) {
   if (!primarySource) throw new Error(`${record.slug} has no source for fallback project evidence`);
   const isUncorroborated = uncorroboratedFallbackSlugs.has(record.slug);
   projectRecords.push({
-    id: `europe-project-${record.slug}`,
+    id: `${scopeKey}-project-${record.slug}`,
     companySlug: record.slug,
     name: `${record.name} tracked neurotechnology program`,
     focus: record.targetFunction,
@@ -290,7 +296,7 @@ for (const record of cohort.records) {
     sortDate: auditDate,
     summary: isUncorroborated
       ? `${record.name} is retained as an explicitly unverified historical catalog lead. The August 2026 audit could not corroborate a current operating identity or reach the listed domain.`
-      : `${record.name} is retained as a source-backed European neurotechnology program focused on ${record.targetFunction.toLowerCase()} using ${record.modality.toLowerCase()}.`,
+      : `${record.name} is retained as a source-backed ${scopeLabel} neurotechnology program focused on ${record.targetFunction.toLowerCase()} using ${record.modality.toLowerCase()}.`,
     demonstrated: isUncorroborated
       ? "Nothing beyond the existence of the prior catalog lead was verified in this pass."
       : "The linked source supports the organization's identity and stated program or product focus.",
@@ -314,14 +320,16 @@ if (coverageAfter.length !== cohort.records.length) {
   throw new Error(`Generated coverage is incomplete: ${coverageAfter.length}/${cohort.records.length}`);
 }
 
+const exportPrefix = isUsScope ? "usEvidence" : "europeEvidence";
+const slugExport = isUsScope ? "usOrganizationSlugs" : "europeanOrganizationSlugs";
 const tsOutput = `import type { Milestone, Paper, ProgramProject, Trial } from "./schema";\n\n` +
-  `/** Inclusive European scope used by the 2026-08-03 evidence audit. */\n` +
-  `export const europeanOrganizationSlugs = ${JSON.stringify(cohort.records.map((record) => record.slug), null, 2)} as const;\n\n` +
-  `export const europeEvidencePapers: Paper[] = ${JSON.stringify(paperRecords, null, 2)};\n\n` +
-  `export const europeEvidenceTrials: Trial[] = ${JSON.stringify(trialRecords, null, 2)};\n\n` +
-  `export const europeEvidenceMilestones: Milestone[] = ${JSON.stringify(milestoneRecords, null, 2)};\n\n` +
-  `export const europeEvidenceProjects: ProgramProject[] = ${JSON.stringify(projectRecords, null, 2)};\n`;
-await writeFile(resolve(projectRoot, "data", "europe-evidence.ts"), tsOutput, "utf8");
+  `/** ${scopeLabel} scope used by the 2026-08-03 evidence audit. */\n` +
+  `export const ${slugExport} = ${JSON.stringify(cohort.records.map((record) => record.slug), null, 2)} as const;\n\n` +
+  `export const ${exportPrefix}Papers: Paper[] = ${JSON.stringify(paperRecords, null, 2)};\n\n` +
+  `export const ${exportPrefix}Trials: Trial[] = ${JSON.stringify(trialRecords, null, 2)};\n\n` +
+  `export const ${exportPrefix}Milestones: Milestone[] = ${JSON.stringify(milestoneRecords, null, 2)};\n\n` +
+  `export const ${exportPrefix}Projects: ProgramProject[] = ${JSON.stringify(projectRecords, null, 2)};\n`;
+await writeFile(resolve(projectRoot, "data", `${scopeKey}-evidence.ts`), tsOutput, "utf8");
 
 const rows = cohort.records.map((record) => {
   const additions = [
@@ -341,31 +349,35 @@ const rows = cohort.records.map((record) => {
   return `| ${record.country} | ${record.name.replaceAll("|", "\\|")} | ${record.kind} | ${before} | ${additions.join(", ") || "existing evidence retained"} | ${profilePapers} | ${profileVideos} (${specificVideos} specific) | [source](${representative.url}) |`;
 });
 
-const markdown = `# European organization evidence audit\n\n` +
-  `Audited on ${auditDate}. The scope contains every catalog organization headquartered in a conventional European state, plus transcontinental Russia, Turkey, and Kazakhstan and the South Caucasus. This intentionally errs toward inclusion.\n\n` +
+const markdown = `# ${scopeLabel} organization evidence audit\n\n` +
+  (isUsScope
+    ? `Audited on ${auditDate}. The scope contains every catalog organization headquartered in the United States.\n\n`
+    : `Audited on ${auditDate}. The scope contains every catalog organization headquartered in a conventional European state, plus transcontinental Russia, Turkey, and Kazakhstan and the South Caucasus. This intentionally errs toward inclusion.\n\n`) +
   `## Result\n\n` +
   `- Organizations audited: ${cohort.records.length} (${cohort.records.filter((record) => record.kind === "company").length} companies and ${cohort.records.filter((record) => record.kind === "academic").length} academic programs).\n` +
   `- Organizations with canonical activity before this pass: ${cohort.records.filter(initiallyCovered).length}.\n` +
   `- Added papers: ${paperRecords.length}. Every one of the ${cohort.records.filter((record) => record.kind === "academic").length} academic programs has a canonical paper after combining prior and new data.\n` +
-  `- Added sponsor/collaborator-matched or explicitly named program/device trials: ${trialRecords.length}.\n` +
+  `- Added ${isUsScope ? "exact-sponsor" : "sponsor/collaborator-matched or explicitly named program/device"} trials: ${trialRecords.length}.\n` +
   `- Added trial milestones and upcoming registry checkpoints: ${milestoneRecords.length}.\n` +
   `- Added limited program profiles where no stronger canonical activity qualified: ${projectRecords.length}.\n` +
   `- Organizations with canonical activity after this pass: ${coverageAfter.length} of ${cohort.records.length}.\n` +
   `- Existing profile research links cover ${cohort.records.filter((record) => record.research?.papers.length).length} organizations with papers and ${cohort.records.filter((record) => record.research?.videos.length).length} with video/channel resources; ${videoCandidates.length} links resolve to specific YouTube videos rather than generic channels.\n\n` +
   `## Evidence rules\n\n` +
-  `- DOI, PubMed, publisher metadata, OpenAlex institution identifiers, and sponsor/collaborator-matched ClinicalTrials.gov records are used as structured evidence leads. Two registry records were included through a separately checked named-program or named-device relationship, with the academic sponsor left explicit.\n` +
+  (isUsScope
+    ? `- DOI, PubMed affiliation searches, publisher metadata, and exact-sponsor ClinicalTrials.gov records are used as structured evidence leads.\n`
+    : `- DOI, PubMed, publisher metadata, OpenAlex institution identifiers, and sponsor/collaborator-matched ClinicalTrials.gov records are used as structured evidence leads. Two registry records were included through a separately checked named-program or named-device relationship, with the academic sponsor left explicit.\n`) +
   `- A paper affiliation proves that the organization participated in that publication; it does not validate every program at the institution.\n` +
   `- A registered trial proves a public protocol and status, not safety, efficacy, or a positive outcome. Estimated completion dates are watch points, not promised readouts.\n` +
   `- YouTube channels remain profile research resources. A video is not promoted to a dated canonical demo unless its date and content are verified.\n` +
   `- Organizations without a qualifying paper, trial, milestone, or dated video receive a limited project record tied to an official/profile source; those records explicitly do not claim demonstrated performance.\n\n` +
-  `- If a prior catalog lead cannot be corroborated as currently operating, it remains visibly marked E0 rather than being presented as an active program; this applies to Implex in this snapshot.\n\n` +
+  (!isUsScope ? `- If a prior catalog lead cannot be corroborated as currently operating, it remains visibly marked E0 rather than being presented as an active program; this applies to Implex in this snapshot.\n\n` : "") +
   `## Organization-by-organization reconciliation\n\n` +
   `| Country | Organization | Kind | Canonical evidence before | Added | Profile papers | Profile videos | Representative source |\n` +
   `|---|---|---|---|---|---:|---:|---|\n${rows.join("\n")}\n\n` +
   `## Reproduce\n\n` +
-  `Run \`npm run research:europe\` to rebuild the cohort, \`npm run fetch:europe-evidence\` to refresh primary-source candidate caches, \`npm run generate:europe-evidence\` to regenerate the version-controlled data and audit, and \`npm run validate:data\` to enforce complete coverage.\n`;
+  `Run \`npm run research:${scopeKey}\` to rebuild the cohort, \`npm run fetch:${scopeKey}-evidence\` to refresh primary-source candidate caches, \`npm run generate:${scopeKey}-evidence\` to regenerate the version-controlled data and audit, and \`npm run validate:data\` to enforce complete coverage.\n`;
 await mkdir(resolve(projectRoot, "docs"), { recursive: true });
-await writeFile(resolve(projectRoot, "docs", "european-organization-evidence-audit.md"), markdown, "utf8");
+await writeFile(resolve(projectRoot, "docs", isUsScope ? "us-organization-evidence-audit.md" : "european-organization-evidence-audit.md"), markdown, "utf8");
 
 console.log(JSON.stringify({
   organizations: cohort.records.length,

@@ -73,7 +73,7 @@ export function LazyLeafletMap({ variant = "full" }: { variant?: "full" | "compa
       <div className="deferred-map-message">
         <span className="eyebrow">Global field</span>
         <b>{shouldLoad ? "Loading interactive map…" : "Interactive map loads as it approaches the viewport"}</b>
-        <p>The full 547-organization dataset is fetched separately so it never delays the first page view.</p>
+        <p>The full 1,064-organization dataset is fetched separately so it never delays the first page view.</p>
         {state === "error" ? (
           <button className="btn btn-primary btn-sm" onClick={retry} type="button">Retry map</button>
         ) : null}

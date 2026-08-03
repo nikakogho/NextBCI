@@ -250,3 +250,13 @@ Ranked candidates that are not dataset records yet:
 - [x] Add 152 limited project records where no stronger paper, trial, milestone, or dated demo qualified, keeping the uncorroborated Implex historical lead at E0 so all 352 render activity without invented accomplishments.
 - [x] Publish the complete organization-by-organization audit and add deterministic full-cohort validation.
 - [x] Run full CI, regenerate the 1,064-node map payload, and browser-test representative European company, academic, paper, trial, milestone, and E0 fallback-project pages plus the European map region on port 3210 with no console errors.
+
+## Complete U.S. Organization Evidence Audit
+
+- [x] Reconcile all 215 U.S.-headquartered catalog organizations: 136 companies and 79 academic or institutional programs.
+- [x] Measure pre-audit canonical activity coverage: 73 organizations covered and 142 without rendered activity.
+- [x] Add 85 qualifying papers and 54 exact-sponsor ClinicalTrials.gov records, using PubMed affiliation-filtered records for the remaining 25 academic-paper gaps.
+- [x] Add 30 dated trial checkpoints and 62 limited project records so all 215 organizations render activity without treating registration, affiliation, or first-party product copy as a positive outcome.
+- [x] Retain relevant paper and video resources, distinguish 36 specific video resources from generic channels, and avoid promoting undated videos to demonstrations.
+- [x] Publish complete organization and source-link audits, integrate deterministic validation into CI, and preserve the original top-100 milestone baseline.
+- [x] Run full CI, regenerate the 1,064-node map payload, and browser-test representative U.S. company, academic, paper, trial, milestone, fallback-project, and U.S. map views on port 3211 with no console errors.

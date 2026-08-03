@@ -58,7 +58,7 @@ npm run benchmark:routes
 
 ## Add data
 
-Core tracker data lives in `data/seed-data.ts`, the audited top-company milestone expansion lives in `data/top-company-milestones.ts`, the complete European evidence pass lives in `data/europe-evidence.ts`, NeuroFounders company research lives in `data/company-research.ts`, and shared types live in `data/schema.ts`. Company-level project tracks use `programProjects` for product lines, clinical programs, or research programs that should sit under a company without pretending they are all the same kind of milestone.
+Core tracker data lives in `data/seed-data.ts`, the audited top-company milestone expansion lives in `data/top-company-milestones.ts`, the complete European and U.S. evidence passes live in `data/europe-evidence.ts` and `data/us-evidence.ts`, NeuroFounders company research lives in `data/company-research.ts`, and shared types live in `data/schema.ts`. Company-level project tracks use `programProjects` for product lines, clinical programs, or research programs that should sit under a company without pretending they are all the same kind of milestone.
 
 When adding or editing records:
 
@@ -102,6 +102,8 @@ The dataset covers 1,064 clinical, translational, and BCI-enabling organizations
 The prominence-weighted top-100 company audit lives in [`docs/top-100-company-milestone-audit.md`](docs/top-100-company-milestone-audit.md). It records the ranking method, the 18 companies that already had tracker milestones, the 82 that did not, all 94 added confirmed/upcoming records, representative primary sources, and the evidence boundaries applied to regulator decisions, registries, papers, and company announcements.
 
 The inclusive European evidence audit lives in [`docs/european-organization-evidence-audit.md`](docs/european-organization-evidence-audit.md), with its reproducible reachability report in [`docs/european-evidence-link-audit.md`](docs/european-evidence-link-audit.md). It reconciles all 352 catalog organizations headquartered in Europe or the included transcontinental states, promotes institution-affiliated papers and carefully verified registry relationships into canonical evidence, retains verified profile video resources without pretending undated channels are demos, and adds explicitly limited project records only where no stronger qualifying activity was found.
+
+The matching U.S. evidence audit lives in [`docs/us-organization-evidence-audit.md`](docs/us-organization-evidence-audit.md), with its reachability report in [`docs/us-evidence-link-audit.md`](docs/us-evidence-link-audit.md). It reconciles all 215 U.S.-headquartered catalog organizations: 73 already had canonical activity and 142 did not. The pass adds 85 papers, 54 exact-sponsor ClinicalTrials.gov records, 30 dated milestones, and 62 limited project records, while retaining relevant paper/video profile resources and avoiding unsupported demonstrations or outcome claims.
 
 Every reconciled NeuroFounders company has a dated enrichment profile. It records founding year, founder and headquarters research status, funding and regulatory labels, a conservative company-value note, company-reported accomplishment leads, and curated official paper/publication and YouTube/Vimeo links. The 300 sourced-expansion profiles retain the same schema while explicitly leaving fields unverified when the discovery pass did not establish them. Private-company value is never inferred from funding stage, and first-party claims remain visibly separate from demonstrated NextBCI milestones.
 

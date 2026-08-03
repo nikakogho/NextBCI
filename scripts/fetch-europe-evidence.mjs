@@ -3,7 +3,8 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const projectRoot = resolve(import.meta.dirname, "..");
-const cacheDir = resolve(projectRoot, ".research-cache", "europe-evidence");
+const isUsScope = process.argv.includes("--scope=us");
+const cacheDir = resolve(projectRoot, ".research-cache", isUsScope ? "us-evidence" : "europe-evidence");
 await mkdir(cacheDir, { recursive: true });
 
 const cohort = JSON.parse(await readFile(resolve(cacheDir, "cohort.json"), "utf8"));
@@ -134,7 +135,7 @@ const paperMetadata = async (paper) => {
     publisher: journal ?? new URL(paper.url).hostname,
     publicationDate: date,
     source: "publisher-metadata",
-    fetchError: typeof html === "object" ? html.fetchError : undefined
+    fetchError: html && typeof html === "object" ? html.fetchError : html === null ? "404 Not Found" : undefined
   };
 };
 
@@ -143,7 +144,7 @@ const paperCandidates = [];
 const videoCandidates = [];
 let cursor = 0;
 
-const verifiedRelatedTrials = new Map([
+const verifiedRelatedTrials = new Map(isUsScope ? [] : [
   ["cortivis", { nctId: "NCT02983370", relationshipType: "named-program", relationshipNote: "The registry title names CORTIVIS and lists Universidad Miguel Hernandez de Elche, the program's host institution, as sponsor." }],
   ["time-is-brain", { nctId: "NCT06149754", relationshipType: "device-named", relationshipNote: "The registry intervention explicitly names the Time is Brain BraiN20 device; the academic hospital foundation is the lead sponsor." }]
 ]);
