@@ -256,6 +256,45 @@ export interface CompanyResearchProfile {
   notes: string;
 }
 
+export type DeepResearchSection =
+  | "mission"
+  | "goal"
+  | "accomplishment"
+  | "milestone"
+  | "paper"
+  | "interview";
+
+export interface DeepResearchItem {
+  section: DeepResearchSection;
+  title: string;
+  detail: string;
+  /** Date of the underlying event or publication when the source supplies one. */
+  date?: string;
+  evidenceLevel: EvidenceLevel;
+  sourceLinks: SourceLink[];
+  /** Explicit boundary on what the cited source does and does not establish. */
+  caveat: string;
+  /** True only when the source URL was not already present anywhere in the pre-audit dataset. */
+  isNewSource: boolean;
+}
+
+export interface CompanyDeepResearchProfile {
+  rank: number;
+  companySlug: string;
+  companyName: string;
+  researchedOn: string;
+  selectionRationale: string;
+  researchSummary: string;
+  items: DeepResearchItem[];
+  sourceAudit: {
+    totalSources: number;
+    newSources: number;
+    primarySources: number;
+    sectionsCovered: DeepResearchSection[];
+  };
+  limitations: string;
+}
+
 export interface ProgramProject {
   id: string;
   companySlug: string;

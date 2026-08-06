@@ -9,7 +9,8 @@ const navItems = [
   { href: "/map", label: "Map" },
   { href: "/milestones", label: "Activity" },
   { href: "/trials", label: "Trials" },
-  { href: "/demos", label: "Demos" }
+  { href: "/demos", label: "Demos" },
+  { href: "/research/top-200", label: "Research" }
 ];
 
 export function NavBar() {

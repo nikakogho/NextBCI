@@ -260,3 +260,14 @@ Ranked candidates that are not dataset records yet:
 - [x] Retain relevant paper and video resources, distinguish 36 specific video resources from generic channels, and avoid promoting undated videos to demonstrations.
 - [x] Publish complete organization and source-link audits, integrate deterministic validation into CI, and preserve the original top-100 milestone baseline.
 - [x] Run full CI, regenerate the 1,064-node map payload, and browser-test representative U.S. company, academic, paper, trial, milestone, fallback-project, and U.S. map views on port 3211 with no console errors.
+
+## Top 200 Company Deep-Research Layer
+
+- [x] Preserve the curated top-100 cohort and select ranks 101-200 with a documented evidence, activity, readiness, maturity, and source-depth score.
+- [x] Research all 200 companies against official sites, ClinicalTrials.gov, and PubMed, keeping the network cache outside deterministic CI.
+- [x] Reject fuzzy sponsor and publication matches; require exact normalized lead-sponsor identity and article-level company-affiliation text for new PubMed papers.
+- [x] Add 984 claim-level dossier entries: mission and goal context for 200/200, accomplishments for 130, milestones for 152, newly affiliation-verified and title-relevant papers for 40, and interview/talk context for 53.
+- [x] Add 544 source URLs not present in the pre-audit dataset across 178 companies, with per-item evidence levels, source links, and explicit claim boundaries.
+- [x] Render the dossiers on company pages, add the `/research/top-200` cohort page, publish the 200-row audit, and enforce coverage with deterministic validation.
+- [x] Run the full CI gate and verify the served cohort page plus representative invasive, paper-rich, ambiguous-name, and sparse-evidence company dossiers return complete HTML on isolated port 3212.
+- [ ] Repeat visual viewport and console verification when the in-app browser runtime can initialize; the current runtime was blocked before attachment by a Windows profile-path permission error.

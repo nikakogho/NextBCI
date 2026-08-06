@@ -40,7 +40,7 @@ npm run check:build-size
 npm run ci
 ```
 
-The network-dependent `npm run audit:sourced-links` command checks the 100 expansion-company sites, 200 institutional sites, and all retained expansion paper/video links for hard failures and parked domains. It is intentionally separate from deterministic CI because some publishers and organization sites rate-limit automated requests or block particular regions and clients.
+The network-dependent `npm run audit:sourced-links` command checks the 100 expansion-company sites, 200 institutional sites, and all retained expansion paper/video links for hard failures and parked domains. `npm run research:top-company-deep` refreshes the separate live source cache for the top-200 dossiers from official sites, ClinicalTrials.gov, and PubMed; `npm run generate:top-company-deep` then rebuilds the checked-in deterministic data and audit. Network research is intentionally separate from CI because publishers and organization sites can rate-limit automated requests or block particular regions and clients.
 
 To benchmark rendered routes and static assets against a running local server:
 
@@ -58,7 +58,7 @@ npm run benchmark:routes
 
 ## Add data
 
-Core tracker data lives in `data/seed-data.ts`, the audited top-company milestone expansion lives in `data/top-company-milestones.ts`, the complete European and U.S. evidence passes live in `data/europe-evidence.ts` and `data/us-evidence.ts`, NeuroFounders company research lives in `data/company-research.ts`, and shared types live in `data/schema.ts`. Company-level project tracks use `programProjects` for product lines, clinical programs, or research programs that should sit under a company without pretending they are all the same kind of milestone.
+Core tracker data lives in `data/seed-data.ts`, the audited top-company milestone expansion lives in `data/top-company-milestones.ts`, the top-200 claim-level dossier data lives in `data/top-company-deep-research.ts` and `data/top-company-deep-research-profiles.ts`, the complete European and U.S. evidence passes live in `data/europe-evidence.ts` and `data/us-evidence.ts`, NeuroFounders company research lives in `data/company-research.ts`, and shared types live in `data/schema.ts`. Company-level project tracks use `programProjects` for product lines, clinical programs, or research programs that should sit under a company without pretending they are all the same kind of milestone.
 
 When adding or editing records:
 
@@ -78,7 +78,8 @@ When adding or editing records:
 - `/milestones` activity archive (upcoming checkpoints + confirmed evidence)
 - `/milestones/[id]` milestone detail with sources and program link
 - `/companies` redirect to `/explore` for compatibility
-- `/companies/[slug]` organization detail: profile, company research, founders/location/value notes, official-source highlights, paper/video resources, project tracks, upcoming checkpoints, accomplishments, trials, demos, and evidence papers
+- `/companies/[slug]` organization detail: profile, company research, top-200 evidence dossier where available, founders/location/value notes, official-source highlights, paper/video resources, project tracks, upcoming checkpoints, accomplishments, trials, demos, and evidence papers
+- `/research/top-200` ranked research cohort, selection method, section coverage, and links to all 200 company dossiers
 - `/trials` trial tracker
 - `/demos` demo library
 - `/search` redirect to `/explore` for compatibility
@@ -100,6 +101,8 @@ GitHub Actions runs `npm run ci` on pull requests, pushes to `main`, and manual 
 The dataset covers 1,064 clinical, translational, and BCI-enabling organizations across 80 countries: 587 companies and 477 university, hospital, nonprofit, or public research organizations. It includes every company in the NeuroFounders Startup Map captured on 2026-07-31: 157 were already represented and 192 were added in the complete reconciliation. The source-by-source inclusion audit lives in [`docs/neurofounders-company-catalog.md`](docs/neurofounders-company-catalog.md); the 349-company enrichment coverage table lives in [`docs/neurofounders-company-research.md`](docs/neurofounders-company-research.md). A separate evidence audit documents the Russia, Western Asia, Central Asia, and East Asia-outside-China expansion in [`docs/russia-and-asia-coverage-audit.md`](docs/russia-and-asia-coverage-audit.md). The additional 100-company and 200-institution evidence catalog, including one retained source trail per record, lives in [`docs/sourced-neurotechnology-expansion-2026.md`](docs/sourced-neurotechnology-expansion-2026.md); its company-by-company founding, location, value-disclosure, paper, and video audit lives in [`docs/sourced-company-enrichment-2026.md`](docs/sourced-company-enrichment-2026.md). The Africa/South America expansion adds 100 organizations from each region, with DOI, ROR, city, official-page, and limitation notes in [`docs/africa-south-america-neurotechnology-expansion-2026.md`](docs/africa-south-america-neurotechnology-expansion-2026.md).
 
 The prominence-weighted top-100 company audit lives in [`docs/top-100-company-milestone-audit.md`](docs/top-100-company-milestone-audit.md). It records the ranking method, the 18 companies that already had tracker milestones, the 82 that did not, all 94 added confirmed/upcoming records, representative primary sources, and the evidence boundaries applied to regulator decisions, registries, papers, and company announcements.
+
+The deeper top-200 company layer lives in [`docs/top-200-company-research-audit.md`](docs/top-200-company-research-audit.md). Its 984 claim-level entries add mission and concrete-goal context for all 200 companies, accomplishment sources for 130, milestone evidence for 152, article-affiliation-verified new PubMed papers for 40, and interview/talk context for 53. The pass contributes 544 URLs not present in the pre-audit dataset across 178 companies. Sponsor matches are exact after conservative corporate-name normalization; PubMed results are admitted only after the article XML contains a matching company affiliation and the title has a neurotechnology relevance signal. Official statements stay E1, registry entries stay E3, and affiliation papers do not validate unrelated product claims.
 
 The inclusive European evidence audit lives in [`docs/european-organization-evidence-audit.md`](docs/european-organization-evidence-audit.md), with its reproducible reachability report in [`docs/european-evidence-link-audit.md`](docs/european-evidence-link-audit.md). It reconciles all 352 catalog organizations headquartered in Europe or the included transcontinental states, promotes institution-affiliated papers and carefully verified registry relationships into canonical evidence, retains verified profile video resources without pretending undated channels are demos, and adds explicitly limited project records only where no stronger qualifying activity was found.
 

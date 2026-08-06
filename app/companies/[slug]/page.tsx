@@ -6,6 +6,7 @@ import { Signal } from "@/components/Signal";
 import { SourceList } from "@/components/SourceList";
 import { VideoCard } from "@/components/VideoCard";
 import { getCompanyResearch } from "@/data/company-research";
+import { getCompanyDeepResearch } from "@/data/top-company-deep-research";
 import {
   categoryLabel,
   companies,
@@ -91,6 +92,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
   const organizationScale = getOrganizationScale(company);
   const readiness = getReadiness(company);
   const research = getCompanyResearch(company.slug);
+  const deepResearch = getCompanyDeepResearch(company.slug);
   const representativePaperUrl = company.sourceLinks.find((source) => source.sourceType === "paper")?.url
     ?? research?.papers[0]?.url;
   const discoverySourceUrl = company.kind === "academic"
@@ -265,6 +267,45 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
                 {research.officialWebsite ? <a className="btn btn-ghost btn-sm" href={research.officialWebsite} rel="noreferrer" target="_blank">Official website ↗</a> : null}
               </div>
             </div>
+          </div>
+        </section>
+      ) : null}
+
+      {deepResearch ? (
+        <section className="section" id="deep-research">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Top 200 evidence dossier</p>
+              <h2>Mission, goals, evidence, and public context</h2>
+            </div>
+            <div className="meta-row">
+              <span className="badge type-badge">Rank {deepResearch.rank} / 200</span>
+              <span className="badge type-badge">{deepResearch.sourceAudit.newSources} new sources</span>
+              <Link className="btn btn-ghost btn-sm" href="/research/top-200">Method and cohort</Link>
+            </div>
+          </div>
+          <div className="panel panel-pad" style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 18 }}>
+            <p className="muted-copy">{deepResearch.researchSummary}</p>
+            <p className="muted-copy" style={{ fontSize: 13 }}>{deepResearch.selectionRationale}</p>
+            <p className="hype">{deepResearch.limitations}</p>
+          </div>
+          <div className="card-grid">
+            {deepResearch.items.map((item, itemIndex) => (
+              <article className="tile" key={`${item.section}-${item.sourceLinks[0]?.url}-${itemIndex}`}>
+                <div className="meta-row">
+                  <span className="badge type-badge">{item.section}</span>
+                  <EvidenceBadge level={item.evidenceLevel} />
+                  {item.isNewSource ? <span className="badge status-upcoming">New source</span> : null}
+                </div>
+                <div>
+                  {item.date ? <p className="eyebrow" style={{ marginBottom: 6 }}>{item.date}</p> : null}
+                  <h3 style={{ fontSize: "1rem" }}>{item.title}</h3>
+                </div>
+                <p className="muted-copy" style={{ fontSize: 13 }}>{item.detail}</p>
+                <p className="hype" style={{ fontSize: 12 }}>{item.caveat}</p>
+                <SourceList sources={item.sourceLinks} />
+              </article>
+            ))}
           </div>
         </section>
       ) : null}
